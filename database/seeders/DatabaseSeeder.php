@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Modules\Admin\database\seeders\AdminRolesSeeder;
 use Modules\Roles\database\seeders\PermissionSeeder;
+use Modules\Category\database\seeders\CategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             AdminRolesSeeder::class,
             SettingSeeder::class,
+            CategorySeeder::class,
         ]);
 
     }

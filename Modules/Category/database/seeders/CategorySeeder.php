@@ -4,6 +4,7 @@ namespace Modules\Category\database\seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Category\Models\Category;
+use Modules\Category\Database\Factories\CategoryFactory;
 use Modules\Category\database\seeders\CategoryDatabaseSeeder;
 
 class CategorySeeder extends Seeder
@@ -13,6 +14,5 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()->count(10)->create();
-    }
+        CategoryFactory::new()->count(10)->create();    }
 }

@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
             'icon' => $this->faker->word, // You may want to replace this with an icon URL generator
             'position' => $this->faker->numberBetween(1, 100),
             'priority' => $this->faker->numberBetween(1, 10),
-            'status' => $this->faker->randomElement(['active', 'inactive']),
+            'status' => $this->faker->randomElement([0, 1]),
         ];
     }
 }
