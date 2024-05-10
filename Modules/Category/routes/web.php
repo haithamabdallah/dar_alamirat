@@ -14,7 +14,7 @@ use Modules\Category\Http\Controllers\CategoryController;
 |
 */
 
-Route::group(['middleware' => 'admin'], function () {
+Route::group(['middleware' => 'admin' , 'prefix'=>'dashboard'], function () {
     Route::resource('category', CategoryController::class)->names('category');
     Route::post('category/status/{category}', [CategoryController::class , 'changeStatus'])->name('category.status');
 });
