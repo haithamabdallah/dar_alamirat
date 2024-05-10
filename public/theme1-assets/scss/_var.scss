@@ -1,0 +1,33 @@
+
+/* Fonts */
+$fontReg: DINNextLTArabic-Regular;
+$fontMed: DINNextLTArabic-Regular-Medium;
+$fontBol: DINNextLTArabic-Regular-Bold;
+/* Fonts */
+
+/* Colors */
+$white: #fff;
+$black: #000;
+$accentColor: #5e6fb4;
+$accentColorDark: #38498e;
+$accentColorLight: #8495da;
+$linkColor: #545c69;
+$orange: hsla(43, 97%, 45%, 100);
+$orangeLight: hsla(43, 97%, 45%, 80);
+$gray: hsla(0, 0%,74%, 100);
+$textDark: hsla(0, 0%, 0%, 50);
+$bgsolid: hsla(180, 8%, 99%, 100);
+$bgLight: hsla(0, 0%, 98%, 100);
+$bgLighter: hsla(0, 0%, 100%, 100);
+$bgarticleLight: hsla(0, 0%, 94%, 100);
+$blogToolsColor: hsla(0, 0%, 55%, 100);
+:root {
+  --font-main: 'DINNextLTArabic-Regular';
+  --color-primary: #5e6fb4;
+  --color-primary-dark: #38498e;
+  --color-primary-light: #8495da;
+  --color-primary-reverse: #ffffff;
+}
+
+/* Colors */
+

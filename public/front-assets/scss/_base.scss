@@ -1,0 +1,132 @@
+/*
+Theme Name: Dar Alamirat
+Author: Haitham Abdallah
+Author URI: haithamabdallah@gmail.com
+Description: Coming soon page
+Version: 1.0
+Tested upto: 3.4
+*/
+
+/* 01-Base Settings */
+
+*{
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+  overflow-x: hidden
+}
+
+html,body {
+  position: relative;
+  height: 100%;
+}
+body {
+  font-family: $bodyFont;
+  background: $white;
+  color: $black;
+}
+//body
+//
+h1,h2,h3,h4,h5,h6 {
+  font-family: $headingFont;
+  color: $black;
+  font-style:normal;
+  font-weight:normal
+}
+h1 {font-size: 5.6rem;}
+h2 {font-size: 3.4rem;}
+h3 {font-size: 2.8rem;}
+h4 {font-size: 2.2rem;}
+h5 {font-size: 1.8rem;}
+h6 {font-size: 1.5rem;}
+// End Of Heading
+//
+p {
+  font-size: 1.6rem;
+}
+//p
+img {
+  max-width: 100%;
+  height: auto;
+}
+//img
+//
+a {
+  color: $white;
+  text-decoration: none;
+  transition: .35s;
+  &:hover,
+  &:focus {
+    transition: .35s;
+  }
+}
+//a
+//
+ul,ol{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+//ul & ol
+//
+hr {
+  background: $textWhite;
+  border:0;
+  height: 0.1rem;
+  border-bottom: 0;
+  border-color: 0;
+  margin-bottom: 3rem;
+}
+//hr
+//
+blockquote {
+  color: $textWhite;
+  font-size: 1.6rem;
+  margin-right: 2rem;
+  margin-top: 1.6rem;
+  margin-bottom: 2.2rem;
+  border-left: 0.4rem solid $accentColor;
+  font-style: italic;
+  line-height: 2.8rem;
+}
+//blockquote
+//
+pre {
+
+  background: $textWhite;
+  font-family: "Courier 10 Pitch", Courier, monospace;
+  font-size: 1.5rem;
+  line-height: 2.2rem;
+  margin-bottom:0;
+  padding: 1.5rem;
+  overflow: auto;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+}
+//Pre
+//
+i {
+  font-style: normal;
+}
+/* -------------------------------------- */
+/* Global reset
+/* -------------------------------------- */
+*, html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, label, fieldset, input, p, blockquote, th, td { margin:0; padding:0 }
+table { border-collapse:collapse; border-spacing:0 }
+fieldset, img { border:0 }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal }
+ol, ul, li { list-style:none }
+caption, th { text-align:left }
+h1, h2, h3, h4, h5, h6 { font-size:100%; font-weight:normal }
+q:before, q:after { content:''}
+strong { font-weight: bold }
+em { font-style: italic }
+a img { border:none }
+img { vertical-align:middle; }
+strong, b, strong *, b * { font-weight: bold; } em, i, em *, i * { font-style: italic; }
+*, *:before, *:after {
+  box-sizing: border-box;
+}

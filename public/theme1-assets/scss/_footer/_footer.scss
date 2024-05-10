@@ -1,0 +1,23 @@
+footer {
+  background-color: #353d50;
+  color: var(--theme-text);
+  text-align: right;
+  padding-bottom: 40px;
+}
+.darker-theme {
+  footer,
+  .header_top_bar,
+  .offcanvas,
+  .mobile_menu_content .mobile_menu_single_items{
+    background-color: var(--theme-secondary-bg);
+  }
+}
+
+.light-theme {
+  footer {
+    background-color: #f7f7f9;
+    .logo_area .logo-area__logo {
+      filter: none;
+    }
+  }
+}

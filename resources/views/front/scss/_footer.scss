@@ -1,0 +1,77 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  color: $white;
+  padding: 1rem 0;
+  animation: fadein 2s;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 128rem;
+  margin: 0 auto;
+  .menu {
+    li {
+      display:inline-block;
+      margin-left:2.5rem;
+      a {
+        font-size:1.2rem;
+        font-weight:700;
+        color:$white;
+        text-transform:uppercase;
+        letter-spacing:.15rem;
+        &.buy {
+          display:inline-block;
+          background:#c3a26e;
+          color:#fff;
+          padding: 1.2rem 1rem 1.2rem 1.8rem;
+          font-family:Roboto;
+          font-weight:700;
+          font-size:1.1rem;
+          text-transform:uppercase;
+          letter-spacing:.2rem;
+          box-shadow: 0 0 1.8rem .6rem rgba(138,138,138,0.16);
+          transition:.18s;
+          &:hover,
+          &:focus {
+            background:#bf9a60;
+            box-shadow: 0 0 1.8rem .6rem rgba(138,138,138,0.22);
+          }
+        }
+      }
+    }
+  }
+}
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  footer {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 20px;
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  footer {
+    padding: 0 3rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    grid-gap: 0px;
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

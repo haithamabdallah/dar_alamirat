@@ -1,0 +1,43 @@
+.section-offers {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 20px;
+}
+.s-products {
+  display: grid;
+  grid-gap: 20px;
+  .product {
+    border: 1px solid #eee;
+    border-radius: 6px;
+  }
+}
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .s-products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  .s-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  .s-products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {
+  .s-products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

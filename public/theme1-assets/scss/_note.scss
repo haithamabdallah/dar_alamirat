@@ -1,0 +1,51 @@
+#note {
+  background: #f5d4f2;
+  .alert {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    height: 40px;
+    margin: 0;
+    &.alert-dismissible {
+      padding: 0;
+    }
+    .btn-close {
+      top: 15px;
+      padding: 0;
+      width: 10px;
+      height: 10px;
+    }
+  }
+  .message {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    grid-gap: 10px;
+    p {
+      margin: 0;
+      color: #7b0506;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    i {
+      color: #7b0506;
+    }
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

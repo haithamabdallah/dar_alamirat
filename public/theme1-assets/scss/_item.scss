@@ -1,0 +1,277 @@
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  background: $white;
+  padding: 20px;
+
+
+  .item-tags {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: $accentColor;
+    z-index: 1;
+    border-radius: 6px;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    span {
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+
+  .img {
+    background: $white;
+    width: 100%;
+    height: 180px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 180px;
+    img {
+      aspect-ratio: 16 / 9;
+      min-height: 180px;
+    }
+  }
+
+  .item-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    grid-gap: 10px;
+    text-align: left;
+
+    .add-favourite {
+      margin-left: auto;
+
+      .icon-fav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: 1px solid rgba(229,231,235);
+        color: #9ca3af;
+        width: 40px;
+        height: 40px;
+        i {
+          color: #9ca3af;
+        }
+        &:hover {
+          box-shadow: 0px 5px 13px #5E6FB42D;
+          i {
+            color: #9ca3af;
+          }
+        }
+        &.added {
+          background: rgba(222, 30, 30, 0.68);
+          color: white;
+          border-color: white;
+          i {
+            color: white;
+          }
+        }
+      }
+    }
+    .item-price {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      grid-gap: 10px;
+      .before-dis {
+          text-decoration: line-through;
+          font-size: 16px;
+          strong,
+          span {
+            font-size: 16px;
+            line-height: 28px;
+            color: rgb(31,41,55);
+            font-weight: 700;
+          }
+      }
+
+      .after-dis {
+        text-decoration: none;
+        color: $accentColorLight;
+      }
+    }
+
+    .item-dec {
+      a {
+        font-size: 13px;
+        line-height: 26px;
+        color: $linkColor;
+        &:hover {
+          color: $accentColor;
+        }
+      }
+    }
+
+/*    .add-to-cart,
+    .add-cart{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-gap: 5px;
+      border: 1px solid $accentColor;
+      position: relative;
+      display: inline-flex;
+      flex: 1 1 0%;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      flex-direction: row;
+      white-space: nowrap;
+      border-radius: 6px;
+      border-style: solid;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      padding-bottom: 0.625rem;
+      padding-top: 0.5rem;
+      font-size: .875rem;
+      line-height: 1.25rem;
+      font-weight: 700;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+      transition-timing-function: cubic-bezier(.4,0,.2,1);
+      transition-duration: 300ms;
+
+      span {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 700;
+        color: $accentColor;
+      }
+      i {
+        color: $accentColor;
+      }
+      &:hover {
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        transition-duration: 300ms;
+        background: $accentColor;
+        span,
+        i {
+          color: $white;
+        }
+      }
+    }*/
+
+    .add-to-cart {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-gap: 5px;
+      border: 1px solid $accentColor;
+      position: relative;
+      display: inline-flex;
+      flex: 1 1 0%;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      flex-direction: row;
+      white-space: nowrap;
+      border-radius: 6px;
+      border-style: solid;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      padding-bottom: 0.625rem;
+      padding-top: 0.5rem;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 700;
+      color: $accentColor;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+      transition-timing-function: cubic-bezier(.4,0,.2,1);
+      transition-duration: 300ms;
+      &:hover {
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        transition-duration: 300ms;
+        background: $accentColor;
+        span,
+        i {
+          color: $white;
+        }
+        svg path {
+          // stroke: white;
+          fill: $white;
+        }
+        .button--wait svg {
+          fill: $white;
+          stroke: $white;
+        }
+      }
+      svg path {
+        // stroke: white;
+        fill: $accentColor;
+      }
+
+        &:focus {
+        outline: none;
+      }
+      svg {
+        width: 20px;
+        height: auto;
+      }
+      &.added {
+
+      }
+    }
+    .button--submit {
+      padding: 10px 20px;
+    }
+    .button--round {
+      width: 50px;
+    }
+    .button--wait svg {
+      animation: rotate-slow;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      path {
+        stroke: $accentColor;
+        fill: $accentColor;
+      }
+
+    }
+    .button--success svg {
+      animation: pop-grow;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      path {
+        stroke: #B2DFDB;
+        fill: #B2DFDB;
+      }
+    }
+
+    .button--wait, .button--success {
+      .button-title {
+        //display: none;
+      }
+    }
+
+    @keyframes rotate-slow {
+      0%   {transform: rotate(360deg)}
+      50%  {transform: rotate(180deg)}
+      100% {transfrom: rotate(360deg)}
+    }
+
+    @keyframes pop-grow {
+      0%   {transform: scale(1)}
+      50%  {transform: scale(1.5)}
+      100% {transfrom: scale(1)}
+    }
+  }
+}

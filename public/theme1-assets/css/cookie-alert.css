@@ -1,0 +1,112 @@
+.cookiealert {
+    width: 45%;
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    margin: 0 !important;
+    z-index: 999;
+    opacity: 0;
+    border-radius: 0;
+    transform: translateY(100%);
+    transition: all 500ms ease-out;
+    color: #ecf0f1;
+    background-color: #000000de;
+}
+
+.cookiealert.show {
+    opacity: 1;
+    transform: translateY(0%);
+    transition-delay: 1000ms;
+    font-size: 16px;
+}
+
+.cookiealert p {
+    display: inline-block;
+    width: 90%;
+}
+
+.cookiealert a {
+    text-decoration: underline
+}
+
+.cookiealert .acceptcookies {
+    margin-left: 0;
+    vertical-align: baseline;
+}
+
+.cookiealert .close {
+    float: right;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    width: 25px;
+    height: 25px;
+    font-size: 22px;
+    justify-content: center;
+    text-decoration: none;
+    text-shadow: inherit;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+
+}
+
+.cookiealert .close span {
+    height: initial;
+    align-items: center;
+   /* line-height: 1.7;*/
+}
+
+.cookiealert .close:hover {
+    color: #fff;
+    background-color: #dc3545;
+
+}
+
+.cookiealert .btn-group-sm > .btn,
+.cookiealert .btn-sm {
+    padding: .4rem 1rem !important;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+    background-color: transparent;
+}
+
+.Cookie-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center
+}
+
+.cookiealert a {
+    color: #fff;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.cookiealert a:hover {
+    color: #0069d9;
+}
+
+.btn-primary {
+    color: #218838;
+    border: 2px solid #218838;
+    transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle,
+.btn-primary:hover {
+    color: #fff;
+    background-color: #218838;
+    border: 2px solid #218838;
+    box-shadow: none;
+}

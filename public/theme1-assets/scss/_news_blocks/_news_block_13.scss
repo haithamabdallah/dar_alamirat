@@ -1,0 +1,89 @@
+#news_block_13 {
+  .layout_block_13 {
+    .block_content {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      grid-gap: 16px;
+      .right_side {
+        flex: 0 0 49%;
+        .top_img {
+          .img {
+            height: 340px;
+          }
+        }
+      }
+      .left_side {
+        .list_posts {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex: 0 0 49.5%;
+          align-items: stretch;
+          grid-gap: 16px;
+          .list_item {
+            flex: 0 0 48.5%;
+            &:nth-last-child(-n + 2) {
+              .top_img {
+                display: flex;
+                flex-flow: row nowrap;
+                .img {
+                  flex: 0 0 30%;
+                  align-self: flex-start;
+                  height: 80px;
+                  border-radius: 5px;
+                  overflow: hidden;
+                  img {
+                    border-radius: 5px;
+                  }
+                }
+                .content {
+                  h2 {
+                    font-size: 23px;
+                    line-height: 26px;
+                    @extend .line_3;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  #news_block_13 .layout_block_13 .block_content,
+  #news_block_13 .layout_block_13 .block_content .left_side .list_posts{
+    flex-direction: column;
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  #news_block_13 .layout_block_13 .block_content,
+  #news_block_13 .layout_block_13 .block_content .left_side .list_posts{
+    flex-direction: column;
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  #news_block_13 .layout_block_13 .block_content,
+  #news_block_13 .layout_block_13 .block_content .left_side .list_posts{
+    flex-direction: column;
+  }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {
+  #news_block_13 .layout_block_13 .block_content,
+  #news_block_13 .layout_block_13 .block_content .left_side .list_posts{
+    flex-direction: row;
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {  }

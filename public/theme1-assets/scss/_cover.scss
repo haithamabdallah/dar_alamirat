@@ -1,0 +1,44 @@
+.page-cover {
+  position: relative;
+  height: 225px;
+  background-position: fixed;
+  &:before {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    content: '';
+  }
+  .cover-contents {
+    .breadcrumbs {
+      li {
+        position: relative;
+        color: $white;
+        &:before {
+          color: $white;
+        }
+        a {
+          color: $white;
+          &:hover {
+            color: $accentColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

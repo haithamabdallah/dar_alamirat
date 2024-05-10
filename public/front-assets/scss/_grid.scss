@@ -1,0 +1,26 @@
+.pixel-container {
+  max-width: 144rem;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  flex-direction: column;
+  .wrap {
+    padding: 0 10px;
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

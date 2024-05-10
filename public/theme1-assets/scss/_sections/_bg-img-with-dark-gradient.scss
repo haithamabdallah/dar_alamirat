@@ -1,0 +1,174 @@
+// bg-img-with-dark-gradients
+.yallaweb-section {
+  position: relative;
+  padding: 80px 0;
+  width: 100%;
+  &.bg-dark-gradient {
+    position: relative;
+    &:before {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      background: linear-gradient(180deg, #022317 1.41%, rgba(2, 35, 23, 0.91) 100%);
+    }
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+  }
+  .title {
+    h5 {
+      color: $orange;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    h4 {
+      color: $white;
+      font-weight: 400;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+  }
+
+}
+
+.editor-choice {
+  padding-top: 80px;
+  .slide-item {
+    padding: 20px;
+    height: 540px;
+    @extend .transition;
+    overflow: hidden;
+
+    .hover-bg {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+      @extend .transition;
+      &:before {
+        background: linear-gradient(0deg, rgba(25, 126, 0, 0.84) 0%, rgba(25, 126, 0, 0.84) 100%);
+        content: '';
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+    }
+    .contents {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      grid-gap: 20px;
+      text-align: right;
+      min-height: 500px;
+      overflow: hidden;
+      .icon {
+        margin-bottom: 36px;
+        width: 64px;
+        height: 64px;
+      }
+      .title {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 10px;
+        align-items: flex-start;
+        h4 {
+          color: $black;
+          margin: 0;
+        }
+        span {
+          margin-bottom: 10px;
+        }
+        p {
+          @extend .line_5;
+        }
+      }
+      .category-btns {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        a{
+          display: flex;
+          grid-gap: 10px;
+          align-items: center;
+          @extend .transition;
+          &.title {
+            color: $accentColor;
+          }
+          i {
+            @extend .transition;
+          }
+          &:hover {
+            i {
+              transform: rotate(-45deg);
+              @extend .transition;
+            }
+          }
+        }
+      }
+    }
+
+
+    &:hover,
+    &:focus {
+      @extend .transition;
+      .hover-bg {
+        opacity: 1;
+        right: 0;
+        @extend .transition;
+      }
+
+      .contents {
+        .icon {
+          filter: invert(99%) sepia(100%) saturate(23%) hue-rotate(26deg) brightness(105%) contrast(100%);
+        }
+        .title {
+          h4,
+          span,
+          p {
+            color: $white;
+          }
+        }
+        .category-btns {
+          a {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

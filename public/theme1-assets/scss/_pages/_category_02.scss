@@ -1,0 +1,106 @@
+#category_layout_02 {
+  .category_layout_02 {
+    display: grid;
+    grid-gap: 20px;
+
+    .related_articles {
+      display: grid;
+      grid-gap: 20px;
+      .top_img_with_content {
+        padding-bottom: 20px;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+
+        .img  {
+          flex: 0 0 20%;
+        }
+        .content {
+          margin-left: auto;
+        }
+        .info {
+          flex-direction: row-reverse;
+        }
+      }
+    }
+    .block_title {
+      padding: 20px 0;
+      margin: 0;
+      span {
+        font-size: 28px;
+        font-weight: 300;
+        line-height: 32px;
+      }
+    }
+    .results-label {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.light-theme {
+  #category_layout_02 {
+    .category_layout_02 {
+      .top_img_with_content {
+        border-color: #e5e5e5;
+        .content {
+          .info {
+            span {
+              color: $black;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  #category_layout_02 {
+    .category_layout_02 {
+      grid-template-columns: 1fr;
+      .related_articles {
+        grid-template-columns: 1fr;
+        .top_img_with_content {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  #category_layout_02 {
+    .category_layout_02 {
+      grid-template-columns: 1fr;
+      .related_articles {
+        grid-template-columns: 1fr
+      }
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  #category_layout_02 {
+    .category_layout_02 {
+      grid-template-columns: 1fr;
+      .related_articles {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {
+  #category_layout_02 {
+    .category_layout_02 {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

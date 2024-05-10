@@ -1,0 +1,142 @@
+.happening_now {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  background: #2a3347;
+  border-top: 2px solid #c61c20;
+
+
+  .event_head {
+
+    background: #2a3347;
+    color: #c61c20;
+    h4 {
+      font-size: 32px;
+      line-height: 42px;
+    }
+  }
+  .event_info {
+    padding: 10px;
+    overflow: hidden;
+
+    .myTicker {
+      ul {
+        padding: 0;
+        li {
+          list-style: none;
+          font-size: 32px;
+          line-height: 42px;
+          @extend .line_1;
+          a {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.light-theme {
+  .happening_now {
+    background: $white;
+    .event_head {
+      background: $white;
+    }
+    .event_info {
+      .myTicker {
+        ul {
+          li {
+            a {
+              color: $black;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .happening_now {
+    padding: 10px;
+    .event_head {
+      padding: 10px;
+      h4 {
+        font-size: 16px;
+        line-height: 18px;
+      }
+    }
+    .event_info {
+      max-height: 30px;
+      .myTicker {
+        ul {
+          li {
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  .happening_now {
+    padding: 15px;
+    .event_head {
+      padding: 15px;
+      h4 {
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+    .event_info {
+      max-height: 35px;
+      .myTicker {
+        ul {
+          li {
+            font-size: 16px;
+            line-height: 22px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  .happening_now {
+    padding: 30px;
+    .event_head {
+      padding: 10px 30px;
+      h4 {
+        font-size: 32px;
+        line-height: 42px;
+      }
+    }
+    .event_info {
+      max-height: 60px;
+      .myTicker {
+        ul {
+          li {
+            font-size: 32px;
+            line-height: 42px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

@@ -1,0 +1,167 @@
+// Blog section
+.blog-section {
+  position: relative;
+  padding: 80px 0;
+  h2 {
+    margin-bottom: 80px;
+  }
+  .blog-contents {
+    display: flex;
+    justify-content: flex-start;
+    grid-gap: 40px;
+    .big_post {
+      flex: 2;
+      .post-img {
+        width: 100%;
+        min-height: 540px;
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        .contents {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          min-height: 230px;
+          padding: 20px;
+          background: $white;
+          position: relative;
+          h4 {
+            margin-bottom: 0;
+            a {
+              color: $blogToolsColor;
+              @extend .transition;
+              &:hover {
+                @extend .transition;
+                color: $accentColor;
+              }
+            }
+          }
+          .tag {
+            margin-top: -40px;
+            background: $orange;
+            height: 45px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            a {
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+    .small_posts {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      grid-gap: 20px;
+      .item {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 10px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+        h6 {
+          a {
+            color: $orange;
+            text-decoration: underline;
+            font-weight: 300;
+            @extend .transition;
+            &:hover {
+              @extend .transition;
+              color: $accentColor;
+            }
+          }
+        }
+        h3 {
+          @extend .line_2;
+          font-weight: 600;
+          a {
+            @extend .transition;
+            &:hover {
+              @extend .transition;
+              color: $accentColor;
+            }
+          }
+        }
+        .states {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          grid-gap: 20px;
+          .views,
+          .date {
+            display: flex;
+            align-items: center;
+            grid-gap: 10px;
+            i,
+            span {
+              color: $blogToolsColor;
+              opacity: .8;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .blog-section {
+    padding-top: 80px;
+    .blog-contents {
+      flex-direction: column;
+      .big_post {
+        flex: inherit;
+      }
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  .blog-section {
+    padding-top: 80px;
+    .blog-contents {
+      flex-direction: column;
+      .big_post {
+        flex: inherit;
+      }
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  .blog-section {
+    padding-top: 170px;
+    .blog-contents {
+      flex-direction: row;
+      .big_post {
+        flex: 1;
+      }
+    }
+  }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {
+  .blog-section {
+    padding-top: 240px;
+    .blog-contents {
+      .big_post {
+        flex: 2;
+      }
+    }
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

@@ -1,0 +1,92 @@
+.footer_links_mail {
+  margin-bottom: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  border-color: var(--theme-divider);
+  display: grid;
+  grid-gap: 20px;
+  .useful_links {
+    display: grid;
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      grid-gap: 10px;
+      &:first-child {
+        margin-bottom: 10px;
+      }
+      h5 {
+        font-size: 23px;
+        line-height: 26px;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+      a {
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 23px;
+        @extend .transition;
+      }
+    }
+  }
+
+  .social_icons_canvas {
+    justify-content: center;
+    grid-gap: 30px;
+    a {
+      font-size: 23px;
+    }
+  }
+}
+
+.light-theme {
+  .footer_links_mail {
+    border-color: #e5e5e5;
+    .useful_links {
+      .item {
+        h5 {
+          color: $black;
+        }
+      }
+    }
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .footer_links_mail {
+    grid-template-columns: 1fr;
+    .useful_links {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  .footer_links_mail {
+
+    .useful_links {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {
+  .footer_links_mail {
+    grid-template-columns: 1fr;
+    .useful_links {
+      grid-template-columns: repeat(8, 1fr);
+    }
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {  }

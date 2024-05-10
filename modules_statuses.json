@@ -1,0 +1,11 @@
+{
+    "Admin": true,
+    "Roles": true,
+    "Category": true,
+    "Brand": true,
+    "Product": true,
+    "Order": true,
+    "Shipping": true,
+    "Page": true,
+    "Client": true
+}

@@ -1,0 +1,123 @@
+// Project section
+.project-section {
+  position: relative;
+  padding: 80px 0;
+  padding-bottom: 110px;
+
+  .title {
+    max-width: 50%;
+    h5 {
+      color: $orange;
+
+      font-weight: 300;
+      font-size: 14px;
+    }
+    h4 {
+      color: $black;
+      font-weight: 400;
+      max-width: 700px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+  }
+
+  .contents {
+    display: flex;
+    grid-gap: 20px;
+    .big-img {
+      height: 400px;
+      flex: 1 0;
+      border-radius: 5px;
+      box-shadow: 0px 5px 83px 0px rgba(1, 34, 23, 0.12);
+      margin-right: 20px;
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 30px;
+      .tag-text {
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: -30px;
+        margin-bottom: -30px;
+        border-radius: 5px;
+        background: $white;
+        box-shadow: 0px 5px 83px 0px rgba(1, 34, 23, 0.12);
+        padding: 20px;
+        max-width: 350px;
+        @extend .line_3;
+      }
+    }
+    .details {
+      flex: 1 0;
+      h6 {
+        line-height: 34px;
+        font-weight: 500;
+        @extend .line_5;
+        margin-bottom: 20px;
+      }
+      p {
+        color: $blogToolsColor;
+        @extend .line_2;
+        margin-bottom: 20px;
+      }
+      .more {
+        margin-left: auto;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .project-section {
+    .title {
+      max-width: 100%;
+    }
+    .contents {
+      flex-direction: column;
+      .big-img {
+        flex: inherit;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  .project-section {
+    .title {
+      max-width: 100%;
+    }
+    .contents {
+      flex-direction: column;
+      .big-img {
+        flex: inherit;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  .project-section {
+    .title {
+      max-width: 50%;
+    }
+    .contents {
+      flex-direction: row;
+      .big-img {
+        flex: 1 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

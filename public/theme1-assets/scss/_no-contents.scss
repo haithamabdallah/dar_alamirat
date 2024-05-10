@@ -1,0 +1,59 @@
+#full-layout {
+  main {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    .main-content {
+      flex: 1 1 0%;
+      width: 100%;
+      .no-content-placeholder {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 2.5rem;
+        padding-bottom: 5rem;
+        --tw-text-opacity: 1;
+        color: rgba(156, 163, 175, var(--tw-text-opacity));
+        .icon {
+          margin-bottom: 1rem;
+          display: flex;
+          height: 8rem;
+          width: 8rem;
+          align-items: center;
+          justify-content: center;
+          border-radius: 9999px;
+          --tw-bg-opacity: 1;
+          background-color: #f3f4f6;
+          font-size: 3rem;
+          line-height: 1;
+          --tw-text-opacity: 1;
+          color: rgba(209, 213, 219, var(--tw-text-opacity));
+        }
+        p {
+          margin-bottom: 1rem;
+          font-size: 1rem;
+          line-height: 1.5rem;
+          --tw-text-opacity: 1;
+          color: rgba(107, 114, 128, var(--tw-text-opacity));
+        }
+      }
+    }
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

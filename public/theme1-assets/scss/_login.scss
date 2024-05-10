@@ -1,0 +1,196 @@
+#loginEmail,
+#enterOtp {
+  .modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    max-width: 380px;
+    .btn-close {
+      width: 5px;
+      height: 5px;
+      color: #de1f45;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      z-index: 10;
+    }
+    .modal-body {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      grid-gap: 10px;
+      width: 100%;
+      .login-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 1px solid #9ca3af;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        i {
+          font-size: 20px;
+          line-height: 20px;
+          color: #9ca3af;
+        }
+      }
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 700;
+        line-height: 1.5rem;
+        --tw-text-opacity: 1;
+        color: rgba(17, 24, 39, var(--tw-text-opacity));
+        margin-bottom: 20px;
+      }
+      .s-verify-message {
+        text-align: center;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        --tw-text-opacity: 1;
+        color: rgba(107, 114, 128, var(--tw-text-opacity));
+      }
+      p {
+        text-align: center;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        --tw-text-opacity: 1;
+        color: rgba(107, 114, 128, var(--tw-text-opacity));
+      }
+      .s-login-modal-currentEmail {
+        margin-bottom: 1.75rem;
+        margin-top: .5rem;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+        grid-gap: 5px;
+        align-items: flex-start;
+        width: 100%;
+        label {
+          margin-bottom: .5rem;
+          display: block;
+          font-size: .875rem;
+          line-height: 1.25rem;
+          font-weight: 500;
+          --tw-text-opacity: 1;
+          color: rgba(55, 65, 81, var(--tw-text-opacity));
+        }
+        .s-login-modal-input {
+          height: 2.5rem;
+          width: 100%;
+          border-radius: 6px;
+          border-width: 1px;
+          --tw-border-opacity: 1;
+          border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+          padding-left: .75rem;
+          padding-right: .75rem;
+          font-size: .875rem;
+          line-height: 1.25rem;
+          transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+          transition-timing-function: cubic-bezier(.4,0,.2,1);
+          transition-duration: 150ms;
+        }
+        salla-button .s-button-btn {
+          border-radius: 6px;
+        }
+        .s-login-modal-enter-button {
+          margin-top: .5rem;
+          display: flex;
+          width: 100%;
+          border-width: 1px;
+          border-color: #414042;
+          border-color: var(--color-primary);
+          background-color: #414042;
+          background-color: var(--color-primary);
+          color: #ff6767;
+          color: var(--color-primary-reverse);
+          align-items: center;
+          justify-content: center;
+          white-space: nowrap;
+          border-radius: 6px;
+          border-style: solid;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+          padding-bottom: .625rem;
+          padding-top: .5rem;
+          font-size: .875rem;
+          line-height: 1.25rem;
+          font-weight: 700;
+        }
+
+        #writtenEmail {
+          margin-bottom: 1.75rem;
+          margin-top: .5rem;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 500;
+        }
+        .s-verify-resend {
+          text-align: center;
+          font-size: .875rem;
+          line-height: 1.25rem;
+          color: #414042;
+          color: var(--color-primary);
+          margin: 0 auto;
+        }
+        .s-verify-codes {
+          margin-left: -.25rem;
+          margin-right: -.25rem;
+          margin-bottom: 1rem;
+          display: flex;
+          justify-content: space-between;
+        }
+        .s-verify-input {
+          margin-left: .25rem;
+          margin-right: .25rem;
+          height: 2.5rem;
+          width: 100%;
+          border-radius: 6px;
+          border-width: 1px;
+          --tw-border-opacity: 1;
+          border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+          padding-left: .5rem;
+          padding-right: .5rem;
+          text-align: center;
+          font-size: 1.125rem;
+          line-height: 1.75rem;
+          font-weight: 700;
+          transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+          transition-timing-function: cubic-bezier(.4,0,.2,1);
+          transition-duration: 150ms;
+        }
+        .otp-field {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          grid-gap: 10px;
+        }
+      }
+    }
+  }
+}
+
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

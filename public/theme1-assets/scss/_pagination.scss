@@ -1,0 +1,39 @@
+
+.pagination {
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+  .page-item,
+  .page-link {
+    all: unset;
+    line-height: 30px;
+    cursor: pointer;
+  }
+  li.page-item {
+    border: .1rem solid $pagesBg;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    align-self: center;
+    a.page-link {
+      display: block;
+      line-height: 30px;
+
+    }
+    &.active {
+      border-color: var(--theme-live);
+      line-height: 30px;
+      .page-link {
+        color: var(--theme-live);
+        pointer-events: none;
+      }
+    }
+    &:hover,
+    &:focus {
+      border-color: var(--theme-live);
+    }
+  }
+}

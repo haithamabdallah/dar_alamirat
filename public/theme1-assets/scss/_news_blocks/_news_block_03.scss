@@ -1,0 +1,219 @@
+#news_block_03 {
+  @extend .night-theme;
+  &.nobg {
+    background: transparent;
+  }
+  background-color: var(--theme-secondary-bg);
+  padding: 25px 0;
+  margin-bottom: 25px;
+  .layout_block_03 {
+    .block_content {
+      .day_items,
+      .week_items,
+      .month_items {
+        display: grid;
+        grid-gap: 16px;
+        padding: 20px;
+        .side_by_side_post_with_number {
+          padding-bottom: 16px;
+          border-bottom: 1px solid hsla(0,0%,100%,0.1);
+          &:nth-last-child(-n + 2) {
+            border-bottom: 0;
+            padding-bottom: 0;
+          }
+          h2 {
+            padding-bottom: 30px;
+            @extend .line_2;
+          }
+          .number {
+            text-align: center;
+            span {
+              font-size: 72px;
+              font-weight: 500;
+              line-height: 72px;
+              text-align: center;
+            }
+          }
+          .info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            .section,
+            .interaction {
+              color: #6a707e;
+              font-size: 20px;
+              line-height: 23px;
+              font-weight: 500;
+            }
+            .interaction {
+              color: $white;
+              background: hsla(0,0%,100%,0.1);
+              border-radius: 4px;
+              padding: 5px 8px;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+              span {
+                font-size: 20px;
+                line-height: 23px;
+                font-weight: 300;
+              }
+              i {
+                margin-left: 0.5rem;
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+
+      #block_03_tabs {
+        .nav-link {
+          font-size: 28px;
+          line-height: 32px;
+          font-weight: 500;
+          color: #aaadb5;
+          border: 0;
+          background: transparent;
+          position: relative;
+          &.active {
+            color: #c61c20;
+            &:after {
+              content: " ";
+              position: absolute;
+              bottom: 0;
+              height: 4px;
+              width: 100%;
+              right: 0;
+              left: 0;
+              border-radius: 4px 0 4px 0;
+              clear: both;
+              background: #c61c20;
+
+            }
+          }
+        }
+      }
+      #block_03_inner_tabs {
+        .nav-link {
+          font-size: 28px;
+          line-height: 32px;
+          font-weight: 500;
+          color: #aaadb5;
+          border: 0;
+          background: transparent;
+          position: relative;
+          font-size: 20px;
+          line-height: 23px;
+          border: 1px solid hsla(0,0%,100%,0.1);
+          &.active {
+            color: #2b3347;
+            background: $white;
+          }
+        }
+      }
+      #myTabContent {
+        border: 1px solid hsla(0,0%,100%,0.1);
+        border-radius: 4px;
+
+      }
+    }
+    #mostread {
+      position: relative;
+      #block_03_inner_tabs {
+        position: absolute;
+        left: 0;
+        top: -40px;
+      }
+    }
+    .nav-tabs {
+      border: 0;
+    }
+  }//block 03
+}
+
+.light-theme {
+  #news_block_03 {
+    background-color: #f7f7f9;
+  }
+  #news_block_03 .layout_block_03 .block_content .day_items .side_by_side_post_with_number .info .interaction, #news_block_03 .layout_block_03 .block_content .week_items .side_by_side_post_with_number .info .interaction, #news_block_03 .layout_block_03 .block_content .month_items .side_by_side_post_with_number .info .interaction {
+    background-color: #e5e5e5;
+  }
+  #news_block_03 .layout_block_03 .block_content .day_items .side_by_side_post_with_number .info .interaction span, #news_block_03 .layout_block_03 .block_content .week_items .side_by_side_post_with_number .info .interaction span, #news_block_03 .layout_block_03 .block_content .month_items .side_by_side_post_with_number .info .interaction span,
+  #news_block_03 .layout_block_03 .block_content .day_items .side_by_side_post_with_number .info .interaction i, #news_block_03 .layout_block_03 .block_content .week_items .side_by_side_post_with_number .info .interaction i, #news_block_03 .layout_block_03 .block_content .month_items .side_by_side_post_with_number .info .interaction i {
+    color: #151515;
+  }
+}
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .layout_block_03 {
+    .block_content {
+      .day_items,
+      .week_items,
+      .month_items {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  #news_block_03 .layout_block_03 #mostread #block_03_inner_tabs {
+    position: inherit;
+    margin-top: 20px;
+  }
+  #news_block_03 .layout_block_03 .block_content .day_items .side_by_side_post_with_number {
+    grid-template-columns: 105px auto;
+    position: relative;
+    .img {
+      height: 105px;
+    }
+  }
+  #news_block_03 .layout_block_03 .block_content .day_items .side_by_side_post_with_number .number {
+    position: absolute;
+    topp: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background: #c61c20;
+    span {
+      font-size: 16px;
+      line-height: 40px;
+      color: $white;
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  .layout_block_03 {
+    .block_content {
+      .day_items,
+      .week_items,
+      .month_items {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {
+  .layout_block_03 {
+    .block_content {
+      .day_items,
+      .week_items,
+      .month_items {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

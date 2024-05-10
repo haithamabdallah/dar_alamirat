@@ -1,0 +1,100 @@
+.read_mode_head {
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.4);
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+}
+h2.article_head_in_read_mode {
+  display: none;
+  color: #151515 !important;
+  font-size: 46px !important;
+  line-height: 50px !important;
+  font-weight: 500 !important;
+}
+#close_read_mode {
+  all: unset;
+  cursor: pointer;
+}
+.read-mode {
+  width: 100%;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  bottom: 0;
+  z-index: 1000000;
+  padding:100px 50px;
+  right: 0;
+  left: 0;
+  color: #151515!important;
+  letter-spacing: 0;
+  background-color: #fbfcdd!important;
+
+  &#fullscreen {
+    .related_articles {
+      display: none;
+    }
+    .article_tags {
+      border-color: black;
+      a {
+        border-color: $black;
+        h4 {
+          color: $black;
+        }
+      }
+    }
+    .article_tools {
+      justify-content: flex-start !important;
+      grid-gap: 16px;
+      min-height: inherit !important;
+    }
+    .article_tools,
+    .share_article {
+      background-color: #e4e5c1!important;
+      li {
+        &:last-child {
+          display: none;
+        }
+        a {
+          color: $black;
+        }
+      }
+    }
+  }
+
+  .read_mode_head {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 50px;
+    background: #fbfcdd;
+    z-index: 900000000;
+
+  }
+  h2.article_head_in_read_mode {
+    display: block;
+  }
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {
+  .read-mode {
+    grid-template-columns: inherit !important;
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

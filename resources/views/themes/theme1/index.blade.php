@@ -1,0 +1,17 @@
+@extends('themes.theme1.layouts.app')
+
+@section('content')
+    @include('themes.theme1.index-layouts.3banners')
+    @include('themes.theme1.index-layouts.categoryTabs')
+    @include('themes.theme1.index-layouts.6banners')
+    @include('themes.theme1.index-layouts.makeups-products')
+    @include('themes.theme1.index-layouts.2banners')
+    @include('themes.theme1.index-layouts.care-products')
+    @include('themes.theme1.index-layouts.5banners')
+    @include('themes.theme1.index-layouts.latest-products')
+    @include('themes.theme1.index-layouts.4banners')
+    @include('themes.theme1.index-layouts.salon-products')
+    @include('themes.theme1.index-layouts.1banners')
+    @include('themes.theme1.index-layouts.offers')
+    @include('themes.theme1.index-layouts.brands')
+@endsection
