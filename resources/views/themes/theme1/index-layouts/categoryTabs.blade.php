@@ -3,6 +3,7 @@
         <div class="wrap">
             <div class="tabs-contents">
                 <ul class="nav nav-pills">
+                    @if(isset($categories))
                     @foreach($categories as $category)
                         <li class="nav-item">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -11,6 +12,7 @@
                             </button>
                         </li>
                     @endforeach
+                    @endif
 {{--                    <li class="nav-item">--}}
 {{--                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"--}}
 {{--                                data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"--}}
@@ -35,6 +37,8 @@
                     <div class="tab-pane fade show active" id="home-tab-{{$category->id}}" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                         <div class="swiper latestProducts">
                             <div class="swiper-wrapper">
+                                @if(isset($products))
+
                                 @foreach($products as $product)
 
                                     <!-- product item -->
@@ -107,6 +111,8 @@
 
 {{--                                    <div class="swiper-slide">@include("themes.theme1.blocks.items.item-01")</div>--}}
                                 @endforeach
+                            @endif
+
                             </div>
                         </div>
                         <div class="tab-latest-prev"><i class="fa-solid fa-chevron-left"></i></div>
