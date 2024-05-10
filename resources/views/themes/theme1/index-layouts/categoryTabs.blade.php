@@ -34,7 +34,7 @@
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home-tab-{{$category->id}}" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <div class="tab-pane fade show active" id="home-tab-@if(isset($categories)){{$category->id}} @endif" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                         <div class="swiper latestProducts">
                             <div class="swiper-wrapper">
                                 @if(isset($products))
