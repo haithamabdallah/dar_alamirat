@@ -176,24 +176,24 @@
             </div>
             <!-- ./item -->
             <!-- item -->
-            <div class="menu-item">
+            {{-- <div class="menu-item">
                 <a href="{{ route('maintenance.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-gear"></i>
                     </div>
                     <div class="menu-text">Maintenance</div>
                 </a>
-            </div>
+            </div> --}}
             <!-- ./item -->
              <!-- item -->
-             <div class="menu-item">
+             {{-- <div class="menu-item">
                 <a href="{{ route('announcement.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-gear"></i>
                     </div>
                     <div class="menu-text">Announcement</div>
                 </a>
-            </div>
+            </div> --}}
             <!-- ./item -->
 
 

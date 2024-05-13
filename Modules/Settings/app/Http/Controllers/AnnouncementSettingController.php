@@ -15,7 +15,8 @@ class AnnouncementSettingController extends Controller
      */
     public function index()
     {
-        return view('dashboard.settings.announcements.announcements');
+        $announcements=AnnouncementSetting::get();
+        return view('dashboard.settings.announcements.index',compact('announcements'));
     }
 
     /**
@@ -23,7 +24,7 @@ class AnnouncementSettingController extends Controller
      */
     public function create()
     {
-        return view('settings::create');
+        return view('dashboard.settings.announcements.create');
     }
 
     /**
@@ -59,7 +60,9 @@ class AnnouncementSettingController extends Controller
      */
     public function edit($id)
     {
-        return view('settings::edit');
+        $announcement=AnnouncementSetting::find($id);
+
+        return view('dashboard.settings.announcements.edit',compact('announcement'));
     }
 
     /**
@@ -67,7 +70,22 @@ class AnnouncementSettingController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        //
+         // Validate the request data
+         $request->validate([
+            'announcement_message' => 'required|string',
+        ]);
+
+        // Find the announcement by ID
+        $announcement = AnnouncementSetting::findOrFail($id);
+
+        // Update the announcement
+        $announcement->update([
+            'announcement_message' => $request->announcement_message,
+            // You can add more fields to update here if needed
+        ]);
+
+        // Redirect back with success message
+        return redirect()->route('announcement.index')->with('success', 'Announcement updated successfully.');
     }
 
     /**
@@ -77,4 +95,15 @@ class AnnouncementSettingController extends Controller
     {
         //
     }
+
+    public function toggleStatus(Request $request)
+{
+    $model = AnnouncementSetting::findOrFail($request->modelId);
+
+    // Toggle the status
+    $model->announcement_mode = !$model->announcement_mode;
+    $model->save();
+
+    return response()->json(['success' => true]);
+}
 }

@@ -50,7 +50,7 @@
             <!-- BEGIN col-3 -->
             <div class="col-xl-3 col-md-6">
                 <!-- BEGIN widget-card -->
-                <a href="#" class="widget-card rounded mb-20px" data-id="widget">
+                <a href="{{ route('announcement.index') }}" class="widget-card rounded mb-20px" data-id="widget">
                     <div class="widget-card-cover rounded"></div>
                     <div class="widget-card-content">
                         <h5 class="fs-12px text-black text-opacity-75" data-id="widget-elm"
@@ -65,6 +65,7 @@
                            data-dark-class="fs-12px text-white text-opacity-75">Control your Notes</b>
                     </div>
                 </a>
+
                 <!-- END widget-card -->
             </div>
             <!-- END col-3 -->
