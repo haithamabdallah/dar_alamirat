@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Settings\Http\Controllers\SettingsController;
+use Modules\Settings\Http\Controllers\MaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,5 @@ use Modules\Settings\Http\Controllers\SettingsController;
 
 Route::group([], function () {
     Route::resource('settings', SettingsController::class)->names('settings');
+    Route::resource('maintenance', MaintenanceController::class)->names('maintenance');
 });

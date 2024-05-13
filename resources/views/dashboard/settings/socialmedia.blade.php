@@ -26,7 +26,7 @@
 
             <!-- BEGIN col-6 -->
             <div class="col-xl-6">
-                <form action="" id="socialMedia">
+
                     <!-- BEGIN panel -->
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                         <!-- BEGIN panel-heading -->
@@ -43,6 +43,7 @@
 
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
+                            <form action="" id="socialMedia">
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-facebook-f"></i></div>
@@ -97,13 +98,13 @@
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
-
+                        </form>
                         </div>
                         <!-- END panel-body -->
 
                     </div>
                     <!-- END panel -->
-                </form>
+
             </div>
             <!-- END col-6 -->
 
