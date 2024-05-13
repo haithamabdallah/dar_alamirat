@@ -17,12 +17,12 @@
                                 <li>
                                     @foreach (config('language') as $key => $lang)
                                         @if ($key != current_language())
-                                            <a class="dropdown-item" href="{{ route('changeLang', ['lang' => $key]) }}">
+                                        <a class="dropdown-item" href="{{ route('changeLang', ['lang' => $key]) }}">
                                             <span class="language">
                                                 <img src="{{ asset('theme1-assets/images/flags/' . $key . '.png') }}" alt="">
                                                 <span>{{ $lang }}</span>
                                             </span>
-                                            </a>
+                                        </a>
                                         @endif
                                     @endforeach
                                 </li>
