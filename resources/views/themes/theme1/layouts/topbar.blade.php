@@ -31,7 +31,7 @@
                     </div>
                     <a href="tel:+966920014688" class="topnav-link-item">
                         <i class="sicon-phone"></i>
-                        <span class="">+966920014688</span>
+                        <span class="">+966920014688 </span>
                     </a>
                 </div>
                 <div class="right">
