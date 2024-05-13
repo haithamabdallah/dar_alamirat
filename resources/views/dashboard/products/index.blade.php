@@ -44,20 +44,21 @@
                     <div class="table-responsive mb-3">
                         <table id="productsTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
                             <thead>
-                                <tr>
-                                    <th class="pt-0 pb-2" width="1%"></th>
-                                    <th class="pt-0 pb-2" width="1%">Image</th>
-                                    <th class="pt-0 pb-2" width="20%">Title</th>
-                                    <th class="pt-0 pb-2" width="20%">Price</th>
-                                    <th class="pt-0 pb-2" width="15%">Quantity</th>
-                                    <th class="pt-0 pb-2" width="10%">category</th>
-                                    <th class="pt-0 pb-2" width="10">brand</th>
-                                    <th class="pt-0 pb-2" width="5%">Edit</th>
-                                    <th class="pt-0 pb-2" width="5%">Delete</th>
-                                </tr>
+                            <tr>
+                                <th class="pt-0 pb-2" width="1%"></th>
+                                <th class="pt-0 pb-2" width="1%">Image</th>
+                                <th class="pt-0 pb-2" width="20%">Title</th>
+                                <th class="pt-0 pb-2" width="20%">Choice</th>
+                                <th class="pt-0 pb-2" width="20%">Price</th>
+                                <th class="pt-0 pb-2" width="15%">Quantity</th>
+                                <th class="pt-0 pb-2" width="10%">category</th>
+                                <th class="pt-0 pb-2" width="10">brand</th>
+                                <th class="pt-0 pb-2" width="5%">Edit</th>
+                                <th class="pt-0 pb-2" width="5%">Delete</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach($products as $product)
+                            @foreach($products as $product)
                                 <tr>
                                     <td class="w-10px align-middle">
                                         <div class="form-check">
@@ -76,10 +77,13 @@
                                         <a href="{{route('product.show' , $product->id)}}" class="text-dark text-decoration-none">{{$product->title}}</a>
                                     </td>
                                     <td>
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('product.toggleChoice' , $product->id) }}" @if($product->choice) checked @endif/>
+                                    </td>
+                                    <td>
                                         <ul>
-                                        @foreach($product->variants as $variant)
-                                            <li>{{$variant->variant_name}} - {{$variant->price_with_discount}}</li>
-                                        @endforeach
+                                            @foreach($product->variants as $variant)
+                                                <li>{{$variant->variant_name}} - {{$variant->price_with_discount}}</li>
+                                            @endforeach
                                         </ul>
                                     </td>
                                     <td class="align-middle">{{$product->inventory->sum('quantity')}} in stock for {{$product->variants->count()}} variants</td>
