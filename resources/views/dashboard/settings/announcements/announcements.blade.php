@@ -27,7 +27,7 @@
 
             <!-- BEGIN col-6 -->
             <div class="col-xl-6">
-                <form action="" id="announcements">
+
                     <!-- BEGIN panel -->
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                         <!-- BEGIN panel-heading -->
@@ -44,20 +44,20 @@
 
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
+                            <form action="{{ route('announcement.store') }}" id="announcements" method="POST">
+                                @csrf
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-10">
                                     <span>announcements Mode</span>
                                     <h6>After activating announcements mode, Note banner will appear on top of the website for any announcement.</h6>
                                 </label>
-                                <div class="col-sm-2">
-                                    <input type="checkbox" class="switch-status" checked/>
-                                </div>
+
                             </div>
 
                             <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Maintenance Message</label>
+                                <label class="form-label col-form-label col-md-3">Announcement Message</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP"></textarea>
+                                    <textarea class="form-control" rows="3" name="announcement_message" placeholder="Our dear customers, we are sorry and we will back ASAP"></textarea>
                                 </div>
                             </div>
 
@@ -66,13 +66,13 @@
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
-
+                        </form>
                         </div>
                         <!-- END panel-body -->
 
                     </div>
                     <!-- END panel -->
-                </form>
+
             </div>
             <!-- END col-6 -->
 

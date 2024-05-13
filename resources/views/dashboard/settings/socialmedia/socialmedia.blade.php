@@ -44,6 +44,7 @@
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
                             <form action="" id="socialMedia">
+                                @csrf
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-facebook-f"></i></div>

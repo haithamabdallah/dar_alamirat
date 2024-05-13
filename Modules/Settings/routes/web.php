@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Settings\Http\Controllers\SettingsController;
 use Modules\Settings\Http\Controllers\MaintenanceController;
+use Modules\Settings\Http\Controllers\AnnouncementSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,5 @@ use Modules\Settings\Http\Controllers\MaintenanceController;
 Route::group([], function () {
     Route::resource('settings', SettingsController::class)->names('settings');
     Route::resource('maintenance', MaintenanceController::class)->names('maintenance');
+    Route::resource('announcement', AnnouncementSettingController::class)->names('announcement');
 });

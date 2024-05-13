@@ -2,20 +2,19 @@
 
 namespace Modules\Settings\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Modules\Settings\Models\MaintenanceSetting;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-class MaintenanceController extends Controller
+class WebsiteSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard.settings.maintenances.maintenance');
+        return view('settings::index');
     }
 
     /**
@@ -32,22 +31,6 @@ class MaintenanceController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
-          // Validate the form data
-          $validatedData = $request->validate([
-       //     'maintenance_mode' => 'required|boolean',
-            'maintenance_title' => 'required|string',
-            'maintenance_message' => 'required|string',
-        ]);
-
-
-        $settings =new MaintenanceSetting();
-
-        $settings->maintenance_title = $validatedData['maintenance_title'];
-        $settings->maintenance_message = $validatedData['maintenance_message'];
-        $settings->save();
-
-        // Redirect back with a success message
-        return back()->with('success', 'Maintenance settings saved successfully!');
     }
 
     /**

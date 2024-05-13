@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Modules\Settings\Models\MaintenanceSetting;
+use Modules\Settings\Models\AnnouncementSetting;
 
-class MaintenanceController extends Controller
+class AnnouncementSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard.settings.maintenances.maintenance');
+        return view('dashboard.settings.announcements.announcements');
     }
 
     /**
@@ -32,22 +32,18 @@ class MaintenanceController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
-          // Validate the form data
-          $validatedData = $request->validate([
-       //     'maintenance_mode' => 'required|boolean',
-            'maintenance_title' => 'required|string',
-            'maintenance_message' => 'required|string',
-        ]);
+        $validatedData = $request->validate([
+                 'announcement_message' => 'required|string',
+             ]);
+
+        $announcements =new AnnouncementSetting();
 
 
-        $settings =new MaintenanceSetting();
-
-        $settings->maintenance_title = $validatedData['maintenance_title'];
-        $settings->maintenance_message = $validatedData['maintenance_message'];
-        $settings->save();
+        $announcements->announcement_message = $validatedData['announcement_message'];
+        $announcements->save();
 
         // Redirect back with a success message
-        return back()->with('success', 'Maintenance settings saved successfully!');
+        return back()->with('success', 'Announcement settings saved successfully!');
     }
 
     /**
