@@ -7,5 +7,6 @@
     "Order": true,
     "Shipping": true,
     "Page": true,
-    "Client": true
+    "Client": true,
+    "Settings": true
 }

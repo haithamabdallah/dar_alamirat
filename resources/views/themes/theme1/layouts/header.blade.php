@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <!-- ./search -->
-
+                @guest
                 <!-- user control -->
                 <ul class="user-control d-flex">
                     <li>
@@ -50,7 +50,7 @@
                     </li>
                 </ul>
                 <!-- ./user control -->
-
+                @endguest
             </div>
             <!-- ./contents -->
         </div>

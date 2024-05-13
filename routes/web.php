@@ -95,9 +95,9 @@ Route::get('/reports/edit', function () {
 
 /************************************ settings ****************************/
 
-Route::get('/settings', function () {
-    return view('dashboard.settings.general-settings');
-})->name('settings.general-settings');
+// Route::get('/settings', function () {
+//     return view('dashboard.settings.general-settings');
+// })->name('settings.general-settings');
 
 
 

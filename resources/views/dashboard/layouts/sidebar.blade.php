@@ -167,7 +167,7 @@
 
             <!-- item -->
             <div class="menu-item">
-                <a href="/dashboard/settings" class="menu-link">
+                <a href="{{ route('settings.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-gear"></i>
                     </div>
