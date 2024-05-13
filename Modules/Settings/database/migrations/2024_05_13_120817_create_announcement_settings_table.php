@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('announcement_settings', function (Blueprint $table) {
             $table->id();
-            
+            $table->boolean('announcement_mode')->default(false);
+            $table->text('announcement_message');
             $table->timestamps();
         });
     }
