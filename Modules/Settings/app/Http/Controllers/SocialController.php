@@ -37,7 +37,7 @@ class SocialController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string',
             'icon' => 'required|string',
-            'url' => 'required|url',
+            'value' => 'required|url',
         ]);
 
         Social::create($validatedData);
@@ -71,7 +71,7 @@ class SocialController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string',
             'icon' => 'required|string',
-            'url' => 'required|url',
+            'value' => 'required|url',
         ]);
 
         $socialMediaPlatform = Social::findOrFail($id);

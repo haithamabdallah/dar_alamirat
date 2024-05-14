@@ -11,7 +11,7 @@
 
         <!-- BEGIN breadcrumb -->
         <ol class="breadcrumb float-xl-end">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="{{ route('settings.index') }}">Settings</a></li>
             <li class="breadcrumb-item"><a href="{{ route('socialMedia.index') }}">Social Media</a></li>
             <li class="breadcrumb-item active">Edit Social Media</li>
@@ -47,21 +47,30 @@
                             <div class="row mb-15px">
                                 <div class="col-md-6">
                                     <label for="name">Name:</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{ $socialMediaPlatform->name }}">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Enter name" value="{{ old('name', $socialMediaPlatform->name) }}">
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="icon">Icon:</label>
-                                    <select class="form-select" id="icon" name="icon">
-                                        <option value="fa-brands fa-facebook-f" {{ $socialMediaPlatform->icon == 'fa-brands fa-facebook-f' ? 'selected' : '' }}>Facebook</option>
-                                        <option value="fab fa-twitter" {{ $socialMediaPlatform->icon == 'fab fa-twitter' ? 'selected' : '' }}>Twitter</option>
+                                    <select class="form-select @error('icon') is-invalid @enderror" id="icon" name="icon">
+                                        <option value="fa-brands fa-facebook-f" {{ old('icon', $socialMediaPlatform->icon) == 'fa-brands fa-facebook-f' ? 'selected' : '' }}>Facebook</option>
+                                        <option value="fab fa-twitter" {{ old('icon', $socialMediaPlatform->icon) == 'fab fa-twitter' ? 'selected' : '' }}>Twitter</option>
                                         <!-- Add more options for other icons -->
                                     </select>
+                                    @error('icon')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-15px">
                                 <div class="col-md-12">
                                     <label for="value">URL:</label>
-                                    <input type="url" class="form-control" id="value" name="value" placeholder="Enter URL" value="{{ $socialMediaPlatform->value }}">
+                                    <input type="url" class="form-control @error('value') is-invalid @enderror" id="value" name="value" placeholder="Enter URL" value="{{ old('value', $socialMediaPlatform->value) }}">
+                                    @error('value')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-15px">
@@ -70,6 +79,7 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                     <!-- END panel-body -->
 

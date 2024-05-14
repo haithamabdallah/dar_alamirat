@@ -13,6 +13,7 @@ class Social extends Model
     /**
      * The attributes that are mass assignable.
      */
+    protected  $table='social_media';
     protected $fillable = ['name','icon','value'];
 
     protected static function newFactory(): SocialFactory

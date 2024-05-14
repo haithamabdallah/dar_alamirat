@@ -19,7 +19,7 @@
         <!-- END breadcrumb -->
         {{-- @if ($announcements->isEmpty()) --}}
         <div class="ms-auto">
-            <a href="{{ route('announcement.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{ __('dashboard.page.add') }}</a>
+            <a href="{{ route('socialMedia.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{ __('dashboard.page.add') }}</a>
         </div>
     {{-- @endif --}}
         <!-- BEGIN page-header -->
