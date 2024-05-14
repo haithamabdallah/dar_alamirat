@@ -2,10 +2,11 @@
 
 namespace Modules\Settings\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Modules\Settings\Models\WebsiteSetting;
 
 class WebsiteSettingController extends Controller
 {
@@ -31,6 +32,22 @@ class WebsiteSettingController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
+        $request->validate([
+            'website_name' => 'required|string|max:255',
+            'website_description' => 'required|string',
+            'website_address' => 'required|string|max:255',
+            'logo' => 'required|string',
+        ]);
+
+        // Create website instance
+        $website = new WebsiteSetting();
+        $website->name = $request->input('website_name');
+        $website->description = $request->input('website_description');
+        $website->address = $request->input('website_address');
+        $website->logo = $request->input('logo');
+        $website->save();
+
+        return redirect()->route('dashboard.home')->with('success', 'Website info saved successfully!');
     }
 
     /**
@@ -63,5 +80,18 @@ class WebsiteSettingController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function uploadLogo(Request $request)
+    {
+        $request->validate([
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+        ]);
+
+        if ($request->file('logo')->isValid()) {
+            $path = $request->file('logo')->store('logos', 'public');
+            return response()->json(['path' => $path]);
+        }
+
+        return response()->json(['error' => 'Invalid file.'], 400);
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Settings\Http\Controllers\SocialController;
 use Modules\Settings\Http\Controllers\SettingsController;
 use Modules\Settings\Http\Controllers\MaintenanceController;
+use Modules\Settings\Http\Controllers\WebsiteSettingController;
 use Modules\Settings\Http\Controllers\AnnouncementSettingController;
 
 /*
@@ -22,6 +24,10 @@ Route::group([], function () {
     Route::resource('announcement', AnnouncementSettingController::class)->names('announcement');
     Route::post('announcement/status', [AnnouncementSettingController::class,'toggleStatus'])->name('announcement.toggle-status');
     Route::post('maintenance/status', [MaintenanceController::class,'toggleStatus'])->name('maintenance.toggle-status');
+    Route::resource('website', WebsiteSettingController::class)->names('website');
+    Route::post('/upload/logo', [WebsiteSettingController::class, 'uploadLogo'])->name('upload.logo');
+    //socialMedia
+    Route::resource('socialMedia', SocialController::class)->names('socialMedia');
 
 
 });

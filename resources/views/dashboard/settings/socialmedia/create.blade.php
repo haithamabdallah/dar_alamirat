@@ -31,7 +31,7 @@
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                         <!-- BEGIN panel-heading -->
                         <div class="panel-heading">
-                            <h4 class="panel-title">Spcial Media</h4>
+                            <h4 class="panel-title">Social Media</h4>
                             <div class="panel-heading-btn">
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -43,7 +43,7 @@
 
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
-                            <form action="" id="socialMedia">
+                            {{-- <form action="" id="socialMedia">
                                 @csrf
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
@@ -99,7 +99,36 @@
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
+                        </form> --}}
+                        <form action="{{ route('socialMedia.store') }}" method="POST" id="socialMedia">
+                            @csrf
+                            <div class="row mb-15px">
+                                <div class="col-md-6">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="icon">Icon:</label>
+                                    <select class="form-select" id="icon" name="icon">
+                                        <option value="fa-brands fa-facebook-f">Facebook</option>
+                                        <option value="fab fa-twitter">Twitter</option>
+                                        <!-- Add more options for other icons -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-15px">
+                                <div class="col-md-12">
+                                    <label for="value">URL:</label>
+                                    <input type="url" class="form-control" id="value" name="value" placeholder="Enter URL">
+                                </div>
+                            </div>
+                            <div class="row mb-15px">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+                                </div>
+                            </div>
                         </form>
+
                         </div>
                         <!-- END panel-body -->
 
