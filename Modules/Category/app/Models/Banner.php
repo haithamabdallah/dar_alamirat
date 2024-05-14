@@ -4,7 +4,6 @@ namespace Modules\Category\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Category\Database\Factories\BannerFactory;
 
 class Banner extends Model
 {
@@ -13,10 +12,10 @@ class Banner extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
+    protected $fillable =  ['category_id', 'image'];
 
-    protected static function newFactory(): BannerFactory
+    public function category()
     {
-        //return BannerFactory::new();
+        return $this->belongsTo(Category::class);
     }
 }
