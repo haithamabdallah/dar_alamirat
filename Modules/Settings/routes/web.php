@@ -21,5 +21,7 @@ Route::group([], function () {
     Route::resource('maintenance', MaintenanceController::class)->names('maintenance');
     Route::resource('announcement', AnnouncementSettingController::class)->names('announcement');
     Route::post('announcement/status', [AnnouncementSettingController::class,'toggleStatus'])->name('announcement.toggle-status');
+    Route::post('maintenance/status', [MaintenanceController::class,'toggleStatus'])->name('maintenance.toggle-status');
+
 
 });

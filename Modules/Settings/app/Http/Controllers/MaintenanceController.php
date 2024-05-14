@@ -15,7 +15,8 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        return view('dashboard.settings.maintenances.maintenance');
+        $maintenances=MaintenanceSetting::get();
+        return view('dashboard.settings.maintenances.index',compact('maintenances'));
     }
 
     /**
@@ -23,7 +24,7 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        return view('settings::create');
+        return view('dashboard.settings.maintenances.create');
     }
 
     /**
@@ -32,9 +33,9 @@ class MaintenanceController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
-          // Validate the form data
+
           $validatedData = $request->validate([
-       //     'maintenance_mode' => 'required|boolean',
+
             'maintenance_title' => 'required|string',
             'maintenance_message' => 'required|string',
         ]);
@@ -63,7 +64,8 @@ class MaintenanceController extends Controller
      */
     public function edit($id)
     {
-        return view('settings::edit');
+        $maintenance=MaintenanceSetting::find($id);
+        return view('dashboard.settings.maintenances.edit',compact('maintenance'));
     }
 
     /**
@@ -72,6 +74,22 @@ class MaintenanceController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         //
+        $validatedData = $request->validate([
+
+            'maintenance_title' => 'required|string',
+            'maintenance_message' => 'required|string',
+        ]);
+
+
+        $settings =new MaintenanceSetting();
+
+        $settings->maintenance_title = $validatedData['maintenance_title'];
+        $settings->maintenance_message = $validatedData['maintenance_message'];
+        $settings->save();
+
+        // Redirect back with a success message
+        return back()->with('success', 'Maintenance settings saved successfully!');
+ 
     }
 
     /**
@@ -80,5 +98,15 @@ class MaintenanceController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function toggleStatus(Request $request)
+    {
+        $model = MaintenanceSetting::findOrFail($request->modelId);
+
+        // Toggle the status
+        $model->maintenance_mode = !$model->maintenance_mode;
+        $model->save();
+
+        return response()->json(['success' => true]);
     }
 }
