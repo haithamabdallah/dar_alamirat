@@ -13,6 +13,22 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::active()->limit(3)->get();
+//
+//        $normalCategories = Category::where('type', 'normal')->get();
+//        $barCategories = Category::where('type', 'bar')->get();
+//
+//        $categories = collect();
+//        $maxCount = max($normalCategories->count(), $barCategories->count());
+//
+//        for ($i = 0; $i < $maxCount; $i++) {
+//            if (isset($normalCategories[$i])) {
+//                $categories->push($normalCategories[$i]);
+//            }
+//            if (isset($barCategories[$i])) {
+//                $categories->push($barCategories[$i]);
+//            }
+//        }
+
         $products = Product::active()->limit(3)->get();
         return view('themes.theme1.index' , get_defined_vars());
     }
@@ -24,3 +40,4 @@ class HomeController extends Controller
         return redirect()->back();
     }
 }
+
