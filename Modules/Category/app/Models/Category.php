@@ -4,6 +4,7 @@ namespace Modules\Category\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Product\Models\Product;
 use Spatie\Translatable\HasTranslations;
 
 class Category extends Model
@@ -28,11 +29,19 @@ class Category extends Model
     }
 
     /**
-     * Get the brands for the Category.
+     * Get the products for the Category.
      */
     public function banners()
     {
         return $this->hasMany(Banner::class);
+    }
+
+    /**
+     * Get the brands for the Category.
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 
     public function scopeActive($query)
