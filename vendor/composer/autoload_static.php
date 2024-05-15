@@ -140,6 +140,10 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
             'Modules\\Shipping\\Database\\Seeders\\' => 34,
             'Modules\\Shipping\\Database\\Factories\\' => 36,
             'Modules\\Shipping\\' => 17,
+            'Modules\\Settings\\Tests\\' => 23,
+            'Modules\\Settings\\Database\\Seeders\\' => 34,
+            'Modules\\Settings\\Database\\Factories\\' => 36,
+            'Modules\\Settings\\' => 17,
             'Modules\\Roles\\Tests\\' => 20,
             'Modules\\Roles\\Database\\Seeders\\' => 31,
             'Modules\\Roles\\Database\\Factories\\' => 33,
@@ -516,6 +520,22 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         array (
             0 => __DIR__ . '/../..' . '/Modules/Shipping/app',
         ),
+        'Modules\\Settings\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Modules/Settings/tests',
+        ),
+        'Modules\\Settings\\Database\\Seeders\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Modules/Settings/database/seeders',
+        ),
+        'Modules\\Settings\\Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Modules/Settings/database/factories',
+        ),
+        'Modules\\Settings\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Modules/Settings/app',
+        ),
         'Modules\\Roles\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Modules/Roles/tests',
@@ -843,6 +863,7 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'App\\Http\\Controllers\\Dashboard\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/AuthController.php',
         'App\\Http\\Controllers\\Dashboard\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/DashboardController.php',
         'App\\Http\\Controllers\\Dashboard\\SettingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/SettingsController.php',
+        'App\\Http\\Controllers\\Front\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/HomeController.php',
         'App\\Http\\Middleware\\APILocalizationMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/APILocalizationMiddleware.php',
         'App\\Http\\Middleware\\AdminAuthenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminAuthenticate.php',
         'App\\Http\\Middleware\\Localization' => __DIR__ . '/../..' . '/app/Http/Middleware/Localization.php',
@@ -4054,6 +4075,7 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Modules\\Admin\\app\\ViewModels\\AdminViewModel' => __DIR__ . '/../..' . '/Modules/Admin/app/ViewModels/AdminViewModel.php',
         'Modules\\Admin\\database\\seeders\\AdminDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Admin/database/seeders/AdminDatabaseSeeder.php',
         'Modules\\Admin\\database\\seeders\\AdminRolesSeeder' => __DIR__ . '/../..' . '/Modules/Admin/database/seeders/AdminRolesSeeder.php',
+        'Modules\\Brand\\Database\\Factories\\BrandFactory' => __DIR__ . '/../..' . '/Modules/Brand/database/factories/BrandFactory.php',
         'Modules\\Brand\\Http\\Controllers\\BrandController' => __DIR__ . '/../..' . '/Modules/Brand/app/Http/Controllers/BrandController.php',
         'Modules\\Brand\\Http\\Requests\\StoreBrandRequest' => __DIR__ . '/../..' . '/Modules/Brand/app/Http/Requests/StoreBrandRequest.php',
         'Modules\\Brand\\Http\\Requests\\UpdateBrandRequest' => __DIR__ . '/../..' . '/Modules/Brand/app/Http/Requests/UpdateBrandRequest.php',
@@ -4063,6 +4085,7 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Modules\\Brand\\app\\Services\\BrandService' => __DIR__ . '/../..' . '/Modules/Brand/app/Services/BrandService.php',
         'Modules\\Brand\\app\\ViewModels\\BrandViewModel' => __DIR__ . '/../..' . '/Modules/Brand/app/ViewModels/BrandViewModel.php',
         'Modules\\Brand\\database\\seeders\\BrandDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Brand/database/seeders/BrandDatabaseSeeder.php',
+        'Modules\\Category\\Database\\Factories\\CategoryFactory' => __DIR__ . '/../..' . '/Modules/Category/database/factories/CategoryFactory.php',
         'Modules\\Category\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/Modules/Category/app/Http/Controllers/CategoryController.php',
         'Modules\\Category\\Http\\Requests\\StoreCategoryRequest' => __DIR__ . '/../..' . '/Modules/Category/app/Http/Requests/StoreCategoryRequest.php',
         'Modules\\Category\\Http\\Requests\\UpdateCategoryRequest' => __DIR__ . '/../..' . '/Modules/Category/app/Http/Requests/UpdateCategoryRequest.php',
@@ -4072,6 +4095,7 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Modules\\Category\\app\\Services\\CategoryService' => __DIR__ . '/../..' . '/Modules/Category/app/Services/CategoryService.php',
         'Modules\\Category\\app\\ViewModels\\CategoryViewModel' => __DIR__ . '/../..' . '/Modules/Category/app/ViewModels/CategoryViewModel.php',
         'Modules\\Category\\database\\seeders\\CategoryDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Category/database/seeders/CategoryDatabaseSeeder.php',
+        'Modules\\Category\\database\\seeders\\CategorySeeder' => __DIR__ . '/../..' . '/Modules/Category/database/seeders/CategorySeeder.php',
         'Modules\\Client\\Database\\Seeders\\ClientDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Client/database/seeders/ClientDatabaseSeeder.php',
         'Modules\\Client\\Http\\Controllers\\ClientController' => __DIR__ . '/../..' . '/Modules/Client/app/Http/Controllers/ClientController.php',
         'Modules\\Client\\Models\\Client' => __DIR__ . '/../..' . '/Modules/Client/app/Models/Client.php',
@@ -4079,11 +4103,16 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Modules\\Client\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/Modules/Client/app/Providers/EventServiceProvider.php',
         'Modules\\Client\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/Client/app/Providers/RouteServiceProvider.php',
         'Modules\\Order\\Database\\Seeders\\OrderDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Order/database/seeders/OrderDatabaseSeeder.php',
+        'Modules\\Order\\Enums\\OrderStatus' => __DIR__ . '/../..' . '/Modules/Order/app/Enums/OrderStatus.php',
+        'Modules\\Order\\Enums\\PaymentStatus' => __DIR__ . '/../..' . '/Modules/Order/app/Enums/PaymentStatus.php',
         'Modules\\Order\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/Modules/Order/app/Http/Controllers/OrderController.php',
+        'Modules\\Order\\Http\\Requests\\StoreOrderRequest' => __DIR__ . '/../..' . '/Modules/Order/app/Http/Requests/StoreOrderRequest.php',
         'Modules\\Order\\Models\\Order' => __DIR__ . '/../..' . '/Modules/Order/app/Models/Order.php',
+        'Modules\\Order\\Models\\OrderProduct' => __DIR__ . '/../..' . '/Modules/Order/app/Models/OrderProduct.php',
         'Modules\\Order\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/Modules/Order/app/Providers/EventServiceProvider.php',
         'Modules\\Order\\Providers\\OrderServiceProvider' => __DIR__ . '/../..' . '/Modules/Order/app/Providers/OrderServiceProvider.php',
         'Modules\\Order\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/Order/app/Providers/RouteServiceProvider.php',
+        'Modules\\Order\\Services\\OrderService' => __DIR__ . '/../..' . '/Modules/Order/app/Services/OrderService.php',
         'Modules\\Page\\Database\\Seeders\\PageDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Page/database/seeders/PageDatabaseSeeder.php',
         'Modules\\Page\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/Modules/Page/app/Http/Controllers/PageController.php',
         'Modules\\Page\\Http\\Requests\\PageRequest' => __DIR__ . '/../..' . '/Modules/Page/app/Http/Requests/PageRequest.php',
@@ -4113,6 +4142,11 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Modules\\Roles\\app\\ViewModels\\RoleViewModel' => __DIR__ . '/../..' . '/Modules/Roles/app/ViewModels/RoleViewModel.php',
         'Modules\\Roles\\database\\seeders\\PermissionSeeder' => __DIR__ . '/../..' . '/Modules/Roles/database/seeders/PermissionSeeder.php',
         'Modules\\Roles\\database\\seeders\\RolesDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Roles/database/seeders/RolesDatabaseSeeder.php',
+        'Modules\\Settings\\Database\\Seeders\\SettingsDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Settings/database/seeders/SettingsDatabaseSeeder.php',
+        'Modules\\Settings\\Http\\Controllers\\SettingsController' => __DIR__ . '/../..' . '/Modules/Settings/app/Http/Controllers/SettingsController.php',
+        'Modules\\Settings\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/Modules/Settings/app/Providers/EventServiceProvider.php',
+        'Modules\\Settings\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/Settings/app/Providers/RouteServiceProvider.php',
+        'Modules\\Settings\\Providers\\SettingsServiceProvider' => __DIR__ . '/../..' . '/Modules/Settings/app/Providers/SettingsServiceProvider.php',
         'Modules\\Shipping\\Database\\Seeders\\ShippingDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Shipping/database/seeders/ShippingDatabaseSeeder.php',
         'Modules\\Shipping\\Http\\Controllers\\ShippingController' => __DIR__ . '/../..' . '/Modules/Shipping/app/Http/Controllers/ShippingController.php',
         'Modules\\Shipping\\Http\\Requests\\StoreShippingRequest' => __DIR__ . '/../..' . '/Modules/Shipping/app/Http/Requests/StoreShippingRequest.php',

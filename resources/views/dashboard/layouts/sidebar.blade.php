@@ -167,13 +167,33 @@
 
             <!-- item -->
             <div class="menu-item">
-                <a href="/dashboard/settings" class="menu-link">
+                <a href="{{ route('settings.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-gear"></i>
                     </div>
                     <div class="menu-text">Settings</div>
                 </a>
             </div>
+            <!-- ./item -->
+            <!-- item -->
+            {{-- <div class="menu-item">
+                <a href="{{ route('maintenance.index') }}" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                    <div class="menu-text">Maintenance</div>
+                </a>
+            </div> --}}
+            <!-- ./item -->
+             <!-- item -->
+             {{-- <div class="menu-item">
+                <a href="{{ route('announcement.index') }}" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                    <div class="menu-text">Announcement</div>
+                </a>
+            </div> --}}
             <!-- ./item -->
 
 
