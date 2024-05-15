@@ -1,36 +1,43 @@
 <?php
 
-namespace Modules\Category\Http\Requests;
+namespace Modules\Category\Models;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 
-class StoreCategoryRequest extends FormRequest
+class Category extends Model
 {
-    /**
-     * Get the validation rules that apply to the request.
-     */
-    public function rules(): array
-    {
-        return [
-            'type' => 'required|in:default,banner',
-            'name.*'=>'required',
-            'icon' => 'sometimes',
-            'priority' => 'sometimes',
-        ];
-    }
+    use HasFactory , HasTranslations;
 
-    public function messages()
-    {
-        return [
-            'name.en.required'  => __('validation.name_en_required'),
-        ];
-    }
+    protected $translatable = ['name'];
 
     /**
-     * Determine if the user is authorized to make this request.
+     * The attributes that are mass assignable.
      */
-    public function authorize(): bool
+    protected $fillable = ['name' , 'slug' , 'icon' , 'position' , 'priority', 'status' , 'type','parent_id'];
+
+    public function parent()
     {
-        return auth('admin')->check();
+        return $this->belongsTo(Category::class, 'parent_id');
     }
+
+    public function childes()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    /**
+     * Get the brands for the Category.
+     */
+    public function banners()
+    {
+        return $this->hasMany(Banner::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
 }

@@ -48,17 +48,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request): RedirectResponse
     {
-        dd($request->all());
         $validatedData = $request->validated();
-
-        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
-            $path = $request->file('icon')->store('category/img', 'public');
-            $validatedData['icon'] = $path;
-        }
-
 
         $category =$this->categoryService->storeData($validatedData);
 
+        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
+            $path = $request->icon->store("category/{$category->id}/img", 'public');
+            $category->update(['icon' => $path]);
+        }
 
         if ($request->hasFile('banner_images')) {
             foreach ($request->banner_images as $image) {
