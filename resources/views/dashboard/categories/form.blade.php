@@ -150,15 +150,27 @@
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
+
+                            <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-3">Category Type :</label>
+                                <div class="col-sm-9">
+                                    <select class="default-select2 form-control" name="type" id="categoryType" required>
+                                        <option selected disabled> Select Type </option>
+                                        <option value="default"> Default </option>
+                                        <option value="banner"> Banner </option>
+                                    </select>
+                                </div>
+                            </div>
+
                             @foreach (Config('language') as $key => $lang)
-                                <div class="row mb-15px">
+                                <div class="row mb-15px categoryDetails" style="display: none;">
                                     <label class="form-label col-form-label col-md-3">Name In {{ $lang }} :</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control form-control-solid" value="{{ old('name.'.$key) ?? $category->getTranslation('name',$key)}}" placeholder="{{ 'name-'.$lang }}" name="name[{{ $key }}]" />
                                         @error('name.'.$key)
                                         <span class="text-danger" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -181,7 +193,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-15px">
+                            <div class="row mb-15px categoryDetails" style="display: none;">
                                 <label class="form-label col-form-label col-md-3">Category image :</label>
                                 <div class="col-md-9">
                                     <div class="custom-file-upload">
@@ -203,17 +215,6 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Category Type :</label>
-                                <div class="col-sm-9">
-                                    <select class="default-select2 form-control" name="type" id="categoryType" required>
-                                        <option value="default"> Default </option>
-                                        <option value="banner"> Banner </option>
-                                    </select>
-                                </div>
-                            </div>
-
-
                             <div class="row mb-15px" id="bannerImagesRow" style="display: none;">
                                 <label class="form-label col-form-label col-md-3">Banner Images </label>
                                 <div class="col-sm-9">
@@ -230,7 +231,6 @@
                                     @enderror
                                 </div>
                             </div>
-
 
                             <div class="row mb-15px">
                                 <div class="col-md-12">
@@ -287,10 +287,19 @@
                 var selectedType = $(this).val();
                 if (selectedType === 'banner') {
                     $('#bannerImagesRow').show();
-                    $('#formFile').attr('required', true);
                 } else {
                     $('#bannerImagesRow').hide();
-                    $('#formFile').removeAttr('required');
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('#categoryType').change(function() {
+                var selectedType = $(this).val();
+                if (selectedType === 'default') {
+                    $('.categoryDetails').show();
+                } else {
+                    $('.categoryDetails').hide();
                 }
             });
         });
