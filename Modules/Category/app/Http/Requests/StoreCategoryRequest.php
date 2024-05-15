@@ -12,6 +12,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'type' => 'required|in:default,banner',
             'name.*'=>'required',
             'icon' => 'sometimes',
             'priority' => 'sometimes',
