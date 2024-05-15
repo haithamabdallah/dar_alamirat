@@ -30,7 +30,7 @@ class Category extends Model
     /**
      * Get the brands for the Category.
      */
-    public function brands()
+    public function banners()
     {
         return $this->hasMany(Banner::class);
     }

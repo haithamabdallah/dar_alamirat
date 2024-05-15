@@ -63,8 +63,7 @@
             overflow: inherit; /* Hide the overflow to maintain the area size */
         }
 
-        #imagePreview,
-        #bannerImagePreview {
+        #imagePreview {
             max-width: 100px;
             max-height: 100px;
             border-radius: 10px;
@@ -207,7 +206,7 @@
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Category Type :</label>
                                 <div class="col-sm-9">
-                                    <select class="default-select2 form-control" name="type" required>
+                                    <select class="default-select2 form-control" name="type" id="categoryType" required>
                                         <option value="default"> Default </option>
                                         <option value="banner"> Banner </option>
                                     </select>
@@ -215,13 +214,13 @@
                             </div>
 
 
-                            <div class="row mb-15px">
+                            <div class="row mb-15px" id="bannerImagesRow" style="display: none;">
                                 <label class="form-label col-form-label col-md-3">Banner Images </label>
                                 <div class="col-sm-9">
                                     <div class="custom-file-upload">
                                         <label for="formFile" class="upload-area">
                                             <div class="icon-upload form-control"> <span class="p-1">Upload Banner Images </span></div>
-                                            <input class="file-input" name="banner_images" type="file" id="formFile" accept=".png, .jpg, .jpeg ,.svg ,.webp" multiple />
+                                            <input class="file-input" name="banner_images[]" type="file" accept=".png, .jpg, .jpeg ,.svg ,.webp" multiple />
                                         </label>
                                     </div>
                                     @error('icon')
@@ -283,29 +282,18 @@
     </script>
 
     <script>
-        function previewImage() {
-            var file = document.getElementById('formFile').files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var imgElement = document.getElementById('imagePreview');
-                var clearBtn = document.querySelector('.clear-image');
-                imgElement.src = e.target.result;
-                imgElement.style.display = 'block';
-                clearBtn.style.display = 'flex';
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearImage() {
-            var fileInput = document.getElementById('formFile');
-            var imgElement = document.getElementById('imagePreview');
-            var clearBtn = document.querySelector('.clear-image');
-            fileInput.value = ''; // Clear the file input
-            imgElement.src = '';
-            imgElement.style.display = 'none';
-            clearBtn.style.display = 'none';
-        }
+        $(document).ready(function() {
+            $('#categoryType').change(function() {
+                var selectedType = $(this).val();
+                if (selectedType === 'banner') {
+                    $('#bannerImagesRow').show();
+                    $('#formFile').attr('required', true);
+                } else {
+                    $('#bannerImagesRow').hide();
+                    $('#formFile').removeAttr('required');
+                }
+            });
+        });
     </script>
-
 
 @endsection

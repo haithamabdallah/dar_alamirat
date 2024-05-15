@@ -48,6 +48,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request): RedirectResponse
     {
+        dd($request->all());
         $validatedData = $request->validated();
 
         if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
@@ -55,8 +56,16 @@ class CategoryController extends Controller
             $validatedData['icon'] = $path;
         }
 
+
         $category =$this->categoryService->storeData($validatedData);
 
+
+        if ($request->hasFile('banner_images')) {
+            foreach ($request->banner_images as $image) {
+                $imagePath = $image->store("category/{$category->id}/banners", 'public');
+                $category->banners()->create(['image' => $imagePath]);
+            }
+        }
         if ($category){
             Session()->flash('success', 'Category Created Successfully');
         }else{
