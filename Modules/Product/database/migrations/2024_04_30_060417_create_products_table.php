@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreignId('brand_id')->constrained('brands')->cascadeOnDelete();
             $table->decimal('discount_value', 8, 2)->nullable();
             $table->enum('discount_type', ['flat', 'percent'])->nullable();
+            $table->integer('most_sale')->default(0);
+            $table->boolean('choice')->default(0);
             $table->timestamps();
         });
     }
