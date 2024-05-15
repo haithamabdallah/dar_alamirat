@@ -4,6 +4,7 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 
 if (!function_exists('setting'))
@@ -45,6 +46,18 @@ if (!function_exists('isStringEnglishLetters'))
     {
         $string = preg_replace('/\s/u', '', $string);
         return ! preg_match('/[^A-Za-z0-9]/', $string);
+    }
+}
+
+if (!function_exists('current_language'))
+{
+    function current_language() {
+        if (Session::has('locale')){
+            $current_language = app()->getLocale() ?? Session::get('locale');
+        }else{
+            $current_language = config('app.locale');
+        }
+        return $current_language;
     }
 }
 
@@ -94,127 +107,6 @@ if (!function_exists('getLastKeyRoute'))
     {
        $array = explode('.',$routeName);
        return end($array);
-    }
-}
-
-if(!function_exists('showroomType'))
-{
-    function showroomType()
-    {
-        return [
-            'showroom' => __('showroom'),
-            'agency'   => __('agency'),
-        ];
-    }
-}
-
-if(!function_exists('routeShowRoomPrefix'))
-{
-    function routeShowRoomPrefix(){
-        if(Auth::guard('showroom')->user() != ''){
-           return  Auth::guard('showroom')->user()->type ;
-        }
-        return '';
-    }
-}
-
-if(!function_exists('getDriveTypes'))
-{
-    function getDriveTypes(){
-        return [
-                (object) [
-                    'key'  => 'manual',
-                    'name' => __('global.manual')
-                    ] ,
-                (object) [
-                        'key'  => 'automatic',
-                        'name' => __('global.automatic')
-                    ],
-            ];
-    }
-}
-
-if(!function_exists('getBodyTypes'))
-{
-    function getBodyTypes(){
-        return [
-              (object) [
-                  'key'  => 'hatchback',
-                'name' => __('global.hatchback')] ,
-              (object) [
-                    'key'  => 'sedan',
-                    'name' => __('global.sedan')] ,
-            ];
-    }
-}
-
-if(!function_exists('getFuelTypes'))
-{
-    function getFuelTypes(){
-        return [
-            (object) [
-            'key'  => 'gasoline',
-            'name' => __('global.gasoline')] ,
-            (object) [
-            'key'  => 'diesel',
-            'name' => __('global.diesel')] ,
-            (object) [
-            'key'  => 'electrical',
-            'name' => __('global.electrical')] ,
-            (object) [
-            'key'  => 'hybrid',
-            'name' => __('global.hybrid')] ,
-        ];
-    }
-}
-
-if(!function_exists('getCarStatus'))
-{
-    function getCarStatus(){
-        return [
-            (object) [
-            'key'  => 'new',
-            'name' => __('global.new')] ,
-            (object) [
-                'key'  => 'used',
-                'name' => __('global.used')] ,
-        ];
-    }
-}
-
-if(!function_exists('getCarStatusUsed'))
-{
-    function getCarStatusUsed(){
-        return [
-            (object) [
-                'key'  => 'used',
-                'name' => __('global.used')] ,
-        ];
-    }
-}
-
-if(!function_exists('getCarStatusNew'))
-{
-    function getCarStatusNew(){
-        return [
-             (object) [
-            'key'  => 'new',
-            'name' => __('global.new')] ,
-        ];
-    }
-}
-
-if(!function_exists('getActiveUserName'))
-{
-    function getActiveUserName()
-    {
-        $data  = [];
-        if(auth('end-user')->check()){
-            $data['name'] = auth('end-user')->user()->name;
-            $data['email'] = auth('end-user')->user()->email;
-            $data['logo'] = auth('end-user')->user()->getLogo();
-        }
-        return $data ;
     }
 }
 

@@ -15,7 +15,7 @@ class Category extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['name' , 'slug' , 'icon' , 'position' , 'priority', 'status' , 'parent_id'];
+    protected $fillable = ['name' , 'slug' , 'icon' , 'position' , 'priority', 'status' , 'type','parent_id'];
 
     public function parent()
     {
@@ -27,6 +27,13 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    /**
+     * Get the brands for the Category.
+     */
+    public function brands()
+    {
+        return $this->hasMany(Banner::class);
+    }
 
     public function scopeActive($query)
     {

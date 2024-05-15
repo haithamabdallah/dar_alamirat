@@ -102,7 +102,7 @@ Route::get('/reports/edit', function () {
 
 
 /************************************ Front Routs ****************************/
-
+Route::get('/lang/{lang}' , [HomeController::class , 'changeLanguage'])->name('changeLang');
 Route::get('/' , [HomeController::class , 'index'])->name('index');
 
 Route::get('/category' , function (){

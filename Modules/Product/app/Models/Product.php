@@ -28,6 +28,8 @@ class Product extends Model
         'brand_id',
         'discount_type',
         'discount_value',
+        'most_sale',
+        'choice',
     ];
 
     public $translatable = ['title', 'description', 'instructions'];

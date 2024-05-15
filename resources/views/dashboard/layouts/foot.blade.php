@@ -26,7 +26,6 @@
 <script src="{{asset('admin-panel/assets/plugins/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('admin-panel/assets/plugins/pdfmake/build/pdfmake.min.js')}}"></script>
 <script src="{{asset('admin-panel/assets/plugins/pdfmake/build/vfs_fonts.js')}}"></script>
-<script src="{{asset('admin-panel/assets/plugins/jszip/dist/jszip.min.js')}}"></script>
 <script src="{{asset('admin-panel/assets/plugins/@highlightjs/cdn-assets/highlight.min.js')}}"></script>
 <script src="{{asset('admin-panel/assets/js/demo/render.highlight.js')}}"></script>
 <script src="{{asset('admin-panel/assets/plugins/select2/dist/js/select2.min.js')}}"></script>
