@@ -24,10 +24,13 @@ Route::group([], function () {
     Route::resource('announcement', AnnouncementSettingController::class)->names('announcement');
     Route::post('announcement/status', [AnnouncementSettingController::class,'toggleStatus'])->name('announcement.toggle-status');
     Route::post('maintenance/status', [MaintenanceController::class,'toggleStatus'])->name('maintenance.toggle-status');
-    Route::resource('website', WebsiteSettingController::class)->names('website');
+    Route::resource('/site-info', WebsiteSettingController::class)->names('site-info');
     Route::post('/upload/logo', [WebsiteSettingController::class, 'uploadLogo'])->name('upload.logo');
     //socialMedia
     Route::resource('socialMedia', SocialController::class)->names('socialMedia');
+    Route::get('/site-info', [WebsiteSettingController::class, 'index'])->name('site-info.index');
+ //   Route::post('/site-info', [WebsiteSettingController::class, 'store'])->name('site-info.store');
+   Route::post('/site-info/upload', [WebsiteSettingController::class, 'upload'])->name('site-info.upload');
 
 
 });

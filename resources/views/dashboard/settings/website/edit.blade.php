@@ -21,7 +21,6 @@
         <h1 class="page-header">Website Info</h1>
         <!-- END page-header -->
 
-
         <!-- BEGIN row -->
         <div class="row mb-3">
 
@@ -50,38 +49,55 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('site-info.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('site-info.update',$siteInfo->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
+
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Logo</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control" name="website_logo" required>
+                                    @if($siteInfo->website_logo)
+                                        <img src="{{ $siteInfo->website_logo }}" alt="Website Logo" class="img-fluid mb-3">
+                                    @else
+                                        <p>No logo uploaded</p>
+                                    @endif
+                                    <input type="file" class="form-control" name="website_logo">
                                 </div>
                             </div>
+
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Name</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" name="website_name" placeholder="Website Name" required />
+                                    <input class="form-control" type="text" name="website_name" value="{{ $siteInfo->website_name }}" placeholder="Website Name" required />
                                 </div>
                             </div>
+
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Description</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" name="website_description" placeholder="Website Description" required />
+                                    <input class="form-control" type="text" name="website_description" value="{{ $siteInfo->website_description }}" placeholder="Website Description" required />
                                 </div>
                             </div>
+
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Address</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" name="website_address" placeholder="Website Address" required />
+                                    <input class="form-control" type="text" name="website_address" value="{{ $siteInfo->website_address }}" placeholder="Website Address" required />
                                 </div>
                             </div>
+
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Icon</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control" name="website_icon" required>
+                                    @if($siteInfo->website_icon)
+                                        <img src="{{ $siteInfo->website_icon }}" alt="Website Icon" class="img-fluid mb-3">
+                                    @else
+                                        <p>No icon uploaded</p>
+                                    @endif
+                                    <input type="file" class="form-control" name="website_icon">
                                 </div>
                             </div>
+
                             <div class="row mb-15px">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Modules\Settings\Models\WebsiteSetting;
 
 class WebsiteSettingController extends Controller
@@ -15,7 +16,8 @@ class WebsiteSettingController extends Controller
      */
     public function index()
     {
-        return view('settings::index');
+        $siteInfo=WebsiteSetting::first();
+        return view('dashboard.settings.website.index',compact('siteInfo'));
     }
 
     /**
@@ -23,31 +25,74 @@ class WebsiteSettingController extends Controller
      */
     public function create()
     {
-        return view('settings::create');
+        return view('dashboard.settings.website.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        //
         $request->validate([
             'website_name' => 'required|string|max:255',
             'website_description' => 'required|string',
-            'website_address' => 'required|string|max:255',
-            'logo' => 'required|string',
+            'website_address' => 'required|string',
+            'website_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'website_icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Create website instance
-        $website = new WebsiteSetting();
-        $website->name = $request->input('website_name');
-        $website->description = $request->input('website_description');
-        $website->address = $request->input('website_address');
-        $website->logo = $request->input('logo');
-        $website->save();
+        $logoPath = $this->storeFile($request->file('website_logo'), 'website_logos');
+        $iconPath = $this->storeFile($request->file('website_icon'), 'website_icons');
 
-        return redirect()->route('dashboard.home')->with('success', 'Website info saved successfully!');
+        WebsiteSetting::create([
+            'website_name' => $request->website_name,
+            'website_description' => $request->website_description,
+            'website_address' => $request->website_address,
+            'website_logo' => $logoPath,
+            'website_icon' => $iconPath,
+        ]);
+
+        return redirect()->route('site-info.index')->with('success', 'Website info saved successfully!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'website_name' => 'required|string|max:255',
+            'website_description' => 'required|string',
+            'website_address' => 'required|string',
+            'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $websiteSetting = WebsiteSetting::findOrFail($id);
+
+        if ($request->hasFile('website_logo')) {
+            $websiteSetting->website_logo = $this->storeFile($request->file('website_logo'), 'website_logos');
+        }
+
+        if ($request->hasFile('website_icon')) {
+            $websiteSetting->website_icon = $this->storeFile($request->file('website_icon'), 'website_icons');
+        }
+
+        $websiteSetting->update([
+            'website_name' => $request->website_name,
+            'website_description' => $request->website_description,
+            'website_address' => $request->website_address,
+        ]);
+
+        return redirect()->route('site-info.index')->with('success', 'Website info updated successfully!');
+    }
+
+
+
+
+
+    private function storeFile($file, $directory)
+    {
+        $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+        $filePath = $file->storeAs('public/' . $directory, $fileName);
+        return Storage::url($filePath);
     }
 
     /**
@@ -63,16 +108,11 @@ class WebsiteSettingController extends Controller
      */
     public function edit($id)
     {
-        return view('settings::edit');
+        $siteInfo=WebsiteSetting::find($id);
+        return view('dashboard.settings.website.edit',compact('siteInfo'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.

@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('website_settings', function (Blueprint $table) {
             $table->id();
-            
+            $table->string('website_name');
+            $table->text('website_description');
+            $table->string('website_address');
+            $table->string('website_logo')->nullable();
+            $table->string('website_icon')->nullable();
             $table->timestamps();
         });
     }

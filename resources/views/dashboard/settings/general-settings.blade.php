@@ -28,7 +28,7 @@
             <!-- BEGIN col-3 -->
             <div class="col-xl-3 col-md-6">
                 <!-- BEGIN widget-card -->
-                <a href="#" class="widget-card rounded mb-20px" data-id="widget">
+                <a href="{{ route('site-info.index') }}" class="widget-card rounded mb-20px" data-id="widget">
                     <div class="widget-card-cover rounded"></div>
                     <div class="widget-card-content">
                         <h5 class="fs-12px text-black text-opacity-75" data-id="widget-elm"

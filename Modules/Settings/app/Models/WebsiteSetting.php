@@ -13,7 +13,15 @@ class WebsiteSetting extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['name', 'description', 'address', 'logo'];
+    protected $table='website_settings';
+
+    protected $fillable = [
+        'website_name',
+        'website_description',
+        'website_address',
+        'website_logo',
+        'website_icon',
+    ];
 
     protected static function newFactory(): WebsiteSettingFactory
     {
