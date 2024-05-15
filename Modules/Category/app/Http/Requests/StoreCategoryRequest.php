@@ -1,43 +1,37 @@
 <?php
 
-namespace Modules\Category\Models;
+namespace Modules\Category\Http\Requests;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Translatable\HasTranslations;
+use Illuminate\Foundation\Http\FormRequest;
 
-class Category extends Model
+class StoreCategoryRequest extends FormRequest
 {
-    use HasFactory , HasTranslations;
+    /**
+     * Get the validation rules that apply to the request.
+     */
+    public function rules(): array
+    {
+        return [
+            'type' => 'required|in:default,banner',
+            'name.*' => 'required_if:type,default',
+            'icon' => 'required_if:type,default',
+            'priority' => 'required',
+            'banner_images' => 'required_if:type,banner',
+        ];
+    }
 
-    protected $translatable = ['name'];
+    public function messages()
+    {
+        return [
+            'name.en.required'  => __('validation.name_en_required'),
+        ];
+    }
 
     /**
-     * The attributes that are mass assignable.
+     * Determine if the user is authorized to make this request.
      */
-    protected $fillable = ['name' , 'slug' , 'icon' , 'position' , 'priority', 'status' , 'type','parent_id'];
-
-    public function parent()
+    public function authorize(): bool
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return auth('admin')->check();
     }
-
-    public function childes()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    /**
-     * Get the brands for the Category.
-     */
-    public function banners()
-    {
-        return $this->hasMany(Banner::class);
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('status', 1);
-    }
-
 }

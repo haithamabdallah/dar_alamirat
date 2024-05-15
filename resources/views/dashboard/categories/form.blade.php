@@ -147,6 +147,12 @@
 
                     <!-- BEGIN panel-body -->
                     <div class="panel-body">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
