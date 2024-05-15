@@ -48,6 +48,7 @@
                                     <th class="pt-0 pb-2" width="1%"></th>
                                     <th class="pt-0 pb-2" width="1%">Image</th>
                                     <th class="pt-0 pb-2" width="20%">Title</th>
+                                    <th class="pt-0 pb-2" width="20%">Choice</th>
                                     <th class="pt-0 pb-2" width="20%">Price</th>
                                     <th class="pt-0 pb-2" width="15%">Quantity</th>
                                     <th class="pt-0 pb-2" width="10%">category</th>
@@ -74,6 +75,9 @@
                                     </td>
                                     <td>
                                         <a href="{{route('product.show' , $product->id)}}" class="text-dark text-decoration-none">{{$product->title}}</a>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('product.toggleChoice' , $product->id) }}" @if($product->choice) checked @endif/>
                                     </td>
                                     <td>
                                         <ul>
