@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
-        $this->middleware('permission:categories.read,admin', ['only' => ['index']]);
+        $this->middleware('permission:categories.read,admin', ['only' => ['index','bannersData']]);
         $this->middleware('permission:categories.create,admin', ['only' => ['create', 'store']]);
         $this->middleware('permission:categories.edit,admin', ['only' => ['edit', 'update']]);
         $this->middleware('permission:categories.delete,admin', ['only' => ['destroy']]);
@@ -33,6 +33,15 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryService->getPaginatedData();
         return view('dashboard.categories.index', compact('categories'));
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function bannersData()
+    {
+        dd(123);
+        $categories = $this->categoryService->getBannersData();
+        return view('dashboard.categories.banners', compact('categories'));
     }
 
     /**

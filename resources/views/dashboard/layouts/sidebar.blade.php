@@ -126,8 +126,8 @@
                         </a>
                     </div>
                     <div class="menu-item {{ activeLink('admin') }}">
-                        <a href="{{route('category.index')}}" class="menu-link">
-                            <div class="menu-text">{{__('dashboard.categories')}}</div>
+                        <a href="{{route('category.bannersData')}}" class="menu-link">
+                            <div class="menu-text">{{__('dashboard.banners')}}</div>
                         </a>
                     </div>
                 </div>

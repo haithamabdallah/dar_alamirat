@@ -19,6 +19,12 @@ class CategoryService {
         return  Category::latest()->paginate($paginate);
     }
 
+    public function getBannersData(array $data = [],int $paginate = 20 )
+    {
+        dd(123);
+        return  Category::where('type','banner')->latest()->paginate($paginate);
+    }
+
     public function storeData(array $data)
     {
         $data['slug'] = isset($data['name']) ? Str::slug($data['name']['en']) : '';
