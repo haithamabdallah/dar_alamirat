@@ -76,7 +76,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- ./item -->
 
             <!-- item -->
@@ -112,14 +111,36 @@
             </div>
             <!-- ./item -->
             <!-- item -->
-            <div class="menu-item {{ activeLink('category') }}">
-                <a href="{{route('category.index')}}" class="menu-link">
+            <div class="menu-item has-sub {{ activeLink('category') }}">
+                <a href="javascript:;" class="menu-link">
                     <div class="menu-icon">
-                        <i class="fa-solid fa-sitemap"></i>
+                        <i class="fa-solid fa-users"></i>
                     </div>
                     <div class="menu-text">{{__('dashboard.categories')}}</div>
+                    <div class="menu-caret"></div>
                 </a>
+                <div class="menu-submenu">
+                    <div class="menu-item {{ activeLink('admin') }}">
+                        <a href="{{route('category.index')}}" class="menu-link">
+                            <div class="menu-text">{{__('dashboard.categories')}}</div>
+                        </a>
+                    </div>
+                    <div class="menu-item {{ activeLink('admin') }}">
+                        <a href="{{route('category.index')}}" class="menu-link">
+                            <div class="menu-text">{{__('dashboard.categories')}}</div>
+                        </a>
+                    </div>
+                </div>
             </div>
+
+            {{--            <div class="menu-item {{ activeLink('category') }}">--}}
+            {{--                <a href="{{route('category.index')}}" class="menu-link">--}}
+            {{--                    <div class="menu-icon">--}}
+            {{--                        <i class="fa-solid fa-sitemap"></i>--}}
+            {{--                    </div>--}}
+            {{--                    <div class="menu-text">{{__('dashboard.categories')}}</div>--}}
+            {{--                </a>--}}
+            {{--            </div>--}}
             <!-- ./item -->
             <!-- item -->
             <div class="menu-item {{ activeLink('brand') }}">
@@ -185,15 +206,15 @@
                 </a>
             </div> --}}
             <!-- ./item -->
-             <!-- item -->
-             {{-- <div class="menu-item">
-                <a href="{{ route('announcement.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-gear"></i>
-                    </div>
-                    <div class="menu-text">Announcement</div>
-                </a>
-            </div> --}}
+            <!-- item -->
+            {{-- <div class="menu-item">
+               <a href="{{ route('announcement.index') }}" class="menu-link">
+                   <div class="menu-icon">
+                       <i class="fa-solid fa-gear"></i>
+                   </div>
+                   <div class="menu-text">Announcement</div>
+               </a>
+           </div> --}}
             <!-- ./item -->
 
 
