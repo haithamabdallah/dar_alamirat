@@ -48,7 +48,7 @@ class MaintenanceController extends Controller
         $settings->save();
 
         // Redirect back with a success message
-        return back()->with('success', 'Maintenance settings saved successfully!');
+        return redirect()->route('maintenance.index')->with('success', 'Maintenance settings saved successfully!');
     }
 
     /**
@@ -88,8 +88,8 @@ class MaintenanceController extends Controller
         $settings->save();
 
         // Redirect back with a success message
-        return back()->with('success', 'Maintenance settings saved successfully!');
- 
+        return redirect()->route('maintenance.index')->with('success', 'Maintenance settings saved successfully!');
+
     }
 
     /**

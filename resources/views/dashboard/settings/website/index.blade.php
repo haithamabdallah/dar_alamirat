@@ -12,11 +12,12 @@
             <li class="breadcrumb-item active">Website Info</li>
         </ol>
         <!-- END breadcrumb -->
-        @if ($siteInfo->count() == 0)
-        <div class="ms-auto">
-            <a href="{{ route('site-info.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{ __('dashboard.page.add') }}</a>
-        </div>
-       @endif
+        @if (is_null($siteInfo) || $siteInfo->count() == 0)
+    <div class="ms-auto">
+        <a href="{{ route('site-info.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{ __('dashboard.page.add') }}</a>
+    </div>
+@endif
+
 
         <!-- BEGIN page-header -->
         <h1 class="page-header">Website Info</h1>
