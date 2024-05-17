@@ -16,7 +16,7 @@ class ProductViewModel extends ViewModel
     public function __construct($product = null)
     {
         $this->product = is_null($product) ? new Product(old()) : $product;
-        $this->categories = Category::get();
+        $this->categories = Category::active()->where('type','default')->get();
         $this->brands = Brand::get();
 
     }

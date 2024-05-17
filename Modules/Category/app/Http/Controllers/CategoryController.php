@@ -50,13 +50,19 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
 
-        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
-            $path = $request->file('icon')->store('category/img', 'public');
-            $validatedData['icon'] = $path;
-        }
-
         $category =$this->categoryService->storeData($validatedData);
 
+        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
+            $path = $request->icon->store("category/{$category->id}/img", 'public');
+            $category->update(['icon' => $path]);
+        }
+
+        if ($request->hasFile('banner_images')) {
+            foreach ($request->banner_images as $image) {
+                $imagePath = $image->store("category/{$category->id}/banners", 'public');
+                $category->banners()->create(['image' => $imagePath]);
+            }
+        }
         if ($category){
             Session()->flash('success', 'Category Created Successfully');
         }else{

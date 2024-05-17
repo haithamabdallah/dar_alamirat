@@ -21,7 +21,7 @@ class CategoryService {
 
     public function storeData(array $data)
     {
-        $data['slug'] = Str::slug($data['name']['en']);
+        $data['slug'] = isset($data['name']) ? Str::slug($data['name']['en']) : '';
 
         $category = Category::create($data);
 
