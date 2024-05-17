@@ -44,7 +44,7 @@ class AnnouncementSettingController extends Controller
         $announcements->save();
 
         // Redirect back with a success message
-        return back()->with('success', 'Announcement settings saved successfully!');
+        return redirect()->route('announcement.index')->with('success', 'Announcement settings saved successfully!');
     }
 
     /**

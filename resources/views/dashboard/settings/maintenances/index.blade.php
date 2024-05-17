@@ -73,7 +73,7 @@
                                 </td>
                                 <td>{{ $page->created_at->format('Y-m-d') }}</td>
                                 <td nowrap="">
-                                    <a href="{{route('Maintenance.edit' , $page->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> Edit</a>
+                                    <a href="{{route('maintenance.edit' , $page->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> Edit</a>
                                 </td>
                                 {{-- <td nowrap="">
                                     <form id="deleteForm{{$page->id}}" action="{{ route('announcement.destroy', $page->id) }}" method="POST">
