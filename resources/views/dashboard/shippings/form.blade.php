@@ -9,70 +9,6 @@
 @endsection
 
 @section('customcss')
-    <style>
-        .custom-file-upload {
-            border: solid;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .upload-area {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .file-input {
-            width: 100%;
-            height: 100%;
-            opacity: 0; /* Hide the default file input */
-            position: absolute;
-            top: 0;
-            left: 0;
-            cursor: pointer;
-        }
-
-        .icon-upload::before {
-            content: '\f093'; /* FontAwesome upload icon */
-            font-family: 'FontAwesome';
-            font-size: 24px;
-            color: #999;
-        }
-
-        .preview-area {
-            position: relative;
-            display: block;
-            justify-content: center;
-            align-items: center;
-            width: 200px; /* Width of the preview area */
-            height: 200px; /* Height of the preview area */
-            overflow: inherit; /* Hide the overflow to maintain the area size */
-        }
-
-        #imagePreview {
-            max-width: 100%;
-            max-height: 100%;
-            display: none; /* Hide until an image is selected */
-        }
-
-        .clear-image {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            font-size: 24px;
-            color: #999;
-            cursor: pointer;
-        }
-
-        /* Styling when user hovers over the upload area */
-        .custom-file-upload:hover .icon-upload::before {
-            color: #333;
-        }
-
-    </style>
 @endsection
 
 @section('content')
@@ -181,31 +117,4 @@
 @endsection
 
 @section('scripts')
-
-
-    <script>
-        function previewImage() {
-            var file = document.getElementById('formFile').files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var imgElement = document.getElementById('imagePreview');
-                var clearBtn = document.querySelector('.clear-image');
-                imgElement.src = e.target.result;
-                imgElement.style.display = 'block';
-                clearBtn.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearImage() {
-            var fileInput = document.getElementById('formFile');
-            var imgElement = document.getElementById('imagePreview');
-            var clearBtn = document.querySelector('.clear-image');
-            fileInput.value = ''; // Clear the file input
-            imgElement.src = '';
-            imgElement.style.display = 'none';
-            clearBtn.style.display = 'none';
-        }
-    </script>
-
 @endsection

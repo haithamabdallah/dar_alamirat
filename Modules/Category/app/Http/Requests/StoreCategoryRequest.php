@@ -12,9 +12,11 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name.*'=>'required',
-            'icon' => 'sometimes',
-            'priority' => 'sometimes',
+            'type' => 'required|in:default,banner',
+            'name.*' => 'required_if:type,default',
+            'icon' => 'required_if:type,default',
+            'priority' => 'required',
+            'banner_images' => 'required_if:type,banner',
         ];
     }
 

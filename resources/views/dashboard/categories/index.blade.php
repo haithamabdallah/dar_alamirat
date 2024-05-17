@@ -34,48 +34,44 @@
 
         @include('dashboard.layouts.alerts')
 
-        <!-- start card -->
-        <div class="card border-0">
-            <!-- content -->
-            <div class="tab-content p-3">
-                <!-- tab pane -->
-                <div class="tab-pane fade show active" id="allTab">
-
-                    <!-- BEGIN input-group -->
-                    <div class="input-group mb-3">
-                        <p class="btn btn-white dropdown-toggle"><span class="d-none d-md-inline">Filter By Category Name</span></p>
-                        <div class="flex-fill position-relative">
-                            <div class="input-group">
-                                <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 start-0" style="z-index: 1;">
-                                    <i class="fa fa-search opacity-5"></i>
-                                </div>
-                                <input type="text" id="searchForCategory" onkeyup="searchCategoryName()" class="form-control px-35px bg-light" placeholder="Search order Number..." />
+        <!-- BEGIN row -->
+        <div class="row mb-3">
+            <!-- BEGIN col-12 -->
+            <div class="col-xl-12">
+                @foreach($categories as $category)
+                    <!-- BEGIN panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+                        <!-- BEGIN panel-heading -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title">{{$category->name}}</h4>
+                            <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
                             </div>
                         </div>
-                    </div>
-                    <!-- END input-group -->
+                        <!-- END panel-heading -->
 
-                    <!-- table -->
-                    <div class="table-responsive mb-3">
-                        <table id="categoryTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
-                            <thead>
-                            <tr>
-                                <th width="1%"></th>
-                                <th class="text-nowrap" width="20%">Name</th>
-                                <th class="text-nowrap" width="20%">Slug</th>
-                                <th class="text-nowrap" width="5%">icon</th>
-                                <th class="text-nowrap" width="5%">Priority</th>
-                                <th class="text-nowrap" width="5%">status</th>
-                                <th class="text-nowrap" width="10%">created At</th>
-                                <th class="text-nowrap" width="5%">Edit</th>
-                                <th class="text-nowrap" width="5%">Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($categories as $category)
+                        <!-- BEGIN panel-body -->
+                        <div class="panel-body">
+                            <table id="categoryTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
+                                <thead>
+                                <tr>
+                                    <th width="1%"></th>
+                                    <th class="text-nowrap" width="20%">Slug</th>
+                                    <th class="text-nowrap" width="5%">icon</th>
+                                    <th class="text-nowrap" width="5%">Priority</th>
+                                    <th class="text-nowrap" width="5%">status</th>
+                                    <th class="text-nowrap" width="10%">created At</th>
+                                    <th class="text-nowrap" width="5%">Edit</th>
+                                    <th class="text-nowrap" width="5%">Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    <td>{{$category->name}}</td>
                                     <td>{{$category->slug}}</td>
                                     <td width="1%" class="with-img">
                                         <img src="{{storage_asset($category->icon)}}" class="rounded h-30px my-n1 mx-n1" />
@@ -101,29 +97,30 @@
                                         @endadminCan
                                     </td>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- ./table -->
 
-                    <!-- pagination -->
-                    <div class="d-md-flex align-items-center">
-                        <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                            Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries
+                                </tbody>
+                            </table>
                         </div>
-                        <ul class="pagination mb-0 justify-content-center">
-                            {{ $categories->links('pagination::bootstrap-4') }}
-                        </ul>
-                    </div>
-                    <!-- ./pagination -->
+                        <!-- ./END Panel-Body -->
 
-                </div>
-                <!-- ./tab pane -->
+                    </div>
+                    <!-- END Panel -->
+                @endforeach
             </div>
-            <!-- ./content -->
+            <!-- ./ENd col-12 -->
         </div>
-        <!-- ./end card -->
+        <!-- ./End Row -->
+
+        <!-- pagination -->
+        {{--<div class="d-md-flex align-items-center">
+            <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries
+            </div>
+            <ul class="pagination mb-0 justify-content-center">
+                {{ $categories->links('pagination::bootstrap-4') }}
+            </ul>
+        </div>--}}
+        <!-- ./pagination -->
     </div>
     <!-- END #content -->
 
