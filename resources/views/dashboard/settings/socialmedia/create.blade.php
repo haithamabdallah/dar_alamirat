@@ -115,6 +115,14 @@
                                     <select class="form-select @error('icon') is-invalid @enderror" id="icon" name="icon">
                                         <option value="fa-brands fa-facebook-f">Facebook</option>
                                         <option value="fab fa-twitter">Twitter</option>
+                                        <option value="fa-brands fa-snapchat">Snapchat</option>
+                                        <option value="fa-solid fa-envelope">Email</option>
+                                        <option value="fa-solid fa-phone">Phone</option>
+                                        <option value="fa-brands fa-instagram">Instagram</option>
+                                        <option value="fa-brands fa-tiktok">TikTok</option>
+                                        <option value="fa-brands fa-whatsapp">WhatsApp</option>
+
+
                                         <!-- Add more options for other icons -->
                                     </select>
                                     @error('icon')
@@ -125,7 +133,7 @@
                             <div class="row mb-15px">
                                 <div class="col-md-12">
                                     <label for="value">URL:</label>
-                                    <input type="url" class="form-control @error('value') is-invalid @enderror" id="value" name="value" placeholder="Enter URL">
+                                    <input type="text" class="form-control @error('value') is-invalid @enderror" id="value" name="value" placeholder="Enter URL">
                                     @error('value')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

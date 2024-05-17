@@ -13,9 +13,16 @@
                     </div>
                     <p>The largest gathering in the Kingdom of beauty, care and salon products</p>
                     <ul class="social-accounts">
-                        <li><a href=""><i class="sicon-instagram"></i></a></li>
-                        <li><a href=""><i class="sicon-snapchat"></i></a></li>
-                        <li><a href=""><i class="sicon-tiktok"></i></a></li>
+                        
+                        @isset($socialMedia)
+
+
+                        @foreach ( $socialMedia as $media)
+                        <li><a href="{{ $media->value }}"><i class="{{ $media->icon }}"></i>{{ $media->name }} </a></li>
+                        @endforeach
+                        @endisset
+                        {{-- <li><a href=""><i class="sicon-snapchat"></i></a></li> --}}
+                        {{-- <li><a href=""><i class="sicon-tiktok"></i></a></li> --}}
                     </ul>
                 </div>
                 <!-- ./item -->
