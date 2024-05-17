@@ -16,13 +16,12 @@ class CategoryService {
 
     public function getPaginatedData(array $data = [],int $paginate = 20 )
     {
-        return  Category::latest()->paginate($paginate);
+        return  Category::with('banners')->where('type','default')->orderByRaw('ISNULL(priority), priority ASC')->paginate($paginate);
     }
 
     public function getBannersData(array $data = [],int $paginate = 20 )
     {
-        dd(123);
-        return  Category::where('type','banner')->latest()->paginate($paginate);
+        return  Category::where('type','banner')->orderByRaw('ISNULL(priority), priority ASC')->paginate($paginate);
     }
 
     public function storeData(array $data)

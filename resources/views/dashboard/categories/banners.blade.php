@@ -43,7 +43,6 @@
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                         <!-- BEGIN panel-heading -->
                         <div class="panel-heading">
-                            <h4 class="panel-title">{{$category->name}}</h4>
                             <div class="panel-heading-btn">
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -59,8 +58,6 @@
                                 <thead>
                                 <tr>
                                     <th width="1%"></th>
-                                    <th class="text-nowrap" width="20%">Slug</th>
-                                    <th class="text-nowrap" width="5%">icon</th>
                                     <th class="text-nowrap" width="5%">Priority</th>
                                     <th class="text-nowrap" width="5%">status</th>
                                     <th class="text-nowrap" width="10%">created At</th>
@@ -72,10 +69,6 @@
 
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    <td>{{$category->slug}}</td>
-                                    <td width="1%" class="with-img">
-                                        <img src="{{storage_asset($category->icon)}}" class="rounded h-30px my-n1 mx-n1" />
-                                    </td>
                                     <td>{{$category->priority}}</td>
                                     {{-- <td>{{$category->status}}</td> --}}
                                     <td>

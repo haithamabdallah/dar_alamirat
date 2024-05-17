@@ -31,8 +31,7 @@ class Category extends Model
     /**
      * Get the products for the Category.
      */
-    public function banners()
-    {
+    public function banners() {
         return $this->hasMany(Banner::class);
     }
 

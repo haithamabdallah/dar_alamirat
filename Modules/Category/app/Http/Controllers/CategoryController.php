@@ -37,11 +37,11 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function bannersData()
+    public function banners()
     {
-        dd(123);
         $categories = $this->categoryService->getBannersData();
         return view('dashboard.categories.banners', compact('categories'));
+
     }
 
     /**
