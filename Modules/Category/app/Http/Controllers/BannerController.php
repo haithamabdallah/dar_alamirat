@@ -6,22 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Modules\Category\app\Services\CategoryService;
+use Modules\Category\app\Services\BannerService;
 use Modules\Category\app\ViewModels\BannerViewModel;
-use Modules\Category\app\ViewModels\CategoryViewModel;
-use Modules\Category\Http\Requests\StoreCategoryRequest;
-use Modules\Category\Http\Requests\UpdateCategoryRequest;
+use Modules\Category\Http\Requests\StoreBannerRequest;
+use Modules\Category\Http\Requests\UpdateBannerRequest;
 use Modules\Category\Models\Banner;
-use Modules\Category\Models\Category;
 
 class BannerController extends Controller
 {
-    protected $categoryService;
+    protected $bannerService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(BannerService $bannerService)
     {
-        $this->categoryService = $categoryService;
+        $this->bannerService = $bannerService;
         $this->middleware('permission:categories.read,admin', ['only' => ['index','bannersData']]);
         $this->middleware('permission:categories.create,admin', ['only' => ['create', 'store']]);
         $this->middleware('permission:categories.edit,admin', ['only' => ['edit', 'update']]);
@@ -33,7 +30,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = $this->categoryService->getBannersData();
+        $banners = $this->bannerService->getPaginatedData();
         return view('dashboard.categories.banners', compact('banners'));
     }
 
@@ -43,31 +40,33 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('dashboard.categories.banner_form' , new CategoryViewModel());
+        return view('dashboard.categories.banner_form' , new BannerViewModel());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request): RedirectResponse
+    public function store(StoreBannerRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
 
-        $category =$this->categoryService->storeData($validatedData);
+        if ($request->hasFile('image')) {
+            foreach ($request->image as $image) {
 
-        if ($request->hasFile('banner_images')) {
-            foreach ($request->banner_images as $image) {
-                $imagePath = $image->store("category/{$category->id}/banners", 'public');
-                $category->banners()->create(['image' => $imagePath]);
+                $banner =$this->bannerService->storeData(['image' => $image , 'priority' => $validatedData['priority']]);
+
+                $imagePath = $image->store("banner/{$banner->id}/banners", 'public');
+                $banner->update(['image' => $imagePath]);
             }
         }
-        if ($category){
-            Session()->flash('success', 'Category Created Successfully');
+
+        if ($banner){
+            Session()->flash('success', 'Banner Created Successfully');
         }else{
-            Session()->flash('error', 'Category didn\'t Created');
+            Session()->flash('error', 'Banner didn\'t Created');
         }
 
-        return redirect()->route('category.index');
+        return redirect()->route('banner.index');
     }
 
 
@@ -82,47 +81,48 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
+    public function update(UpdateBannerRequest $request, Banner $banner)
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->all();
 
-        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
-            if ($category->icon && Storage::disk('public')->exists($category->icon)) {
-                Storage::disk('public')->delete($category->icon);
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($banner->image && Storage::disk('public')->exists($banner->image)) {
+                Storage::disk('public')->delete($banner->image);
             }
 
-            $path = $request->file('icon')->store('category/img', 'public');
-            $validatedData['icon'] = $path;
+            $path = $request->file('image')->store("banner/{$banner->id}/banners", 'public');
+            $validatedData['image'] = $path;
         }
 
-        $category =$this->categoryService->updateData($validatedData , $category);
-        if ($category){
-            Session()->flash('success', 'Category Updated Successfully');
+        $banner =$this->bannerService->updateData($validatedData , $banner);
+
+        if ($banner){
+            Session()->flash('success', 'Banner Updated Successfully');
         }else{
-            Session()->flash('error', 'Category didn\'t Created');
+            Session()->flash('error', 'Banner didn\'t Created');
 
         }
 
-        return redirect()->route('category.index');
+        return redirect()->route('banner.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Banner $banner)
     {
-        if ($category->icon && Storage::disk('public')->exists($category->icon)) {
-            Storage::disk('public')->delete($category->icon);
+        if ($banner->image && Storage::disk('public')->exists($banner->image)) {
+            Storage::disk('public')->delete($banner->image);
         }
 
-        $category->delete();
-        Session()->flash('success', 'Category Deleted Successfully');
+        $banner->delete();
+        Session()->flash('success', 'Banner Deleted Successfully');
         return redirect()->back();
     }
 
-    public function changeStatus(Request $request,Category $category)
+    public function changeStatus(Request $request,Banner $banner)
     {
-        $category->update(['status' => $request->status]);
+        $banner->update(['status' => $request->status]);
         return response()->json(['message' => 'Status Changed Successfully'], 200);
     }
 }

@@ -16,7 +16,7 @@ class Category extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['name' , 'slug' , 'icon' , 'position' , 'priority', 'status' , 'type','parent_id'];
+    protected $fillable = ['name' , 'slug' , 'icon' , 'position' , 'priority', 'status' ,'parent_id'];
 
     public function parent()
     {
@@ -26,13 +26,6 @@ class Category extends Model
     public function childes()
     {
         return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    /**
-     * Get the products for the Category.
-     */
-    public function banners() {
-        return $this->hasMany(Banner::class);
     }
 
     /**
@@ -46,11 +39,6 @@ class Category extends Model
     public function scopeActive($query)
     {
         return $query->where('status', 1);
-    }
-
-    public function scopeCategoryBanners($query)
-    {
-        return $query->where('type' , 'banner');
     }
 
 }

@@ -19,4 +19,5 @@ Route::group(['middleware' => 'admin' , 'prefix'=>'dashboard'], function () {
     Route::resource('category', CategoryController::class)->names('category');
     Route::post('category/status/{category}', [CategoryController::class , 'changeStatus'])->name('category.status');
     Route::resource('banners', BannerController::class )->names('banner');
+    Route::post('banner/status/{banner}', [BannerController::class , 'changeStatus'])->name('banner.status');
 });

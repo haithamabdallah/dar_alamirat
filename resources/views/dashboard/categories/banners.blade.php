@@ -61,6 +61,7 @@
                             <thead>
                             <tr>
                                 <th width="1%"></th>
+                                <th class="text-nowrap" width="5%">#</th>
                                 <th class="text-nowrap" width="5%">Priority</th>
                                 <th class="text-nowrap" width="5%">Image</th>
                                 <th class="text-nowrap" width="5%">status</th>
@@ -73,13 +74,12 @@
                             @foreach($banners as $banner)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    <td>{{$banner->category->priority}}</td>
+                                    <td>{{$banner->priority}}</td>
                                     <td width="1%" class="with-img">
                                         <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>
-                                    {{-- <td>{{$category->status}}</td> --}}
                                     <td>
-                                        <input type="checkbox" class="switch-status" data-url="{{ route('category.status' , $banner->category_id) }}" @if($banner->category->status) checked @endif/>
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('banner.status' , $banner->id) }}" @if($banner->status) checked @endif/>
                                     </td>
                                     <td nowrap="">
                                         @adminCan('categories.edit')
@@ -88,7 +88,7 @@
                                     </td>
                                     <td nowrap="">
                                         @adminCan('categories.delete')
-                                        <form id="deleteForm{{$banner->id}}" action="{{ route('category.destroy', $banner->id) }}" method="POST">
+                                        <form id="deleteForm{{$banner->id}}" action="{{ route('banner.destroy', $banner->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <a class="btn delete-btn btn-danger" data-id="{{$banner->id}}"><i class="fa-solid fa-trash-can"></i> {{__('dashboard.category.delete')}}</a>

@@ -12,10 +12,6 @@ class Banner extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable =  ['category_id', 'image'];
+    protected $fillable =  ['priority', 'status' , 'image'];
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
 }
