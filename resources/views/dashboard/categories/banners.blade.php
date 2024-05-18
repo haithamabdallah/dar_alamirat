@@ -83,7 +83,7 @@
                                     </td>
                                     <td nowrap="">
                                         @adminCan('categories.edit')
-                                        <a href="{{route('category.edit' , $banner->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.category.edit')}}</a>
+                                        <a href="{{route('banner.edit' , $banner->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.category.edit')}}</a>
                                         @endadminCan
                                     </td>
                                     <td nowrap="">

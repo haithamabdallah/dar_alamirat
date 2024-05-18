@@ -8,9 +8,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Modules\Category\app\Services\CategoryService;
+use Modules\Category\app\ViewModels\BannerViewModel;
 use Modules\Category\app\ViewModels\CategoryViewModel;
 use Modules\Category\Http\Requests\StoreCategoryRequest;
 use Modules\Category\Http\Requests\UpdateCategoryRequest;
+use Modules\Category\Models\Banner;
 use Modules\Category\Models\Category;
 
 class BannerController extends Controller
@@ -53,11 +55,6 @@ class BannerController extends Controller
 
         $category =$this->categoryService->storeData($validatedData);
 
-        if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
-            $path = $request->icon->store("category/{$category->id}/img", 'public');
-            $category->update(['icon' => $path]);
-        }
-
         if ($request->hasFile('banner_images')) {
             foreach ($request->banner_images as $image) {
                 $imagePath = $image->store("category/{$category->id}/banners", 'public');
@@ -73,20 +70,13 @@ class BannerController extends Controller
         return redirect()->route('category.index');
     }
 
-    /**
-     * Show the specified resource.
-     */
-    public function show(Category $category)
-    {
-        return view('category::show');
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Banner $banner)
     {
-        return view('dashboard.categories.form' , new CategoryViewModel($category));
+        return view('dashboard.categories.banner_form' , new BannerViewModel($banner));
     }
 
     /**
