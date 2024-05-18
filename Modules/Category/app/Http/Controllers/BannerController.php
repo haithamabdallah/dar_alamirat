@@ -41,7 +41,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('dashboard.categories.form' , new CategoryViewModel());
+        return view('dashboard.categories.banner_form' , new CategoryViewModel());
     }
 
     /**

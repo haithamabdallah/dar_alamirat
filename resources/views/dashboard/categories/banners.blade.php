@@ -28,7 +28,7 @@
                 <h1 class="page-header mb-0">{{__('dashboard.categories')}}</h1>
             </div>
             <div class="ms-auto">
-                <a href="{{ route('category.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>{{__('dashboard.category.add')}}</a>
+                <a href="{{ route('banner.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>{{__('dashboard.category.add')}}</a>
             </div>
         </div>
 
@@ -62,6 +62,7 @@
                             <tr>
                                 <th width="1%"></th>
                                 <th class="text-nowrap" width="5%">Priority</th>
+                                <th class="text-nowrap" width="5%">Image</th>
                                 <th class="text-nowrap" width="5%">status</th>
                                 <th class="text-nowrap" width="5%">Edit</th>
                                 <th class="text-nowrap" width="5%">Delete</th>
@@ -69,37 +70,31 @@
                             </thead>
                             <tbody>
 
-                            @foreach($categories as $category)
+                            @foreach($banners as $banner)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-
+                                    <td>{{$banner->category->priority}}</td>
                                     <td width="1%" class="with-img">
-                                    @foreach($category->banners as $banner)
-                                        <td>
-                                            <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
-                                        </td>
-                                        @endforeach
-                                        </td>
-                                        <td>{{$category->priority}}</td>
-                                        {{-- <td>{{$category->status}}</td> --}}
-                                        <td>
-                                            <input type="checkbox" class="switch-status" data-url="{{ route('category.status' , $category->id) }}" @if($category->status) checked @endif/>
-                                        </td>
-                                        <td>{{$category->created_at->format('Y-m-d')}}</td>
-                                        <td nowrap="">
-                                            @adminCan('categories.edit')
-                                            <a href="{{route('category.edit' , $category->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.category.edit')}}</a>
-                                            @endadminCan
-                                        </td>
-                                        <td nowrap="">
-                                            @adminCan('categories.delete')
-                                            <form id="deleteForm{{$category->id}}" action="{{ route('category.destroy', $category->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <a class="btn delete-btn btn-danger" data-id="{{$category->id}}"><i class="fa-solid fa-trash-can"></i> {{__('dashboard.category.delete')}}</a>
-                                            </form>
-                                            @endadminCan
-                                        </td>
+                                        <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
+                                    </td>
+                                    {{-- <td>{{$category->status}}</td> --}}
+                                    <td>
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('category.status' , $banner->category_id) }}" @if($banner->category->status) checked @endif/>
+                                    </td>
+                                    <td nowrap="">
+                                        @adminCan('categories.edit')
+                                        <a href="{{route('category.edit' , $banner->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.category.edit')}}</a>
+                                        @endadminCan
+                                    </td>
+                                    <td nowrap="">
+                                        @adminCan('categories.delete')
+                                        <form id="deleteForm{{$banner->id}}" action="{{ route('category.destroy', $banner->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a class="btn delete-btn btn-danger" data-id="{{$banner->id}}"><i class="fa-solid fa-trash-can"></i> {{__('dashboard.category.delete')}}</a>
+                                        </form>
+                                        @endadminCan
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -110,10 +105,10 @@
                     <!-- pagination -->
                     <div class="d-md-flex align-items-center">
                         <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                            Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries
+                            Showing {{ $banners->firstItem() }} to {{ $banners->lastItem() }} of {{ $banners->total() }} entries
                         </div>
                         <ul class="pagination mb-0 justify-content-center">
-                            {{ $categories->links('pagination::bootstrap-4') }}
+                            {{ $banners->links('pagination::bootstrap-4') }}
                         </ul>
                     </div>
                     <!-- ./pagination -->
