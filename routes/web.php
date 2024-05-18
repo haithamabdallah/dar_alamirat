@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\SettingController;
 
@@ -121,6 +122,9 @@ Route::get('/brands', function (){
     return view('themes.theme1.brands');
 })->name('brands');
 
-Route::get('/footer', [SettingController::class,'viewFooter'])->name('footer');
+Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('sendOtp');
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOtp');
+Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOtp');
+
 
 

@@ -13,7 +13,7 @@
                     </div>
                     <p>The largest gathering in the Kingdom of beauty, care and salon products</p>
                     <ul class="social-accounts">
-                        
+
                         @isset($socialMedia)
 
 
