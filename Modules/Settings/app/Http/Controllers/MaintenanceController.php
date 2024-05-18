@@ -48,7 +48,7 @@ class MaintenanceController extends Controller
         $settings->save();
 
         // Redirect back with a success message
-        return back()->with('success', 'Maintenance settings saved successfully!');
+        return redirect()->route('maintenance.index')->with('success', 'Maintenance settings saved successfully!');
     }
 
     /**
@@ -73,23 +73,20 @@ class MaintenanceController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        //
+        // Validate the incoming request data
         $validatedData = $request->validate([
-
             'maintenance_title' => 'required|string',
             'maintenance_message' => 'required|string',
         ]);
 
+        // Find the existing MaintenanceSetting instance by ID
+        $settings = MaintenanceSetting::findOrFail($id);
 
-        $settings =new MaintenanceSetting();
-
-        $settings->maintenance_title = $validatedData['maintenance_title'];
-        $settings->maintenance_message = $validatedData['maintenance_message'];
-        $settings->save();
+        // Update the instance with the validated data
+        $settings->update($validatedData);
 
         // Redirect back with a success message
-        return back()->with('success', 'Maintenance settings saved successfully!');
- 
+        return redirect()->route('maintenance.index')->with('success', 'Maintenance settings updated successfully!');
     }
 
     /**

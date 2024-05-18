@@ -57,6 +57,12 @@
                                     <select class="form-select @error('icon') is-invalid @enderror" id="icon" name="icon">
                                         <option value="fa-brands fa-facebook-f" {{ old('icon', $socialMediaPlatform->icon) == 'fa-brands fa-facebook-f' ? 'selected' : '' }}>Facebook</option>
                                         <option value="fab fa-twitter" {{ old('icon', $socialMediaPlatform->icon) == 'fab fa-twitter' ? 'selected' : '' }}>Twitter</option>
+                                        <option value="fa-brands fa-instagram"{{ old('icon', $socialMediaPlatform->icon) == 'fa-brands fa-instagram' ? 'selected' : '' }}>Instagram</option>
+                                        <option value="fa-brands fa-snapchat"{{ old('icon', $socialMediaPlatform->icon) == 'fa-brands fa-snapchat' ? 'selected' : '' }}>Snapchat</option>
+                                        <option value="fa-solid fa-envelope"{{ old('icon', $socialMediaPlatform->icon) == 'fa-solid fa-envelope' ? 'selected' : '' }}>Email</option>
+                                        <option value="fa-solid fa-phone"{{ old('icon', $socialMediaPlatform->icon) == 'fa-solid fa-phone' ? 'selected' : '' }}>Phone</option>
+                                        <option value="fa-brands fa-tiktok"{{ old('icon', $socialMediaPlatform->icon) == 'fa-brands fa-tiktok' ? 'selected' : '' }}>TikTok</option>
+                                        <option value="fa-brands fa-whatsapp"{{ old('icon', $socialMediaPlatform->icon) == 'fa-brands fa-whatsapp' ? 'selected' : '' }}>WhatsApp</option>
                                         <!-- Add more options for other icons -->
                                     </select>
                                     @error('icon')
@@ -67,7 +73,7 @@
                             <div class="row mb-15px">
                                 <div class="col-md-12">
                                     <label for="value">URL:</label>
-                                    <input type="url" class="form-control @error('value') is-invalid @enderror" id="value" name="value" placeholder="Enter URL" value="{{ old('value', $socialMediaPlatform->value) }}">
+                                    <input type="text" class="form-control @error('value') is-invalid @enderror" id="value" name="value" placeholder="Enter URL" value="{{ old('value', $socialMediaPlatform->value) }}">
                                     @error('value')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

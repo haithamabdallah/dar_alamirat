@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\SettingController;
 
 
 /************************************ clients ****************************/
@@ -119,3 +120,7 @@ Route::get('/offers', function (){
 Route::get('/brands', function (){
     return view('themes.theme1.brands');
 })->name('brands');
+
+Route::get('/footer', [SettingController::class,'viewFooter'])->name('footer');
+
+
