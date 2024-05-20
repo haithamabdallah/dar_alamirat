@@ -26,7 +26,7 @@
 
             <!-- BEGIN col-6 -->
             <div class="col-xl-6">
-                <form action="" id="socialMedia">
+
                     <!-- BEGIN panel -->
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                         <!-- BEGIN panel-heading -->
@@ -43,52 +43,54 @@
 
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
+                            <form action="{{ route('social') }}" id="socialMedia" method="POST">
+                                @csrf
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-facebook-f"></i></div>
-                                    <input type="text" class="form-control" placeholder="facebook">
+                                    <input type="text" name="facebook" class="form-control" placeholder="facebook">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><span class="fab fa-twitter"></span></div>
-                                    <input type="text" class="form-control" placeholder="facebook">
+                                    <input type="text" name="twitter" class="form-control" placeholder="twitter">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-instagram"></i></div>
-                                    <input type="text" class="form-control" placeholder="facebook">
+                                    <input type="text" name="instagram" class="form-control" placeholder="instagram">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-youtube"></i></div>
-                                    <input type="text" class="form-control" placeholder="facebook">
+                                    <input type="text" name="youtube" class="form-control" placeholder="youtube">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-whatsapp"></i></div>
-                                    <input type="text" class="form-control" placeholder="facebook">
+                                    <input type="text" name="whatsapp" class="form-control" placeholder="whatsapp">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-tiktok"></i></div>
-                                    <input type="text" class="form-control" placeholder="facebook">
+                                    <input type="text" name="tiktok" class="form-control" placeholder="tiktok">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-snapchat"></i></div>
-                                    <input type="text" class="form-control" placeholder="facebook">
+                                    <input type="text" name="snapchat" class="form-control" placeholder="snapchat">
                                 </div>
                             </div>
 
@@ -97,13 +99,13 @@
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
-
+                        </form>
                         </div>
                         <!-- END panel-body -->
 
                     </div>
                     <!-- END panel -->
-                </form>
+
             </div>
             <!-- END col-6 -->
 

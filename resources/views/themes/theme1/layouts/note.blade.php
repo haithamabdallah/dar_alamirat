@@ -4,7 +4,14 @@
             <div class="alert alert-dismissible fade show" role="alert">
                 <div class="message">
                     <i class="sicon-banknote-dollar"></i>
-                    <p>happy Mother's Day! Use code [MOTHER] and save 10% + free shipping on orders over 100 riyals</p>
+
+
+                    <p>happy Mother's Day! Use code [MOTHER] and save 10% + free shipping on orders over 100 riyals
+                        @foreach($settings->where('type', 'general') as $setting)
+         {{ $setting->value['website_name'] }}
+               @endforeach
+
+                    </p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>

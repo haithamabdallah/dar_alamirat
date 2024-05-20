@@ -46,4 +46,54 @@ class SettingsController extends Controller
 
         return redirect()->route('site-info.index')->with('success', 'setting saved successfully');
     }
+    public function saveSocialMedia(Request $request)
+    {
+        $facebook = $request->input('facebook');
+        $twitter = $request->input('twitter');
+        $instagram = $request->input('instagram');
+        $youtube = $request->input('youtube');
+        $whatsapp = $request->input('whatsapp');
+        $tiktok = $request->input('tiktok');
+        $snapchat = $request->input('snapchat');
+
+        $setting = new Setting();
+        $setting->type = 'social_media';
+        $setting->value = [
+            'facebook' => $facebook,
+            'twitter' => $twitter,
+            'instagram' => $instagram,
+            'youtube' => $youtube,
+            'whatsapp' => $whatsapp,
+            'tiktok' => $tiktok,
+            'snapchat' => $snapchat,
+        ];
+        $setting->save();
+
+
+        return redirect()->route('socialMedia.index')->with('success', 'Social saved successfully');
+    }
+    public function saveAnnouncements(Request $request)
+{
+
+
+    $announcementMode = $request->input('announcement_mode');
+    $announcementMessage = $request->input('announcement_message');
+
+
+    $setting = new Setting();
+    $setting->type = 'announcement';
+
+    // Update the settings value with the new data
+    $setting->value = [
+        'announcements_mode' => $announcementMode,
+        'announcement_message' => $announcementMessage,
+    ];
+
+    // Save the settings
+    $setting->save();
+
+    return redirect()->route('announcement.index')->with('success', 'announcment saved successfully');
+}
+
+
 }

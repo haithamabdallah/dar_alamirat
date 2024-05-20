@@ -129,3 +129,5 @@ Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOt
 
 
 Route::post('site-info-store', [SettingsController::class,'siteInfo'])->name('site');
+Route::post('social-store', [SettingsController::class,'saveSocialMedia'])->name('social');
+Route::post('announcement-store', [SettingsController::class,'saveAnnouncements'])->name('announcement');

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         });
         View::composer('*', function ($view) {
             $settings = Cache::remember('settings', now()->addHours(24), function () {
-                return Setting::get();
+                return Setting::all();
             });
 
             $view->with('settings', $settings);
