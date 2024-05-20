@@ -128,6 +128,10 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOt
 Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOtp');
 
 
-Route::post('site-info-store', [SettingsController::class,'siteInfo'])->name('site');
-Route::post('social-store', [SettingsController::class,'saveSocialMedia'])->name('social');
-Route::post('announcement-store', [SettingsController::class,'saveAnnouncements'])->name('announcement');
+Route::prefix('settings')->group(function () {
+    Route::post('site-info-store', [SettingsController::class, 'siteInfo'])->name('site');
+    Route::post('social-store', [SettingsController::class, 'saveSocialMedia'])->name('social');
+    Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
+    Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
+});
+

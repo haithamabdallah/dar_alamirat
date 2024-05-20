@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Modules\Page\Models\Page;
 use Modules\Settings\Models\Social;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
@@ -28,11 +29,13 @@ class AppServiceProvider extends ServiceProvider
             return auth('admin')->user()->can($permission);
         });
         View::composer('*', function ($view) {
-            $settings = Cache::remember('settings', now()->addHours(1), function () {
-                return Setting::all();
-            });
+            $settings =Setting::all();
+            $pages=Page::all();
 
-            $view->with('settings', $settings);
+            $view->with([
+                'settings'=> $settings,
+                'pages' => $pages
+            ]);
         });
     }
 }

@@ -28,7 +28,7 @@
 
             <!-- BEGIN col-6 -->
             <div class="col-xl-6">
-                <form action="" id="maintenanceMode">
+
 
                     <!-- BEGIN panel -->
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
@@ -46,27 +46,35 @@
 
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
+                            <form action="{{ route('maintenance') }}" id="maintenanceMode" method="POST">
+                                @csrf
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-10">
                                     <span>Maintenance Mode</span>
                                     <h6>After activating operation mode, you will log in to the demo store on the device, while customers appear on the maintenance page.</h6>
                                 </label>
-                                <div class="col-sm-2">
-                                    <input type="checkbox" class="switch-status" checked/>
-                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" class="" name="maintenance_mode" value="enabled" >
+                                <label for="maintenance_mode">Enabled</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" class="" name="maintenance_mode" value="disabled" >
+                                <label for="maintenance_mode">Disabled</label>
                             </div>
 
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Maintenance Title</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" rows="3" placeholder="we back soon"></textarea>
+                                    <textarea class="form-control" name="maintenance_title" rows="3" placeholder="we back soon"></textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Maintenance Message</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP"></textarea>
+                                    <textarea class="form-control" name="maintenance_message" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP"></textarea>
                                 </div>
                             </div>
 
@@ -75,14 +83,14 @@
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
-
+                        </form>
                         </div>
                         <!-- END panel-body -->
 
                     </div>
                     <!-- END panel -->
 
-                </form>
+
             </div>
             <!-- END col-6 -->
 

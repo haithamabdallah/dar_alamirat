@@ -96,4 +96,33 @@ class SettingsController extends Controller
 }
 
 
+
+public function saveMaintenances(Request $request)
+{
+
+
+    $maintenanceMode = $request->input('maintenance_mode');
+    $maintenanceMode = $request->input('maintenance_message');
+    $maintenanceTitle=$request->input('maintenance_title');
+
+
+    $setting = new Setting();
+    $setting->type = 'maintenance';
+
+    // Update the settings value with the new data
+    $setting->value = [
+        'maintenance_mode' => $maintenanceMode,
+        'maintenance_message' => $maintenanceMode,
+        'maintenance_title'=>$maintenanceTitle,
+    ];
+
+    // Save the settings
+    $setting->save();
+
+    return redirect()->route('maintenance.index')->with('success', 'maintenance saved successfully');
+}
+
+
+
+
 }

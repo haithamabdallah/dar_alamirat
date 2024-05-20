@@ -30,4 +30,24 @@ class Setting extends Model
             'value' => 'json',
         ];
     }
+
+
+
+    //  // Accessor for website_icon field
+    //  public function getWebsiteIconAttribute($value)
+    //  {
+    //      if ($value) {
+    //          return asset('storage/' . $value);
+    //      }
+    //      return null;
+    //  }
+
+    //  // Accessor for website_logo field
+    //  public function getWebsiteLogoAttribute($value)
+    //  {
+    //      if ($value) {
+    //          return asset('storage/' . $value);
+    //      }
+    //      return null;
+    //  }
 }

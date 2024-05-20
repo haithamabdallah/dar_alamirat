@@ -14,6 +14,7 @@ class AuthController extends Controller
     //
     public function sendOtp(Request $request)
     {
+
         $request->validate(['email' => 'required|email']);
         $otp = rand(1000, 9999);
 
@@ -30,23 +31,21 @@ class AuthController extends Controller
         return response()->json(['success' => true]);
     }
 
+
     public function verifyOtp(Request $request)
     {
-        dd('');
         $request->validate(['otp' => 'required|array|size:4', 'email' => 'required|email']);
         $otp = implode('', $request->otp);
         $otpRecord = Otp::where('email', $request->email)
-                         ->where('otp', $otp)
-                         ->where('expires_at', '>', Carbon::now())
-                         ->first();
-                         dd('login');
+                        ->where('otp', $otp)
+                        ->where('expires_at', '>', Carbon::now())
+                        ->first();
+
         if ($otpRecord) {
-
             $otpRecord->delete();  // Optional: Delete the OTP after successful verification
-
-            return redirect()->route('index')->with('message', 'Logged in successfully!');
+            return response()->json(['success' => true, 'message' => 'Logged in successfully!']);
         } else {
-            return back()->withErrors(['otp' => 'Invalid or expired OTP']);
+            return response()->json(['success' => false, 'message' => 'Invalid or expired OTP']);
         }
     }
 

@@ -6,8 +6,12 @@
                     <i class="sicon-banknote-dollar"></i>
 
 
-                    <p>happy Mother's Day! Use code [MOTHER] and save 10% + free shipping on orders over 100 riyals
+                    @foreach($settings->where('type', 'announcement') as $setting)
+                    <p>
+                        {{ $setting->value['announcement_message'] }}
+
                     </p>
+                    @endforeach
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
