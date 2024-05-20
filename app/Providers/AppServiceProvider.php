@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
             return auth('admin')->user()->can($permission);
         });
         View::composer('*', function ($view) {
-            $settings = Cache::remember('settings', now()->addHours(24), function () {
+            $settings = Cache::remember('settings', now()->addHours(1), function () {
                 return Setting::all();
             });
 

@@ -7,10 +7,6 @@
 
 
                     <p>happy Mother's Day! Use code [MOTHER] and save 10% + free shipping on orders over 100 riyals
-                        @foreach($settings->where('type', 'general') as $setting)
-         {{ $setting->value['website_name'] }}
-               @endforeach
-
                     </p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
