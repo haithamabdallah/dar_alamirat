@@ -5,7 +5,6 @@ namespace Modules\Category\app\Services;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Modules\Category\Models\Banner;
 use Modules\Category\Models\Category;
 
 class CategoryService {
@@ -22,9 +21,7 @@ class CategoryService {
 
     public function getBannersData(array $data = [],int $paginate = 20 )
     {
-        return Banner::with(['category' => function ($query) use ($paginate) {
-            $query->orderByRaw('ISNULL(priority), priority ASC');
-        }])->paginate($paginate);
+        return  Category::where('type','banner')->orderByRaw('ISNULL(priority), priority ASC')->paginate($paginate);
     }
 
     public function storeData(array $data)

@@ -4,7 +4,7 @@ namespace Modules\Category\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateBannerRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,16 +12,15 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name.*' => 'required',
-            'icon' => 'required',
             'priority' => 'required',
+            'image' => 'sometimes',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.en.required'  => __('validation.name_en_required'),
+            'priority.required'  => __('validation.name_en_required'),
         ];
     }
 
