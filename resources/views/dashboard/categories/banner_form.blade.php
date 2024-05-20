@@ -2,7 +2,7 @@
 
 @section('meta')
     <meta charset="utf-8" />
-    <title>{{__('dashboard.category.add')}}</title>
+    <title>{{__('dashboard.banner.add')}}</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -99,12 +99,12 @@
         <!-- BEGIN breadcrumb -->
         <ol class="breadcrumb float-xl-end">
             <li class="breadcrumb-item"><a href="javascript:;">{{__('dashboard.dashboard')}}</a></li>
-            <li class="breadcrumb-item"><a href="{{route('category.index')}}">{{__('dashboard.categories')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('banner.index')}}">{{__('dashboard.banners')}}</a></li>
             <li class="breadcrumb-item active">
                 @if($method == 'PUT')
-                    {{__('dashboard.category.edit')}}
+                    {{__('dashboard.banner.edit')}}
                 @else
-                    {{__('dashboard.category.add')}}
+                    {{__('dashboard.banner.add')}}
                 @endif
             </li>
         </ol>
@@ -131,9 +131,9 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             @if($method == 'PUT')
-                                {{__('dashboard.category.edit')}}
+                                {{__('dashboard.banner.edit')}}
                             @else
-                                {{__('dashboard.category.add')}}
+                                {{__('dashboard.banner.add')}}
                             @endif
                         </h4>
                         <div class="panel-heading-btn">
