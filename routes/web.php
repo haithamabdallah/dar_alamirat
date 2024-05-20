@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\SettingController;
+use App\Http\Controllers\Dashboard\SettingsController;
 
 
 /************************************ clients ****************************/
@@ -127,4 +128,4 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOt
 Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOtp');
 
 
-
+Route::post('site-info-store', [SettingsController::class,'siteInfo'])->name('site');

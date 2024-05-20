@@ -14,11 +14,11 @@
                     <p>The largest gathering in the Kingdom of beauty, care and salon products</p>
                     <ul class="social-accounts">
 
-                        @isset($socialMedia)
+                        @isset($Settings)
 
 
-                        @foreach ( $socialMedia as $media)
-                        <li><a href="{{ $media->value }}"><i class="{{ $media->icon }}"></i>{{ $media->name }} </a></li>
+                        @foreach ( $Settings as $media)
+                        {{-- <li><a href="{{ $media->value }}"><i class="{{ $media->icon }}"></i>{{ $media->name }} </a></li> --}}
                         @endforeach
                         @endisset
                         {{-- <li><a href=""><i class="sicon-snapchat"></i></a></li> --}}

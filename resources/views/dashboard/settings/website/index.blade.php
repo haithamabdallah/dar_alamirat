@@ -28,7 +28,7 @@
 
             <!-- BEGIN col-6 -->
             <div class="col-xl-6">
-                <form action="" id="siteInfo">
+
                     <!-- BEGIN panel -->
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                         <!-- BEGIN panel-heading -->
@@ -45,50 +45,39 @@
 
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
+                            <form action="{{ route('site') }}" id="siteInfo" method="POST" enctype="multipart/form-data">
+                                @csrf
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Logo</label>
                                 <div class="col-sm-9">
-                                    <div id="dropzone">
-                                        <div action="/upload" class="dropzone needsclick" id="demo-upload">
-                                            <div class="dz-message needsclick">
-                                                Drop files <b>here</b> or <b>click</b> to upload.
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="file" name="website_logo" class="form-control">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Name</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" placeholder="Website Name"  />
+                                    <input class="form-control" name="website_name" type="text" placeholder="Website Name"  />
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Description</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" placeholder="Website Description"  />
+                                    <input class="form-control" name="website_description" type="text" placeholder="Website Description"  />
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Address</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" placeholder="Website Address"  />
+                                    <input class="form-control" name="website_address" type="text" placeholder="Website Address"  />
                                 </div>
                             </div>
-
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Icon</label>
                                 <div class="col-sm-9">
-                                    <div id="dropzone">
-                                        <div action="/upload" class="dropzone needsclick" id="demo-upload2">
-                                            <div class="dz-message needsclick">
-                                                Drop files <b>here</b> or <b>click</b> to upload.
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="file" name="website_icon" class="form-control">
                                 </div>
                             </div>
 
@@ -97,13 +86,13 @@
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
-
+                        </form>
                         </div>
                         <!-- END panel-body -->
 
                     </div>
                     <!-- END panel -->
-                </form>
+
             </div>
             <!-- END col-6 -->
 

@@ -10,6 +10,7 @@
                 <!-- logo -->
                 <div class="logo">
                     <a href="index.php">
+                        
                         <img src="{{asset('theme1-assets/images/logo/dar-logo3.svg')}}" alt="">
                     </a>
                 </div>
