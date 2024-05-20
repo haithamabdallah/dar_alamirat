@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\SettingController;
+use App\Http\Controllers\Dashboard\SettingsController;
 
 
 /************************************ clients ****************************/
@@ -121,6 +123,15 @@ Route::get('/brands', function (){
     return view('themes.theme1.brands');
 })->name('brands');
 
-Route::get('/footer', [SettingController::class,'viewFooter'])->name('footer');
+Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('sendOtp');
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOtp');
+Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOtp');
 
+
+Route::prefix('settings')->group(function () {
+    Route::post('site-info-store', [SettingsController::class, 'siteInfo'])->name('site');
+    Route::post('social-store', [SettingsController::class, 'saveSocialMedia'])->name('social');
+    Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
+    Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
+});
 

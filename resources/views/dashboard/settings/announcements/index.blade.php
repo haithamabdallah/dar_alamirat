@@ -17,11 +17,7 @@
             <li class="breadcrumb-item active">Announcements</li>
         </ol>
         <!-- END breadcrumb -->
-        @if ($announcements->isEmpty())
-        <div class="ms-auto">
-            <a href="{{ route('announcement.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{ __('dashboard.page.add') }}</a>
-        </div>
-    @endif
+
         <!-- BEGIN page-header -->
         <h1 class="page-header">Announcements</h1>
         <!-- END page-header -->
@@ -29,73 +25,64 @@
         <!-- BEGIN row -->
         <div class="row mb-3">
 
-            <!-- BEGIN col-12 -->
-            <div class="col-xl-12">
+            <!-- BEGIN col-6 -->
+            <div class="col-xl-6">
 
-                <!-- BEGIN panel -->
-                <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-                    <!-- BEGIN panel-heading -->
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Announcements</h4>
-                        <div class="panel-heading-btn">
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+                    <!-- BEGIN panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+                        <!-- BEGIN panel-heading -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title">announcements</h4>
+                            <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+                            </div>
                         </div>
+                        <!-- END panel-heading -->
+
+                        <!-- BEGIN panel-body -->
+                        <div class="panel-body">
+                            <form action="{{ route('announcement') }}" id="announcements" method="POST">
+                                @csrf
+                            <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-10">
+                                    <span>announcements Mode</span>
+                                    <h6>After activating announcements mode, Note banner will appear on top of the website for any announcement.</h6>
+                                </label>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" class="" name="announcement_mode" value="enabled" >
+                                <label for="announcement_mode">Enabled</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" class="" name="announcement_mode" value="disabled" >
+                                <label for="announcement_mode">Disabled</label>
+                            </div>
+
+                            <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-3">Announcements Message</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" name="announcement_message" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row mb-15px">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                        <!-- END panel-body -->
+
                     </div>
-                    <!-- END panel-heading -->
-
-                   <!-- table -->
-                   <div class="table-responsive mb-3">
-                    <table id="pagesTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
-                        <thead>
-                        <tr>
-                            <th width="1%"></th>
-                            <th class="text-nowrap" width="40%">Message</th>
-                            <th class="text-nowrap" width="5%">Announcement Mode</th>
-                            <th class="text-nowrap" width="20%">created At</th>
-                            <th class="text-nowrap" width="5%">Edit</th>
-                            {{-- <th class="text-nowrap" width="5%">Delete</th> --}}
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($announcements  as $page)
-                            <tr class="odd gradeX">
-                                <td width="1%" class="fw-bold text-dark">{{ $page->id }}</td>
-                                <td>{{ $page->announcement_message }}</td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input id="toggleStatusCheckbox{{ $page->id }}"
-                                            class="form-check-input toggle-status-checkbox {{ $page->announcement_mode ? '1' : '0' }}"
-                                            type="checkbox" {{ $page->announcement_mode ? 'checked' : '' }}>
-                                    </div>
-                                </td>
-                                <td>{{ $page->created_at->format('Y-m-d') }}</td>
-                                <td nowrap="">
-                                    <a href="{{route('announcement.edit' , $page->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                </td>
-                                {{-- <td nowrap="">
-                                    <form id="deleteForm{{$page->id}}" action="{{ route('announcement.destroy', $page->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a class="btn delete-btn btn-danger" data-id="{{$page->id}}"><i class="fa-solid fa-trash-can"></i> Delete</a>
-                                    </form>
-                                </td> --}}
-                            </tr>
-                            @empty
-                            <p>No Pages Found </p>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <!-- ./table -->
-
-                </div>
-                <!-- END panel -->
+                    <!-- END panel -->
 
             </div>
-            <!-- END col-12 -->
+            <!-- END col-6 -->
 
         </div>
         <!-- ./row -->
@@ -108,40 +95,12 @@
 @section('scripts')
     <script src="{{ asset('admin-panel/assets/plugins/dropzone/dist/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
-    <script>
+    {{-- <script>
         var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-status'));
         elems.forEach(function(html) {
             var switchery = new Switchery(html, {
                 color: '#00acac'
             });
         });
-    </script>
-       <script>
-        $(document).ready(function() {
-
-            $('.toggle-status-checkbox').change(function() {
-                var isActive = $(this).is(':checked');
-                var modelId = $(this).attr('id').replace('toggleStatusCheckbox', '');
-
-                $.ajax({
-                    url: '{{ route('announcement.toggle-status') }}',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        isActive: isActive,
-                        modelId: modelId
-                    },
-                    success: function(response) {
-                        // Handle success response
-                        console.log(response);
-                    },
-                    error: function(xhr) {
-                        // Handle error response
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
-
+    </script> --}}
 @endsection

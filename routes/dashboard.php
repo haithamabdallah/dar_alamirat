@@ -19,4 +19,5 @@ Route::group(['as' => 'auth.'], function () {
 
 Route::group(['middleware' => 'admin' ,'prefix' => 'settings', 'as' => 'settings.',] , function (){
    Route::get('/', [SettingsController::class , 'companyInfo'])->name('index');
+   
 });

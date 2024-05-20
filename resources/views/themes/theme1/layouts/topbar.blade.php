@@ -36,9 +36,9 @@
                 </div>
                 <div class="right">
                     <ul>
-                        <li><a target="_self" href="terms.php" class="topnav-link-item">Terms of use and privacy policy</a></li>
-                        <li><a target="_self" href="return-policy.php" class="topnav-link-item">Return Policy</a></li>
-                        <li><a target="_self" href="shipping.php" class="topnav-link-item">Shipping and delivery</a></li>
+                        @foreach ($pages as $page)
+                        <li><a target="_self" href="terms.php" class="topnav-link-item">{{ $page->name }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

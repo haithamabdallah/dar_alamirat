@@ -28,7 +28,7 @@
 
             <!-- BEGIN col-6 -->
             <div class="col-xl-6">
-
+                <form action="" id="siteInfo">
                     <!-- BEGIN panel -->
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                         <!-- BEGIN panel-heading -->
@@ -45,7 +45,6 @@
 
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
-                            {{-- <form action="" id="siteInfo">
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Logo</label>
                                 <div class="col-sm-9">
@@ -98,53 +97,13 @@
                                     <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
-                            </form> --}}
-                            <form action="{{ route('site-info.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row mb-15px">
-                                    <label class="form-label col-form-label col-md-3">Website Logo</label>
-                                    <div class="col-sm-9">
-                                        <div id="dropzone-logo" class="dropzone"></div>
-                                        <input type="hidden" name="website_logo" id="website_logo">
-                                    </div>
-                                </div>
-                                <div class="row mb-15px">
-                                    <label class="form-label col-form-label col-md-3">Website Name</label>
-                                    <div class="col-sm-9">
-                                        <input class="form-control" type="text" name="website_name" placeholder="Website Name" required />
-                                    </div>
-                                </div>
-                                <div class="row mb-15px">
-                                    <label class="form-label col-form-label col-md-3">Website Description</label>
-                                    <div class="col-sm-9">
-                                        <input class="form-control" type="text" name="website_description" placeholder="Website Description" required />
-                                    </div>
-                                </div>
-                                <div class="row mb-15px">
-                                    <label class="form-label col-form-label col-md-3">Website Address</label>
-                                    <div class="col-sm-9">
-                                        <input class="form-control" type="text" name="website_address" placeholder="Website Address" required />
-                                    </div>
-                                </div>
-                                <div class="row mb-15px">
-                                    <label class="form-label col-form-label col-md-3">Website Icon</label>
-                                    <div class="col-sm-9">
-                                        <div id="dropzone-icon" class="dropzone"></div>
-                                        <input type="hidden" name="website_icon" id="website_icon">
-                                    </div>
-                                </div>
-                                <div class="row mb-15px">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
-                                    </div>
-                                </div>
-                            </form>
+
                         </div>
                         <!-- END panel-body -->
 
                     </div>
                     <!-- END panel -->
-
+                </form>
             </div>
             <!-- END col-6 -->
 
@@ -157,27 +116,14 @@
 @endsection
 
 @section('scripts')
-   <!-- Include Dropzone.js -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
-
-<script>
-    Dropzone.options.dropzoneLogo = {
-        url: '{{ route('site-info.upload') }}',
-        maxFiles: 1,
-        acceptedFiles: 'image/*',
-        success: function(file, response) {
-            document.getElementById('website_logo').value = response.path;
-        }
-    };
-
-    Dropzone.options.dropzoneIcon = {
-        url: '{{ route('site-info.upload') }}',
-        maxFiles: 1,
-        acceptedFiles: 'image/*',
-        success: function(file, response) {
-            document.getElementById('website_icon').value = response.path;
-        }
-    };
-</script>
+    <script src="{{ asset('admin-panel/assets/plugins/dropzone/dist/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
+    <script>
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-status'));
+        elems.forEach(function(html) {
+            var switchery = new Switchery(html, {
+                color: '#00acac'
+            });
+        });
+    </script>
 @endsection
