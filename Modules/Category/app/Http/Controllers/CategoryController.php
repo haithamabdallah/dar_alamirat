@@ -57,12 +57,6 @@ class CategoryController extends Controller
             $category->update(['icon' => $path]);
         }
 
-        if ($request->hasFile('banner_images')) {
-            foreach ($request->banner_images as $image) {
-                $imagePath = $image->store("category/{$category->id}/banners", 'public');
-                $category->banners()->create(['image' => $imagePath]);
-            }
-        }
         if ($category){
             Session()->flash('success', 'Category Created Successfully');
         }else{

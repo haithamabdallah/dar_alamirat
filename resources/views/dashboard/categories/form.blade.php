@@ -157,19 +157,8 @@
                             @csrf
                             @method($method)
 
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Category Type :</label>
-                                <div class="col-sm-9">
-                                    <select class="default-select2 form-control" name="type" id="categoryType" required>
-                                        <option selected disabled> Select Type </option>
-                                        <option value="default"> Default </option>
-                                        <option value="banner"> Banner </option>
-                                    </select>
-                                </div>
-                            </div>
-
                             @foreach (Config('language') as $key => $lang)
-                                <div class="row mb-15px categoryDetails" style="display: none;">
+                                <div class="row mb-15px" >
                                     <label class="form-label col-form-label col-md-3">Name In {{ $lang }} :</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control form-control-solid" value="{{ old('name.'.$key) ?? $category->getTranslation('name',$key)}}" placeholder="{{ 'name-'.$lang }}" name="name[{{ $key }}]" />
@@ -199,7 +188,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-15px categoryDetails" style="display: none;">
+                            <div class="row mb-15px" >
                                 <label class="form-label col-form-label col-md-3">Category image :</label>
                                 <div class="col-md-9">
                                     <div class="custom-file-upload">
@@ -218,23 +207,6 @@
                                         <img id="imagePreview" src="{{  storage_asset($category->icon) ?? ''}}" alt="Image preview" style="display: {{isset($category->icon) ?'block' : 'none'}};" width="200" height="200">
                                         <div class="clear-image" onclick="clearImage();" style="display: none;">&times;</div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-15px" id="bannerImagesRow" style="display: none;">
-                                <label class="form-label col-form-label col-md-3">Banner Images </label>
-                                <div class="col-sm-9">
-                                    <div class="custom-file-upload">
-                                        <label for="formFile" class="upload-area">
-                                            <div class="icon-upload form-control"> <span class="p-1">Upload Banner Images </span></div>
-                                            <input class="file-input" name="banner_images[]" type="file" accept=".png, .jpg, .jpeg ,.svg ,.webp" multiple />
-                                        </label>
-                                    </div>
-                                    @error('icon')
-                                    <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -285,30 +257,6 @@
             imgElement.style.display = 'none';
             clearBtn.style.display = 'none';
         }
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#categoryType').change(function() {
-                var selectedType = $(this).val();
-                if (selectedType === 'banner') {
-                    $('#bannerImagesRow').show();
-                } else {
-                    $('#bannerImagesRow').hide();
-                }
-            });
-        });
-
-        $(document).ready(function() {
-            $('#categoryType').change(function() {
-                var selectedType = $(this).val();
-                if (selectedType === 'default') {
-                    $('.categoryDetails').show();
-                } else {
-                    $('.categoryDetails').hide();
-                }
-            });
-        });
     </script>
 
 @endsection

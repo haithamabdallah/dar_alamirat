@@ -55,7 +55,7 @@ class BannerController extends Controller
 
                 $banner =$this->bannerService->storeData(['image' => $image , 'priority' => $validatedData['priority']]);
 
-                $imagePath = $image->store("banner/{$banner->id}/banners", 'public');
+                $imagePath = $image->store("banners/{$banner->id}", 'public');
                 $banner->update(['image' => $imagePath]);
             }
         }
@@ -90,7 +90,7 @@ class BannerController extends Controller
                 Storage::disk('public')->delete($banner->image);
             }
 
-            $path = $request->file('image')->store("banner/{$banner->id}/banners", 'public');
+            $path = $request->file('image')->store("banners/{$banner->id}", 'public');
             $validatedData['image'] = $path;
         }
 
