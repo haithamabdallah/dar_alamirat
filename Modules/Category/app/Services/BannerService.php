@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Category\Models\Banner;
+use Modules\Category\Models\Category;
 
 class BannerService {
 
@@ -26,6 +27,14 @@ class BannerService {
 
     public function storeData(array $data)
     {
+        $category = Category::create([
+            'type' => 'banner',
+            'name' => '',
+            'slug' => '',
+            'priority' => $data['priority'],
+            ]);
+        $data['category_id'] = $category->id;
+
         $banner = Banner::create($data);
         return  $banner;
     }

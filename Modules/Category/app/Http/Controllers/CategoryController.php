@@ -34,15 +34,6 @@ class CategoryController extends Controller
         $categories = $this->categoryService->getPaginatedData();
         return view('dashboard.categories.index', compact('categories'));
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function banners()
-    {
-        $categories = $this->categoryService->getBannersData();
-        return view('dashboard.categories.banners', compact('categories'));
-
-    }
 
     /**
      * Show the form for creating a new resource.

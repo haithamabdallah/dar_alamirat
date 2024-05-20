@@ -61,7 +61,6 @@
                             <thead>
                             <tr>
                                 <th width="1%"></th>
-                                <th class="text-nowrap" width="5%">#</th>
                                 <th class="text-nowrap" width="5%">Priority</th>
                                 <th class="text-nowrap" width="5%">Image</th>
                                 <th class="text-nowrap" width="5%">status</th>
