@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
 
@@ -30,6 +31,7 @@ class HomeController extends Controller
         }
 
         $products = Product::active()->limit(3)->get();
+        $brands = Brand::active()->limit(15)->get();
         return view('themes.theme1.index' , get_defined_vars());
     }
 

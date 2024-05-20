@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-
+use Modules\Category\Models\Category;
 
 if (!function_exists('setting'))
 {
@@ -13,10 +13,10 @@ if (!function_exists('setting'))
     {
         $lang     =  $lang == null ? app()->getLocale() : $lang;
         $settings = Cache::get('settings') == null ?
-                            Cache::rememberForever('settings', function () {
-                                    return Setting::get();
-                                })
-                             : Cache::get('settings');
+            Cache::rememberForever('settings', function () {
+                return Setting::get();
+            })
+            : Cache::get('settings');
 
         if($settings != null){
             foreach($settings as $setting){
@@ -37,6 +37,14 @@ if (!function_exists('gender'))
             'male'       => 'ذكر',
             'female'     => 'انثى',
         ];
+    }
+}
+
+if (!function_exists('defaultCategory'))
+{
+    function defaultCategory()
+    {
+        return Category::active()->where('type' , 'default')->get();
     }
 }
 
@@ -65,7 +73,7 @@ if (!function_exists('socialMedia'))
 {
     function socialMedia()
     {
-       return [
+        return [
             'facebook-f'    =>  setting('facebook','en'),
             'twitter'       =>  setting('twitter','en'),
             'instagram'     => setting('instagram','en') ,
@@ -81,7 +89,7 @@ if (!function_exists('showLink'))
 {
     function showLink(string $routeName)
     {
-       return  Route::is("{$routeName}.*") ? 'show' : '';
+        return  Route::is("{$routeName}.*") ? 'show' : '';
     }
 }
 
@@ -89,7 +97,7 @@ if (!function_exists('activeLink'))
 {
     function activeLink(string $routeName)
     {
-       return  Route::is("{$routeName}.*") ? 'active' : '';
+        return  Route::is("{$routeName}.*") ? 'active' : '';
     }
 }
 
@@ -97,7 +105,7 @@ if (!function_exists('activeSingleLink'))
 {
     function activeSingleLink(string $routeName)
     {
-       return  Route::is("{$routeName}") ? 'active' : '';
+        return  Route::is("{$routeName}") ? 'active' : '';
     }
 }
 
@@ -105,8 +113,8 @@ if (!function_exists('getLastKeyRoute'))
 {
     function getLastKeyRoute(string $routeName)
     {
-       $array = explode('.',$routeName);
-       return end($array);
+        $array = explode('.',$routeName);
+        return end($array);
     }
 }
 
