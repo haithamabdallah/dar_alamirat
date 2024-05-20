@@ -32,17 +32,18 @@ class AuthController extends Controller
 
     public function verifyOtp(Request $request)
     {
+        dd('');
         $request->validate(['otp' => 'required|array|size:4', 'email' => 'required|email']);
         $otp = implode('', $request->otp);
         $otpRecord = Otp::where('email', $request->email)
                          ->where('otp', $otp)
                          ->where('expires_at', '>', Carbon::now())
                          ->first();
-
+                         dd('login');
         if ($otpRecord) {
 
             $otpRecord->delete();  // Optional: Delete the OTP after successful verification
-            dd('login');
+
             return redirect()->route('index')->with('message', 'Logged in successfully!');
         } else {
             return back()->withErrors(['otp' => 'Invalid or expired OTP']);

@@ -61,7 +61,7 @@
 <!-- ./header -->
 
 
-<!-- Modal -->
+{{-- <!-- Modal -->
 <div class="modal fade" id="loginEmail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -71,11 +71,10 @@
                     <i class="icon sicon-user"></i>
                 </div>
                 <h3>Login</h3>
-                <form id="emailForm" action="{{ route('sendOtp') }}" method="POST">
-                    @csrf
+                <form action="">
                     <label class="s-login-modal-label">Email Address</label>
-                    <input type="email" name="email" placeholder="your@email.com" enterkeyhint="next" class="s-login-modal-input" required>
-                    <button class="s-login-modal-enter-button" type="submit">
+                    <input type="email" placeholder="your@email.com" enterkeyhint="next" class="s-login-modal-input" name="email">
+                    <button class="s-login-modal-enter-button" type="button" data-bs-toggle="modal" data-bs-target="#enterOtp">
                         <span class="s-button-text">Enter</span>
                     </button>
                 </form>
@@ -94,74 +93,148 @@
                     <i class="icon sicon-user"></i>
                 </div>
                 <h3>Login</h3>
-                <p class="s-verify-message">Verification code is required to proceed. A verification code has been sent to you</p>
+                <p class="s-verify-message">Verification code is required to proceed, A verification code has been sent to you</p>
                 <div class="s-login-modal-currentEmail" id="writtenEmail">haitham@asd.com</div>
-                <form id="otpForm" action="{{ route('verifyOtp') }}" method="POST">
-                    @csrf
+                <form action="">
                     <div class="otp-field s-verify-codes">
-                        <input type="text" id="otp1" name="otp[]" maxlength="1" class="s-verify-input" required />
-                        <input type="text" id="otp2" name="otp[]" maxlength="1" class="s-verify-input" required />
-                        <input type="text" id="otp3" name="otp[]" maxlength="1" class="s-verify-input" required />
-                        <input type="text" id="otp4" name="otp[]" maxlength="1" class="s-verify-input" required />
+                        <input type="text" maxlength="1" class="s-verify-input" />
+                        <input type="text" maxlength="1" class="s-verify-input" />
+                        <input type="text" maxlength="1" class="s-verify-input" />
+                        <input type="text" maxlength="1" class="s-verify-input" />
                     </div>
-                    <input type="hidden" name="email" id="otpEmail">
-                    <button class="s-login-modal-enter-button" type="submit">
+                    <button class="s-login-modal-enter-button" type="button" data-bs-toggle="modal" data-bs-target="#enterOtp">
                         <span class="s-button-text">Verify</span>
                     </button>
-                    <a href="#" class="s-verify-resend" id="resendOtp">Send</a>
+                    <a href="#" class="s-verify-resend" style="display: block;">Send</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> --}}
+<!-- Include your Bootstrap JS and jQuery here -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
+
+ <!-- Email Modal -->
+<div class="modal fade" id="loginEmail" tabindex="-1" aria-labelledby="loginEmailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body">
+                <div class="login-icon">
+                    <i class="icon sicon-user"></i>
+                </div>
+                <h3>Login</h3>
+                <form id="emailForm">
+                    @csrf
+                    <label class="s-login-modal-label">Email Address</label>
+                    <input type="email" placeholder="your@email.com" class="s-login-modal-input" name="email" required>
+                    <button class="s-login-modal-enter-button" type="submit">
+                        <span class="s-button-text">Enter</span>
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<!-- OTP Modal -->
+ <div class="modal fade" id="enterOtp" tabindex="-1" aria-labelledby="enterOtpLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body">
+                <div class="login-icon">
+                    <i class="icon sicon-user"></i>
+                </div>
+                <h3>Login</h3>
+                <p class="s-verify-message">Verification code is required to proceed. A verification code has been sent to you.</p>
+                <div class="s-login-modal-currentEmail" id="writtenEmail"></div>
+                <form id="otpForm" method="POST">
+                    @csrf
+                    <input type="hidden" name="email" id="otpEmail">
+                    <div class="otp-field s-verify-codes">
+                        <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
+                        <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
+                        <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
+                        <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
+                    </div>
+                    <button class="s-login-modal-enter-button" type="submit">
+                        <span class="s-button-text">Verify</span>
+                    </button>
+                </form>
+                <!-- Resend OTP Form -->
+                <form id="resendOtpForm">
+                    @csrf
+                    <input type="hidden" name="email" id="resendOtpEmail">
+                    <button class="s-verify-resend" type="submit" style="background: none; border: none; color: blue; text-decoration: underline;">Resend</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
     $(document).ready(function() {
         $('#emailForm').on('submit', function(e) {
             e.preventDefault();
+            console.log('Email form submitted');
 
             $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
+                url: '{{ route("sendOtp") }}',
+                method: 'POST',
                 data: $(this).serialize(),
                 success: function(response) {
+                    console.log('Send OTP response:', response);
                     if (response.success) {
                         var email = $('input[name="email"]').val();
                         $('#writtenEmail').text(email);
                         $('#otpEmail').val(email);
+                        $('#resendOtpEmail').val(email);
+                        $('#loginEmail').modal('hide');
                         $('#enterOtp').modal('show');
+                    } else {
+                        alert(response.message);
                     }
                 },
                 error: function(xhr) {
+                    console.log('Send OTP error:', xhr);
                     alert('An error occurred. Please try again.');
                 }
             });
         });
 
         $('#otpForm').on('submit', function(e) {
-            e.preventDefault();
+        e.preventDefault();
+        console.log('OTP form submitted');
 
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    if (response.success) {
-                        alert('Verification successful!');
-                        // Handle successful verification, e.g., redirect to dashboard
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr) {
-                    alert('An error occurred. Please try again.');
+        $.ajax({
+            url: '{{ route("verifyOtp") }}',
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                console.log('Verify OTP response:', response);
+                if (response.success) {
+                    alert('Login successful!');
+                    window.location.href = '{{ route("cart-empty") }}'; // Adjust the redirect URL to your needs
+                } else {
+                    alert(response.message);
                 }
-            });
+            },
+            error: function(xhr) {
+                console.log('Verify OTP error:', xhr);
+                alert('An error occurred. Please try again.');
+            }
         });
+    });
 
-        $('#resendOtp').on('click', function(e) {
+
+        $('#resendOtpForm').on('submit', function(e) {
             e.preventDefault();
-            var email = $('#otpEmail').val();
+            console.log('Resend OTP form submitted');
+            var email = $('#resendOtpEmail').val();
 
             $.ajax({
                 url: '{{ route("resendOtp") }}',
@@ -172,12 +245,16 @@
                 },
                 data: JSON.stringify({ email: email }),
                 success: function(response) {
+                    console.log('Resend OTP response:', response);
                     alert(response.message);
                 },
                 error: function(xhr) {
+                    console.log('Resend OTP error:', xhr);
                     alert('An error occurred. Please try again.');
                 }
             });
         });
     });
 </script>
+
+
