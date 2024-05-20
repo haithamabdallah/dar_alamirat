@@ -23,18 +23,18 @@
             <div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{__('dashboard.home')}}</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('category.index')}}">{{__('dashboard.categories')}}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('banner.index')}}">{{__('dashboard.banners')}}</a></li>
                 </ul>
                 <h1 class="page-header mb-0">{{__('dashboard.categories')}}</h1>
             </div>
             <div class="ms-auto">
-                <a href="{{ route('category.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>{{__('dashboard.category.add')}}</a>
+                <a href="{{ route('banner.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>{{__('dashboard.banner.add')}}</a>
             </div>
         </div>
 
-    @include('dashboard.layouts.alerts')
+        @include('dashboard.layouts.alerts')
 
-    <!-- start card -->
+        <!-- start card -->
         <div class="card border-0">
             <!-- content -->
             <div class="tab-content p-3">
@@ -43,7 +43,7 @@
 
                     <!-- BEGIN input-group -->
                     <div class="input-group mb-3">
-                        <p class="btn btn-white dropdown-toggle"><span class="d-none d-md-inline">Filter By Category Name</span></p>
+                        <p class="btn btn-white dropdown-toggle"><span class="d-none d-md-inline">Filter By Banner Name</span></p>
                         <div class="flex-fill position-relative">
                             <div class="input-group">
                                 <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 start-0" style="z-index: 1;">
@@ -61,42 +61,36 @@
                             <thead>
                             <tr>
                                 <th width="1%"></th>
-                                <th class="text-nowrap" width="20%">Name</th>
-                                <th class="text-nowrap" width="20%">Slug</th>
-                                <th class="text-nowrap" width="5%">icon</th>
                                 <th class="text-nowrap" width="5%">Priority</th>
+                                <th class="text-nowrap" width="5%">Image</th>
                                 <th class="text-nowrap" width="5%">status</th>
-                                <th class="text-nowrap" width="10%">created At</th>
                                 <th class="text-nowrap" width="5%">Edit</th>
                                 <th class="text-nowrap" width="5%">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $category)
+
+                            @foreach($banners as $banner)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    <td>{{$category->name}}</td>
-                                    <td>{{$category->slug}}</td>
+                                    <td>{{$banner->priority}}</td>
                                     <td width="1%" class="with-img">
-                                        <img src="{{storage_asset($category->icon)}}" class="rounded h-30px my-n1 mx-n1" />
+                                        <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>
-                                    <td>{{$category->priority}}</td>
-                                    {{-- <td>{{$category->status}}</td> --}}
                                     <td>
-                                        <input type="checkbox" class="switch-status" data-url="{{ route('category.status' , $category->id) }}" @if($category->status) checked @endif/>
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('banner.status' , $banner->id) }}" @if($banner->status) checked @endif/>
                                     </td>
-                                    <td>{{$category->created_at->format('Y-m-d')}}</td>
                                     <td nowrap="">
                                         @adminCan('categories.edit')
-                                        <a href="{{route('category.edit' , $category->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.category.edit')}}</a>
+                                        <a href="{{route('banner.edit' , $banner->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.banner.edit')}}</a>
                                         @endadminCan
                                     </td>
                                     <td nowrap="">
                                         @adminCan('categories.delete')
-                                        <form id="deleteForm{{$category->id}}" action="{{ route('category.destroy', $category->id) }}" method="POST">
+                                        <form id="deleteForm{{$banner->id}}" action="{{ route('banner.destroy', $banner->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <a class="btn delete-btn btn-danger" data-id="{{$category->id}}"><i class="fa-solid fa-trash-can"></i> {{__('dashboard.category.delete')}}</a>
+                                            <a class="btn delete-btn btn-danger" data-id="{{$banner->id}}"><i class="fa-solid fa-trash-can"></i> {{__('dashboard.banner.delete')}}</a>
                                         </form>
                                         @endadminCan
                                     </td>
@@ -110,10 +104,10 @@
                     <!-- pagination -->
                     <div class="d-md-flex align-items-center">
                         <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                            Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries
+                            Showing {{ $banners->firstItem() }} to {{ $banners->lastItem() }} of {{ $banners->total() }} entries
                         </div>
                         <ul class="pagination mb-0 justify-content-center">
-                            {{ $categories->links('pagination::bootstrap-4') }}
+                            {{ $banners->links('pagination::bootstrap-4') }}
                         </ul>
                     </div>
                     <!-- ./pagination -->

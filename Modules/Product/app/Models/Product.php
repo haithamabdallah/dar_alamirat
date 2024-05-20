@@ -58,13 +58,6 @@ class Product extends Model
         return $this->hasMany(Variant::class);
     }
 
-    /**
-     * Get the inventory items for the product.
-     */
-    public function inventoryItems()
-    {
-        return $this->hasMany(Inventory::class);
-    }
 
     /**
      * Get the media for the product.

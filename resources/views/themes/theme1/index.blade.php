@@ -11,7 +11,7 @@
 
                             <div class="section-head">
                                 <div class="s-block-title">
-                                    <h2>Makeups Most sales</h2>
+                                    <h2>{{$category->name}}</h2>
                                 </div>
 
                                 <div class="category-nav">
@@ -50,11 +50,11 @@
                                                 <!-- price -->
                                                 <div class="item-price">
                                                     <h4 class="before-dis">
-                                                        <strong>24.73</strong>
+                                                        <strong>{{$product->variants->first()->price}}</strong>
                                                         <span>SAR</span>
                                                     </h4>
                                                     <h4 class="after-dis">
-                                                        <strong>24.73</strong>
+                                                        <strong>{{$product->variants->first()->price_with_discount}}</strong>
                                                         <span>SAR</span>
                                                     </h4>
                                                     <div class="add-favourite">
@@ -68,7 +68,7 @@
                                                 <!-- description -->
                                                 <div class="item-dec">
                                                     <a href="{{route('cart-empty')}}">
-                                                        <span>Garden Olean - Fortifying Hair Oil with Rosemary Essential Oil, 50 ml</span>
+                                                        <span>{!! Str::limit($product->description, 100) !!}</span>
                                                     </a>
                                                 </div>
                                                 <!-- ./description -->
@@ -124,4 +124,24 @@
             @endforeach
         @endif
     @endforeach
+
+    <section class="s-block">
+        <div class="pixel-container">
+            <div class="wrap">
+                <div class="section-brands">
+                    <div class="s-block-title">
+                        <h2>Browse All Brands</h2>
+                        <a href="#" class="">View All</a>
+                    </div>
+                    <div class="s-brands-list">
+                        @foreach($brands as $brand)
+                            <a href="" class="brand-item">
+                                <img class="" src="{{storage_asset($brand->image)}}" alt="{{$brand->name}}">
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

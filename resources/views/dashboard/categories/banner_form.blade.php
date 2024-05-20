@@ -2,7 +2,7 @@
 
 @section('meta')
     <meta charset="utf-8" />
-    <title>{{__('dashboard.category.add')}}</title>
+    <title>{{__('dashboard.banner.add')}}</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -99,12 +99,12 @@
         <!-- BEGIN breadcrumb -->
         <ol class="breadcrumb float-xl-end">
             <li class="breadcrumb-item"><a href="javascript:;">{{__('dashboard.dashboard')}}</a></li>
-            <li class="breadcrumb-item"><a href="{{route('category.index')}}">{{__('dashboard.categories')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('banner.index')}}">{{__('dashboard.banners')}}</a></li>
             <li class="breadcrumb-item active">
                 @if($method == 'PUT')
-                    {{__('dashboard.category.edit')}}
+                    {{__('dashboard.banner.edit')}}
                 @else
-                    {{__('dashboard.category.add')}}
+                    {{__('dashboard.banner.add')}}
                 @endif
             </li>
         </ol>
@@ -131,9 +131,9 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             @if($method == 'PUT')
-                                {{__('dashboard.category.edit')}}
+                                {{__('dashboard.banner.edit')}}
                             @else
-                                {{__('dashboard.category.add')}}
+                                {{__('dashboard.banner.add')}}
                             @endif
                         </h4>
                         <div class="panel-heading-btn">
@@ -156,28 +156,13 @@
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
-
-                            @foreach (Config('language') as $key => $lang)
-                                <div class="row mb-15px" >
-                                    <label class="form-label col-form-label col-md-3">Name In {{ $lang }} :</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control form-control-solid" value="{{ old('name.'.$key) ?? $category->getTranslation('name',$key)}}" placeholder="{{ 'name-'.$lang }}" name="name[{{ $key }}]" />
-                                        @error('name.'.$key)
-                                        <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endforeach
-
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">priority :</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="priority" id="" required>
                                         <option disabled selected>Select Priority</option>
                                         @for ($i = 0; $i <= 10; $i++)
-                                            <option value="{{$i}}" @if($category->priority == $i) selected @endif>{{$i}}</option>
+                                            <option value="{{$i}}" @if($banner->priority == $i) selected @endif>{{$i}}</option>
                                         @endfor
                                     </select>
                                     @error('priority')
@@ -187,28 +172,46 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="row mb-15px" >
-                                <label class="form-label col-form-label col-md-3">Category image :</label>
-                                <div class="col-md-9">
-                                    <div class="custom-file-upload">
-                                        <label for="formFile" class="upload-area">
-                                            <div class="icon-upload form-control"> <span class="p-1">Upload Image </span></div>
-                                            <input class="file-input" name="icon" type="file" id="formFile" accept=".png, .jpg, .jpeg ,.svg ,.webp" onchange="previewImage();" />
-                                        </label>
-                                    </div>
-                                    @error('icon')
-                                    <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    <div class="preview-area">
-                                        <img id="imagePreview" src="{{  storage_asset($category->icon) ?? ''}}" alt="Image preview" style="display: {{isset($category->icon) ?'block' : 'none'}};" width="200" height="200">
-                                        <div class="clear-image" onclick="clearImage();" style="display: none;">&times;</div>
+                            @if($method == 'POST')
+                                <div class="row mb-15px" id="bannerImagesRow">
+                                    <label class="form-label col-form-label col-md-3">Banner Images </label>
+                                    <div class="col-sm-9">
+                                        <div class="custom-file-upload">
+                                            <label for="formFile" class="upload-area">
+                                                <div class="icon-upload form-control"> <span class="p-1">Upload Banner Images </span></div>
+                                                <input class="file-input" name="image[]" type="file" accept=".png, .jpg, .jpeg ,.svg ,.webp" multiple />
+                                            </label>
+                                        </div>
+                                        @error('icon')
+                                        <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="row mb-15px categoryDetails">
+                                    <label class="form-label col-form-label col-md-3">Banner image :</label>
+                                    <div class="col-md-9">
+                                        <div class="custom-file-upload">
+                                            <label for="formFile" class="upload-area">
+                                                <div class="icon-upload form-control"> <span class="p-1">Upload Image </span></div>
+                                                <input class="file-input" name="image" type="file" id="formFile" accept=".png, .jpg, .jpeg ,.svg ,.webp" onchange="previewImage();" />
+                                            </label>
+                                        </div>
+                                        @error('image')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+
+                                        <div class="preview-area">
+                                            <img id="imagePreview" src="{{  storage_asset($banner->image) ?? ''}}" alt="Image preview" style="display: {{isset($banner->image) ?'block' : 'none'}};" width="200" height="200">
+                                            <div class="clear-image" onclick="clearImage();" style="display: none;">&times;</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
                             <div class="row mb-15px">
                                 <div class="col-md-12">
@@ -258,5 +261,4 @@
             clearBtn.style.display = 'none';
         }
     </script>
-
 @endsection

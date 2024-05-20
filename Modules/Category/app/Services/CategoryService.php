@@ -11,13 +11,14 @@ class CategoryService {
 
     public function getAllData()
     {
-        return Category::orderByRaw('ISNULL(priority), priority ASC')->get();
+        return Category::where('type','default')->orderByRaw('ISNULL(priority), priority ASC')->get();
     }
 
     public function getPaginatedData(array $data = [],int $paginate = 20 )
     {
-        return  Category::latest()->paginate($paginate);
+        return  Category::where('type','default')->orderByRaw('ISNULL(priority), priority ASC')->paginate($paginate);
     }
+
 
     public function storeData(array $data)
     {

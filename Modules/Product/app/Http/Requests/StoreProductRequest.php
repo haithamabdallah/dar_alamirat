@@ -24,8 +24,9 @@ class StoreProductRequest extends FormRequest
             'variant.*.color' => 'nullable|string',
             'variant.*.price' => 'required|numeric|min:0',
             'variant.*.quantity' => 'required|integer|min:1',
-            'discount_value' => 'required_with:discount_type|numeric|min:0',
-            'discount_type' => 'required_with:discount_value|in:flat,percent',
+//            'discount_value' => 'required_with:discount_type|numeric|min:0',
+            'discount_type' => 'sometimes|in:flat,percent',
+            'discount_value' => 'required_with:discount_type|min:0',
         ];
     }
 
