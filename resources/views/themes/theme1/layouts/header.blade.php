@@ -1,14 +1,4 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Login System</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 
-</head>
-<body> --}}
-    <!-- Header -->
     <header id="header">
         <div class="pixel-container">
             <div class="wrap">
@@ -103,10 +93,10 @@
                         @csrf
                         <input type="hidden" name="email" id="otpEmail">
                         <div class="otp-field s-verify-codes">
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
+                            <input type="text" name="otp[]" maxlength="1" class="s-login-modal-input" required />
+                            <input type="text" name="otp[]" maxlength="1" class="s-login-modal-input" required />
+                            <input type="text" name="otp[]" maxlength="1" class="s-login-modal-input" required />
+                            <input type="text" name="otp[]" maxlength="1" class="s-login-modal-input" required />
                         </div>
                         <button class="s-login-modal-enter-button" type="submit">
                             <span class="s-button-text">Verify</span>
@@ -151,29 +141,7 @@
                 });
             });
 
-            $('#otpForm').on('submit', function(e) {
-                e.preventDefault();
-                console.log('OTP form submitted');
 
-                $.ajax({
-                    url: '{{ route("verifyOtp") }}',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        console.log('Verify OTP response:', response);
-                        if (response.success) {
-                            alert('Login successful!');
-                            window.location.href = '{{ route("cart-empty") }}'; // Adjust the redirect URL to your needs
-                        } else {
-                            alert(response.message);
-                        }
-                    },
-                    error: function(xhr) {
-                        console.log('Verify OTP error:', xhr);
-                        alert('An error occurred. Please try again.');
-                    }
-                });
-            });
         });
     </script>
 
