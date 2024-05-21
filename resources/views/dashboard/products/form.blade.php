@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="product-dropzone">
+        <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="product-form">
             @csrf
             @method($method)
 
@@ -229,16 +229,9 @@
                             {{--<div id="dropzone">
                                 <input type="file" name="images[]" id="dropzon" multiple>
                             </div>--}}
-                            <div id="dropzone">
-                                <div action="/upload" class="dropzone needsclick" id="my-awesome-upload">
-                                    <div class="dz-message needsclick">
-                                        Drop files <b>here</b> or <b>click</b> to upload.<br />
-                                        <span class="dz-note needsclick">
-        (This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)
-      </span>
-                                    </div>
-                                </div>
-                            </div>
+                            <form action="#" class="dropzone" id="product-dropzone">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                     <div class="card border-0 mb-4">
@@ -320,11 +313,7 @@
                     </div>
                 </div>
                 <!--begin::Actions-->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary">
-                        <span class="indicator-label">Save</span>
-                    </button>
-                </div>
+
                 <!--end::Actions-->
             </div>
 
@@ -346,7 +335,11 @@
                     </div>
                 </div>
             </div>
-
+            <div class="text-center mt-4 bottom">
+                <button type="submit" class="btn btn-primary" id="dropzone-submit">
+                    <span class="indicator-label">Save</span>
+                </button>
+            </div>
         </form>
     </div>
     <!-- END #content -->
@@ -458,6 +451,88 @@
         }
     </script>
 
+    <script>
+        Dropzone.autoDiscover = false;
+
+        // Initialize Dropzone
+        var myDropzone = new Dropzone("#product-dropzone", {
+            paramName: "file",
+            maxFilesize: 2, // MB
+            acceptedFiles: 'image/*',
+            autoProcessQueue: false,
+            init: function() {
+                var dropzoneInstance = this;
+
+                document.getElementById('dropzone-submit').addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    // Check if title is provided
+                    var title = document.getElementById('title').value;
+                    if (!title) {
+                        alert('Please provide a product title before uploading images.');
+                        return;
+                    }
+
+                    // Serialize the form data
+                    var form = document.getElementById('product-form');
+                    var formDataObj = serializeForm(form);
+
+                    // Set up sending event to include form data
+                    dropzoneInstance.on("sending", function(file, xhr, formData) {
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(formDataObj);
+                    });
+
+                    // Process the queue
+                    if (dropzoneInstance.getQueuedFiles().length > 0) {
+                        dropzoneInstance.processQueue();
+                    } else {
+                        // No files to upload, submit the form directly
+                        submitFormWithNoFiles(formDataObj);
+                    }
+                });
+
+                this.on("success", function(file, response) {
+                    // Store the uploaded image details in a hidden field
+                    var form = document.getElementById('product-form');
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'uploaded_images[]';
+                    input.value = response.file_path;
+                    form.appendChild(input);
+                });
+
+                this.on("queuecomplete", function() {
+                    // Submit the form after all files are processed
+                    document.getElementById('product-form').submit();
+                });
+            }
+        });
+
+        // Serialize form data
+        function serializeForm(form) {
+            var obj = {};
+            var formData = new FormData(form);
+            formData.forEach((value, key) => (obj[key] = value));
+            return JSON.stringify(obj);
+        }
+
+        // Function to submit form data when there are no files to upload
+        function submitFormWithNoFiles(formDataObj) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{{ route('product.store') }}", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(formDataObj);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    window.location.href = xhr.responseURL; // Redirect after successful submission
+                } else {
+                    alert('An error occurred while submitting the form.');
+                }
+            };
+        }
+    </script>
 
 @endsection
 <!-- toggler -->
