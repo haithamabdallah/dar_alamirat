@@ -42,8 +42,7 @@ class BannerService {
 
     public function updateData(array $data , $banner)
     {
-
-        $banner->update($data);
+        $banner->category()->update($data);
 
         return  $banner;
     }
