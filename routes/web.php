@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\PageController;
 use App\Http\Controllers\Front\SettingController;
+use App\Http\Controllers\Front\FrontPageController;
 use App\Http\Controllers\Dashboard\SettingsController;
 
 
@@ -136,3 +138,4 @@ Route::prefix('settings')->group(function () {
     Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
 });
 
+// Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
