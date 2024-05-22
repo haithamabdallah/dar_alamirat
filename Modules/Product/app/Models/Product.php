@@ -2,17 +2,19 @@
 
 namespace Modules\Product\Models;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Order\Models\Order;
+use Modules\Product\app\ModelFilters\ProductFilter;
 use Spatie\Translatable\HasTranslations;
 
 class Product extends Model
 {
-    use HasFactory , HasTranslations ;
+    use HasFactory , HasTranslations ,Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -90,6 +92,11 @@ class Product extends Model
     public function scopeActive($query)
     {
         return $query->where('active', 1);
+    }
+
+    public function modelFilter()
+    {
+        return $this->provideFilter(ProductFilter::class);
     }
 
 }
