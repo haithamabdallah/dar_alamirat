@@ -107,6 +107,7 @@ Route::get('/reports/edit', function () {
 /************************************ Front Routs ****************************/
 Route::get('/lang/{lang}' , [HomeController::class , 'changeLanguage'])->name('changeLang');
 Route::get('/' , [HomeController::class , 'index'])->name('index');
+Route::get('/category-products/{category}' , [HomeController::class , 'categoryProducts'])->name('category.products');
 
 Route::get('/category' , function (){
     return view('themes.theme1.category');
