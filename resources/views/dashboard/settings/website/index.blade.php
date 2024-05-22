@@ -80,6 +80,12 @@
                                     <input type="file" name="website_icon" class="form-control">
                                 </div>
                             </div>
+                            <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-3">Phone Number</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="tel" type="tel" placeholder="phone "  />
+                                </div>
+                            </div>
 
                             <div class="row mb-15px">
                                 <div class="col-md-12">

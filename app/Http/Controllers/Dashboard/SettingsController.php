@@ -15,8 +15,15 @@ class SettingsController extends Controller
 
     public function siteInfo(Request $request)
     {
-        $setting = Setting::firstOrCreate(['type' => 'general']);
 
+        // Retrieve other form inputs
+        $websiteName = $request->input('website_name');
+        $websiteDescription = $request->input('website_description');
+        $websiteAddress = $request->input('website_address');
+        $phoneNumber=$request->input('tel');
+        
+        $setting = new Setting();
+        $setting->type = 'general';
         // Handle website icon upload
         if ($request->hasFile('website_icon') && $request->file('website_icon')->isValid()) {
             $websiteIconPath = $request->website_icon->store("website/{$setting->id}/img", 'public');
@@ -29,10 +36,6 @@ class SettingsController extends Controller
             $setting->update(['website_logo' => $websiteLogoPath]);
         }
 
-        // Retrieve other form inputs
-        $websiteName = $request->input('website_name');
-        $websiteDescription = $request->input('website_description');
-        $websiteAddress = $request->input('website_address');
 
         // Save the data into the database
         $setting->value = [
@@ -41,6 +44,7 @@ class SettingsController extends Controller
             'website_address' => $websiteAddress,
             'logo_path' => $websiteLogoPath ?? null,
             'icon_path' => $websiteIconPath ?? null,
+            'tel'=>$phoneNumber,
         ];
         $setting->save();
 
