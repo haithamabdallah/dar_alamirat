@@ -225,7 +225,7 @@
                             </div>
 
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" hidden>
                             {{--<div id="dropzone">
                                 <input type="file" name="images[]" id="dropzon" multiple>
                             </div>--}}
