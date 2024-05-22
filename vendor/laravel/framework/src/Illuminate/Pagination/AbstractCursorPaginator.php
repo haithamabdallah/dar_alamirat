@@ -206,7 +206,6 @@ abstract class AbstractCursorPaginator implements Htmlable, Stringable
     public function getParametersForItem($item)
     {
         return collect($this->parameters)
-            ->filter()
             ->flip()
             ->map(function ($_, $parameterName) use ($item) {
                 if ($item instanceof JsonResource) {

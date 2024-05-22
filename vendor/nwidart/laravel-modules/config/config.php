@@ -13,6 +13,7 @@ return [
     | Default module namespace.
     |
     */
+
     'namespace' => 'Modules',
 
     /*
@@ -23,6 +24,7 @@ return [
     | Default module stubs.
     |
     */
+
     'stubs' => [
         'enabled' => false,
         'path' => base_path('vendor/nwidart/laravel-modules/src/Commands/stubs'),
@@ -54,7 +56,6 @@ return [
                 'AUTHOR_EMAIL',
                 'MODULE_NAMESPACE',
                 'PROVIDER_NAMESPACE',
-                'APP_FOLDER_NAME',
             ],
         ],
         'gitkeep' => true,
@@ -69,8 +70,8 @@ return [
         | This path will also be added automatically to the list of scanned folders.
         |
         */
-        'modules' => base_path('Modules'),
 
+        'modules' => base_path('Modules'),
         /*
         |--------------------------------------------------------------------------
         | Modules assets path
@@ -79,8 +80,8 @@ return [
         | Here you may update the modules' assets path.
         |
         */
-        'assets' => public_path('modules'),
 
+        'assets' => public_path('modules'),
         /*
         |--------------------------------------------------------------------------
         | The migrations' path
@@ -90,6 +91,7 @@ return [
         | the migration files?
         |
         */
+
         'migration' => base_path('database/migrations'),
 
         /*
@@ -111,31 +113,22 @@ return [
         */
         'generator' => [
             // app/
-            'actions' => ['path' => 'app/Actions', 'generate' => false],
-            'casts' => ['path' => 'app/Casts', 'generate' => false],
             'channels' => ['path' => 'app/Broadcasting', 'generate' => false],
             'command' => ['path' => 'app/Console', 'generate' => false],
-            'component-class' => ['path' => 'app/View/Components', 'generate' => false],
             'emails' => ['path' => 'app/Emails', 'generate' => false],
             'event' => ['path' => 'app/Events', 'generate' => false],
-            'enums' => ['path' => 'app/Enums', 'generate' => false],
-            'exceptions' => ['path' => 'app/Exceptions', 'generate' => false],
             'jobs' => ['path' => 'app/Jobs', 'generate' => false],
-            'helpers' => ['path' => 'app/Helpers', 'generate' => false],
-            'interfaces' => ['path' => 'app/Interfaces', 'generate' => false],
             'listener' => ['path' => 'app/Listeners', 'generate' => false],
             'model' => ['path' => 'app/Models', 'generate' => false],
             'notifications' => ['path' => 'app/Notifications', 'generate' => false],
             'observer' => ['path' => 'app/Observers', 'generate' => false],
             'policies' => ['path' => 'app/Policies', 'generate' => false],
             'provider' => ['path' => 'app/Providers', 'generate' => true],
+            'route-provider' => ['path' => 'app/Providers', 'generate' => true],
             'repository' => ['path' => 'app/Repositories', 'generate' => false],
             'resource' => ['path' => 'app/Transformers', 'generate' => false],
-            'route-provider' => ['path' => 'app/Providers', 'generate' => true],
             'rules' => ['path' => 'app/Rules', 'generate' => false],
-            'services' => ['path' => 'app/Services', 'generate' => false],
-            'scopes' => ['path' => 'app/Models/Scopes', 'generate' => false],
-            'traits' => ['path' => 'app/Traits', 'generate' => false],
+            'component-class' => ['path' => 'app/View/Components', 'generate' => false],
 
             // app/Http/
             'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
@@ -146,24 +139,24 @@ return [
             'config' => ['path' => 'config', 'generate' => true],
 
             // database/
-            'factory' => ['path' => 'database/factories', 'generate' => true],
             'migration' => ['path' => 'database/migrations', 'generate' => true],
             'seeder' => ['path' => 'database/seeders', 'generate' => true],
+            'factory' => ['path' => 'database/factories', 'generate' => true],
 
             // lang/
             'lang' => ['path' => 'lang', 'generate' => false],
 
             // resource/
             'assets' => ['path' => 'resources/assets', 'generate' => true],
-            'component-view' => ['path' => 'resources/views/components', 'generate' => false],
             'views' => ['path' => 'resources/views', 'generate' => true],
+            'component-view' => ['path' => 'resources/views/components', 'generate' => false],
 
             // routes/
             'routes' => ['path' => 'routes', 'generate' => true],
 
             // tests/
-            'test-feature' => ['path' => 'tests/Feature', 'generate' => true],
             'test-unit' => ['path' => 'tests/Unit', 'generate' => true],
+            'test-feature' => ['path' => 'tests/Feature', 'generate' => true],
         ],
     ],
 
@@ -190,13 +183,13 @@ return [
     | directory. This is useful if you host the package in packagist website.
     |
     */
+
     'scan' => [
         'enabled' => false,
         'paths' => [
             base_path('vendor/*/*'),
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Composer File Template
@@ -205,11 +198,12 @@ return [
     | Here is the config for the composer.json file, generated by this package
     |
     */
+
     'composer' => [
-        'vendor' => env('MODULE_VENDOR', 'nwidart'),
+        'vendor' => env('MODULES_VENDOR', 'nwidart'),
         'author' => [
-            'name' => env('MODULE_AUTHOR_NAME', 'Nicolas Widart'),
-            'email' => env('MODULE_AUTHOR_EMAIL', 'n.widart@gmail.com'),
+            'name' => env('MODULES_NAME', 'Nicolas Widart'),
+            'email' => env('MODULES_EMAIL', 'n.widart@gmail.com'),
         ],
         'composer-output' => false,
     ],
@@ -223,12 +217,11 @@ return [
     |
     */
     'cache' => [
-        'enabled' => env('MODULES_CACHE_ENABLED', false),
-        'driver' => env('MODULES_CACHE_DRIVER', 'file'),
-        'key' => env('MODULES_CACHE_KEY', 'laravel-modules'),
-        'lifetime' => env('MODULES_CACHE_LIFETIME', 60),
+        'enabled' => false,
+        'driver' => 'file',
+        'key' => 'laravel-modules',
+        'lifetime' => 60,
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Choose what laravel-modules will register as custom namespaces.

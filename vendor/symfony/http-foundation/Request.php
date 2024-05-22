@@ -382,7 +382,7 @@ class Request
      */
     public static function setFactory(?callable $callable): void
     {
-        self::$requestFactory = null === $callable ? null : $callable(...);
+        self::$requestFactory = $callable;
     }
 
     /**

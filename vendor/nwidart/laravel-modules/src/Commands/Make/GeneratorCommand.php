@@ -5,12 +5,9 @@ namespace Nwidart\Modules\Commands\Make;
 use Illuminate\Console\Command;
 use Nwidart\Modules\Exceptions\FileAlreadyExistException;
 use Nwidart\Modules\Generators\FileGenerator;
-use Nwidart\Modules\Traits\PathNamespace;
 
 abstract class GeneratorCommand extends Command
 {
-    use PathNamespace;
-
     /**
      * The name of 'name' argument.
      *
@@ -89,8 +86,20 @@ abstract class GeneratorCommand extends Command
      */
     public function getClassNamespace($module)
     {
-        $path_namespace = $this->path_namespace(str_replace($this->getClass(), '', $this->argument($this->argumentName)));
+        $extra = str_replace($this->getClass(), '', $this->argument($this->argumentName));
 
-        return $this->module_namespace($module->getStudlyName(), $this->getDefaultNamespace() . ($path_namespace ? '\\' . $path_namespace : ''));
+        $extra = str_replace('/', '\\', $extra);
+
+        $namespace = $this->laravel['modules']->config('namespace');
+
+        $namespace .= '\\' . $module->getStudlyName();
+
+        $namespace .= '\\' . $this->getDefaultNamespace();
+
+        $namespace .= '\\' . $extra;
+
+        $namespace = str_replace('/', '\\', $namespace);
+
+        return trim($namespace, '\\');
     }
 }

@@ -84,7 +84,7 @@ class Factory
      * @param  \Illuminate\Contracts\Events\Dispatcher|null  $dispatcher
      * @return void
      */
-    public function __construct(?Dispatcher $dispatcher = null)
+    public function __construct(Dispatcher $dispatcher = null)
     {
         $this->dispatcher = $dispatcher;
 
@@ -418,18 +418,6 @@ class Factory
      *
      * @return \Illuminate\Http\Client\PendingRequest
      */
-    public function createPendingRequest()
-    {
-        return tap($this->newPendingRequest(), function ($request) {
-            $request->stub($this->stubCallbacks)->preventStrayRequests($this->preventStrayRequests);
-        });
-    }
-
-    /**
-     * Instantiate a new pending request instance for this factory.
-     *
-     * @return \Illuminate\Http\Client\PendingRequest
-     */
     protected function newPendingRequest()
     {
         return (new PendingRequest($this, $this->globalMiddleware))->withOptions(value($this->globalOptions));
@@ -468,6 +456,8 @@ class Factory
             return $this->macroCall($method, $parameters);
         }
 
-        return $this->createPendingRequest()->{$method}(...$parameters);
+        return tap($this->newPendingRequest(), function ($request) {
+            $request->stub($this->stubCallbacks)->preventStrayRequests($this->preventStrayRequests);
+        })->{$method}(...$parameters);
     }
 }
