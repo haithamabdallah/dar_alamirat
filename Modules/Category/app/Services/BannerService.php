@@ -32,17 +32,17 @@ class BannerService {
             'name' => '',
             'slug' => '',
             'priority' => $data['priority'],
-            ]);
+        ]);
+
         $data['category_id'] = $category->id;
 
-        $banner = Banner::create($data);
+        $banner = Banner::create(Arr::only($data, ['category_id' , 'image']));
         return  $banner;
     }
 
     public function updateData(array $data , $banner)
     {
-
-        $banner->update($data);
+        $banner->category()->update($data);
 
         return  $banner;
     }

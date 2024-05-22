@@ -73,7 +73,7 @@
                             @foreach($banners as $banner)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    <td>{{$banner->priority}}</td>
+                                    <td>{{$banner->category->priority}}</td>
                                     <td width="1%" class="with-img">
                                         <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>

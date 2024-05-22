@@ -161,8 +161,8 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="priority" id="" required>
                                         <option disabled selected>Select Priority</option>
-                                        @for ($i = 0; $i <= 10; $i++)
-                                            <option value="{{$i}}" @if($banner->priority == $i) selected @endif>{{$i}}</option>
+                                        @for ($i = 0; $i <= 100; $i++)
+                                            <option value="{{$i}}" @if($banner->category->priority == $i) selected @endif>{{$i}}</option>
                                         @endfor
                                     </select>
                                     @error('priority')

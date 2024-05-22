@@ -83,7 +83,7 @@ class BannerController extends Controller
      */
     public function update(UpdateBannerRequest $request, Banner $banner)
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             if ($banner->image && Storage::disk('public')->exists($banner->image)) {
