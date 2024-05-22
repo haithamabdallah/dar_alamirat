@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="product-form">
+        <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="product-data">
             @csrf
             @method($method)
 
@@ -229,9 +229,16 @@
                             {{--<div id="dropzone">
                                 <input type="file" name="images[]" id="dropzon" multiple>
                             </div>--}}
-                            <form action="#" class="dropzone" id="product-dropzone">
-                                @csrf
-                            </form>
+                            <div id="myDropzone">
+                                <div action="#" class="dropzone needsclick" id="my-awesome-upload">
+                                    <div class="dz-message needsclick">
+                                        Drop files <b>here</b> or <b>click</b> to upload.<br />
+                                        <span class="dz-note needsclick">
+                                            (This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card border-0 mb-4">
@@ -313,7 +320,11 @@
                     </div>
                 </div>
                 <!--begin::Actions-->
-
+                <div class="text-center mt-4">
+                    <button type="submit" id="submit-all" class="btn btn-primary">
+                        <span class="indicator-label">Save</span>
+                    </button>
+                </div>
                 <!--end::Actions-->
             </div>
 
@@ -335,11 +346,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-4 bottom">
-                <button type="submit" class="btn btn-primary" id="dropzone-submit">
-                    <span class="indicator-label">Save</span>
-                </button>
-            </div>
+
         </form>
     </div>
     <!-- END #content -->
@@ -450,89 +457,58 @@
             clearBtn.style.display = 'none';
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
 
     <script>
-        Dropzone.autoDiscover = false;
+        // Wait for the DOM to be fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            // Disable auto discovery
+            Dropzone.autoDiscover = false;
 
-        // Initialize Dropzone
-        var myDropzone = new Dropzone("#product-dropzone", {
-            paramName: "file",
-            maxFilesize: 2, // MB
-            acceptedFiles: 'image/*',
-            autoProcessQueue: false,
-            init: function() {
-                var dropzoneInstance = this;
+            // Initialize the dropzone
+            var myDropzone = new Dropzone("#myDropzone", {
+                url: "{{ $action }}",
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                parallelUploads: 100,
+                maxFiles: 10,
+                addRemoveLinks: true,
+                acceptedFiles: "image/*",
+                init: function () {
+                    var submitButton = document.getElementById("submit-all");
+                    myDropzone = this; // closure
 
-                document.getElementById('dropzone-submit').addEventListener('click', function(event) {
-                    event.preventDefault();
-
-                    // Check if title is provided
-                    var title = document.getElementById('title').value;
-                    if (!title) {
-                        alert('Please provide a product title before uploading images.');
-                        return;
-                    }
-
-                    // Serialize the form data
-                    var form = document.getElementById('product-form');
-                    var formDataObj = serializeForm(form);
-
-                    // Set up sending event to include form data
-                    dropzoneInstance.on("sending", function(file, xhr, formData) {
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.send(formDataObj);
+                    submitButton.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Gather additional data here if necessary
+                        var data = new FormData(document.getElementById("product-data"));
+                        // Append files to the form data
+                        myDropzone.files.forEach(function(file) { data.append('images[]', file); });
+                        // Create the AJAX request
+                        $.ajax({
+                            url: myDropzone.options.url,
+                            type: "POST",
+                            data: data,
+                            processData: false, // Important!
+                            contentType: false, // Important! I set this to false for file data
+                            success: function (response) {
+                                // Handle the response here
+                                console.log(response);
+                                alert("Successfully submitted.");
+                            },
+                            error: function (response) {
+                                console.error("Error: ", response);
+                                alert("Failed to submit.");
+                            }
+                        });
                     });
 
-                    // Process the queue
-                    if (dropzoneInstance.getQueuedFiles().length > 0) {
-                        dropzoneInstance.processQueue();
-                    } else {
-                        // No files to upload, submit the form directly
-                        submitFormWithNoFiles(formDataObj);
-                    }
-                });
-
-                this.on("success", function(file, response) {
-                    // Store the uploaded image details in a hidden field
-                    var form = document.getElementById('product-form');
-                    var input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'uploaded_images[]';
-                    input.value = response.file_path;
-                    form.appendChild(input);
-                });
-
-                this.on("queuecomplete", function() {
-                    // Submit the form after all files are processed
-                    document.getElementById('product-form').submit();
-                });
-            }
-        });
-
-        // Serialize form data
-        function serializeForm(form) {
-            var obj = {};
-            var formData = new FormData(form);
-            formData.forEach((value, key) => (obj[key] = value));
-            return JSON.stringify(obj);
-        }
-
-        // Function to submit form data when there are no files to upload
-        function submitFormWithNoFiles(formDataObj) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "{{ route('product.store') }}", true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(formDataObj);
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    window.location.href = xhr.responseURL; // Redirect after successful submission
-                } else {
-                    alert('An error occurred while submitting the form.');
+                    // You might want to listen to other events like 'addedfile'
                 }
-            };
-        }
-    </script>
+            });
+        });
+    </script>sho
 
 @endsection
 <!-- toggler -->
