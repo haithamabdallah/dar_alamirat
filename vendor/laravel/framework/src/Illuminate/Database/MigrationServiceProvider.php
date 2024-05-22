@@ -130,9 +130,7 @@ class MigrationServiceProvider extends ServiceProvider implements DeferrableProv
      */
     protected function registerMigrateFreshCommand()
     {
-        $this->app->singleton(FreshCommand::class, function ($app) {
-            return new FreshCommand($app['migrator']);
-        });
+        $this->app->singleton(FreshCommand::class);
     }
 
     /**

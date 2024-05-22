@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->integer('priority')->nullable();
+            $table->boolean('status')->default(1)->comment('0 = hidden | 1 = available');
             $table->string('image');
             $table->timestamps();
         });

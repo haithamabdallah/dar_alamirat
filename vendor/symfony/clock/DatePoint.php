@@ -32,21 +32,15 @@ final class DatePoint extends \DateTimeImmutable
 
             if (\PHP_VERSION_ID < 80300) {
                 try {
-                    $builtInDate = new parent($datetime, $timezone ?? $now->getTimezone());
-                    $timezone = $builtInDate->getTimezone();
+                    $timezone = (new parent($datetime, $timezone ?? $now->getTimezone()))->getTimezone();
                 } catch (\Exception $e) {
                     throw new \DateMalformedStringException($e->getMessage(), $e->getCode(), $e);
                 }
             } else {
-                $builtInDate = new parent($datetime, $timezone ?? $now->getTimezone());
-                $timezone = $builtInDate->getTimezone();
+                $timezone = (new parent($datetime, $timezone ?? $now->getTimezone()))->getTimezone();
             }
 
             $now = $now->setTimezone($timezone)->modify($datetime);
-
-            if ('00:00:00.000000' === $builtInDate->format('H:i:s.u')) {
-                $now = $now->setTime(0, 0);
-            }
         } elseif (null !== $timezone) {
             $now = $now->setTimezone($timezone);
         }

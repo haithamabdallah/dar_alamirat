@@ -15,10 +15,17 @@ class ProductService {
         return Product::orderByRaw('ISNULL(priority), priority ASC')->get();
     }
 
-    public function getPaginatedData(array $data = [] ,int $paginate = 20 )
+    public function getPaginatedData(int $paginate = 20 )
     {
+
         return  Product::paginate($paginate);
     }
+
+    public function getFilteredData(array $data ,int $paginate = 15, $order = 'desc')
+    {
+        return  Product::filter($data)->hidden(0)->approved()->orderBy('price',$order)->paginate($paginate);
+    }
+
 
     public function storeData(array $data)
     {

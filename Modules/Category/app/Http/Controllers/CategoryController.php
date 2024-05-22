@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
-        $this->middleware('permission:categories.read,admin', ['only' => ['index']]);
+        $this->middleware('permission:categories.read,admin', ['only' => ['index','bannersData']]);
         $this->middleware('permission:categories.create,admin', ['only' => ['create', 'store']]);
         $this->middleware('permission:categories.edit,admin', ['only' => ['edit', 'update']]);
         $this->middleware('permission:categories.delete,admin', ['only' => ['destroy']]);
@@ -57,12 +57,6 @@ class CategoryController extends Controller
             $category->update(['icon' => $path]);
         }
 
-        if ($request->hasFile('banner_images')) {
-            foreach ($request->banner_images as $image) {
-                $imagePath = $image->store("category/{$category->id}/banners", 'public');
-                $category->banners()->create(['image' => $imagePath]);
-            }
-        }
         if ($category){
             Session()->flash('success', 'Category Created Successfully');
         }else{

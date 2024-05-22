@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('position')->nullable();
             $table->integer('priority')->nullable();
             $table->boolean('status')->default(1)->comment('0 = hidden | 1 = available');
-            $table->enum('type' , ['default','banner']);
+            $table->enum('type' , ['default','banner'])->default('default');
             $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('cascade');
 
             $table->timestamps();

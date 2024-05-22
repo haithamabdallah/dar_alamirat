@@ -219,13 +219,13 @@
                                 </span>
                                 @enderror
                                 <div class="preview-area">
-                                <img id="imagePreview" src="{{  $product->thumbnail ?? ''}}" alt="Image preview" style="display: {{isset($category->icon) ?'block' : 'none'}};" width="200" height="200">
-                                <div class="clear-image" onclick="clearImage();" style="display: none;">x</div>
-                            </div>
+                                    <img id="imagePreview" src="{{  $product->thumbnail ?? ''}}" alt="Image preview" style="display: {{isset($category->icon) ?'block' : 'none'}};" width="200" height="200">
+                                    <div class="clear-image" onclick="clearImage();" style="display: none;">x</div>
+                                </div>
                             </div>
 
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" hidden>
                             {{--<div id="dropzone">
                                 <input type="file" name="images[]" id="dropzon" multiple>
                             </div>--}}
@@ -299,12 +299,22 @@
                                         <option value="percent">Percent</option>
                                     </select>
                                 </div>
+                                @error('discount_type')
+                                <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="mb-0">
                                 <label class="form-label">Discount Value</label>
                                 <div class="input-group">
                                     <input type="number" name="discount_value" class="form-control" placeholder="Insert the discount value" />
                                 </div>
+                                @error('discount_value')
+                                <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -448,7 +458,7 @@
         }
     </script>
 
-   
+
 @endsection
 <!-- toggler -->
 

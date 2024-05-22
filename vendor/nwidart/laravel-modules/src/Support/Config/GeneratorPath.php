@@ -2,12 +2,8 @@
 
 namespace Nwidart\Modules\Support\Config;
 
-use Nwidart\Modules\Traits\PathNamespace;
-
 class GeneratorPath
 {
-    use PathNamespace;
-
     private $path;
     private $generate;
     private $namespace;
@@ -17,14 +13,13 @@ class GeneratorPath
         if (is_array($config)) {
             $this->path      = $config['path'];
             $this->generate  = $config['generate'];
-            $this->namespace = $config['namespace'] ?? $this->path_namespace(ltrim($config['path'], config('modules.paths.app_folder', '')));
+            $this->namespace = $config['namespace'] ?? $this->convertPathToNamespace($config['path']);
 
             return;
         }
-
         $this->path      = $config;
         $this->generate  = (bool) $config;
-        $this->namespace = $this->path_namespace(ltrim($config, config('modules.paths.app_folder', '')));
+        $this->namespace = $config;
     }
 
     public function getPath()
@@ -39,6 +34,11 @@ class GeneratorPath
 
     public function getNamespace()
     {
-        return $this->studly_namespace($this->namespace);
+        return $this->namespace;
+    }
+
+    private function convertPathToNamespace($path)
+    {
+        return str_replace('/', '\\', ltrim($path, config('modules.paths.app_folder', '')));
     }
 }
