@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Page\Models\Page;
 use Illuminate\Support\Facades\App;
-use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
+use App\Http\Controllers\Controller;
+use Modules\Category\Models\Category;
 
 class HomeController extends Controller
 {
@@ -39,5 +40,6 @@ class HomeController extends Controller
         App::setLocale($locale);
         return redirect()->back();
     }
+    
 }
 

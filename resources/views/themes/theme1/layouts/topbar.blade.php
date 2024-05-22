@@ -39,7 +39,7 @@
                 <div class="right">
                     <ul>
                         @foreach ($pages as $page)
-                        <li><a target="_self" href="terms.php" class="topnav-link-item">{{ $page->name }}</a></li>
+                        <li><a target="_self" href="{{ route('page.show', $page->id) }}" class="topnav-link-item">{{ $page->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
