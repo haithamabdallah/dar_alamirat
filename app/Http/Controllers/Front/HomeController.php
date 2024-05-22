@@ -57,9 +57,9 @@ class HomeController extends Controller
 
     public function categoryProducts(Request $request ,Category $category)
     {
-        $products = $category->products()->filter($request->all())->active()->orderBy('priority','ASC')->paginate(20);
+        $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
 
-        return view('themes.theme1.category' ,compact('products'));
+        return view('themes.theme1.category' ,compact('category','products'));
     }
 }
 

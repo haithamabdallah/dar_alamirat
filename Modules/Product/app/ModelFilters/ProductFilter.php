@@ -18,25 +18,25 @@ class ProductFilter extends ModelFilter
     {
         if (isStringEnglishLetters($search)) {
             return  $this->WhereHas('brand',function($q) use($search){
-                            $q->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, '$.en'))) LIKE ?", ["%{$this->stringUpperToLower($search)}%"]);
-                        });
+                $q->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, '$.en'))) LIKE ?", ["%{$this->stringUpperToLower($search)}%"]);
+            });
         }
 
         if (isStringEnglishLetters($search) == false) {
             return $this->WhereHas('brand',function($q) use($search){
-                        $q->where('name','LIKE', "%{$search}%");
-                    });
+                $q->where('name','LIKE', "%{$search}%");
+            });
         }
     }
 
     public function startPrice($price)
     {
-       return  $this->where('price' ,'>=', $price);
+        return  $this->where('price' ,'>=', $price);
     }
 
     public function endPrice($price)
     {
-       return  $this->where('price' ,'<=', $price);
+        return  $this->where('price' ,'<=', $price);
     }
 
 

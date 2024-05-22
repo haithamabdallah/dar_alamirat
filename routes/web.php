@@ -109,9 +109,9 @@ Route::get('/lang/{lang}' , [HomeController::class , 'changeLanguage'])->name('c
 Route::get('/' , [HomeController::class , 'index'])->name('index');
 Route::get('/category-products/{category}' , [HomeController::class , 'categoryProducts'])->name('category.products');
 
-Route::get('/category' , function (){
-    return view('themes.theme1.category');
-})->name('front.category');
+//Route::get('/category' , function (){
+//    return view('themes.theme1.category');
+//})->name('front.category');
 Route::get('/cart-empty', function (){
     return view('themes.theme1.cart-empty');
 })->name('cart-empty');
