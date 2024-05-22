@@ -13,22 +13,22 @@ class HomeController extends Controller
 {
     public function index()
     {
-//        $categories = Category::active()->limit(3)->get();
-
-        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
-        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
-
-        $categories = collect();
-        $maxCount = max($normalCategories->count(), $barCategories->count());
-
-        for ($i = 0; $i < $maxCount; $i++) {
-            if (isset($normalCategories[$i])) {
-                $categories->push($normalCategories[$i]);
-            }
-            if (isset($barCategories[$i])) {
-                $categories->push($barCategories[$i]);
-            }
-        }
+        $categories = Category::active()->orderBy('priority', 'asc')->get();
+//
+//        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
+//        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
+//
+//        $categories = collect();
+//        $maxCount = max($normalCategories->count(), $barCategories->count());
+//
+//        for ($i = 0; $i < $maxCount; $i++) {
+//            if (isset($normalCategories[$i])) {
+//                $categories->push($normalCategories[$i]);
+//            }
+//            if (isset($barCategories[$i])) {
+//                $categories->push($barCategories[$i]);
+//            }
+//        }
 
         $products = Product::active()->limit(3)->get();
         $brands = Brand::active()->limit(15)->get();

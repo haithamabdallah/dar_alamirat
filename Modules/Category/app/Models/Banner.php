@@ -20,4 +20,9 @@ class Banner extends Model
         return $query->where('status', 1);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }
