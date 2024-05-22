@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
+use App\Http\Controllers\Controller;
+
 
 class HomeController extends Controller
 {

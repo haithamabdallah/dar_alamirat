@@ -29,15 +29,17 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="tel:+966920014688" class="topnav-link-item">
+                    @foreach ($settings->where('type', 'general') as $setting)
+                    <a href="{{ $setting->value['tel'] }}" class="topnav-link-item">
                         <i class="sicon-phone"></i>
-                        <span class="">+966920014688 </span>
+                        <span class="">{{ $setting->value['tel'] }}</span>
                     </a>
+                    @endforeach
                 </div>
                 <div class="right">
                     <ul>
                         @foreach ($pages as $page)
-                        <li><a target="_self" href="terms.php" class="topnav-link-item">{{ $page->name }}</a></li>
+                        <li><a target="_self" href="{{ route('page.show', $page->id) }}" class="topnav-link-item">{{ $page->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>

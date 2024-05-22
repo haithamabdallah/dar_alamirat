@@ -26,7 +26,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('dashboard.pages.create_page',new PageViewModel());
+
+        return view('dashboard.pages.create_page');
     }
 
     /**
@@ -56,7 +57,8 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        return view('page::show');
+        $page=Page::find($id);
+        return view('themes.theme1.page',compact('page'));
     }
 
     /**

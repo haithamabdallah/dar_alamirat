@@ -94,7 +94,7 @@
                     @foreach ($pages as $page)
                         <ul>
                             <li>
-                                <a href="cashback.php">
+                                <a href="{{ route('page.show',  $page->id) }}">
                                     <i class="fa-solid fa-angles-right"></i>
                                     <span>{{ $page->name }}</span>
                                 </a>
@@ -107,16 +107,17 @@
                 <div class="f-item">
                     <h3>Contact us</h3>
                     <ul class="social-icons">
+                        @foreach ($settings->where('type', 'general') as $setting)
                         <li>
                             <a href="">
                                 <i class="sicon-whatsapp2"></i>
-                                <span>920014688</span>
+                                <span>{{ $setting->value['tel'] }}</span>
                             </a>
                         </li>
                         <li>
                             <a href="">
                                 <i class="sicon-iphone"></i>
-                                <span>920014688</span>
+                                <span>{{ $setting->value['whats_app'] }}</span>
                             </a>
                         </li>
                         <li>
@@ -125,6 +126,7 @@
                                 <span>+966920014688</span>
                             </a>
                         </li>
+                        @endforeach
                     </ul>
                 </div>
                 <!-- ./item -->

@@ -8,6 +8,7 @@ use App\Mail\OtpMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -34,9 +35,19 @@ class AuthController extends Controller
 
     public function verifyOtp(Request $request)
     {
-        $request->validate(['otp' => 'required|array|size:4', 'email' => 'required|email']);
+        $validator = Validator::make($request->all(), [
+            'otp' => 'required|array|min:4|max:4',
+            'otp.*' => 'required|string|size:1',
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Invalid input.']);
+        }
+
         $otp = implode('', $request->otp);
-        $otpRecord = Otp::where('email', $request->email)
+
+          $otpRecord = Otp::where('email', $request->email)
                         ->where('otp', $otp)
                         ->where('expires_at', '>', Carbon::now())
                         ->first();

@@ -47,46 +47,82 @@
                         <div class="panel-body">
                             <form action="{{ route('site') }}" id="siteInfo" method="POST" enctype="multipart/form-data">
                                 @csrf
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Website Logo</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="website_logo" class="form-control">
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Website Logo</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" name="website_logo" class="form-control @error('website_logo') is-invalid @enderror">
+                                        @error('website_logo')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Website Icon</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" name="website_icon" class="form-control @error('website_icon') is-invalid @enderror">
+                                        @error('website_icon')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Website Name</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" name="website_name" type="text" placeholder="Website Name"  />
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Website Name</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('website_name') is-invalid @enderror" name="website_name" type="text" placeholder="Website Name"  />
+                                        @error('website_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Website Description</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" name="website_description" type="text" placeholder="Website Description"  />
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Website Description</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('website_description') is-invalid @enderror" name="website_description" type="text" placeholder="Website Description"  />
+                                        @error('website_description')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Website Address</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" name="website_address" type="text" placeholder="Website Address"  />
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Website Address</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('website_address') is-invalid @enderror" name="website_address" type="text" placeholder="Website Address"  />
+                                        @error('website_address')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Website Icon</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="website_icon" class="form-control">
-                                </div>
-                            </div>
 
-                            <div class="row mb-15px">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Phone Number</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('tel') is-invalid @enderror" name="tel" type="tel" placeholder="Phone Number"  />
+                                        @error('tel')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">WhatsApp</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('whats_app') is-invalid @enderror" name="whats_app" type="tel" placeholder="WhatsApp"  />
+                                        @error('whats_app')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15px">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                         <!-- END panel-body -->
 
