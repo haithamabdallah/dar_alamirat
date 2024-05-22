@@ -277,7 +277,7 @@ class Handler implements ExceptionHandlerContract
     /**
      * Indicate that the given exception type should not be reported.
      *
-     * @param  array|string  $exceptions
+     * @param  array|string  $class
      * @return $this
      */
     public function ignore(array|string $exceptions)

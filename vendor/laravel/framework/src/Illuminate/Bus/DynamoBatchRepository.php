@@ -525,7 +525,7 @@ class DynamoBatchRepository implements BatchRepository
     }
 
     /**
-     * The name of the table that contains the batch records.
+     * The the name of the table that contains the batch records.
      *
      * @return string
      */

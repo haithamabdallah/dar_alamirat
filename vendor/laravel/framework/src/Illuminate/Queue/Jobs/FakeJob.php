@@ -65,7 +65,7 @@ class FakeJob extends Job
     /**
      * Delete the job, call the "failed" method, and raise the failed job event.
      *
-     * @param  \Throwable|null  $exception
+     * @param  \Throwable|null  $e
      * @return void
      */
     public function fail($exception = null)

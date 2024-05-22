@@ -10,7 +10,6 @@ use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Database\SQLiteDatabaseDoesNotExistException;
 use Illuminate\Database\SqlServerConnection;
 use PDOException;
-use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Throwable;
 
@@ -188,8 +187,6 @@ class MigrateCommand extends BaseCommand implements Isolatable
      *
      * @param  string  $path
      * @return bool
-     *
-     * @throws \RuntimeException
      */
     protected function createMissingSqliteDatabase($path)
     {
@@ -204,9 +201,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
         $this->components->warn('The SQLite database configured for this application does not exist: '.$path);
 
         if (! confirm('Would you like to create it?', default: true)) {
-            $this->components->info('Operation cancelled. No database was created.');
-
-            throw new RuntimeException('Database was not created. Aborting migration.');
+            return false;
         }
 
         return touch($path);
@@ -216,8 +211,6 @@ class MigrateCommand extends BaseCommand implements Isolatable
      * Create a missing MySQL database.
      *
      * @return bool
-     *
-     * @throws \RuntimeException
      */
     protected function createMissingMysqlDatabase($connection)
     {
@@ -233,9 +226,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
             $this->components->warn("The database '{$connection->getDatabaseName()}' does not exist on the '{$connection->getName()}' connection.");
 
             if (! confirm('Would you like to create it?', default: true)) {
-                $this->components->info('Operation cancelled. No database was created.');
-
-                throw new RuntimeException('Database was not created. Aborting migration.');
+                return false;
             }
         }
 

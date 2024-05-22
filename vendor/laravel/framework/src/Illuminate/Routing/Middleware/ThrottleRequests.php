@@ -7,7 +7,6 @@ use Illuminate\Cache\RateLimiter;
 use Illuminate\Cache\RateLimiting\Unlimited;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
-use Illuminate\Routing\Exceptions\MissingRateLimiterException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\InteractsWithTime;
 use RuntimeException;
@@ -79,7 +78,6 @@ class ThrottleRequests
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Illuminate\Http\Exceptions\ThrottleRequestsException
-     * @throws \Illuminate\Routing\Exceptions\MissingRateLimiterException
      */
     public function handle($request, Closure $next, $maxAttempts = 60, $decayMinutes = 1, $prefix = '')
     {
@@ -177,8 +175,6 @@ class ThrottleRequests
      * @param  \Illuminate\Http\Request  $request
      * @param  int|string  $maxAttempts
      * @return int
-     *
-     * @throws \Illuminate\Routing\Exceptions\MissingRateLimiterException
      */
     protected function resolveMaxAttempts($request, $maxAttempts)
     {
@@ -186,17 +182,8 @@ class ThrottleRequests
             $maxAttempts = explode('|', $maxAttempts, 2)[$request->user() ? 1 : 0];
         }
 
-        if (! is_numeric($maxAttempts) &&
-            $request->user()?->hasAttribute($maxAttempts)
-        ) {
+        if (! is_numeric($maxAttempts) && $request->user()) {
             $maxAttempts = $request->user()->{$maxAttempts};
-        }
-
-        // If we still don't have a numeric value, there was no matching rate limiter...
-        if (! is_numeric($maxAttempts)) {
-            is_null($request->user())
-                ? throw MissingRateLimiterException::forLimiter($maxAttempts)
-                : throw MissingRateLimiterException::forLimiterAndUser($maxAttempts, get_class($request->user()));
         }
 
         return (int) $maxAttempts;
@@ -284,9 +271,9 @@ class ThrottleRequests
      * @return array
      */
     protected function getHeaders($maxAttempts,
-        $remainingAttempts,
-        $retryAfter = null,
-        ?Response $response = null)
+                                  $remainingAttempts,
+                                  $retryAfter = null,
+                                  ?Response $response = null)
     {
         if ($response &&
             ! is_null($response->headers->get('X-RateLimit-Remaining')) &&

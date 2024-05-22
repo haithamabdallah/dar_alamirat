@@ -148,8 +148,8 @@ trait Test
             return;
         }
 
-        if ($testInstance instanceof DateTimeInterface) {
-            $testInstance = $testInstance->setTimezone($timezone ?? date_default_timezone_get());
+        if ($timezone) {
+            $testInstance = $testInstance->setTimezone($timezone);
         }
 
         if (static::hasRelativeKeywords($time)) {

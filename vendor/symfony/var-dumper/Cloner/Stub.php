@@ -35,7 +35,7 @@ class Stub
 
     public int $type = self::TYPE_REF;
     public string|int|null $class = '';
-    public mixed $value = null;
+    public mixed $value;
     public int $cut = 0;
     public int $handle = 0;
     public int $refCount = 0;

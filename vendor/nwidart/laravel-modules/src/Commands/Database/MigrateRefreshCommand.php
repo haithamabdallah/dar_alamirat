@@ -52,7 +52,7 @@ class MigrateRefreshCommand extends BaseCommand
      *
      * @return array
      */
-    protected function getOptions(): array
+    protected function getOptions()
     {
         return [
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],

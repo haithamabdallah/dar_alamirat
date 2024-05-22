@@ -63,9 +63,7 @@ abstract class BaseCommand extends Command implements PromptsForMissingInput
 
     protected function promptForMissingArguments(InputInterface $input, OutputInterface $output): void
     {
-        $modules = $this->hasOption('direction')
-            ? array_keys($this->laravel['modules']->getOrdered($input->hasOption('direction')))
-            : array_keys($this->laravel['modules']->all());
+        $modules = array_keys($this->laravel['modules']->all());
 
         if ($input->getOption(strtolower(self::ALL))) {
             $input->setArgument('module', $modules);
@@ -78,7 +76,7 @@ abstract class BaseCommand extends Command implements PromptsForMissingInput
         }
 
         $selected_item = multiselect(
-            label   : 'Select Modules',
+            label   : 'What Module want to check?',
             options : [
                 self::ALL,
                 ...$modules,

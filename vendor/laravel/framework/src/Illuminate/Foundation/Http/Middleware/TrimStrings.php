@@ -4,7 +4,6 @@ namespace Illuminate\Foundation\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class TrimStrings extends TransformsRequest
 {
@@ -62,23 +61,11 @@ class TrimStrings extends TransformsRequest
     {
         $except = array_merge($this->except, static::$neverTrim);
 
-        if ($this->shouldSkip($key, $except) || ! is_string($value)) {
+        if (in_array($key, $except, true) || ! is_string($value)) {
             return $value;
         }
 
-        return Str::trim($value);
-    }
-
-    /**
-     * Determine if the given key should be skipped.
-     *
-     * @param  string  $key
-     * @param  array  $except
-     * @return bool
-     */
-    protected function shouldSkip($key, $except)
-    {
-        return in_array($key, $except, true);
+        return preg_replace('~^[\s\x{FEFF}\x{200B}]+|[\s\x{FEFF}\x{200B}]+$~u', '', $value) ?? trim($value);
     }
 
     /**

@@ -50,7 +50,7 @@ class ModelPruneCommand extends PruneCommand implements PromptsForMissingInput
         }
 
         $selected_item = multiselect(
-            label   : 'Select Modules',
+            label   : 'What Module want to check?',
             options : [
                 self::ALL,
                 ...array_keys(Module::all()),

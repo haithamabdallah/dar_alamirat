@@ -42,7 +42,6 @@ class SqlServerBuilder extends Builder
     {
         [$schema, $table] = $this->parseSchemaAndTable($table);
 
-        $schema ??= $this->getDefaultSchema();
         $table = $this->connection->getTablePrefix().$table;
 
         foreach ($this->getTables() as $value) {
@@ -65,7 +64,6 @@ class SqlServerBuilder extends Builder
     {
         [$schema, $view] = $this->parseSchemaAndTable($view);
 
-        $schema ??= $this->getDefaultSchema();
         $view = $this->connection->getTablePrefix().$view;
 
         foreach ($this->getViews() as $value) {
@@ -154,16 +152,6 @@ class SqlServerBuilder extends Builder
     }
 
     /**
-     * Get the default schema for the connection.
-     *
-     * @return string
-     */
-    protected function getDefaultSchema()
-    {
-        return $this->connection->scalar($this->grammar->compileDefaultSchema());
-    }
-
-    /**
      * Parse the database object reference and extract the schema and table.
      *
      * @param  string  $reference
@@ -171,7 +159,7 @@ class SqlServerBuilder extends Builder
      */
     protected function parseSchemaAndTable($reference)
     {
-        $parts = array_pad(explode('.', $reference, 2), -2, null);
+        $parts = array_pad(explode('.', $reference, 2), -2, 'dbo');
 
         if (str_contains($parts[1], '.')) {
             $database = $parts[0];

@@ -30,8 +30,12 @@ class HomeController extends Controller
 //            }
 //        }
 
-        $products = Product::active()->limit(3)->get();
-        $brands = Brand::active()->limit(15)->get();
+        $brands     = cache()->remember('brands', 60 * 60, function () {
+            return Product::active()->limit(3)->get();
+        });
+        $brands     = cache()->remember('brands', 60 * 60, function () {
+            return Brand::active()->limit(15)->get();
+        });
         return view('themes.theme1.index' , get_defined_vars());
     }
 
@@ -40,6 +44,11 @@ class HomeController extends Controller
         session()->put('locale', $locale);
         App::setLocale($locale);
         return redirect()->back();
+    }
+
+    public function getProducts()
+    {
+
     }
 }
 
