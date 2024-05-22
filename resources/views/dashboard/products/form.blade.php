@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="product-data">
+        <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="product-dropzone">
             @csrf
             @method($method)
 
@@ -225,17 +225,17 @@
                             </div>
 
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" hidden>
                             {{--<div id="dropzone">
                                 <input type="file" name="images[]" id="dropzon" multiple>
                             </div>--}}
-                            <div id="myDropzone">
-                                <div action="#" class="dropzone needsclick" id="my-awesome-upload">
+                            <div id="dropzone">
+                                <div action="/upload" class="dropzone needsclick" id="my-awesome-upload">
                                     <div class="dz-message needsclick">
                                         Drop files <b>here</b> or <b>click</b> to upload.<br />
                                         <span class="dz-note needsclick">
-                                            (This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)
-                                        </span>
+        (This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)
+      </span>
                                     </div>
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                 </div>
                 <!--begin::Actions-->
                 <div class="text-center mt-4">
-                    <button type="submit" id="submit-all" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                         <span class="indicator-label">Save</span>
                     </button>
                 </div>
@@ -457,58 +457,7 @@
             clearBtn.style.display = 'none';
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
 
-    <script>
-        // Wait for the DOM to be fully loaded
-        document.addEventListener("DOMContentLoaded", function () {
-            // Disable auto discovery
-            Dropzone.autoDiscover = false;
-
-            // Initialize the dropzone
-            var myDropzone = new Dropzone("#myDropzone", {
-                url: "{{ $action }}",
-                autoProcessQueue: false,
-                uploadMultiple: true,
-                parallelUploads: 100,
-                maxFiles: 10,
-                addRemoveLinks: true,
-                acceptedFiles: "image/*",
-                init: function () {
-                    var submitButton = document.getElementById("submit-all");
-                    myDropzone = this; // closure
-
-                    submitButton.addEventListener("click", function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        // Gather additional data here if necessary
-                        var data = new FormData(document.getElementById("product-data"));
-                        // Append files to the form data
-                        myDropzone.files.forEach(function(file) { data.append('images[]', file); });
-                        // Create the AJAX request
-                        $.ajax({
-                            url: myDropzone.options.url,
-                            type: "POST",
-                            data: data,
-                            processData: false, // Important!
-                            contentType: false, // Important! I set this to false for file data
-                            success: function (response) {
-                                // Handle the response here
-                                console.log(response);
-                                alert("Successfully submitted.");
-                            },
-                            error: function (response) {
-                                console.error("Error: ", response);
-                                alert("Failed to submit.");
-                            }
-                        });
-                    });
-
-                    // You might want to listen to other events like 'addedfile'
-                }
-            });
-        });
-    </script>sho
 
 @endsection
 <!-- toggler -->
