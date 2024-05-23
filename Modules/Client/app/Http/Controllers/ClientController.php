@@ -41,7 +41,7 @@ class ClientController extends Controller
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
                 'phone_number' => 'required|string|max:255',
-                'birthday' =>  ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
+                'birthday' =>  ['required', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
                 'gender' => 'required|in:male,female',
                 'password' => 'required|min:8|confirmed',
 
