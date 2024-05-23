@@ -135,7 +135,7 @@
                     </div>
                     <div class="s-brands-list">
                         @foreach($brands as $brand)
-                            <a href="{{ route('brand',$brand->id) }}" class="brand-item">
+                            <a href="{{ route('brand',$brand->id) }}" class="brand-image">
                                 <img class="" src="{{storage_asset($brand->image)}}" alt="{{$brand->name}}">
                             </a>
                         @endforeach
