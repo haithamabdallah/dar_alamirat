@@ -7,7 +7,7 @@ use App\Http\Controllers\Front\PageController;
 use App\Http\Controllers\Front\SettingController;
 use App\Http\Controllers\Front\FrontPageController;
 use App\Http\Controllers\Dashboard\SettingsController;
-
+use App\Http\Controllers\Front\BrandController;
 
 /************************************ clients ****************************/
 
@@ -135,6 +135,10 @@ Route::prefix('settings')->group(function () {
     Route::post('social-store', [SettingsController::class, 'saveSocialMedia'])->name('social');
     Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
     Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
+});
+Route::prefix('brands')->group(function () {
+    Route::get('brands/{brand}',[BrandController::class,'showBrand'])->name('brand');
+
 });
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
