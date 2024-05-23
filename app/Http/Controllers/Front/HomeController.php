@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::active()->orderBy('priority', 'asc')->get();
+        $brands= Brand::active()->limit(15)->get();
 //
 //        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
 //        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
@@ -31,12 +32,12 @@ class HomeController extends Controller
 //            }
 //        }
 
-        $brands     = cache()->remember('brands', 60 * 60, function () {
-            return Product::active()->limit(3)->get();
-        });
-        $brands     = cache()->remember('brands', 60 * 60, function () {
-            return Brand::active()->limit(15)->get();
-        });
+        // $brands     = cache()->remember('brands', 60 * 60, function () {
+        //     return Product::active()->limit(3)->get();
+        // });
+        // $brands     = cache()->remember('brands', 60 * 60, function () {
+        //     return Brand::active()->limit(15)->get();
+        // });
         return view('themes.theme1.index' , get_defined_vars());
     }
 
