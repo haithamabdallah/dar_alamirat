@@ -12,6 +12,6 @@ class BrandController extends Controller
     public function showBrand($id)
     {
         $brand=Brand::find($id);
-        return 'brand';
+        return view('themes.theme1.single-brand',compact('brand'));
     }
 }

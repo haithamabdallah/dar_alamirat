@@ -12,13 +12,13 @@
                 <div class="brand_data">
                     <!-- img -->
                     <div class="brand_img">
-                        <img class="" src="images/brands/XspQyl8oKzYAkn4AvIFtB4CNeIMsL8rN3388ojJx.webp" alt="Dior">
+                        <img class="" src="{{storage_asset($brand->image)}}" alt="{{ $brand->name }}">
                     </div>
                     <!-- ./img -->
                     <!-- title -->
                     <div class="brand_title">
-                        <h1>Dior</h1>
-                        <p>For a bolder and more attractive look</p>
+                        <h1>{{ $brand->name }}</h1>
+                        {{-- <p>For a bolder and more attractive look</p> --}}
                     </div>
                     <!-- ./title -->
                 </div>
@@ -30,14 +30,9 @@
             <section class="s-block">
                 <!-- brand product items -->
                 <div class="brand_products">
-                    <?php include "blocks/items/item-01.php"?>
-                    <?php include "blocks/items/item-02.php"?>
-                    <?php include "blocks/items/item-03.php"?>
-                    <?php include "blocks/items/item-04.php"?>
-                    <?php include "blocks/items/item-05.php"?>
-                    <?php include "blocks/items/item-06.php"?>
-                    <?php include "blocks/items/item-07.php"?>
-                    <?php include "blocks/items/item-08.php"?>
+
+
+
                 </div>
                 <!-- ./brand product items -->
             </section>
