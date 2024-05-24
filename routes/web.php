@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\BrandController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\SettingController;
 use App\Http\Controllers\Front\FrontPageController;
+use App\Http\Controllers\Front\Order\CartController;
 use App\Http\Controllers\Dashboard\SettingsController;
 
 /************************************ clients ****************************/
@@ -146,5 +147,6 @@ Route::prefix('products')->group(function () {
     Route::get('product/{product}',[ProductController::class,'showProduct'])->name('product');
 
 });
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
