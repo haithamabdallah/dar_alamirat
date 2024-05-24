@@ -32,9 +32,9 @@
             </div>
         </div>
 
-    @include('dashboard.layouts.alerts')
+        @include('dashboard.layouts.alerts')
 
-    <!-- start card -->
+        <!-- start card -->
         <div class="card border-0">
             <!-- content -->
             <div class="tab-content p-3">
@@ -78,7 +78,7 @@
                                     <td>{{$category->name}}</td>
                                     <td>{{$category->slug}}</td>
                                     <td width="1%" class="with-img">
-                                        <img src="{{storage_asset($category->icon)}}" class="rounded h-30px my-n1 mx-n1" />
+                                        <img src="{{$category->icon}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>
                                     <td>{{$category->priority}}</td>
                                     {{-- <td>{{$category->status}}</td> --}}
