@@ -22,7 +22,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $categories = Category::active()->orderBy('priority', 'asc')->get();
+        $categories = Category::active()->orderBy('priority', 'ASC')->get();
 //
 //        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
 //        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
