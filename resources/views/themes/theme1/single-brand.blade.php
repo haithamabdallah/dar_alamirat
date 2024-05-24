@@ -57,9 +57,9 @@
                                         <strong>{{ number_format($product->variants->first()->price, 2) }}</strong>
                                         <span>LYD</span>
                                     </h4>
-                                    @if($product->discount_price)
+                                    @if($product->variants->first()->price_with_discount)
                                         <h4 class="after-dis">
-                                            <strong>{{ number_format($product->discount_price, 2) }}</strong>
+                                            <strong>{{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
                                             <span>LYD</span>
                                         </h4>
                                     @endif
