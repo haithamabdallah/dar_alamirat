@@ -54,7 +54,7 @@
                                 <!-- price -->
                                 <div class="item-price">
                                     <h4 class="before-dis">
-                                        <strong>{{ number_format($product->price, 2) }}</strong>
+                                        <strong>{{ number_format($product->variants->first()->price, 2) }}</strong>
                                         <span>LYD</span>
                                     </h4>
                                     @if($product->discount_price)
