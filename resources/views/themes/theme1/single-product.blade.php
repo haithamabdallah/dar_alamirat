@@ -19,8 +19,8 @@
                         <!-- ./img -->
                         <!-- data -->
                         <div class="brand_data">
-                            <p class="status">100 Original</p>
-                            <a href="single-brand.php">Click here fo more of <strong>Dior</strong></a>
+                            {{-- <p class="status">100 Original</p> --}}
+                            <a href="{{ route('brand',$product->brand->id) }}">Click here fo more of <strong>{{ $product->brand->name }}</strong></a>
                         </div>
                         <!-- ./data -->
                     </div>
@@ -32,19 +32,21 @@
 
                     <!-- product info -->
                     <div class="product_description">
-                        <p>نقدم لكِ مزيجاً فريداً من النكهات مع انتعاش إضافي لذا انطلقي بين رشات معطرّ الجسم المنشط الذي تبقى على بشرتكِ بلطف. يمكنكِ استخدامه على جسمكِ بعد الاستحمام لتحصلي على بشرة منتعشة وناعمة كالحرير.</p>
+                        <p>{{ $product->description }}</p>
                     </div>
                     <!-- ./product info -->
 
                     <!-- price -->
                     <div class="item-price">
                         <h4 class="before-dis">
-                            <strong><span>LYD</span> 24.73</strong>
+                            <strong><span>LYD</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
                         </h4>
+                        @if($product->variants->first()->price_with_discount)
                         <h4 class="after-dis">
-                            <strong><span>LYD</span> 24.73</strong>
-                            <span class="discount">50%</span>
+                            <strong><span>LYD</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
+                            {{-- <span class="discount">50%</span> --}}
                         </h4>
+                        @endif
                     </div>
                     <!-- ./price -->
 
@@ -117,7 +119,7 @@
                             <div thumbsSlider="" class="swiper p-thumb">
                                 <div class="swiper-wrapper">
                                     <li class="swiper-slide">
-                                        <img src="images/products/01.webp" />
+                                        <img src="{{ $product->thumbnail }}" />
                                     </li>
                                     <li class="swiper-slide">
                                         <img src="images/products/02.webp" />
@@ -164,7 +166,7 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">description</div>
+                    <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{{ $product->description }}</div>
                     <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0">use</div>
                     <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
                     <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div>
