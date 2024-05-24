@@ -27,7 +27,7 @@
                     <!-- ./brand -->
 
                     <!-- product info -->
-                    <h2 class="product_info">Mielle Organics Rosemary Mint Scalp & Hair Strengthening Oil - 59ml</h2>
+                    {{-- <h2 class="product_info">Mielle Organics Rosemary Mint Scalp & Hair Strengthening Oil - 59ml</h2> --}}
                     <!-- ./product info -->
 
                     <!-- product info -->
@@ -51,7 +51,7 @@
                     <!-- ./price -->
 
                     <!-- vat -->
-                    <p class="vat">VAT included</p>
+                    {{-- <p class="vat">VAT included</p> --}}
                     <!-- ./vat -->
 
                     <!-- alert -->
@@ -156,20 +156,20 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="use-tab" data-bs-toggle="tab" data-bs-target="#use" type="button" role="tab" aria-controls="use" aria-selected="false">How to use</button>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    {{-- <li class="nav-item" role="presentation">
                         <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">specifications</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">(4573) reviews</button>
-                    </li>
+                    </li> --}}
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{{ $product->description }}</div>
                     <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0">use</div>
-                    <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
-                    <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div>
+                    {{-- <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
+                    <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
                 </div>
             </div>
             <!-- ./Full Descriptions -->
