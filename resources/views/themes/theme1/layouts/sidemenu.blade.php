@@ -48,7 +48,7 @@
             --}}
             @foreach(defaultCategory() as $category)
                 <li class="nav__item">
-                    <a class="nav__link" href="{{route('front.category')}}">{{$category->name}}</a>
+                    <a class="nav__link" href="{{route('category.products' , $category->id)}}">{{$category->name}}</a>
                 </li>
             @endforeach
             {{--            <li class="nav__item">

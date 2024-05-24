@@ -21,9 +21,9 @@ class ProductService {
         return  Product::paginate($paginate);
     }
 
-    public function getFilteredData(array $data ,int $paginate = 15, $order = 'desc')
+    public function getFilteredData(array $data ,int $paginate = 15, $order = 'ASC')
     {
-        return  Product::filter($data)->hidden(0)->approved()->orderBy('price',$order)->paginate($paginate);
+        return  Product::filter($data)->active()->orderBy('priority',$order)->paginate($paginate);
     }
 
 

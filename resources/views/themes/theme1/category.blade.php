@@ -15,7 +15,7 @@
                         </a>
                     </li>
                     <li>
-                        <span>Make-up</span>
+                        <span>{{$category->name}}</span>
                     </li>
                 </ul>
                 <!-- ./content -->
@@ -45,34 +45,13 @@
                                 <div id="colCategory" class="accordion-collapse collapse show"
                                      aria-labelledby="headCategory" data-bs-parent="#accCategories">
                                     <div class="accordion-body">
-                                        <div class="s-filters-widget-values"><label class="s-filters-label"
-                                                                                    for="brand_id-option-0"><input
-                                                    id="brand_id-option-0" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span
-                                                    class="s-filters-option-name">Essence</span></label><label
-                                                class="s-filters-label" for="brand_id-option-1"><input
-                                                    id="brand_id-option-1" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Rimmel London</span></label><label
-                                                class="s-filters-label" for="brand_id-option-2"><input
-                                                    id="brand_id-option-2" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Real Techniques</span></label><label
-                                                class="s-filters-label" for="brand_id-option-3"><input
-                                                    id="brand_id-option-3" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Maybelline</span></label><label
-                                                class="s-filters-label" for="brand_id-option-4"><input
-                                                    id="brand_id-option-4" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span
-                                                    class="s-filters-option-name">MAC</span></label><label
-                                                class="s-filters-label" for="brand_id-option-5"><input
-                                                    id="brand_id-option-5" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">MAKE UP FOR EVER</span></label><label
-                                                class="s-filters-label" for="brand_id-option-6"><input
-                                                    id="brand_id-option-6" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span
-                                                    class="s-filters-option-name">Vaseline</span></label><label
-                                                class="s-filters-label" for="brand_id-option-7"><input
-                                                    id="brand_id-option-7" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">cotton plus</span></label>
+                                        <div class="s-filters-widget-values">
+                                            @foreach(defaultCategory() as $category)
+                                                <label class="s-filters-label" for="brand_id-option-0">
+                                                    <input id="brand_id-option-0" name="brand_id" type="radio" class="s-filters-radio">
+                                                    <span class="s-filters-option-name">{{$category->name}}</span>
+                                                </label>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -392,36 +371,77 @@
                     </aside>
                     <main>
                         <div class="main">
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
+                            @foreach($products as $product)
+                                <!-- product item -->
+                                <div class="item">
+                                    <!-- tags -->
+                                    <div class="item-tags">
+                                        <span>most popular</span>
+                                    </div>
+                                    <!-- ./tags -->
+                                    <!-- img -->
+                                    <div class="img">
+                                        <a href="{{route('cart-empty')}}">
+                                            <img class="w-full object-contain" src="{{$product->thumbnail}}" alt="Product Image">
+                                        </a>
+                                    </div>
+                                    <!-- img -->
 
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
+                                    <!-- data -->
+                                    <div class="item-data">
+                                        <!-- price -->
+                                        <div class="item-price">
+                                            @if($product->discount_value > 0)
+                                                <h4 class="before-dis">
+                                                    <strong>{{$product->variants->first()->price}}</strong>
+                                                    <span>SAR</span>
+                                                </h4>
+                                            @endif
+                                            <h4 class="after-dis">
+                                                <strong>{{$product->variants->first()->price_with_discount}}</strong>
+                                                <span>SAR</span>
+                                            </h4>
+                                            <div class="add-favourite">
+                                                <button class="icon-fav">
+                                                    <i class="sicon-heart"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- ./price -->
 
+                                        <!-- description -->
+                                        <div class="item-dec">
+                                            <a href="{{route('cart-empty')}}">
+                                                <span>{!! Str::limit($product->title, 100) !!}</span>
+                                            </a>
+                                        </div>
+                                        <!-- ./description -->
 
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
-                            @include('themes.theme1.blocks.items.item-01')
+                                        <!-- button cart -->
+                                        <button class="tocart add-to-cart button--submit" data-title="Add to Cart">
+                                            <span class="button-title"></span>
+                                            <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
+
+                                            <span class="button-icon icon-wait" data-icon="tocart" style="display: none;">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                                            <path d="M19,8L15,12H18A6,6 0 0,1 12,18C11,18 10.03,17.75 9.2,17.3L7.74,18.76C8.97,19.54 10.43,20 12,20A8,8 0 0,0 20,12H23M6,12A6,6 0 0,1 12,6C13,6 13.97,6.25 14.8,6.7L16.26,5.24C15.03,4.46 13.57,4 12,4A8,8 0 0,0 4,12H1L5,16L9,12"></path>
+                                                        </svg>
+                                                    </span>
+
+                                            <span class="button-icon icon-success" style="display: none;" data-icon="tocart">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path>
+                                                        </svg>
+                                                    </span>
+
+                                        </button>
+                                        <!-- ./button cart -->
+
+                                    </div>
+                                    <!-- ./data -->
+                                </div>
+                                <!-- product item -->
+                            @endforeach
                         </div>
                         <div class="d-flex justify-content-center">
                             <button id="load-more" class="s-infinite-scroll-btn s-button-btn s-button-primary">Load

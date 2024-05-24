@@ -15,7 +15,7 @@
                                 </div>
 
                                 <div class="category-nav">
-                                    <a href="{{route('front.category')}}" class="btn-all">View All</a>
+                                    <a href="{{route('category.products' , $category->id)}}" class="btn-all">View All</a>
                                     <div class="navigation">
                                         <button class="cat-prev">
                                             <i class="fa-solid fa-chevron-left"></i>
@@ -49,10 +49,12 @@
                                             <div class="item-data">
                                                 <!-- price -->
                                                 <div class="item-price">
-                                                    <h4 class="before-dis">
-                                                        <strong>{{$product->variants->first()->price}}</strong>
-                                                        <span>SAR</span>
-                                                    </h4>
+                                                    @if($product->discount_value > 0)
+                                                        <h4 class="before-dis">
+                                                            <strong>{{$product->variants->first()->price}}</strong>
+                                                            <span>SAR</span>
+                                                        </h4>
+                                                    @endif
                                                     <h4 class="after-dis">
                                                         <strong>{{$product->variants->first()->price_with_discount}}</strong>
                                                         <span>SAR</span>
@@ -68,7 +70,7 @@
                                                 <!-- description -->
                                                 <div class="item-dec">
                                                     <a href="{{route('cart-empty')}}">
-                                                        <span>{!! Str::limit($product->description, 100) !!}</span>
+                                                        <span>{!! Str::limit($product->title, 100) !!}</span>
                                                     </a>
                                                 </div>
                                                 <!-- ./description -->
@@ -112,7 +114,7 @@
                     <div class="pixel-container">
                         <!-- row -->
                         <div class="wrap">
-                            <a href="javascript:;" class="" aria-label="Banner">
+                            <a href="#" class="" aria-label="Banner">
                                 <img class="w-full object-cover" src="{{storage_asset($image->image)}}" alt="baaner image">
                             </a>
                         </div>

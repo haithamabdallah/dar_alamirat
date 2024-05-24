@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
+use App\Services\CarService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
+use Modules\Product\app\Services\ProductService;
 use Modules\Product\Models\Product;
-use App\Http\Controllers\Controller;
-
 
 class HomeController extends Controller
 {
+    private $productService;
+
+    public function __construct()
+    {
+        $this->productService = new ProductService();
+    }
+
     public function index()
     {
-        $categories = Category::active()->orderBy('priority', 'asc')->get();
-        $brands= Brand::active()->limit(15)->get();
-//
+        $categories = Category::active()->orderBy('priority', 'ASC')->get();
+        $brands=Brand::active()->limit(15)->get();
 //        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
 //        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
 //
@@ -48,9 +55,11 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function getProducts()
+    public function categoryProducts(Request $request ,Category $category)
     {
+        $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
 
+        return view('themes.theme1.category' ,compact('category','products'));
     }
 }
 

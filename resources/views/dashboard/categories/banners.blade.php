@@ -78,7 +78,7 @@
                                         <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>
                                     <td>
-                                        <input type="checkbox" class="switch-status" data-url="{{ route('banner.status' , $banner->id) }}" @if($banner->status) checked @endif/>
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('banner.status' , $banner->id) }}" @if($banner->category->status) checked @endif/>
                                     </td>
                                     <td nowrap="">
                                         @adminCan('categories.edit')

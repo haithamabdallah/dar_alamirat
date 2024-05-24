@@ -122,7 +122,7 @@ class BannerController extends Controller
 
     public function changeStatus(Request $request,Banner $banner)
     {
-        $banner->update(['status' => $request->status]);
+        $banner->category()->update(['status' => $request->status]);
         return response()->json(['message' => 'Status Changed Successfully'], 200);
     }
 }
