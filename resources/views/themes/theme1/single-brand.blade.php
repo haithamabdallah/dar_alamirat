@@ -43,7 +43,7 @@
 
                             <!-- img -->
                             <div class="img">
-                                <a href="{{ route('product.show', $product->id) }}">
+                                <a href="{{ route('product', $product->id) }}">
                                     <img class="w-full object-contain" src="{{ $product->thumbnail }}" alt="{{ $product->name }}">
                                 </a>
                             </div>
@@ -73,7 +73,7 @@
 
                                 <!-- description -->
                                 <div class="item-dec">
-                                    <a href="{{ route('product.show', $product->id) }}">
+                                    <a href="#">
                                         <span>{{ $product->description }}</span>
                                     </a>
                                 </div>

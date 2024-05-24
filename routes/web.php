@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\PageController;
+use App\Http\Controllers\Front\BrandController;
+use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\SettingController;
 use App\Http\Controllers\Front\FrontPageController;
 use App\Http\Controllers\Dashboard\SettingsController;
-use App\Http\Controllers\Front\BrandController;
 
 /************************************ clients ****************************/
 
@@ -139,6 +140,10 @@ Route::prefix('settings')->group(function () {
 });
 Route::prefix('brands')->group(function () {
     Route::get('brands/{brand}',[BrandController::class,'showBrand'])->name('brand');
+
+});
+Route::prefix('products')->group(function () {
+    Route::get('product/{product}',[ProductController::class,'showProduct'])->name('product');
 
 });
 
