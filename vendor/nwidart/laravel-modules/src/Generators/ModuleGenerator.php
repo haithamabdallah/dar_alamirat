@@ -10,9 +10,12 @@ use Nwidart\Modules\Contracts\ActivatorInterface;
 use Nwidart\Modules\FileRepository;
 use Nwidart\Modules\Support\Config\GenerateConfigReader;
 use Nwidart\Modules\Support\Stub;
+use Nwidart\Modules\Traits\PathNamespace;
 
 class ModuleGenerator extends Generator
 {
+    use PathNamespace;
+
     /**
      * The module name will created.
      *
@@ -89,7 +92,7 @@ class ModuleGenerator extends Generator
      * @var array
      */
     protected array $author = [
-        'name', 'email'
+        'name', 'email',
     ];
 
     /**
@@ -296,7 +299,7 @@ class ModuleGenerator extends Generator
      * @param string|null $email
      * @return $this
      */
-    function setAuthor(string $name = null, string $email = null)
+    public function setAuthor(string $name = null, string $email = null)
     {
         $this->author['name'] = $name;
         $this->author['email'] = $email;
@@ -310,7 +313,7 @@ class ModuleGenerator extends Generator
      * @param string|null $vendor
      * @return $this
      */
-    function setVendor(string $vendor = null)
+    public function setVendor(string $vendor = null)
     {
         $this->vendor = $vendor;
 
@@ -470,6 +473,25 @@ class ModuleGenerator extends Generator
             );
         }
 
+        $eventGeneratorConfig = GenerateConfigReader::read('event-provider');
+        if (
+            (is_null($eventGeneratorConfig->getPath()) && $providerGenerator->generate())
+            || (!is_null($eventGeneratorConfig->getPath()) && $eventGeneratorConfig->generate())
+        ) {
+            $this->console->call('module:make-event-provider', [
+                'module' => $this->getName(),
+            ]);
+        } else {
+            if ($providerGenerator->generate()) {
+                // comment register EventServiceProvider
+                $this->filesystem->replaceInFile(
+                    '$this->app->register(Event',
+                    '// $this->app->register(Event',
+                    $this->module->getModulePath($this->getName()) . DIRECTORY_SEPARATOR . $providerGenerator->getPath() . DIRECTORY_SEPARATOR . sprintf('%sServiceProvider.php', $this->getName())
+                );
+            }
+        }
+
         $routeGeneratorConfig = GenerateConfigReader::read('route-provider');
         if (
             (is_null($routeGeneratorConfig->getPath()) && $providerGenerator->generate())
@@ -532,6 +554,10 @@ class ModuleGenerator extends Generator
     protected function getReplacement($stub)
     {
         $replacements = $this->module->config('stubs.replacements');
+
+        if (!isset($replacements['composer']['APP_FOLDER_NAME'])) {
+            $replacements['composer'][] = 'APP_FOLDER_NAME';
+        }
 
         if (!isset($replacements[$stub])) {
             return [];
@@ -629,17 +655,19 @@ class ModuleGenerator extends Generator
      */
     protected function getModuleNamespaceReplacement()
     {
-        return str_replace('\\', '\\\\', $this->module->config('namespace'));
+        return str_replace('\\', '\\\\', $this->module->config('namespace') ?? $this->path_namespace($this->module->config('paths.modules')));
     }
 
     /**
      * Get replacement for $CONTROLLER_NAMESPACE$.
-     *
-     * @return string
      */
     private function getControllerNamespaceReplacement(): string
     {
-        return str_replace('/', '\\', $this->module->config('paths.generator.controller.namespace') ?: ltrim($this->module->config('paths.generator.controller.path', 'Controller'), config('modules.paths.app_folder')));
+        if ($this->module->config('paths.generator.controller.namespace')) {
+            return $this->module->config('paths.generator.controller.namespace');
+        } else {
+            return $this->path_namespace(ltrim($this->module->config('paths.generator.controller.path', 'app/Http/Controllers'), config('modules.paths.app_folder')));
+        }
     }
 
     /**
@@ -660,6 +688,16 @@ class ModuleGenerator extends Generator
     protected function getAuthorEmailReplacement()
     {
         return $this->author['email'] ?: $this->module->config('composer.author.email');
+    }
+
+    /**
+     * Get replacement for $APP_FOLDER_NAME$.
+     *
+     * @return string
+     */
+    protected function getAppFolderNameReplacement()
+    {
+        return  $this->module->config('paths.app_folder');
     }
 
     protected function getProviderNamespaceReplacement(): string
