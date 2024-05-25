@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::active()->orderBy('priority', 'ASC')->get();
-        $brands=Brand::active()->limit(15)->get();
+//
 //        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
 //        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
 //
@@ -57,8 +57,14 @@ class HomeController extends Controller
 
     public function categoryProducts(Request $request ,Category $category)
     {
-        $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
-
+        $products = $category->products()->filter($request->all())->active()->latest()->paginate(2);
+        if ($request->ajax()) {
+            $products->load('inventory' , 'variants' , 'media' , 'category');
+            return response()->json([
+                'products' => $products->items(),
+                'nextPage' => $products->nextPageUrl()
+            ]);
+        }
         return view('themes.theme1.category' ,compact('category','products'));
     }
 }

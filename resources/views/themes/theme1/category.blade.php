@@ -370,7 +370,7 @@
                         </div>
                     </aside>
                     <main>
-                        <div class="main">
+                        <div class="main" id="product-container" data-url="{{ route('category.products', $category->id) }}">
                             @foreach($products as $product)
                                 <!-- product item -->
                                 <div class="item">
@@ -444,14 +444,80 @@
                             @endforeach
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button id="load-more" class="s-infinite-scroll-btn s-button-btn s-button-primary">Load
-                                More
+                            <button id="load-more" class="s-infinite-scroll-btn s-button-btn s-button-primary" data-page="{{ $products->currentPage() + 1 }}">
+                                Load More
                             </button>
                         </div>
                     </main>
                 </div>
             </div>
         </div>
-    </section>;
+    </section>
 @endsection
 
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        document.getElementById('load-more').addEventListener('click', function() {
+            const button = this;
+            let currentPage = parseInt(button.getAttribute('data-page')); // Get the current page number
+            const container = document.getElementById('product-container');
+            const url = container.getAttribute('data-url'); // Get the category ID
+
+            axios.get(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => {
+                    const products = response.data.products;
+                    products.forEach(product => {
+                        console.log(product.variants); // Check the structure of product data
+                        const productHTML = `
+                <div class="item">
+                    <div class="item-tags">
+                        <span>most popular</span>
+                    </div>
+                    <div class="img">
+                        <a href="#">
+                            <img class="w-full object-contain" src="${product.thumbnail}" alt="Product Image">
+                        </a>
+                    </div>
+                    <div class="item-data">
+                        <div class="item-price">
+                            <h4 class="before-dis">
+                                <strong>${product.variants[0].price}</strong>
+                                <span>SAR</span>
+                            </h4>
+                            <h4 class="after-dis">
+                                <strong>${product.variants[0].price_with_discount}</strong>
+                                <span>SAR</span>
+                            </h4>
+                        </div>
+                        <div class="item-dec">
+                            <a href="#">
+                                <span>${product.title['en']}</span>
+                            </a>
+                        </div>
+                        <button class="tocart add-to-cart button--submit">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+                        container.innerHTML += productHTML;
+                    });
+
+                    if (response.data.nextPage) {
+                        button.setAttribute('data-page', currentPage + 1); // Update the page number for the next load
+                    } else {
+                        button.remove(); // Remove the button if there are no more pages
+                    }
+                })
+                .catch(error => console.error('Error loading more products:', error));
+        });
+
+    </script>
+
+@endsection
