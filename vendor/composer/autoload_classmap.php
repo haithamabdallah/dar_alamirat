@@ -3295,6 +3295,7 @@ return array(
     'Modules\\Product\\Models\\Variant' => $baseDir . '/Modules/Product/app/Models/Variant.php',
     'Modules\\Product\\Providers\\ProductServiceProvider' => $baseDir . '/Modules/Product/app/Providers/ProductServiceProvider.php',
     'Modules\\Product\\Providers\\RouteServiceProvider' => $baseDir . '/Modules/Product/app/Providers/RouteServiceProvider.php',
+    'Modules\\Product\\app\\ModelFilters\\ProductFilter' => $baseDir . '/Modules/Product/app/ModelFilters/ProductFilter.php',
     'Modules\\Product\\app\\Services\\ProductService' => $baseDir . '/Modules/Product/app/Services/ProductService.php',
     'Modules\\Product\\app\\ViewModels\\ProductViewModel' => $baseDir . '/Modules/Product/app/ViewModels/ProductViewModel.php',
     'Modules\\Product\\database\\seeders\\ProductDatabaseSeeder' => $baseDir . '/Modules/Product/database/seeders/ProductDatabaseSeeder.php',

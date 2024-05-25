@@ -458,8 +458,8 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -4153,6 +4153,7 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Modules\\Product\\Models\\Variant' => __DIR__ . '/../..' . '/Modules/Product/app/Models/Variant.php',
         'Modules\\Product\\Providers\\ProductServiceProvider' => __DIR__ . '/../..' . '/Modules/Product/app/Providers/ProductServiceProvider.php',
         'Modules\\Product\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Modules/Product/app/Providers/RouteServiceProvider.php',
+        'Modules\\Product\\app\\ModelFilters\\ProductFilter' => __DIR__ . '/../..' . '/Modules/Product/app/ModelFilters/ProductFilter.php',
         'Modules\\Product\\app\\Services\\ProductService' => __DIR__ . '/../..' . '/Modules/Product/app/Services/ProductService.php',
         'Modules\\Product\\app\\ViewModels\\ProductViewModel' => __DIR__ . '/../..' . '/Modules/Product/app/ViewModels/ProductViewModel.php',
         'Modules\\Product\\database\\seeders\\ProductDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Product/database/seeders/ProductDatabaseSeeder.php',
