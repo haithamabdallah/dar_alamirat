@@ -55,17 +55,18 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function categoryProducts(Request $request ,Category $category)
+    public function categoryProducts(Request $request, Category $category)
     {
-        $products = $category->products()->filter($request->all())->active()->latest()->paginate(2);
+        $products = $category->products()->filter($request->all())->active()->latest()->paginate(25);
         if ($request->ajax()) {
-            $products->load('inventory' , 'variants' , 'media' , 'category');
+            $products->load('inventory', 'variants', 'media', 'category');
             return response()->json([
                 'products' => $products->items(),
                 'nextPage' => $products->nextPageUrl()
             ]);
         }
-        return view('themes.theme1.category' ,compact('category','products'));
+        return view('themes.theme1.category', compact('category', 'products'));
     }
+
 }
 
