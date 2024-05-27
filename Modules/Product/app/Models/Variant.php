@@ -14,6 +14,8 @@ class Variant extends Model
      */
     protected $fillable = ['product_id', 'size', 'color', 'material', 'sku', 'price'];
 
+    protected $appends = ['price_with_discount' , 'variant_name'];
+
     /**
      * Get the product that owns the variant.
      */

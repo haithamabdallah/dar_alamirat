@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::active()->orderBy('priority', 'ASC')->get();
-        $brands=Brand::active()->limit(15)->get();
+//
 //        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
 //        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
 //
@@ -55,11 +55,34 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function categoryProducts(Request $request ,Category $category)
+    public function categoryProducts(Request $request, Category $category)
     {
-        $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
+        if (count($request->all()) == 0){
+            $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
+        }elseif (count($request->all()) > 0){
+            // Access the filters from the request
+            $categoryId = $request->input('filter.category_id');
+            $brandId = $request->input('filter.brand_id');
 
-        return view('themes.theme1.category' ,compact('category','products'));
+            // Fetch products filtered by category and brand
+            $products = Product::when($categoryId, function ($query, $categoryId) {
+                return $query->where('category_id', $categoryId);
+            })
+                ->when($brandId, function ($query, $brandId) {
+                    return $query->where('brand_id', $brandId);
+                })
+                ->paginate(20);
+//            $products = Product::active()->filter($request->filter)->latest()->paginate(20);
+        }
+
+        if ($request->ajax()) {
+            $products->load('inventory', 'variants', 'media', 'category');
+            return response()->json([
+                'products' => $products->items(),
+                'nextPage' => $products->nextPageUrl()
+            ]);
+        }
+        return view('themes.theme1.category', compact('category', 'products'));
     }
-}
 
+}
