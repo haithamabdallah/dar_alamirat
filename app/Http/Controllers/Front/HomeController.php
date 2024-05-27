@@ -73,14 +73,15 @@ class HomeController extends Controller
         $brandId = $request->query('brand_id');
 
         // Apply the filter using the tucker-eric/eloquentfilter library
-        $products = Product::with('category')->filter($request->all())->get();
-        dd($products->category);
-        $category = $products->category()->first();
+        $products = Product::with('category')->filter($request->all())->paginate(1);
+
+        $category = $products->pluck('category')->first();
         // You can return a view or JSON response based on your requirement
-        return response()->json([
-            'html' => view('themes.theme1.category', compact( 'category','products'))->render(),
-            'products' => $products,
-        ]);
+        return view('themes.theme1.allProducts', compact( 'category','products'));
+//        return response()->json([
+//            'html' => view('themes.theme1.category', compact( 'category','products'))->render(),
+//            'products' => $products,
+//        ]);
     }
 }
 
