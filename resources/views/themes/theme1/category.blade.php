@@ -75,7 +75,7 @@
                                             @foreach(filterBrands() as $brand)
                                                 <label class="s-filters-label" for="brand_id-option-0">
                                                     <input id="brand_id-option-0" name="brand_id" type="radio" class="s-filters-radio">
-                                                    <span class="s-filters-option-name">Essence</span>
+                                                    <span class="s-filters-option-name">{{$brand->name}}</span>
                                                 </label>
                                             @endforeach
                                         </div>
@@ -514,7 +514,36 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const radioButtons = document.querySelectorAll('.s-filters-radio');
 
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (this.checked) {
+                        const brandId = this.value;
+
+                        // Send Axios request
+                        axios.get('/filter-products', {
+                            params: {
+                                brand_id: brandId
+                            }
+                        })
+                            .then(response => {
+                                // Handle successful response
+                                console.log(response.data);
+                                // Update the product listing on your page
+                                // Example: document.getElementById('product-list').innerHTML = response.data.html;
+                            })
+                            .catch(error => {
+                                // Handle error
+                                console.error(error);
+                            });
+                    }
+                });
+            });
+        });
+    </script>
 
 
 @endsection
