@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with(['products','user','shippingMethod'])->paginate(10);
-      
+
 
         return view('dashboard.orders.orders',compact('orders'));
     }
@@ -42,10 +42,10 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $products=Product::with(['variants','inventoryItems','inventory'])->get();
+        $products=Product::with(['variants','inventory'])->get();
         $clients=User::get();
         $shippingMethods=Shipping::get();
-       
+
         return view('dashboard.orders.create_order',compact('products','clients','shippingMethods'));
     }
 

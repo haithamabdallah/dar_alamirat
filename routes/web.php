@@ -3,11 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\Front\PageController;
-use App\Http\Controllers\Front\SettingController;
-use App\Http\Controllers\Front\FrontPageController;
+use App\Http\Controllers\Front\BrandController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\Order\CartController;
 use App\Http\Controllers\Dashboard\SettingsController;
-
 
 /************************************ clients ****************************/
 
@@ -137,5 +136,15 @@ Route::prefix('settings')->group(function () {
     Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
     Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
 });
+Route::prefix('brands')->group(function () {
+    Route::get('brands/{brand}',[BrandController::class,'showBrand'])->name('brand');
+
+});
+Route::prefix('products')->group(function () {
+    Route::get('product/{product}',[ProductController::class,'showProduct'])->name('product');
+
+});
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
