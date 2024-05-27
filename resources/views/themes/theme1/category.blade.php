@@ -71,39 +71,13 @@
                                 <div id="colBrands" class="accordion-collapse collapse show"
                                      aria-labelledby="headBrands" data-bs-parent="#accBrands">
                                     <div class="accordion-body">
-                                        <div class="s-filters-widget-values"><label class="s-filters-label"
-                                                                                    for="brand_id-option-0"><input
-                                                    id="brand_id-option-0" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span
-                                                    class="s-filters-option-name">Essence</span></label><label
-                                                class="s-filters-label" for="brand_id-option-1"><input
-                                                    id="brand_id-option-1" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Revolution</span></label><label
-                                                class="s-filters-label" for="brand_id-option-2"><input
-                                                    id="brand_id-option-2" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Golden Rose</span></label><label
-                                                class="s-filters-label" for="brand_id-option-3"><input
-                                                    id="brand_id-option-3" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Red Cherry</span></label><label
-                                                class="s-filters-label" for="brand_id-option-4"><input
-                                                    id="brand_id-option-4" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Forever52</span></label><label
-                                                class="s-filters-label" for="brand_id-option-5"><input
-                                                    id="brand_id-option-5" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Christine</span></label><label
-                                                class="s-filters-label" for="brand_id-option-6"><input
-                                                    id="brand_id-option-6" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Maybelline</span></label><label
-                                                class="s-filters-label" for="brand_id-option-7"><input
-                                                    id="brand_id-option-7" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span
-                                                    class="s-filters-option-name">Flormar</span></label><label
-                                                class="s-filters-label" for="brand_id-option-8"><input
-                                                    id="brand_id-option-8" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">NYX PROFESSIONAL MAKEUP</span></label><label
-                                                class="s-filters-label" for="brand_id-option-9"><input
-                                                    id="brand_id-option-9" name="brand_id" type="radio"
-                                                    class="s-filters-radio"><span class="s-filters-option-name">Beauty Belle</span></label>
+                                        <div class="s-filters-widget-values">
+                                            @foreach(filterBrands() as $brand)
+                                                <label class="s-filters-label" for="brand_id-option-0">
+                                                    <input id="brand_id-option-0" name="brand_id" type="radio" class="s-filters-radio">
+                                                    <span class="s-filters-option-name">Essence</span>
+                                                </label>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
