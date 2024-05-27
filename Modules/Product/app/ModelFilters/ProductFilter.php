@@ -45,7 +45,12 @@ class ProductFilter extends ModelFilter
         return $this->where('status',$status);
     }
 
-    public function brand_id($brandId)
+    public function category($categoryId)
+    {
+        return $this->where('category_id',$categoryId);
+    }
+
+    public function brand($brandId)
     {
         return $this->where('brand_id',$brandId);
     }
