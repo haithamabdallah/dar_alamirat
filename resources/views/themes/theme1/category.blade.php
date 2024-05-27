@@ -73,9 +73,9 @@
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
                                             @foreach(filterBrands() as $brand)
-                                                <label class="s-filters-label" for="brand_id-option-0">
-                                                    <input id="brand_id-option-0" name="brand_id" type="radio" class="s-filters-radio">
-                                                    <span class="s-filters-option-name">{{$brand->name}}</span>
+                                                <label class="s-filters-label" for="brand_id-option-{{ $brand->id }}">
+                                                    <input id="brand_id-option-{{ $brand->id }}" name="brand_id" type="radio" class="s-filters-radio" value="{{ $brand->id }}">
+                                                    <span class="s-filters-option-name">{{ $brand->name }}</span>
                                                 </label>
                                             @endforeach
                                         </div>
@@ -83,6 +83,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="accordion" id="accRating">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headRating">
