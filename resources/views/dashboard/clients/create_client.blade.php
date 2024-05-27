@@ -106,7 +106,7 @@
                                 <div class="row mb-15px">
                                     <label for="birthday" class="form-label col-form-label col-md-3">{{ __('Birthday') }}</label>
                                     <div class="col-sm-9">
-                                        <input id="birthday" type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday"  placeholder="YYYY-MM-DD" value="{{ old('birthday') }}" required>
+                                        <input  type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday"  placeholder="YYYY-MM-DD" value="{{ old('birthday') }}" required>
                                         @error('birthday')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
