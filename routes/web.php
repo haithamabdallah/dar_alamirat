@@ -3,10 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\Front\PageController;
 use App\Http\Controllers\Front\BrandController;
 use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\SettingController;
 use App\Http\Controllers\Front\FrontPageController;
 use App\Http\Controllers\Front\Order\CartController;
 use App\Http\Controllers\Dashboard\SettingsController;
