@@ -370,7 +370,7 @@
                         </div>
                     </aside>
                     <main>
-                        <div class="main" id="product-container" data-url="{{ route('category.products', $category->id) }}">
+                        <div class="main products-container" id="product-container" data-url="{{ route('category.products', $category->id) }}">
                             @foreach($products as $product)
                                 <!-- product item -->
                                 <div class="item">
@@ -467,10 +467,10 @@
                     })
                         .then(response => response.json())
                         .then(data => {
-                            let productsContainer = document.querySelector('.products-container'); // Container holding the products
+                            let productsContainer = document.querySelector('.products-container');
                             data.products.forEach(product => {
+                                console.log(product.variants[0].price_with_discount)
                                 let productHtml = `
-                        <!-- product item -->
                         <div class="item">
                             <!-- tags -->
                             <div class="item-tags">
@@ -502,7 +502,7 @@
                                 <!-- description -->
                                 <div class="item-dec">
                                     <a href="{{route('cart-empty')}}">
-                                        <span>${product.title}</span>
+                                        <span>${product.title['en']}</span>
                                     </a>
                                 </div>
                                 <!-- ./description -->
@@ -540,6 +540,7 @@
             });
         });
     </script>
+
 
 
 @endsection
