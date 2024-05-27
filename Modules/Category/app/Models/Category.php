@@ -4,6 +4,7 @@ namespace Modules\Category\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 use Modules\Product\Models\Product;
 use Spatie\Translatable\HasTranslations;
 
@@ -48,5 +49,13 @@ class Category extends Model
         return $query->where('status', 1);
     }
 
+    public function getIconAttribute()
+    {
+        if (isset($this->attributes['icon']) && Storage::disk('public')->exists($this->attributes['icon'])){
+            return storage_asset($this->attributes['icon']);
+        }else{
+            return asset('assets/images/default-category.png');
+        }
+    }
 
 }
