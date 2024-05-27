@@ -46,10 +46,10 @@
                                      aria-labelledby="headCategory" data-bs-parent="#accCategories">
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
-                                            <form class="filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
+                                            <form class="filter-form" id="category-filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
                                                 @foreach(defaultCategory() as $oneCategory)
                                                     <label class="s-filters-label" for="category_id-option-{{ $oneCategory->id }}">
-                                                        <input id="category_id-option-{{ $oneCategory->id }}" type="radio" name="category_id" value="{{$oneCategory->id}}" {{ request('category_id') == $oneCategory->id ? 'checked' : '' }}>
+                                                        <input id="category_id-option-{{ $oneCategory->id }}" type="radio" name="filter[category_id]" value="{{$oneCategory->id}}" {{ request('filter.category_id') == $oneCategory->id ? 'checked' : '' }}>
                                                         <span class="s-filters-option-name">{{ $oneCategory->name }}</span>
                                                     </label>
                                                 @endforeach
@@ -73,10 +73,10 @@
                                      aria-labelledby="headBrands" data-bs-parent="#accBrands">
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
-                                            <form class="filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
+                                            <form class="filter-form" id="brand-filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
                                                 @foreach(filterBrands() as $brand)
                                                     <label class="s-filters-label" for="brand_id-option-{{ $brand->id }}">
-                                                        <input id="brand_id-option-{{ $brand->id }}" type="radio" name="brand" value="{{$brand->id}}" {{ request('brand') == $brand->id ? 'checked' : '' }}>
+                                                        <input id="brand_id-option-{{ $brand->id }}" type="radio" name="filter[brand_id]" value="{{$brand->id}}" {{ request('filter.brand_id') == $brand->id ? 'checked' : '' }}>
                                                         <span class="s-filters-option-name">{{ $brand->name }}</span>
                                                     </label>
                                                 @endforeach
@@ -519,21 +519,7 @@
         });
     </script>
 
-
-    {{--    <script>--}}
-    {{--        document.addEventListener('DOMContentLoaded', function() {--}}
-    {{--            const form = document.getElementById('brand_filter_form');--}}
-    {{--            const radios = form.querySelectorAll('input[type="radio"]');--}}
-
-    {{--            radios.forEach(radio => {--}}
-    {{--                radio.addEventListener('change', function() {--}}
-    {{--                    form.submit();--}}
-    {{--                });--}}
-    {{--            });--}}
-    {{--        });--}}
-    {{--    </script>--}}
-
-    <script>
+    {{--<script>
         document.addEventListener('DOMContentLoaded', function() {
             const forms = document.querySelectorAll('.filter-form');
 
@@ -544,6 +530,45 @@
                     radio.addEventListener('change', function() {
                         form.submit();
                     });
+                });
+            });
+        });
+    </script>--}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryForm = document.getElementById('category-filter-form');
+            const brandForm = document.getElementById('brand-filter-form');
+
+            const categoryRadios = categoryForm.querySelectorAll('input[type="radio"]');
+            const brandRadios = brandForm.querySelectorAll('input[type="radio"]');
+
+            function preserveFilters(form) {
+                const urlParams = new URLSearchParams(window.location.search);
+
+                // Preserve all existing filters
+                urlParams.forEach((value, key) => {
+                    if (!form.querySelector(`[name="${key}"]`)) {
+                        const hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = key;
+                        hiddenInput.value = value;
+                        form.appendChild(hiddenInput);
+                    }
+                });
+            }
+
+            categoryRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    preserveFilters(categoryForm);
+                    categoryForm.submit();
+                });
+            });
+
+            brandRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    preserveFilters(brandForm);
+                    brandForm.submit();
                 });
             });
         });

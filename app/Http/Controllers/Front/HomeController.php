@@ -57,7 +57,24 @@ class HomeController extends Controller
 
     public function categoryProducts(Request $request, Category $category)
     {
-        $products = $category->products()->filter($request->all())->active()->latest()->paginate(2);
+        if (count($request->all()) == 0){
+            $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
+        }elseif (count($request->all()) > 0){
+            // Access the filters from the request
+            $categoryId = $request->input('filter.category_id');
+            $brandId = $request->input('filter.brand_id');
+
+            // Fetch products filtered by category and brand
+            $products = Product::when($categoryId, function ($query, $categoryId) {
+                return $query->where('category_id', $categoryId);
+            })
+                ->when($brandId, function ($query, $brandId) {
+                    return $query->where('brand_id', $brandId);
+                })
+                ->paginate(20);
+//            $products = Product::active()->filter($request->filter)->latest()->paginate(20);
+        }
+
         if ($request->ajax()) {
             $products->load('inventory', 'variants', 'media', 'category');
             return response()->json([
@@ -68,20 +85,4 @@ class HomeController extends Controller
         return view('themes.theme1.category', compact('category', 'products'));
     }
 
-    public function filterProducts(Request $request)
-    {
-        $brandId = $request->query('brand_id');
-
-        // Apply the filter using the tucker-eric/eloquentfilter library
-        $products = Product::with('category')->filter($request->all())->paginate(1);
-
-        $category = $products->pluck('category')->first();
-        // You can return a view or JSON response based on your requirement
-        return view('themes.theme1.allProducts', compact( 'category','products'));
-//        return response()->json([
-//            'html' => view('themes.theme1.category', compact( 'category','products'))->render(),
-//            'products' => $products,
-//        ]);
-    }
 }
-
