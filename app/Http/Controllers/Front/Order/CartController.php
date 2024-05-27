@@ -36,5 +36,12 @@ class CartController extends Controller
         session()->put('cart', $cart);
 
         Log::info('Product added to cart', ['cart' => $cart]);
-        return response()->json(['success' => 'Product added to cart successfully!']);    }
+        return response()->json(['success' => 'Product added to cart successfully!']);
+      }
+
+      public function showCart()
+    {
+        $cart = session()->get('cart', []);
+        return view('themes.theme1.cart-page', compact('cart'));
+    }
 }

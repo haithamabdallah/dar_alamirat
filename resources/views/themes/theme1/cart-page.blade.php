@@ -1,6 +1,7 @@
 @extends('themes.theme1.layouts.app')
 @section('content')
 <!-- no content -->
+@if(!empty($cart) && count($cart) > 0)
 <section class="user_cart">
     <div class="pixel-container">
         <!-- row -->
@@ -102,6 +103,29 @@
                 <!-- ./aside -->
             </div>
             <!-- ./content -->
+        </div>
+        <!-- ./row -->
+    </div>
+</section>
+@else
+<!-- no content -->
+<!-- no content -->
+<section id="full-layout">
+    <div class="pixel-container">
+        <!-- row -->
+        <div class="wrap">
+            <!-- content -->
+            <main>
+                <div class="main-content">
+                    <div class="no-content-placeholder">
+                        <i class="sicon-shopping-bag icon"></i>
+                        <p>Empty Cart</p>
+                        <a href="{{route('index')}}" class="btn btn--outline-primary">Back home</a>
+                    </div>
+                </div>
+            </main>
+
+            <!-- .content -->
         </div>
         <!-- ./row -->
     </div>

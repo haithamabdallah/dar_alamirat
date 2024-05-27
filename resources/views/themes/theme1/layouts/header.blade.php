@@ -35,7 +35,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="cart.php" class="d-flex align-items-center">
+                        <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
                             <i class="icon sicon-shopping-bag"></i>
                             <span class="s-cart-summary-count">0</span>
                             <span class="d-flex flex-column">
