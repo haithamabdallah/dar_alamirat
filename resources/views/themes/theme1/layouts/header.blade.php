@@ -5,13 +5,13 @@
             <div class="header d-flex justify-content-between align-items-center">
                 <div class="logo">
                     @foreach ($settings->where('type', 'general') as $setting)
-                    <a href="index.php">
-                        @php
-                            $IconPath = $setting->value['icon_path'];
-                            $IconUrl = Storage::url($IconPath);
-                        @endphp
-                        <img src="{{ $IconUrl }}" alt="Icon">
-                    </a>
+                        <a href="index.php">
+                            @php
+                                $IconPath = $setting->value['icon_path'];
+                                $IconUrl = Storage::url($IconPath);
+                            @endphp
+                            <img src="{{ $IconUrl }}" alt="Icon">
+                        </a>
                     @endforeach
                 </div>
                 <div class="d-flex flex-fill align-items-center navigate">
@@ -20,31 +20,33 @@
                     </a>
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input class="s-search-input" type="text" placeholder="Search">
+                        <form id="search-form" action="{{ route('products.search') }}" method="GET">
+                            <input class="s-search-input" type="text" placeholder="Search" name="query" id="product-search-input" onkeydown="if(event.key === 'Enter'){ this.form.submit(); return false; }">
+                        </form>
                     </div>
                 </div>
                 @guest
-                <ul class="user-control d-flex">
-                    <li>
-                        <a class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#loginEmail">
-                            <i class="icon sicon-user"></i>
-                            <span class="d-flex flex-column">
+                    <ul class="user-control d-flex">
+                        <li>
+                            <a class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#loginEmail">
+                                <i class="icon sicon-user"></i>
+                                <span class="d-flex flex-column">
                                 <p>My Account</p>
                                 <span>Login</span>
                             </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
-                            <i class="icon sicon-shopping-bag"></i>
-                            <span class="s-cart-summary-count">0</span>
-                            <span class="d-flex flex-column">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
+                                <i class="icon sicon-shopping-bag"></i>
+                                <span class="s-cart-summary-count">0</span>
+                                <span class="d-flex flex-column">
                                 <p>Cart</p>
                                 <span class="cart-amount">0 SAR</span>
                             </span>
-                        </a>
-                    </li>
-                </ul>
+                            </a>
+                        </li>
+                    </ul>
                 @endguest
             </div>
         </div>
@@ -103,62 +105,62 @@
 </header>
 
 @section('scripts')
-<!-- AJAX Script -->
-<script>
-    $(document).ready(function() {
-        // Handle email form submission
-        $('#emailForm').on('submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: '{{ route("sendOtp") }}',
-                method: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    if (response.success) {
-                        var email = $('input[name="email"]').val();
-                        $('#writtenEmail').text(email);
-                        $('#otpEmail').val(email);
-                        $('#loginEmail').modal('hide');
-                        $('#enterOtp').modal('show');
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr) {
-                    alert('An error occurred. Please try again.');
-                }
-            });
-        });
-
-        // Handle OTP form input
-        $('.s-verify-input').on('input', function() {
-            var otp = '';
-            $('.s-verify-input').each(function() {
-                otp += $(this).val();
-            });
-
-            if (otp.length === 4) {
-                var formData = $('#otpForm').serialize();
+    <!-- AJAX Script -->
+    <script>
+        $(document).ready(function() {
+            // Handle email form submission
+            $('#emailForm').on('submit', function(e) {
+                e.preventDefault();
                 $.ajax({
-                    url: '{{ route("verifyOtp") }}',
+                    url: '{{ route("sendOtp") }}',
                     method: 'POST',
-                    data: formData,
+                    data: $(this).serialize(),
                     success: function(response) {
                         if (response.success) {
-                            $('#enterOtp').modal('hide');
-                            window.location.href = response.redirect_url;
+                            var email = $('input[name="email"]').val();
+                            $('#writtenEmail').text(email);
+                            $('#otpEmail').val(email);
+                            $('#loginEmail').modal('hide');
+                            $('#enterOtp').modal('show');
                         } else {
-                            $('#otpError').text(response.message || 'Invalid OTP. Please try again.');
-                            $('#otpError').show();
+                            alert(response.message);
                         }
                     },
                     error: function(xhr) {
-                        $('#otpError').text('An error occurred. Please try again.');
-                        $('#otpError').show();
+                        alert('An error occurred. Please try again.');
                     }
                 });
-            }
+            });
+
+            // Handle OTP form input
+            $('.s-verify-input').on('input', function() {
+                var otp = '';
+                $('.s-verify-input').each(function() {
+                    otp += $(this).val();
+                });
+
+                if (otp.length === 4) {
+                    var formData = $('#otpForm').serialize();
+                    $.ajax({
+                        url: '{{ route("verifyOtp") }}',
+                        method: 'POST',
+                        data: formData,
+                        success: function(response) {
+                            if (response.success) {
+                                $('#enterOtp').modal('hide');
+                                window.location.href = response.redirect_url;
+                            } else {
+                                $('#otpError').text(response.message || 'Invalid OTP. Please try again.');
+                                $('#otpError').show();
+                            }
+                        },
+                        error: function(xhr) {
+                            $('#otpError').text('An error occurred. Please try again.');
+                            $('#otpError').show();
+                        }
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 @endsection

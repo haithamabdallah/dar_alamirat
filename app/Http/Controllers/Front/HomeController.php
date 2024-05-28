@@ -20,24 +20,16 @@ class HomeController extends Controller
         $this->productService = new ProductService();
     }
 
+    public function changeLanguage($locale)
+    {
+        session()->put('locale', $locale);
+        App::setLocale($locale);
+        return redirect()->back();
+    }
+
     public function index()
     {
         $categories = Category::active()->orderBy('priority', 'ASC')->get();
-//
-//        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
-//        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
-//
-//        $categories = collect();
-//        $maxCount = max($normalCategories->count(), $barCategories->count());
-//
-//        for ($i = 0; $i < $maxCount; $i++) {
-//            if (isset($normalCategories[$i])) {
-//                $categories->push($normalCategories[$i]);
-//            }
-//            if (isset($barCategories[$i])) {
-//                $categories->push($barCategories[$i]);
-//            }
-//        }
 
         $brands     = cache()->remember('brands', 60 * 60, function () {
             return Product::active()->limit(3)->get();
@@ -48,12 +40,6 @@ class HomeController extends Controller
         return view('themes.theme1.index' , get_defined_vars());
     }
 
-    public function changeLanguage($locale)
-    {
-        session()->put('locale', $locale);
-        App::setLocale($locale);
-        return redirect()->back();
-    }
 
     public function categoryProducts(Request $request, Category $category)
     {
@@ -107,4 +93,13 @@ class HomeController extends Controller
         return view('themes.theme1.category', compact('category', 'products'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Fetch products based on the translatable title
+        $products = Product::where('title->' . app()->getLocale(), 'LIKE', '%' . $query . '%')->get();
+
+        return view('products.search-results', compact('products', 'query'));
+    }
 }
