@@ -63,15 +63,37 @@ class HomeController extends Controller
             // Access the filters from the request
             $categoryId = $request->input('filter.category_id');
             $brandId = $request->input('filter.brand_id');
+            $priceFilter = $request->input('filter.price');
+            $priceMin = $request->input('filter.price_min');
+            $priceMax = $request->input('filter.price_max');
 
             // Fetch products filtered by category and brand
             $products = Product::when($categoryId, function ($query, $categoryId) {
                 return $query->where('category_id', $categoryId);
+            })->when($brandId, function ($query, $brandId) {
+                return $query->where('brand_id', $brandId);
+            })->when($priceFilter, function ($query, $priceFilter) {
+                return $query->whereHas('variants', function ($query) use ($priceFilter) {
+                    if ($priceFilter === '<100') {
+                        return $query->where('price', '<', 100);
+                    } elseif ($priceFilter === '100-200') {
+                        return $query->whereBetween('price', [100, 200]);
+                    } elseif ($priceFilter === '200-300') {
+                        return $query->whereBetween('price', [200, 300]);
+                    } elseif ($priceFilter === '>300') {
+                        return $query->where('price', '>', 300);
+                    }
+                });
+            })->when($priceMin, function ($query, $priceMin) {
+                return $query->whereHas('variants', function ($query) use ($priceMin) {
+                    return $query->where('price', '>=', $priceMin);
+                });
             })
-                ->when($brandId, function ($query, $brandId) {
-                    return $query->where('brand_id', $brandId);
-                })
-                ->paginate(20);
+                ->when($priceMax, function ($query, $priceMax) {
+                    return $query->whereHas('variants', function ($query) use ($priceMax) {
+                        return $query->where('price', '<=', $priceMax);
+                    });
+                })->paginate(20);
 //            $products = Product::active()->filter($request->filter)->latest()->paginate(20);
         }
 

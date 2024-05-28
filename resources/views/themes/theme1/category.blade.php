@@ -529,38 +529,39 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const categoryForm = document.getElementById('category-filter-form');
-            const brandForm = document.getElementById('brand-filter-form');
+            const forms = document.querySelectorAll('.filter-form');
 
-            const categoryRadios = categoryForm.querySelectorAll('input[type="radio"]');
-            const brandRadios = brandForm.querySelectorAll('input[type="radio"]');
+            forms.forEach(form => {
+                const radios = form.querySelectorAll('input[type="radio"]');
+                const numberInputs = form.querySelectorAll('input[type="number"]');
 
-            function preserveFilters(form) {
-                const urlParams = new URLSearchParams(window.location.search);
+                function preserveFilters(form) {
+                    const urlParams = new URLSearchParams(window.location.search);
 
-                // Preserve all existing filters
-                urlParams.forEach((value, key) => {
-                    if (!form.querySelector(`[name="${key}"]`)) {
-                        const hiddenInput = document.createElement('input');
-                        hiddenInput.type = 'hidden';
-                        hiddenInput.name = key;
-                        hiddenInput.value = value;
-                        form.appendChild(hiddenInput);
-                    }
+                    // Preserve all existing filters
+                    urlParams.forEach((value, key) => {
+                        if (!form.querySelector(`[name="${key}"]`)) {
+                            const hiddenInput = document.createElement('input');
+                            hiddenInput.type = 'hidden';
+                            hiddenInput.name = key;
+                            hiddenInput.value = value;
+                            form.appendChild(hiddenInput);
+                        }
+                    });
+                }
+
+                radios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        preserveFilters(form);
+                        form.submit();
+                    });
                 });
-            }
 
-            categoryRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    preserveFilters(categoryForm);
-                    categoryForm.submit();
-                });
-            });
-
-            brandRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    preserveFilters(brandForm);
-                    brandForm.submit();
+                numberInputs.forEach(input => {
+                    input.addEventListener('change', function() {
+                        preserveFilters(form);
+                        form.submit();
+                    });
                 });
             });
         });
