@@ -14,7 +14,7 @@
         "spatie/laravel-permission": "^6.4",
         "spatie/laravel-translatable": "^6.6",
         "spatie/laravel-view-models": "^1.6",
-        "tucker-eric/eloquentfilter": "*"
+        "tucker-eric/eloquentfilter": "^3.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
