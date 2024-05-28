@@ -10,12 +10,9 @@
                 <!-- content -->
                 <ul class="breadcrumbs">
                     <li>
-                        <a href="{{route('index')}}">
-                            <span>Home</span>
+                        <a>
+                            <span> Search For <span> ({{$query}})</span></span>
                         </a>
-                    </li>
-                    <li>
-                        Search For <b>(Candy)</b>
                     </li>
                 </ul>
                 <!-- ./content -->
@@ -43,7 +40,7 @@
                                 <div id="colCategory" class="accordion-collapse collapse show" aria-labelledby="headCategory" data-bs-parent="#accCategories">
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
-                                            <form class="filter-form" id="category-filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
+                                            <form class="filter-form" id="category-filter-form" method="GET" action="{{ route('products.search') }}">
                                                 @foreach(defaultCategory() as $oneCategory)
                                                     <label class="s-filters-label" for="category_id-option-{{ $oneCategory->id }}">
                                                         <input id="category_id-option-{{ $oneCategory->id }}" type="radio" name="filter[category_id]" value="{{$oneCategory->id}}" {{ request('filter.category_id') == $oneCategory->id ? 'checked' : '' }}>
@@ -68,7 +65,7 @@
                                      aria-labelledby="headBrands" data-bs-parent="#accBrands">
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
-                                            <form class="filter-form" id="brand-filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
+                                            <form class="filter-form" id="brand-filter-form" method="GET" action="{{ route('products.search') }}">
                                                 @foreach(filterBrands() as $brand)
                                                     <label class="s-filters-label" for="brand_id-option-{{ $brand->id }}">
                                                         <input id="brand_id-option-{{ $brand->id }}" type="radio" name="filter[brand_id]" value="{{$brand->id}}" {{ request('filter.brand_id') == $brand->id ? 'checked' : '' }}>
@@ -299,7 +296,7 @@
                                      data-bs-parent="#accPrice">
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
-                                            <form class="filter-form" id="price-filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
+                                            <form class="filter-form" id="price-filter-form" method="GET" action="{{ route('products.search') }}">
                                                 <label class="s-filters-label" for="price-0">
                                                     <input id="price-0" name="filter[price]" type="radio" class="s-filters-radio" value="<100" {{ request('filter.price') == '<100' ? 'checked' : '' }}> less than 100 SAR
                                                 </label>
@@ -335,7 +332,7 @@
                         </div>
                     </aside>
                     <main>
-                        <div class="main products-container" id="product-container" data-url="{{ route('category.products', $category->id) }}">
+                        <div class="main products-container" id="product-container">
                             @foreach($products as $product)
                                 <!-- product item -->
                                 <div class="item">
