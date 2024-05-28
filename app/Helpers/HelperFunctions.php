@@ -93,22 +93,6 @@ if (!function_exists('current_language'))
     }
 }
 
-if (!function_exists('socialMedia'))
-{
-    function socialMedia()
-    {
-        return [
-            'facebook-f'    =>  setting('facebook','en'),
-            'twitter'       =>  setting('twitter','en'),
-            'instagram'     => setting('instagram','en') ,
-            'telegram'      => setting('telegram','en') ,
-            // 'youtube'       => setting('youtube','en') ,
-            'tiktok'        => setting('tiktok','en') ,
-            'snapchat'      => setting('snapchat','en') ,
-        ];
-    }
-}
-
 if (!function_exists('showLink'))
 {
     function showLink(string $routeName)

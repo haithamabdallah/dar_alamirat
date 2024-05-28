@@ -17,12 +17,12 @@
                                 <li>
                                     @foreach (config('language') as $key => $lang)
                                         @if ($key != current_language())
-                                        <a class="dropdown-item" href="{{ route('changeLang', ['lang' => $key]) }}">
+                                            <a class="dropdown-item" href="{{ route('changeLang', ['lang' => $key]) }}">
                                             <span class="language">
                                                 <img src="{{ asset('theme1-assets/images/flags/' . $key . '.png') }}" alt="">
                                                 <span>{{ $lang }}</span>
                                             </span>
-                                        </a>
+                                            </a>
                                         @endif
                                     @endforeach
                                 </li>
@@ -30,16 +30,16 @@
                         </div>
                     </div>
                     @foreach ($settings->where('type', 'general') as $setting)
-                    <a href="{{ $setting->value['tel'] }}" class="topnav-link-item">
-                        <i class="sicon-phone"></i>
-                        <span class="">{{ $setting->value['tel'] }}</span>
-                    </a>
+                        <a href="{{ $setting->value['tel'] }}" class="topnav-link-item">
+                            <i class="sicon-phone"></i>
+                            <span class="">{{ $setting->value['tel'] }}</span>
+                        </a>
                     @endforeach
                 </div>
                 <div class="right">
                     <ul>
                         @foreach ($pages as $page)
-                        <li><a target="_self" href="{{ route('page.show', $page->id) }}" class="topnav-link-item">{{ $page->name }}</a></li>
+                            <li><a target="_self" href="{{ route('page.show', $page->id) }}" class="topnav-link-item">{{ $page->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>

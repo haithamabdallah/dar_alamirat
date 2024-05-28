@@ -1,77 +1,69 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace Modules\Product\app\ModelFilters;
 
-use App\Http\Controllers\Controller;
-use App\Services\CarService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Modules\Brand\Models\Brand;
-use Modules\Category\Models\Category;
-use Modules\Product\app\Services\ProductService;
-use Modules\Product\Models\Product;
+use EloquentFilter\ModelFilter;
+use Illuminate\Support\Str;
 
-class HomeController extends Controller
+
+class ProductFilter extends ModelFilter
 {
-    private $productService;
 
-    public function __construct()
+    public function stringUpperToLower(string $value): string
     {
-        $this->productService = new ProductService();
+        return Str::lower($value);
     }
 
-    public function index()
+    public function search($search)
     {
-        $categories = Category::active()->orderBy('priority', 'ASC')->get();
-//
-//        $normalCategories = Category::where('type', 'default')->orderBy('priority', 'asc')->get();
-//        $barCategories = Category::where('type', 'banner')->orderBy('priority', 'asc')->get();
-//
-//        $categories = collect();
-//        $maxCount = max($normalCategories->count(), $barCategories->count());
-//
-//        for ($i = 0; $i < $maxCount; $i++) {
-//            if (isset($normalCategories[$i])) {
-//                $categories->push($normalCategories[$i]);
-//            }
-//            if (isset($barCategories[$i])) {
-//                $categories->push($barCategories[$i]);
-//            }
-//        }
-
-        $brands     = cache()->remember('brands', 60 * 60, function () {
-            return Product::active()->limit(3)->get();
-        });
-        $brands     = cache()->remember('brands', 60 * 60, function () {
-            return Brand::active()->limit(15)->get();
-        });
-        return view('themes.theme1.index' , get_defined_vars());
-    }
-
-    public function changeLanguage($locale)
-    {
-        session()->put('locale', $locale);
-        App::setLocale($locale);
-        return redirect()->back();
-    }
-
-    public function categoryProducts(Request $request, Category $category)
-    {
-        if (count($request->all()) == 0){
-            $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
-        }elseif (count($request->all()) > 0){
-            $products = Product::active()->filter($request->all())->latest()->paginate(20);
+        if (isStringEnglishLetters($search)) {
+            return  $this->WhereHas('brand',function($q) use($search){
+                $q->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, '$.en'))) LIKE ?", ["%{$this->stringUpperToLower($search)}%"]);
+            });
         }
 
-        if ($request->ajax()) {
-            $products->load('inventory', 'variants', 'media', 'category');
-            return response()->json([
-                'products' => $products->items(),
-                'nextPage' => $products->nextPageUrl()
-            ]);
+        if (isStringEnglishLetters($search) == false) {
+            return $this->WhereHas('brand',function($q) use($search){
+                $q->where('name','LIKE', "%{$search}%");
+            });
         }
-        return view('themes.theme1.category', compact('category', 'products'));
+    }
+
+    public function startPrice($price)
+    {
+        return  $this->where('price' ,'>=', $price);
+    }
+
+    public function endPrice($price)
+    {
+        return  $this->where('price' ,'<=', $price);
+    }
+
+
+    public function status($status)
+    {
+        return $this->where('status',$status);
+    }
+
+    public function category($categoryId)
+    {
+        return $this->where('category_id',$categoryId);
+    }
+
+    public function brand($brandId)
+    {
+        return $this->where('brand_id',$brandId);
+    }
+
+    public function allBrands($allBrands)
+    {
+        return $this->whereIn('brand_id',$allBrands);
+    }
+
+
+    public function title($title)
+    {
+        return $this->where('title', $title);
     }
 
 }
-
