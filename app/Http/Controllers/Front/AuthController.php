@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    //
+    
     public function sendOtp(Request $request)
 {
     // Validate the incoming request

@@ -11,7 +11,7 @@ class VerifyOtpRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class VerifyOtpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'otp' => 'required|array|min:4|max:4',
+            'otp.*' => 'required|string|size:1',
+            'email' => 'required|email',
         ];
     }
 }
