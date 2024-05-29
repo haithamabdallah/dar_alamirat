@@ -21,7 +21,7 @@ class AuthController extends Controller
     {
 
         $request->validate(['email' => 'required|email']);
-        $otp = 1234;
+        $otp = rand(1000, 9999);
 
         Otp::create([
             'email' => $request->email,
