@@ -145,6 +145,6 @@ Route::prefix('products')->group(function () {
 
 });
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+Route::middleware('auth')->get('/cart', [CartController::class, 'showCart'])->name('cart.index');
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
