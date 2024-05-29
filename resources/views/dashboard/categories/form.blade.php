@@ -156,7 +156,24 @@
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
-
+                            <div class="m-2">
+                                <div class="form-group row">
+                                    <label class="form-label col-form-label col-lg-4"> Category</label>
+                                    <div class="col-lg-8">
+                                        <select class="default-select2 form-control" name="category_id">
+                                            <option selected disabled>Select Category</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}" @if($category->id == $product->category_id) selected @endif>{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                @error('category_id')
+                                <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                             @foreach (Config('language') as $key => $lang)
                                 <div class="row mb-15px" >
                                     <label class="form-label col-form-label col-md-3">Name In {{ $lang }} :</label>
@@ -176,7 +193,7 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="priority" id="" required>
                                         <option disabled selected>Select Priority</option>
-                                        @for ($i = 0; $i <= 10; $i++)
+                                        @for ($i = 0; $i <= 100; $i++)
                                             <option value="{{$i}}" @if($category->priority == $i) selected @endif>{{$i}}</option>
                                         @endfor
                                     </select>
