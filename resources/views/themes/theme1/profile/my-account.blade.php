@@ -21,7 +21,7 @@
                     <span>My Account</span>
                 </a>
             </li>
-            
+
         </ul>
         <!-- ./content -->
     </div>
@@ -134,15 +134,18 @@
                         <div class="account-form">
                             <div class="ac-item">
                                 <label for="first-name">First Name</label>
-                                <input type="text" name="first_name" id="first-name" placeholder="First Name" required class="form-input">
+                                <input type="text" name="first_name" id="first-name" placeholder="First Name" required class="form-input" value="{{ old('first_name', $user->first_name) }}">
+                                        @error('first_name')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                     @enderror
                             </div>
                             <div class="ac-item">
                                 <label for="last-name">Last Name</label>
-                                <input type="text" name="last_name" id="last-name" placeholder="Last Name" required class="form-input">
+                                <input type="text" name="last_name" id="last-name" placeholder="Last Name" required class="form-input" value="{{ old('last_name', $user->last_name) }}">
                             </div>
                             <div class="ac-item">
                                 <label for="birthday">Birth Date</label>
-                                <input class="flatpickr flatpickr-input s-datetime-picker-input" type="text" placeholder="Select Date.." readonly="readonly">
+                                <input class="flatpickr flatpickr-input s-datetime-picker-input" type="text" placeholder="Select Date.." readonly="readonly" value="{{ old('first_name', $user->first_name) }}">
                             </div>
                             <div class="ac-item">
                                 <label for="gender">Gender</label>
@@ -158,11 +161,11 @@
                             </div>
                             <div class="ac-item">
                                 <label for="email">Email Address</label>
-                                <input type="email" name="email" value="" id="email" class="form-input" required="" placeholder="Email Address">
+                                <input type="email" name="email" value="" id="email" class="form-input" required="" placeholder="Email Address" value="{{ old('email', $user->email) }}">
                             </div>
                             <div class="ac-item">
                                 <label for="international-mobile">Mobile Number</label>
-                                <input id="phone" type="tel" class="s-tel-input-control">
+                                <input id="phone" type="tel" name="phone_number" class="s-tel-input-control"value="{{ old('phone_number', $user->phone_number) }}">
                             </div>
                         </div>
                         <div class="w-full">
