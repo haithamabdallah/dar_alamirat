@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -18,23 +19,32 @@ class AuthController extends Controller
 {
     //
     public function sendOtp(Request $request)
-    {
+{
+    // Validate the incoming request
+    $request->validate(['email' => 'required|email']);
 
-        $request->validate(['email' => 'required|email']);
-        $otp = rand(1000, 9999);
+    // Generate a random OTP
+    $otp = rand(1000, 9999);
 
-        Otp::create([
-            'email' => $request->email,
-            'otp' => $otp,
-            'expires_at' => Carbon::now()->addMinutes(10)
-        ]);
+    // Hash the OTP
+    $hashedOtp = Hash::make($otp);
 
-        Mail::to($request->email)->send(new OtpMail($otp));
+    // Store the hashed OTP in the database with an expiration time
+    Otp::create([
+        'email' => $request->email,
+        'otp' => $hashedOtp,
+        'expires_at' => Carbon::now()->addMinutes(10)
+    ]);
 
-        session(['email' => $request->email]);
+    // Send the plain OTP to the user via email
+    Mail::to($request->email)->send(new OtpMail($otp));
 
-        return response()->json(['success' => true]);
-    }
+    // Store the email in the session
+    session(['email' => $request->email]);
+
+    // Return a JSON response indicating success
+    return response()->json(['success' => true]);
+}
 
 
     public function verifyOtp(Request $request)
