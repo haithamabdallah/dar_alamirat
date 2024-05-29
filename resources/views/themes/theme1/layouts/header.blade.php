@@ -5,13 +5,13 @@
             <div class="header d-flex justify-content-between align-items-center">
                 <div class="logo">
                     @foreach ($settings->where('type', 'general') as $setting)
-                    <a href="index.php">
-                        @php
-                            $IconPath = $setting->value['icon_path'];
-                            $IconUrl = Storage::url($IconPath);
-                        @endphp
-                        <img src="{{ $IconUrl }}" alt="Icon">
-                    </a>
+                        <a href="index.php">
+                            @php
+                                $IconPath = $setting->value['icon_path'];
+                                $IconUrl = Storage::url($IconPath);
+                            @endphp
+                            <img src="{{ $IconUrl }}" alt="Icon">
+                        </a>
                     @endforeach
                 </div>
                 <div class="d-flex flex-fill align-items-center navigate">
@@ -20,7 +20,9 @@
                     </a>
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input class="s-search-input" type="text" placeholder="Search">
+                        <form id="search-form" action="{{ route('products.search') }}" method="GET">
+                            <input class="s-search-input" type="text" placeholder="Search" name="query" id="product-search-input" onkeydown="if(event.key === 'Enter'){ this.form.submit(); return false; }">
+                        </form>
                     </div>
                 </div>
                 
