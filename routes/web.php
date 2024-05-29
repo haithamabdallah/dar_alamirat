@@ -7,6 +7,7 @@ use App\Http\Controllers\Front\BrandController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Order\CartController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Front\Profile\ProfileController;
 
 /************************************ clients ****************************/
 
@@ -24,42 +25,6 @@ Route::get('/clients/create', function () {
 Route::get('/clients/edit', function () {
     return view('dashboard.clients.edit_client');
 })->name('client.edit');
-
-/************************************ Orders ****************************/
-
-// Route::get('/orders', function () {
-//     return view('dashboard.orders.orders');
-// })->name('order.index');
-
-// Route::get('/orders/create', function () {
-//     return view('dashboard.orders.create_order');
-// })->name('order.create');
-
-
-// Route::get('/orders/edit', function () {
-//     return view('dashboard.orders.edit_order');
-// })->name('order.edit');
-
-
-// Route::get('/orders/details', function () {
-//     return view('dashboard.orders.order_details');
-// })->name('order.details');
-
-/************************************ pages ****************************/
-
-// Route::get('/pages', function () {
-//     return view('dashboard.pages.pages');
-// })->name('pages.index');
-
-
-// Route::get('/pages/create', function () {
-//     return view('dashboard.pages.create_page');
-// })->name('pages.create');
-
-
-// Route::get('/pages/edit', function () {
-//     return view('dashboard.pages.edit_page');
-// })->name('pages.edit');
 
 /************************************ products ****************************/
 
@@ -97,22 +62,6 @@ Route::get('/reports/edit', function () {
     return view('dashboard.reports.edit_report');
 })->name('report.edit');
 
-/************************************ settings ****************************/
-
-// Route::get('/settings', function () {
-//     return view('dashboard.settings.general-settings');
-// })->name('settings.general-settings');
-
-
-
-/************************************ Front Routs ****************************/
-Route::get('/lang/{lang}' , [HomeController::class , 'changeLanguage'])->name('changeLang');
-Route::get('/' , [HomeController::class , 'index'])->name('index');
-Route::get('/category-products/{category}' , [HomeController::class , 'categoryProducts'])->name('category.products');
-
-//Route::get('/category' , function (){
-//    return view('themes.theme1.category');
-//})->name('front.category');
 Route::get('/cart-empty', function (){
     return view('themes.theme1.cart-empty');
 })->name('cart-empty');
@@ -124,6 +73,13 @@ Route::get('/offers', function (){
 Route::get('/brands', function (){
     return view('themes.theme1.brands');
 })->name('brands');
+
+
+/************************************ Front Routs ****************************/
+Route::get('/lang/{lang}' , [HomeController::class , 'changeLanguage'])->name('changeLang');
+Route::get('/' , [HomeController::class , 'index'])->name('index');
+Route::get('/category-products/{category}' , [HomeController::class , 'categoryProducts'])->name('category.products');
+Route::get('/search-products', [HomeController::class, 'search'])->name('products.search');
 
 Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('sendOtp');
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOtp');
@@ -146,5 +102,7 @@ Route::prefix('products')->group(function () {
 });
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
+Route::get('/user/profile/{user}', [ProfileController::class, 'showProfile'])->name('user.profile');
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');

@@ -45,8 +45,7 @@
                 <!-- item -->
                 @auth
                     <div class="f-item f-my-account">
-                        <h3>My Account</h3>
-
+                      <h3>My Account</h3>
                         <ul>
                             <li>
                                 <a href="notification.php">
@@ -79,10 +78,15 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="">
-                                    <i class="fa-solid fa-angles-right"></i>
-                                    <span>Logout</span>
-                                </a>
+                                <a href="#">
+                                <form action="{{ route('user.logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                        <i class="fa-solid fa-angles-right"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </form>
+                            </a>
                             </li>
                         </ul>
                     </div>

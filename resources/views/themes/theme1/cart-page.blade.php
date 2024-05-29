@@ -1,7 +1,7 @@
 @extends('themes.theme1.layouts.app')
 @section('content')
-<!-- no content -->
-@if(!empty($cart) && count($cart) > 0)
+
+@if (!empty($cart) && count($cart) > 0)
 <section class="user_cart">
     <div class="pixel-container">
         <!-- row -->
@@ -131,4 +131,5 @@
     </div>
 </section>
 <!-- no content -->
+@endif
 @endsection
