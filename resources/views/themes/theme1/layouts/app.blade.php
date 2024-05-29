@@ -4,6 +4,7 @@
 @else
     <html dir="rtl" lang="ar">
 @endif
+
 <head>
 
     @section('meta')
