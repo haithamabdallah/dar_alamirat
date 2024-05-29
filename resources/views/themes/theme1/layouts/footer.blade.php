@@ -45,8 +45,7 @@
                 <!-- item -->
                 @auth
                     <div class="f-item f-my-account">
-                        <h3>{{ auth()->user()->email }}</h3>
-
+                      <h3>My Account</h3>
                         <ul>
                             <li>
                                 <a href="notification.php">

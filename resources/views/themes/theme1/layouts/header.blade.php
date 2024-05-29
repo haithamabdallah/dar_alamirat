@@ -46,63 +46,19 @@
                             </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
+                            <i class="icon sicon-user"></i>
+                            <span class="d-flex flex-column">
+                                <p>My Account</p>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
 
             </div>
         </div>
     </div>
-
-    <!-- Email Modal -->
-    {{-- <div class="modal fade" id="loginEmail" tabindex="-1" aria-labelledby="loginEmailLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-body">
-                    <div class="login-icon">
-                        <i class="icon sicon-user"></i>
-                    </div>
-                    <h3>Login</h3>
-                    <form id="emailForm">
-                        @csrf
-                        <label class="s-login-modal-label">Email Address</label>
-                        <input type="email" placeholder="your@email.com" class="s-login-modal-input" name="email" required>
-                        <button class="s-login-modal-enter-button" type="submit">
-                            <span class="s-button-text">Enter</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    <!-- OTP Modal -->
-    {{-- <div class="modal fade" id="enterOtp" tabindex="-1" aria-labelledby="enterOtpLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-body">
-                    <div class="login-icon">
-                        <i class="icon sicon-user"></i>
-                    </div>
-                    <h3>Login</h3>
-                    <p class="s-verify-message">Verification code is required to proceed. A verification code has been sent to you.</p>
-                    <div class="s-login-modal-currentEmail" id="writtenEmail"></div>
-                    <form id="otpForm" method="POST">
-                        @csrf
-                        <input type="hidden" name="email" id="otpEmail">
-                        <div class="otp-field s-verify-codes">
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
-                            <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
-                        </div>
-                        <div id="otpError" class="text-danger" style="display: none;">Invalid OTP. Please try again.</div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     @include('themes.theme1.partials.modals.email')
     @include('themes.theme1.partials.modals.otp')
 </header>
@@ -181,12 +137,14 @@
         function handleOtpVerification(response) {
             if (response.success) {
                 $('#enterOtp').modal('hide');
-                window.location.href = response.redirect_url;
+                // Redirect to the same page to refresh after successful login
+                window.location.reload();
             } else {
                 $('#otpError').text(response.message || 'Invalid OTP. Please try again.').show();
             }
         }
     });
 </script>
+
 
 @endsection

@@ -22,84 +22,26 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
 
-     protected $otpService;
+     protected $otpVerificationService;
 
-    public function __construct(OtpService $otpService)
+    public function __construct(OtpService $otpVerificationService)
     {
-        $this->otpService = $otpService;
+        $this->otpVerificationService = $otpVerificationService;
     }
 
-
-
-
-    public function sendOtp(Request $request)
+    public function sendOtp(Request $request): JsonResponse
     {
-
         $request->validate(['email' => 'required|email']);
-      //  $otp = rand(1000, 9999);
-      $otp = 1234; // for test
-       // $hashedOtp = Hash::make($otp);
-        Otp::create([
-            'email' => $request->email,
-            'otp' => $otp,
-            'expires_at' => Carbon::now()->addMinutes(10)
-        ]);
 
-        Mail::to($request->email)->send(new OtpMail($otp));
-
-        session(['email' => $request->email]);
-        
-        return response()->json(['success' => true]);
+        return $this->otpVerificationService->sendOtp($request->email);
     }
 
-
-    public function verifyOtp(VerifyOtpRequest $request): RedirectResponse
-{
-    // Validate the incoming request using VerifyOtpRequest
-    $validatedData = $request->validated();
-
-    try {
-        $otp = implode('', $validatedData['otp']);
-
-        $otpRecord = Otp::where('email', $validatedData['email'])
-            ->where('otp', $otp)
-            ->where('expires_at', '>', now())
-            ->first();
-
-        if ($otpRecord) {
-            $otpRecord->delete();  // Optional: Delete the OTP after successful verification
-
-            // Create or retrieve the user based on the provided email
-            $user = $this->findOrCreateUser($validatedData['email']);
-
-            // Log in the user
-            Auth::login($user);
-
-            return redirect()->route('index')->with('success', 'Logged in successfully!');
-        }
-
-        return redirect()->back()->withErrors(['otp' => 'Invalid or expired OTP'])->withInput();
-    } catch (\Exception $e) {
-        Log::error('Error occurred during OTP verification: ' . $e->getMessage());
-        return redirect()->back()->withErrors(['otp' => 'An internal server error occurred.'])->withInput();
-    }
-}
-
-
-    private function findOrCreateUser($email)
+    public function verifyOtp(VerifyOtpRequest $request): JsonResponse
     {
-        // Attempt to find the user by email
-        $user = User::where('email', $email)->first();
-        // If the user does not exist, create a new user
-        if (!$user) {
-            $user = User::create([
-                'email' => $email,
+        $validatedData = $request->validated();
 
-            ]);
-        }
-        return $user;
+        return $this->otpVerificationService->verifyOtp($validatedData);
     }
-
 
     public function resendOtp(Request $request)
     {
