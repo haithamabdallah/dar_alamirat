@@ -130,7 +130,7 @@
                 </aside>
                 <main>
                     <h1>My Account</h1>
-                    <form action="{{ route('user.update', $user) }}" method="POST">
+                    <form action="{{ route('user.updateProfile', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
 
