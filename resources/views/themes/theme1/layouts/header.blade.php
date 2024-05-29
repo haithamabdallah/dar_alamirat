@@ -36,6 +36,17 @@
                         </a>
                     </li>
                     @endguest
+                    @auth
+                    <li>
+                        <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
+                            <i class="icon sicon-user"></i>
+                            <span class="d-flex flex-column">
+                                <p>My Account</p>
+                                <span>{{ auth()->user()->FullName }}</span>
+                            </span>
+                        </a>
+                    </li>
+                    @endauth
                     <li>
                         <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
                             <i class="icon sicon-shopping-bag"></i>
@@ -46,14 +57,7 @@
                             </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
-                            <i class="icon sicon-user"></i>
-                            <span class="d-flex flex-column">
-                                <p>My Account</p>
-                            </span>
-                        </a>
-                    </li>
+                   
                 </ul>
 
             </div>
