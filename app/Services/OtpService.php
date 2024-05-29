@@ -15,9 +15,9 @@ class OtpService
         $otp = implode('', $otpArray);
 
         $otpRecord = Otp::where('email', $email)
-                        ->where('otp', $otp)
-                        ->where('expires_at', '>', Carbon::now())
-                        ->first();
+            ->where('otp', $otp)
+            ->where('expires_at', '>', Carbon::now())
+            ->first();
 
         if ($otpRecord) {
             $otpRecord->delete();  // Optional: Delete the OTP after successful verification
@@ -34,16 +34,16 @@ class OtpService
         return ['success' => false, 'message' => 'Invalid or expired OTP'];
     }
     private function findOrCreateUser($email)
-{
-    // Attempt to find the user by email
-    $user = User::where('email', $email)->first();
-    // If the user does not exist, create a new user
-    if (!$user) {
-        $user = User::create([
-            'email' => $email,
-            
-        ]);
+    {
+        // Attempt to find the user by email
+        $user = User::where('email', $email)->first();
+        // If the user does not exist, create a new user
+        if (!$user) {
+            $user = User::create([
+                'email' => $email,
+
+            ]);
+        }
+        return $user;
     }
-    return $user;
-}
 }

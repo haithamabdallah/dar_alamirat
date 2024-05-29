@@ -54,20 +54,52 @@ class AuthController extends Controller
 
 
     public function verifyOtp(VerifyOtpRequest $request): RedirectResponse
-    {
-        try {
-            $response = $this->otpService->verifyOtp($request->email, $request->otp);
+{
+    // Validate the incoming request using VerifyOtpRequest
+    $validatedData = $request->validated();
 
-            if ($response['success']) {
-                return redirect()->route('index')->with('success', $response['message']);
-            } else {
-                return redirect()->back()->withErrors(['otp' => $response['message']])->withInput();
-            }
-        } catch (\Exception $e) {
-            Log::error('Error occurred during OTP verification: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['otp' => 'An internal server error occurred.'])->withInput();
+    try {
+        $otp = implode('', $validatedData['otp']);
+
+        $otpRecord = Otp::where('email', $validatedData['email'])
+            ->where('otp', $otp)
+            ->where('expires_at', '>', now())
+            ->first();
+
+        if ($otpRecord) {
+            $otpRecord->delete();  // Optional: Delete the OTP after successful verification
+
+            // Create or retrieve the user based on the provided email
+            $user = $this->findOrCreateUser($validatedData['email']);
+
+            // Log in the user
+            Auth::login($user);
+
+            return redirect()->route('index')->with('success', 'Logged in successfully!');
         }
+
+        return redirect()->back()->withErrors(['otp' => 'Invalid or expired OTP'])->withInput();
+    } catch (\Exception $e) {
+        Log::error('Error occurred during OTP verification: ' . $e->getMessage());
+        return redirect()->back()->withErrors(['otp' => 'An internal server error occurred.'])->withInput();
     }
+}
+
+
+    private function findOrCreateUser($email)
+    {
+        // Attempt to find the user by email
+        $user = User::where('email', $email)->first();
+        // If the user does not exist, create a new user
+        if (!$user) {
+            $user = User::create([
+                'email' => $email,
+
+            ]);
+        }
+        return $user;
+    }
+
 
     public function resendOtp(Request $request)
     {
@@ -86,4 +118,13 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'OTP resent!']);
     }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+
+        return redirect()->route('index')->with('success', 'You have been logged out.');
+    }
+
+
 }

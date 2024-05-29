@@ -23,8 +23,9 @@
                         <input class="s-search-input" type="text" placeholder="Search">
                     </div>
                 </div>
-                @guest
+                
                 <ul class="user-control d-flex">
+                    @guest
                     <li>
                         <a class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#loginEmail">
                             <i class="icon sicon-user"></i>
