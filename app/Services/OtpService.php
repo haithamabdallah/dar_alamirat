@@ -23,7 +23,7 @@ class OtpService
             $otpRecord->delete();  // Optional: Delete the OTP after successful verification
 
             // Create or retrieve the user based on the provided email
-            $user = $this->createOrRetrieveUser($email);
+            $user = $this->findOrCreateUser($email);
 
             // Log in the user
             Auth::login($user);
@@ -33,14 +33,17 @@ class OtpService
 
         return ['success' => false, 'message' => 'Invalid or expired OTP'];
     }
-    protected function createOrRetrieveUser($email)
-    {
-
-        return User::firstOrCreate(
-            ['email' => $email],
-            [
-                // Add other fields as required
-            ]
-        );
+    private function findOrCreateUser($email)
+{
+    // Attempt to find the user by email
+    $user = User::where('email', $email)->first();
+    // If the user does not exist, create a new user
+    if (!$user) {
+        $user = User::create([
+            'email' => $email,
+            
+        ]);
     }
+    return $user;
+}
 }
