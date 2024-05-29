@@ -8,10 +8,12 @@ use Spatie\ViewModels\ViewModel;
 class CategoryViewModel extends ViewModel
 {
     public Category $category;
+    public  $parentCategories;
 
     public function __construct($category = null)
     {
         $this->category = is_null($category) ? new Category(old()) : $category;
+        $this->parentCategories = Category::main()->active()->get();
     }
 
     public function action(): string

@@ -29,7 +29,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $categories = Category::active()->orderBy('priority', 'ASC')->get();
+        $categories = Category::main()->active()->orderBy('priority', 'ASC')->get();
 
         $brands     = cache()->remember('brands', 60 * 60, function () {
             return Product::active()->limit(3)->get();

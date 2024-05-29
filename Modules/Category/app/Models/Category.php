@@ -49,6 +49,12 @@ class Category extends Model
         return $query->where('status', 1);
     }
 
+
+    public function scopeMain($query)
+    {
+        return $query->where(['parent_id' => null , 'type' => 'default']);
+    }
+
     public function getIconAttribute()
     {
         if (isset($this->attributes['icon']) && Storage::disk('public')->exists($this->attributes['icon'])){
