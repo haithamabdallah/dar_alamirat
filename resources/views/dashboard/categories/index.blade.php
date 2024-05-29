@@ -61,6 +61,7 @@
                             <thead>
                             <tr>
                                 <th width="1%"></th>
+                                <th class="text-nowrap" width="20%">Parent Category</th>
                                 <th class="text-nowrap" width="20%">Name</th>
                                 <th class="text-nowrap" width="20%">Slug</th>
                                 <th class="text-nowrap" width="5%">icon</th>
@@ -75,6 +76,7 @@
                             @foreach($categories as $category)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
+                                    <td>{{$category->parent->name ?? '----'}}</td>
                                     <td>{{$category->name}}</td>
                                     <td>{{$category->slug}}</td>
                                     <td width="1%" class="with-img">
