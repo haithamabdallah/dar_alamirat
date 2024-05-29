@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class OtpService
 {
@@ -18,7 +19,7 @@ class OtpService
                         ->where('expires_at', '>', Carbon::now())
                         ->first();
 
-        if ($otpRecord) {
+        if ($otpRecord && Hash::check($otp, $otpRecord->otp)) {
             $otpRecord->delete();  // Optional: Delete the OTP after successful verification
 
             // Create or retrieve the user based on the provided email
