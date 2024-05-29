@@ -60,7 +60,7 @@ if (!function_exists('defaultCategory'))
 {
     function defaultCategory()
     {
-        return Category::active()->where('type' , 'default')->get();
+        return Category::main()->active()->where('type' , 'default')->get();
     }
 }
 

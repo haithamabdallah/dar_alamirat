@@ -5,104 +5,24 @@
     </div>
     <div class="offcanvas-body">
         <ul class="nav">
-            {{--
-                        <li class="nav__item">
-                            <a class="nav__link" href="category.php">Makeups <i class="fas fa-chevron-right"></i></a>
-                            <ul class="nav__sub">
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Nail Polish<i class="fas fa-chevron-right"></i></a>
-                                    <ul class="nav__sub">
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Lotion Cream</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Skin Lotion</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Skin exfoliators</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Eye SHadows</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Bolver</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Makeup Brushes <i class="fas fa-chevron-right"></i></a>
-                                    <ul class="nav__sub">
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Face Makeup Brushes</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Eye Makeup Brushes</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Eyebrow Makeup Brushes</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-            --}}
             @foreach(defaultCategory() as $category)
-                <li class="nav__item">
-                    <a class="nav__link" href="{{route('category.products' , $category->id)}}">{{$category->name}}</a>
-                </li>
+                @if($category->childes->isNotEmpty())
+                    <li class="nav__item">
+                        <a class="nav__link" href="{{route('category.products' , $category->id)}}">{{$category->name}}<i class="fas fa-chevron-right"></i></a>
+                        <ul class="nav__sub">
+                            @foreach($category->childes as $child)
+                                <li class="nav__item">
+                                    <a class="nav__link" href="{{route('category.products' , $category->id)}}">{{$child->name}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @else
+                    <li class="nav__item">
+                        <a class="nav__link" href="{{route('category.products' , $category->id)}}">{{$category->name}}</a>
+                    </li>
+                @endif
             @endforeach
-            {{--            <li class="nav__item">
-                            <a class="nav__link" href="category.php">Care Groups<i class="fas fa-chevron-right"></i></a>
-                            <ul class="nav__sub">
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">View All</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Some By me Collection</i></a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav__item">
-                            <a class="nav__link" href="category.php">Care <i class="fas fa-chevron-right"></i></a>
-                            <ul class="nav__sub">
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Skin Care <i class="fas fa-chevron-right"></i></a>
-                                    <ul class="nav__sub">
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Lotion Cream</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Skin Lotion</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Skin exfoliators</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Facial Care</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Hand Care</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a class="nav__link" href="category.php">Body Care <i class="fas fa-chevron-right"></i></a>
-                                    <ul class="nav__sub">
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Body Lotion</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Body Oils</a>
-                                        </li>
-                                        <li class="nav__item">
-                                            <a class="nav__link" href="category.php">Body Scrubs</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>--}}
-
         </ul>
     </div>
 </div>
