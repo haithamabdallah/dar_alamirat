@@ -130,50 +130,71 @@
                 </aside>
                 <main>
                     <h1>My Account</h1>
-                    <form class="" action="">
+                    <form action="{{ route('user.update', $user) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
                         <div class="account-form">
                             <div class="ac-item">
                                 <label for="first-name">First Name</label>
                                 <input type="text" name="first_name" id="first-name" placeholder="First Name" required class="form-input" value="{{ old('first_name', $user->first_name) }}">
-                                        @error('first_name')
+                                @error('first_name')
                                     <div class="text-red-500">{{ $message }}</div>
-                                     @enderror
+                                @enderror
                             </div>
+
                             <div class="ac-item">
                                 <label for="last-name">Last Name</label>
                                 <input type="text" name="last_name" id="last-name" placeholder="Last Name" required class="form-input" value="{{ old('last_name', $user->last_name) }}">
+                                @error('last_name')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="ac-item">
                                 <label for="birthday">Birth Date</label>
-                                <input class="flatpickr flatpickr-input s-datetime-picker-input" type="text" placeholder="Select Date.." readonly="readonly" value="{{ old('first_name', $user->first_name) }}">
+                                <input class="flatpickr flatpickr-input s-datetime-picker-input" type="text" name="birthday" placeholder="Select Date.." readonly="readonly" value="{{ old('birthday', $user->birthday) }}">
+                                @error('birthday')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="ac-item">
                                 <label for="gender">Gender</label>
-                                <select class="form-input" name="gender" required="">
-                                    <option placeholder="" value="">Select Gender</option>
-                                    <option value="male">
-                                        Male
-                                    </option>
-                                    <option value="female">
-                                        Female
-                                    </option>
+                                <select class="form-input" name="gender" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Male</option>
+                                    <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>Female</option>
                                 </select>
+                                @error('gender')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="ac-item">
                                 <label for="email">Email Address</label>
-                                <input type="email" name="email" value="" id="email" class="form-input" required="" placeholder="Email Address" value="{{ old('email', $user->email) }}">
+                                <input type="email" name="email" id="email" class="form-input" required placeholder="Email Address" value="{{ old('email', $user->email) }}">
+                                @error('email')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="ac-item">
-                                <label for="international-mobile">Mobile Number</label>
-                                <input id="phone" type="tel" name="phone_number" class="s-tel-input-control"value="{{ old('phone_number', $user->phone_number) }}">
+                                <label for="phone">Mobile Number</label>
+                                <input id="phone" type="tel" name="phone_number" class="s-tel-input-control" value="{{ old('phone_number', $user->phone_number) }}">
+                                @error('phone_number')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="w-full">
-                            <button type="submit" loader-position="end" class="w-full mt-6 sm:mt-8 s-button-element s-button-btn s-button-solid s-button-primary s-button-loader-end"><span class="s-button-text">
-Save
-</span></button>
+                            <button type="submit" loader-position="end" class="w-full mt-6 sm:mt-8 s-button-element s-button-btn s-button-solid s-button-primary s-button-loader-end">
+                                <span class="s-button-text">Save</span>
+                            </button>
                         </div>
                     </form>
+
 
                     <div class="promotion">
                         <a class="s-list-tile-item" target="_self">
