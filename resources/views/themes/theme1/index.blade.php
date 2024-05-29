@@ -2,6 +2,12 @@
 
 @section('content')
     {{--    @include('themes.theme1.index-layouts.categoryTabs')--}}
+    @if(Session::has('success_message'))
+    <div class="alert alert-success">
+        {{ Session::get('success_message') }}
+    </div>
+@endif
+
     @foreach ($categories as $category)
         @if ($category->type === 'default')
             <section class="s-block">

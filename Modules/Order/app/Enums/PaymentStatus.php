@@ -15,7 +15,7 @@ enum PaymentStatus
             self::PENDING,
             self::PAID,
             self::PARTIALLY_REFUNDED,
-            
+
         ];
     }
 }

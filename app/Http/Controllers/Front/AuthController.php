@@ -4,61 +4,43 @@ namespace App\Http\Controllers\Front;
 
 use Carbon\Carbon;
 use App\Models\Otp;
+use App\Models\User;
 use App\Mail\OtpMail;
+use App\Services\OtpService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\VerifyOtpRequest;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    //
-    public function sendOtp(Request $request)
+
+     protected $otpVerificationService;
+
+    public function __construct(OtpService $otpVerificationService)
     {
-
-        $request->validate(['email' => 'required|email']);
-        $otp = rand(1000, 9999);
-
-        Otp::create([
-            'email' => $request->email,
-            'otp' => $otp,
-            'expires_at' => Carbon::now()->addMinutes(10)
-        ]);
-
-        Mail::to($request->email)->send(new OtpMail($otp));
-
-        session(['email' => $request->email]);
-
-        return response()->json(['success' => true]);
+        $this->otpVerificationService = $otpVerificationService;
     }
 
-
-    public function verifyOtp(Request $request)
+    public function sendOtp(Request $request): JsonResponse
     {
+        $request->validate(['email' => 'required|email']);
 
-        $validator = Validator::make($request->all(), [
-            'otp' => 'required|array|min:4|max:4',
-            'otp.*' => 'required|string|size:1',
-            'email' => 'required|email'
-        ]);
+        return $this->otpVerificationService->sendOtp($request->email);
+    }
 
-        if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Invalid input.']);
-        }
+    public function verifyOtp(VerifyOtpRequest $request): JsonResponse
+    {
+        $validatedData = $request->validated();
 
-        $otp = implode('', $request->otp);
-
-          $otpRecord = Otp::where('email', $request->email)
-                        ->where('otp', $otp)
-                        ->where('expires_at', '>', Carbon::now())
-                        ->first();
-
-        if ($otpRecord) {
-            $otpRecord->delete();  // Optional: Delete the OTP after successful verification
-            return response()->json(['success' => true, 'message' => 'Logged in successfully!']);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Invalid or expired OTP']);
-        }
+        return $this->otpVerificationService->verifyOtp($validatedData);
     }
 
     public function resendOtp(Request $request)
@@ -78,4 +60,13 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'OTP resent!']);
     }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+
+        return redirect()->route('index')->with('success', 'You have been logged out.');
+    }
+
+
 }

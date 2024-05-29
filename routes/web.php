@@ -7,6 +7,7 @@ use App\Http\Controllers\Front\BrandController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Order\CartController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Front\Profile\ProfileController;
 
 /************************************ clients ****************************/
 
@@ -101,5 +102,7 @@ Route::prefix('products')->group(function () {
 });
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
+Route::get('/user/profile/{user}', [ProfileController::class, 'showProfile'])->name('user.profile');
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
