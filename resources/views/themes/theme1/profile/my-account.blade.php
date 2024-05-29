@@ -12,7 +12,7 @@
         <!-- content -->
         <ul class="breadcrumbs">
             <li>
-                <a href="javascript:;">
+                <a href="{{ route('index') }}">
                     <span>Home</span>
                 </a>
             </li>
@@ -21,9 +21,7 @@
                     <span>My Account</span>
                 </a>
             </li>
-            <li>
-                <span>Notification</span>
-            </li>
+            
         </ul>
         <!-- ./content -->
     </div>

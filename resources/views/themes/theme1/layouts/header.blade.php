@@ -38,7 +38,7 @@
                     @endguest
                     @auth
                     <li>
-                        <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
+                        <a href="{{ route('user.profile',auth()->user()->id) }}" class="d-flex align-items-center">
                             <i class="icon sicon-user"></i>
                             <span class="d-flex flex-column">
                                 <p>My Account</p>

@@ -12,6 +12,7 @@ class ProfileController extends Controller
     public function showProfile(User $user)
     {
         // Return the user profile view with the user model passed to it
-        return view('themes.theme1.profile.my-account',compact($user));
+        
+        return view('themes.theme1.profile.my-account',compact('user'));
     }
 }
