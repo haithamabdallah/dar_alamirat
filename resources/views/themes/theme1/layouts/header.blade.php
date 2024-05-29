@@ -34,6 +34,7 @@
                             </span>
                         </a>
                     </li>
+                    @endguest
                     <li>
                         <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
                             <i class="icon sicon-shopping-bag"></i>
@@ -45,7 +46,7 @@
                         </a>
                     </li>
                 </ul>
-                @endguest
+
             </div>
         </div>
     </div>

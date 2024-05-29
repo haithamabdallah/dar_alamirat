@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\VerifyOtpRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -35,27 +36,36 @@ class AuthController extends Controller
     {
 
         $request->validate(['email' => 'required|email']);
-        $otp = rand(1000, 9999);
-        $hashedOtp = Hash::make($otp);
+      //  $otp = rand(1000, 9999);
+      $otp = 1234; // for test
+       // $hashedOtp = Hash::make($otp);
         Otp::create([
             'email' => $request->email,
-            'otp' => $hashedOtp,
+            'otp' => $otp,
             'expires_at' => Carbon::now()->addMinutes(10)
         ]);
+
         Mail::to($request->email)->send(new OtpMail($otp));
+
         session(['email' => $request->email]);
+        
         return response()->json(['success' => true]);
     }
 
 
-    public function verifyOtp(VerifyOtpRequest $request): JsonResponse
+    public function verifyOtp(VerifyOtpRequest $request): RedirectResponse
     {
         try {
             $response = $this->otpService->verifyOtp($request->email, $request->otp);
-            return response()->json($response);
+
+            if ($response['success']) {
+                return redirect()->route('index')->with('success', $response['message']);
+            } else {
+                return redirect()->back()->withErrors(['otp' => $response['message']])->withInput();
+            }
         } catch (\Exception $e) {
             Log::error('Error occurred during OTP verification: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => 'An internal server error occurred.']);
+            return redirect()->back()->withErrors(['otp' => 'An internal server error occurred.'])->withInput();
         }
     }
 

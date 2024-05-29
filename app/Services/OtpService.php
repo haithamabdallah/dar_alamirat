@@ -19,16 +19,11 @@ class OtpService
                         ->where('expires_at', '>', Carbon::now())
                         ->first();
 
-        if ($otpRecord && Hash::check($otp, $otpRecord->otp)) {
+        if ($otpRecord) {
             $otpRecord->delete();  // Optional: Delete the OTP after successful verification
 
             // Create or retrieve the user based on the provided email
-            $user = User::firstOrCreate(
-                ['email' => $email],
-                [
-                    // Add other fields as required
-                ]
-            );
+            $user = $this->createOrRetrieveUser($email);
 
             // Log in the user
             Auth::login($user);
@@ -37,5 +32,15 @@ class OtpService
         }
 
         return ['success' => false, 'message' => 'Invalid or expired OTP'];
+    }
+    protected function createOrRetrieveUser($email)
+    {
+
+        return User::firstOrCreate(
+            ['email' => $email],
+            [
+                // Add other fields as required
+            ]
+        );
     }
 }
