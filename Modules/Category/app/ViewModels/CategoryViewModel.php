@@ -13,7 +13,7 @@ class CategoryViewModel extends ViewModel
     public function __construct($category = null)
     {
         $this->category = is_null($category) ? new Category(old()) : $category;
-        $this->parentCategories = Category::main()->active();
+        $this->parentCategories = Category::main()->active()->get();
     }
 
     public function action(): string

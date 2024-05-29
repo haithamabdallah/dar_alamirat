@@ -156,24 +156,23 @@
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
-                            <div class="m-2">
-                                <div class="form-group row">
-                                    <label class="form-label col-form-label col-lg-4"> Category</label>
-                                    <div class="col-lg-8">
-                                        <select class="default-select2 form-control" name="category_id">
-                                            <option selected disabled>Select Category</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}" @if($category->id == $product->category_id) selected @endif>{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                @error('category_id')
-                                <span class="text-danger" role="alert">
+                            <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-3">Parent Category :</label>
+                                <div class="col-sm-9">
+                                    <select class=" form-control" name="parent_id">
+                                        <option disabled selected>Select Parent Category</option>
+                                        @foreach($parentCategories as $parentCategory)
+                                            <option value="{{$parentCategory->id}}" @if($parentCategory->id == $category->parent_id) selected @endif>{{$parentCategory->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('parent_id')
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
+
                             @foreach (Config('language') as $key => $lang)
                                 <div class="row mb-15px" >
                                     <label class="form-label col-form-label col-md-3">Name In {{ $lang }} :</label>

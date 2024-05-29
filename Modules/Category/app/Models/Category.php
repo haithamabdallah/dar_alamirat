@@ -52,7 +52,7 @@ class Category extends Model
 
     public function scopeMain($query)
     {
-        return $query->where('parent_id', null);
+        return $query->where(['parent_id' => null , 'type' => 'default']);
     }
 
     public function getIconAttribute()
