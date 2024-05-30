@@ -45,7 +45,7 @@
                                             <!-- ./tags -->
                                             <!-- img -->
                                             <div class="img">
-                                                <a href="{{route('cart-empty')}}">
+                                                <a href="{{route('product', $product->id)}}">
                                                     <img class="w-full object-contain" src="{{$product->thumbnail}}" alt="Product Image">
                                                 </a>
                                             </div>
@@ -75,7 +75,7 @@
 
                                                 <!-- description -->
                                                 <div class="item-dec">
-                                                    <a href="{{route('cart-empty')}}">
+                                                    <a href="{{route('product', $product->id)}}">
                                                         <span>{!! Str::limit($product->title, 100) !!}</span>
                                                     </a>
                                                 </div>

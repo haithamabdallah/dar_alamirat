@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+    @if (App::getLocale() == 'en')
+    <html dir="ltr" lang="en">
+@else
+    <html dir="rtl" lang="ar">
+@endif
+
 <head>
 
     @section('meta')
