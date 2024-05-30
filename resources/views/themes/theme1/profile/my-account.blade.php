@@ -10,6 +10,7 @@
     <!-- row -->
     <div class="wrap">
         <!-- content -->
+
         <ul class="breadcrumbs">
             <li>
                 <a href="{{ route('index') }}">
@@ -115,7 +116,11 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:;">
+                                <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <a href="javascript:;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i>
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                                             <title>send-out</title>
@@ -124,13 +129,20 @@
                                     </i>
                                     <span>Logout</span>
                                 </a>
+
                             </li>
                         </ul>
                     </div>
                 </aside>
                 <main>
                     <h1>My Account</h1>
-                    <form action="{{ route('user.update', $user) }}" method="POST">
+                    @if(session('success'))
+    <div id="alert" class="alert" style="display: none;">
+        <div id="progress-bar" class="progress-bar"></div>
+        <div class="alert-message">{{ session('success') }}</div>
+    </div>
+@endif
+                    <form action="{{ route('user.updateProfile', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -264,4 +276,44 @@
     </div>
 </section>
 <!-- ./user-layout -->
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var alertBox = document.getElementById('alert');
+        var progressBar = document.getElementById('progress-bar');
+        var message = document.querySelector('.alert-message');
+
+        // Show the alert
+        alertBox.style.display = 'block';
+
+        // Set background color for the alert
+        alertBox.style.backgroundColor = '#28a745'; // Green color for success
+
+        // Set background color for the progress bar
+        progressBar.style.backgroundColor = '#ffc107'; // Yellow color for progress
+
+        // Set text color for the message
+        message.style.color = '#fff'; // White text color for visibility
+
+        // Set progress bar width to 0 initially
+        progressBar.style.width = '0%';
+
+        // Animate progress bar
+        var width = 0;
+        var animationInterval = setInterval(function () {
+            if (width >= 100) {
+                clearInterval(animationInterval);
+                // Hide the alert after animation completes
+                setTimeout(function () {
+                    alertBox.style.display = 'none';
+                }, 1000);
+            } else {
+                width += 1;
+                progressBar.style.width = width + '%';
+            }
+        }, 30);
+    });
+</script>
+
+@endsection
 @endsection

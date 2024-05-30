@@ -26,12 +26,18 @@ class ProfileRequest extends FormRequest
             //
             'first_name' => 'string',
             'last_name' => 'string',
-            'birthday'=>'date',
+            'birthday' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
             'gender' => 'required|in:male,female',
             'email' => 'required|email|unique:users,email,' . $userId,
             'phone_number'=>'string'
 
 
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'birthday.before_or_equal' => 'You must be at least 18 years old.',
         ];
     }
 }
