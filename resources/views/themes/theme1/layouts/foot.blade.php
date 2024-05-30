@@ -17,36 +17,38 @@
     });
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if the popup has been shown before
+        const hasPopupShown = localStorage.getItem('hasPopupShown');
 
+        if (!hasPopupShown) {
+            const newsletterPopup = document.getElementById('newsletterPopup');
+            setTimeout(() => {
+                newsletterPopup.classList.remove('hide');
+            }, 2000);
 
+            // Set the flag in local storage to prevent the popup from showing again
+            localStorage.setItem('hasPopupShown', 'true');
+        }
 
-    // Prevent popup from reappearing after submit
-    const newsletterPopup = document.getElementById('newsletterPopup');
-    const form = document.getElementById('newsletter-form');
-    const subscribeDiv = document.getElementById('subscription');
-    const successDiv = document.getElementById('NewsSuccess');
+        const form = document.getElementById('newsletter-form');
+        const subscribeDiv = document.getElementById('subscription');
+        const successDiv = document.getElementById('NewsSuccess');
 
-    setTimeout(() => {
-        newsletterPopup.classList.remove('hide');
-    }, 2000);
+        form.addEventListener('submit', function(event) {
+            // Handle form submission
+            successDiv.classList.remove('hide');
+            subscribeDiv.classList.add('hide');
+        });
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission behavior
-        // Simulate successful submission (replace with your actual submission logic)
-        console.log('Thank you for subscribing!');
-        successDiv.classList.remove('hide');
-        subscribeDiv.classList.add('hide');
-    });
-
-    const closeButtons = document.querySelectorAll('.closeNews'); // Select all elements with class "closeNews"
-    const popup = document.getElementById("newsletterPopup");
-
-    closeButtons.forEach(closeButton => {
-        closeButton.addEventListener('click', function() {
-            popup.classList.add('hide'); // Add class "hide" to the popup element
+        const closeButtons = document.querySelectorAll('.closeNews');
+        closeButtons.forEach(closeButton => {
+            closeButton.addEventListener('click', function() {
+                const popup = document.getElementById("newsletterPopup");
+                popup.classList.add('hide');
+            });
         });
     });
-
-
 </script>
+
 @yield('scripts')
