@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-    @if (App::getLocale() == 'en')
+
+@if (App::getLocale() == 'en')
     <html dir="ltr" lang="en">
 @else
     <html dir="rtl" lang="ar">
