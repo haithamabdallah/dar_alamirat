@@ -9,13 +9,12 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="{{asset('theme1-assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('theme1-assets/css/bootstrap.rtl.min.css')}}">
     <!-- libs -->
     <link rel="stylesheet" href="{{asset('theme1-assets/css/swiper-bundle.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.css" />
+    <link rel="stylesheet" href="{{asset('theme1-assets/css/jquery.jgrowl.min.css')}}">
     <link rel="stylesheet" href="{{asset('theme1-assets/css/sweetalert2.min.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/css/intlTelInput.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- custom style -->
     <link rel="stylesheet" href="{{asset('theme1-assets/css/style.min.css')}}">
 
