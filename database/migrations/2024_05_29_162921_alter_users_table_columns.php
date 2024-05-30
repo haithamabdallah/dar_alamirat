@@ -52,7 +52,7 @@ class AlterUsersTableColumns extends Migration
             $table->string('email')->change();
             $table->dropUnique(['email']);
             $table->dropIndex(['email']);
-
+            $table->dropIndex(['password']);
             $table->timestamp('email_verified_at')->nullable(false)->change();
 
             // Uncomment and revert the 'password' column if needed
