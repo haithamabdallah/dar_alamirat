@@ -1,53 +1,37 @@
 <?php
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewsletterMail extends Mailable
+class OtpMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $otp;
+
     /**
      * Create a new message instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Newsletter Mail',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @param string $otp
      */
-    public function attachments(): array
+    public function __construct($otp)
     {
-        return [];
+        $this->otp = $otp;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->from('noreply@daaralamirat.com', config('app.name'))
+                    ->subject('Nor replay: Your OTP Code')
+                    ->view('emails.newsletter')
+                    ->with('otp', $this->otp);
     }
 }
