@@ -4,11 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Carbon\Carbon;
+use Modules\Favorite\Models\Favorite;
 use Modules\Order\Models\Order;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Modules\Product\Models\Product;
 
 class User extends Authenticatable
 {
@@ -21,7 +23,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name','last_name','email','phone_number','birthday','gender',
-        
+
     ];
 
     /**
@@ -51,7 +53,15 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 
+    public function favoriteProducts()
+    {
+        return $this->belongsToMany(Product::class, 'favorites');
+    }
 
     public function getFullNameAttribute()
     {
@@ -70,11 +80,5 @@ class User extends Authenticatable
     {
         return Carbon::parse($this->attributes['birthday'])->age;
     }
-
-
-
-
-
-
 
 }

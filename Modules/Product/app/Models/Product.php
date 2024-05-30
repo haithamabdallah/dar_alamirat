@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use App\Models\User;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -79,6 +80,10 @@ class Product extends Model
         return $this->belongsToMany(Order::class)->withPivot('quantity', 'price','variant_id','product_id','order_id');
     }
 
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
     public function getThumbnailAttribute()
     {
         if (isset($this->attributes['thumbnail']) && Storage::disk('public')->exists($this->attributes['thumbnail'])){
