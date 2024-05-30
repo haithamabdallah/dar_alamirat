@@ -6,20 +6,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OtpMail extends Mailable
+class NewsletterMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $otp;
 
+    public $data;
     /**
      * Create a new message instance.
      *
      * @param string $otp
      */
-    public function __construct($otp)
+    public function __construct($data)
     {
-        $this->otp = $otp;
+        $this->data = $data;
+
+
     }
 
     /**
@@ -30,8 +32,8 @@ class OtpMail extends Mailable
     public function build()
     {
         return $this->from('noreply@daaralamirat.com', config('app.name'))
-                    ->subject('Nor replay: Your OTP Code')
+                    ->subject('Nor replay: Newsletters')
                     ->view('emails.newsletter')
-                    ->with('otp', $this->otp);
+                    ->with($this->data);
     }
 }

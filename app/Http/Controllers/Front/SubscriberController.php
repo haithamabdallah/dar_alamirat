@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+
 use App\Mail\NewsletterMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,9 +33,15 @@ class SubscriberController extends Controller
         $subscriber = new Subscriber;
         $subscriber->email = $request->email;
         $subscriber->save();
-
+           // Prepare data for the email
+           $data = [
+            'header_title' => 'Welcome to Our Newsletter',
+            'intro_text' => 'Thank you for subscribing to our newsletter!',
+            'main_message' => 'We are excited to have you on board. Stay tuned for the latest updates and news.',
+            'closing_text' => 'If you have any questions, feel free to reach out to us. We are here to help!'
+        ];
         // Send welcome email
-        Mail::to($request->email)->send(new NewsletterMail());
+        Mail::to($request->email)->send(new NewsletterMail($data));
 
         return redirect()->back()->with([
             'title' => 'Subscription Successful',
