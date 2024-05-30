@@ -16,4 +16,5 @@ use Modules\Subscription\Http\Controllers\SubscriptionController;
 
 Route::group([], function () {
     Route::resource('subscription', SubscriptionController::class)->names('subscription');
+    Route::post('send-newsletter', [SubscriptionController::class,'sendNewsletter'])->name('send-newsletter');
 });
