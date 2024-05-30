@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
+class ComposerStaticInit01cf8fdffb8ae7edcc295b4e810bc80a
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -675,8 +675,8 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri',
-            1 => __DIR__ . '/..' . '/league/uri-interfaces',
+            0 => __DIR__ . '/..' . '/league/uri-interfaces',
+            1 => __DIR__ . '/..' . '/league/uri',
         ),
         'League\\OAuth2\\Server\\' => 
         array (
@@ -869,16 +869,24 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'App\\Http\\Controllers\\Dashboard\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/DashboardController.php',
         'App\\Http\\Controllers\\Dashboard\\SettingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/SettingsController.php',
         'App\\Http\\Controllers\\Front\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/AuthController.php',
+        'App\\Http\\Controllers\\Front\\BrandController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/BrandController.php',
         'App\\Http\\Controllers\\Front\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/HomeController.php',
+        'App\\Http\\Controllers\\Front\\Order\\CartController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/Order/CartController.php',
+        'App\\Http\\Controllers\\Front\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/ProductController.php',
+        'App\\Http\\Controllers\\Front\\Profile\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/Profile/ProfileController.php',
         'App\\Http\\Middleware\\APILocalizationMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/APILocalizationMiddleware.php',
         'App\\Http\\Middleware\\AdminAuthenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminAuthenticate.php',
         'App\\Http\\Middleware\\Localization' => __DIR__ . '/../..' . '/app/Http/Middleware/Localization.php',
         'App\\Http\\Requests\\Dashboard\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Dashboard/Auth/LoginRequest.php',
+        'App\\Http\\Requests\\ProfileRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileRequest.php',
+        'App\\Http\\Requests\\VerifyOtpRequest' => __DIR__ . '/../..' . '/app/Http/Requests/VerifyOtpRequest.php',
         'App\\Mail\\OtpMail' => __DIR__ . '/../..' . '/app/Mail/OtpMail.php',
         'App\\Models\\Otp' => __DIR__ . '/../..' . '/app/Models/Otp.php',
         'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Services\\OtpService' => __DIR__ . '/../..' . '/app/Services/OtpService.php',
+        'App\\View\\Components\\AddToCartButton' => __DIR__ . '/../..' . '/app/View/Components/AddToCartButton.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Barryvdh\\Debugbar\\Console\\ClearCommand' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Console/ClearCommand.php',
         'Barryvdh\\Debugbar\\Controllers\\AssetController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/AssetController.php',
@@ -2161,6 +2169,7 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Illuminate\\Console\\MigrationGeneratorCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/MigrationGeneratorCommand.php',
         'Illuminate\\Console\\OutputStyle' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/OutputStyle.php',
         'Illuminate\\Console\\Parser' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Parser.php',
+        'Illuminate\\Console\\Prohibitable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Prohibitable.php',
         'Illuminate\\Console\\PromptValidationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/PromptValidationException.php',
         'Illuminate\\Console\\QuestionHelper' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/QuestionHelper.php',
         'Illuminate\\Console\\Scheduling\\CacheAware' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Scheduling/CacheAware.php',
@@ -2664,6 +2673,11 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
         'Illuminate\\Foundation\\Events\\VendorTagPublished' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Events/VendorTagPublished.php',
         'Illuminate\\Foundation\\Exceptions\\Handler' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php',
         'Illuminate\\Foundation\\Exceptions\\RegisterErrorViewPaths' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php',
+        'Illuminate\\Foundation\\Exceptions\\Renderer\\Exception' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Renderer/Exception.php',
+        'Illuminate\\Foundation\\Exceptions\\Renderer\\Frame' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Renderer/Frame.php',
+        'Illuminate\\Foundation\\Exceptions\\Renderer\\Listener' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Renderer/Listener.php',
+        'Illuminate\\Foundation\\Exceptions\\Renderer\\Mappers\\BladeMapper' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Renderer/Mappers/BladeMapper.php',
+        'Illuminate\\Foundation\\Exceptions\\Renderer\\Renderer' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Renderer/Renderer.php',
         'Illuminate\\Foundation\\Exceptions\\ReportableHandler' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/ReportableHandler.php',
         'Illuminate\\Foundation\\Exceptions\\Whoops\\WhoopsExceptionRenderer' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Whoops/WhoopsExceptionRenderer.php',
         'Illuminate\\Foundation\\Exceptions\\Whoops\\WhoopsHandler' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Whoops/WhoopsHandler.php',
@@ -7938,10 +7952,10 @@ class ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInite5fbbe6137dc77bcd5b6646b5dd75b52::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit01cf8fdffb8ae7edcc295b4e810bc80a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit01cf8fdffb8ae7edcc295b4e810bc80a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit01cf8fdffb8ae7edcc295b4e810bc80a::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit01cf8fdffb8ae7edcc295b4e810bc80a::$classMap;
 
         }, null, ClassLoader::class);
     }

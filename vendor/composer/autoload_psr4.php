@@ -111,7 +111,7 @@ return array(
     'Modules\\Admin\\' => array($baseDir . '/Modules/Admin/app'),
     'Modules\\' => array($baseDir . '/Modules'),
     'Mockery\\' => array($vendorDir . '/mockery/mockery/library/Mockery'),
-    'League\\Uri\\' => array($vendorDir . '/league/uri', $vendorDir . '/league/uri-interfaces'),
+    'League\\Uri\\' => array($vendorDir . '/league/uri-interfaces', $vendorDir . '/league/uri'),
     'League\\OAuth2\\Server\\' => array($vendorDir . '/league/oauth2-server/src'),
     'League\\MimeTypeDetection\\' => array($vendorDir . '/league/mime-type-detection/src'),
     'League\\Flysystem\\Local\\' => array($vendorDir . '/league/flysystem-local'),
