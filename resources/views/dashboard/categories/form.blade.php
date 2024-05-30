@@ -156,7 +156,7 @@
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
-                            @if($method == 'PUT' && isset($category->parent_id))
+                            @if($method  != 'PUT' || ($method == 'PUT' && isset($category->parent_id)))
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">Parent Category :</label>
                                     <div class="col-sm-9">
