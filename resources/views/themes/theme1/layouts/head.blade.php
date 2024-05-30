@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{asset('theme1-assets/css/swiper-bundle.min.css')}}">
     <link rel="stylesheet" href="{{asset('theme1-assets/css/jquery.jgrowl.min.css')}}">
     <link rel="stylesheet" href="{{asset('theme1-assets/css/sweetalert2.min.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/css/intlTelInput.css">
     <!-- custom style -->
     <link rel="stylesheet" href="{{asset('theme1-assets/css/style.min.css')}}">
 

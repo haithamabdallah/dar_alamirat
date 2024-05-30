@@ -1,4 +1,9 @@
 @extends('themes.theme1.layouts.app')
+
+@section('customcss')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/css/intlTelInput.css">
+@endsection
+
 @section('content')
 <!-- cover -->
 <section class="user-cover">
@@ -6,29 +11,29 @@
         <div class="wrap">
             <div class="cover-contents">
                 <!-- breadcrumbs container-->
-<div class="pixel-container">
-    <!-- row -->
-    <div class="wrap">
-        <!-- content -->
+                <div class="pixel-container">
+                    <!-- row -->
+                    <div class="wrap">
+                        <!-- content -->
 
-        <ul class="breadcrumbs">
-            <li>
-                <a href="{{ route('index') }}">
-                    <span>Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <span>My Account</span>
-                </a>
-            </li>
+                        <ul class="breadcrumbs">
+                            <li>
+                                <a href="{{ route('index') }}">
+                                    <span>Home</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <span>My Account</span>
+                                </a>
+                            </li>
 
-        </ul>
-        <!-- ./content -->
-    </div>
-    <!-- ./row -->
-</div>
-<!-- ./breadcrumbs container-->
+                        </ul>
+                        <!-- ./content -->
+                    </div>
+                    <!-- ./row -->
+                </div>
+                <!-- ./breadcrumbs container-->
             </div>
         </div>
     </div>
@@ -276,6 +281,9 @@
     </div>
 </section>
 <!-- ./user-layout -->
+
+@endsection
+
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -315,5 +323,22 @@
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/js/intlTelInput.min.js"></script>
+
+<script>
+    const input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        showSelectedDialCode: true,
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+            fetch("https://ipapi.co/json")
+                .then(function(res) { return res.json(); })
+                .then(function(data) { callback(data.country_code); })
+                .catch(function() { callback(); });
+        },
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/js/utils.js",
+    });
+</script>
+
 @endsection
-@endsection
+
