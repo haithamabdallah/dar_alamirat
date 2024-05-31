@@ -8,5 +8,8 @@
     "Shipping": true,
     "Page": true,
     "Client": true,
-    "Settings": true
+    "Settings": true,
+    "Subiscription": true,
+    "Subscriber": true,
+    "Subscription": true
 }

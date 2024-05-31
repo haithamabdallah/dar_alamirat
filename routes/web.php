@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\BrandController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Order\CartController;
+use App\Http\Controllers\Front\SubscriberController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Front\Profile\ProfileController;
 
@@ -105,5 +106,6 @@ Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
 Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
 Route::get('/user/profile/{user}', [ProfileController::class, 'showProfile'])->name('user.profile');
 Route::put('/user/profile/{user}', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
+Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('subscribe');
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');

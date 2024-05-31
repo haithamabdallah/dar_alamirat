@@ -185,6 +185,16 @@
                 </a>
             </div>
             <!-- ./item -->
+                  <!-- item -->
+                  <div class="menu-item">
+                    <a href="{{ route('subscription.index') }}" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="menu-text">Subscribers</div>
+                    </a>
+                </div>
+                <!-- ./item -->
 
             <!-- item -->
             <div class="menu-item">
