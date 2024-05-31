@@ -72,7 +72,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="my-account.php">
+                                <a href="{{ route('user.profile',auth()->user()->id) }}">
                                     <i class="fa-solid fa-angles-right"></i>
                                     <span>My Account</span>
                                 </a>
