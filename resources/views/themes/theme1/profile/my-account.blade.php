@@ -1,4 +1,9 @@
 @extends('themes.theme1.layouts.app')
+@section('customcss')
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+@endsection
 @section('content')
 <!-- cover -->
 <section class="user-cover">
@@ -277,6 +282,8 @@
 </section>
 <!-- ./user-layout -->
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var alertBox = document.getElementById('alert');
