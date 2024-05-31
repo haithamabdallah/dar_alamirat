@@ -9,5 +9,7 @@
     "Page": true,
     "Client": true,
     "Settings": true,
-    "Favorite": true
+    "Subiscription": true,
+    "Subscriber": true,
+    "Subscription": true
 }

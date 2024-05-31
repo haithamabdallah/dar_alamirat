@@ -306,6 +306,23 @@ $(window).on("load", function() {
         },
     });
 
+    var swiper = new Swiper(".p-thumb", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".p-full-image", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".p-next",
+            prevEl: ".p-prev",
+        },
+        thumbs: {
+            swiper: swiper,
+        },
+    });
+
     //avatar
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -325,19 +342,6 @@ $(window).on("load", function() {
 
     flatpickr(".flatpickr", {
         dateFormat: "Y-m-d",
-    });
-
-    const input = document.querySelector("#phone");
-    window.intlTelInput(input, {
-        showSelectedDialCode: true,
-        initialCountry: "auto",
-        geoIpLookup: function(callback) {
-            fetch("https://ipapi.co/json")
-                .then(function(res) { return res.json(); })
-                .then(function(data) { callback(data.country_code); })
-                .catch(function() { callback(); });
-        },
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/js/utils.js",
     });
 
 });
@@ -502,6 +506,22 @@ $(document).ready(function() {
         if ($submenu.length > 0) {
             e.preventDefault(); // Prevent default only if submenu exists
             $submenu.addClass('is-active');
+        }
+    });
+});
+
+
+
+// Smooth scrolling to section
+document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
         }
     });
 });

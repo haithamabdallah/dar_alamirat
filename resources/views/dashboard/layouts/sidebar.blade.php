@@ -21,7 +21,8 @@
                     </div>
                 </a>
             </div>
-            <div id="appSidebarProfileMenu" class="collapse">
+            <!-- User Menu -->
+            {{--<div id="appSidebarProfileMenu" class="collapse">
                 <div class="menu-item pt-5px">
                     <a href="javascript:;" class="menu-link">
                         <div class="menu-icon"><i class="fa fa-cog"></i></div>
@@ -41,7 +42,8 @@
                     </a>
                 </div>
                 <div class="menu-divider m-0"></div>
-            </div>
+            </div>--}}
+            <!-- User Menu -->
             <div class="menu-header">Navigation</div>
             <!-- item -->
             <div class="menu-item {{ activeSingleLink('dashboard.index') }}">
@@ -95,7 +97,7 @@
                     <div class="menu-icon">
                         <i class="fa-solid fa-store"></i>
                     </div>
-                    <div class="menu-text">Shippings</div>
+                    <div class="menu-text">Shipping</div>
                 </a>
             </div>
             <!-- ./item -->
@@ -165,14 +167,14 @@
             <!-- ./item -->
 
             <!-- item -->
-            <div class="menu-item">
+            {{--<div class="menu-item">
                 <a href="/dashboard/reports" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-chart-pie"></i>
                     </div>
                     <div class="menu-text">Reports</div>
                 </a>
-            </div>
+            </div>--}}
             <!-- ./item -->
 
             <!-- item -->
@@ -185,6 +187,16 @@
                 </a>
             </div>
             <!-- ./item -->
+                  <!-- item -->
+                  <div class="menu-item">
+                    <a href="{{ route('subscription.index') }}" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="menu-text">Subscribers</div>
+                    </a>
+                </div>
+                <!-- ./item -->
 
             <!-- item -->
             <div class="menu-item">
