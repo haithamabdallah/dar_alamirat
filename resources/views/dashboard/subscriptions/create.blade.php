@@ -35,6 +35,14 @@
                     <form action="{{ route('send-newsletter') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
+                            <label for="newsEmailSender" class="form-label">Send From Email</label>
+                            <input type="email" class="form-control" placeholder="Email Sender">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newsSubject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="mb-3">
                             <label for="newsletterContent" class="form-label">{{ __('dashboard.newsletter_content') }}</label>
                             <textarea class="form-control" id="newsletterContent" name="content" rows="6" required></textarea>
                         </div>
