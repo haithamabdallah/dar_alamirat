@@ -31,7 +31,7 @@ class NewsletterMail extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@daaralamirat.com', config('app.name'))
+        return $this->from('newsletter@daaralamirat.com', config('app.name'))
                     ->subject('Nor replay: Newsletters')
                     ->view('emails.newsletter')
                     ->with($this->data);
