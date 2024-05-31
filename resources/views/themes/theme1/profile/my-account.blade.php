@@ -2,6 +2,7 @@
 
 @section('customcss')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
 
 @section('content')
@@ -285,6 +286,8 @@
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var alertBox = document.getElementById('alert');
