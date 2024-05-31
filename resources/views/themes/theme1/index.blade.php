@@ -162,7 +162,7 @@
         </div>
     </section>
 
-     {{-- <section id="newsletterPopup" class="hide">
+     <section id="newsletterPopup" class="hide">
     <div class="newContent">
         <a href="javascript:;" class="closeNews close-btn"><i class="fa-solid fa-xmark"></i></a>
         <div class="newsImage">
@@ -181,7 +181,7 @@
             <p>By entering, you aagree to the <a href="#">Terms od Use</a> and <a href="#">Privacy policy</a></p>
         </div>
      </div>
-</section> --}}
+</section>
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script>
