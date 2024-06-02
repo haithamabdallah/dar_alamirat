@@ -46,10 +46,7 @@
                             <label for="newsletterContent" class="form-label">{{ __('dashboard.newsletter_content') }}</label>
                             <textarea class="form-control" id="newsletterContent" name="content" rows="6" required></textarea>
                         </div>
-                        {{-- <div class="mb-3">
-                            <label for="newsletterImage" class="form-label">{{ __('dashboard.newsletter_image') }}</label>
-                            <input type="file" class="form-control" id="newsletterImage" name="image" accept="image/*" required>
-                        </div> --}}
+                        
                         <button type="submit" class="btn btn-primary">{{ __('dashboard.send_newsletter') }}</button>
                     </form>
 
