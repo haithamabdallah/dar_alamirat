@@ -25,7 +25,7 @@
                         </form>
                     </div>
                 </div>
-                
+
                 <ul class="user-control d-flex">
                     @guest
                     <li>
@@ -59,7 +59,7 @@
                             </span>
                         </a>
                     </li>
-                   
+
                 </ul>
 
             </div>
