@@ -14,7 +14,7 @@ class CartController extends Controller
     {
         Log::info('Add to cart request received', ['request' => $request->all()]);
         $product = Product::find($request->id);
-
+        
         if (!$product) {
             Log::error('Product not found', ['id' => $request->id]);
             return response()->json(['error' => 'Product not found!'], 404);
@@ -36,12 +36,13 @@ class CartController extends Controller
         session()->put('cart', $cart);
 
         Log::info('Product added to cart', ['cart' => $cart]);
-        return response()->json(['success' => 'Product added to cart successfully!']);
+        return response()->json([true]);
       }
 
       public function showCart()
     {
         $cart = session()->get('cart', []);
+        dd($cart);
         return view('themes.theme1.cart-page', compact('cart'));
     }
 }
