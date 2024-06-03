@@ -37,7 +37,8 @@
                                 <div class="swiper-wrapper">
                                     @foreach ($category->products as $product)
                                         <!-- product item -->
-                                        <div class="item">
+                                        <div class="swiper-slide">
+                                            <div class="item">
                                             <!-- tags -->
                                             <div class="item-tags">
                                                 <span>most popular</span>
@@ -111,6 +112,7 @@
 
                                             </div>
                                             <!-- ./data -->
+                                        </div>
                                         </div>
                                         <!-- product item -->
                                     @endforeach

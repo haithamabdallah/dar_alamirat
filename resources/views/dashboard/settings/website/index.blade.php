@@ -3,6 +3,13 @@
 @section('customcss')
     <link href="{{ asset('admin-panel/assets/plugins/dropzone/dist/min/dropzone.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('theme1-assets/css/intlTelInput.min.css') }}">
+
+    <style>
+        .iti {
+            width: 100%;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -116,6 +123,29 @@
                                     </div>
                                 </div>
 
+                                <!-- NEW CODE HERE -->
+                                {{--<div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Phone Number</label>
+                                    <div class="col-sm-9">
+                                        <input id="phone" type="tel" name="tel" class="form-control @error('tel') is-invalid @enderror"  style="width: 100%;">
+                                        @error('tel')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">WhatsApp</label>
+                                    <div class="col-sm-9">
+                                        <input id="whatsapp" type="tel" name="whats_app" class="form-control @error('whats_app') is-invalid @enderror"  style="width: 100%;">
+                                        @error('whats_app')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>--}}
+                                <!-- NEW CODE HERE -->
+
+
                                 <div class="row mb-15px">
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary d-block w-100"><i class="fa-regular fa-floppy-disk"></i> Save</button>
@@ -142,13 +172,35 @@
 
 @section('scripts')
     <script src="{{ asset('admin-panel/assets/plugins/dropzone/dist/min/dropzone.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
+    {{--<script src="{{ asset('theme1-assets/js/intlTelInput.min.js') }}"></script>
     <script>
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-status'));
-        elems.forEach(function(html) {
-            var switchery = new Switchery(html, {
-                color: '#00acac'
-            });
+        const phone = document.querySelector("#phone");
+        window.intlTelInput(phone, {
+            showSelectedDialCode: true,
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch("https://ipapi.co/json")
+                    .then(function(res) { return res.json(); })
+                    .then(function(data) { callback(data.country_code); })
+                    .catch(function() { callback(); });
+            },
+            utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
         });
     </script>
+
+    <script>
+        const whatsapp = document.querySelector("#whatsapp");
+        window.intlTelInput(whatsapp, {
+            showSelectedDialCode: true,
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch("https://ipapi.co/json")
+                    .then(function(res) { return res.json(); })
+                    .then(function(data) { callback(data.country_code); })
+                    .catch(function() { callback(); });
+            },
+            utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
+        });
+    </script>--}}
+
 @endsection
