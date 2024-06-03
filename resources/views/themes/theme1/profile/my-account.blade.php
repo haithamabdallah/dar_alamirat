@@ -1,8 +1,8 @@
 @extends('themes.theme1.layouts.app')
 
 @section('customcss')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/css/intlTelInput.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{{ asset('theme1-assets/css/intlTelInput.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme1-assets/css/faltpicker.min.css') }}">
 @endsection
 
 @section('content')
@@ -56,7 +56,7 @@
                                         <label for="imageUpload"></label>
                                     </div>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url('../../images/avatar_male.webp');">
+                                        <div id="imagePreview" style="background-image: url('{{ asset('theme1-assets/images/avatar_male.webp') }}');">
                                         </div>
                                     </div>
                                 </div>
@@ -143,11 +143,12 @@
                 <main>
                     <h1>My Account</h1>
                     @if(session('success'))
-    <div id="alert" class="alert" style="display: none;">
-        <div id="progress-bar" class="progress-bar"></div>
-        <div class="alert-message">{{ session('success') }}</div>
-    </div>
-@endif
+                        <div id="alert" class="alert" style="display: none;">
+                            <div id="progress-bar" class="progress-bar"></div>
+                            <div class="alert-message">{{ session('success') }}</div>
+                        </div>
+                    @endif
+
                     <form action="{{ route('user.updateProfile', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -214,7 +215,7 @@
                     </form>
 
 
-                    <div class="promotion">
+                    {{--<div class="promotion">
                         <a class="s-list-tile-item" target="_self">
                             <div class="s-list-tile-item-icon">
                                 <div slot="icon" class="s-user-settings-section-icon">
@@ -274,7 +275,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div>--}}
 
                 </main>
             </div>
@@ -326,7 +327,7 @@
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/js/intlTelInput.min.js"></script>
+<script src="{{ asset('theme1-assets/js/intlTelInput.min.js') }}"></script>
 
 <script>
     const input = document.querySelector("#phone");
@@ -339,7 +340,7 @@
                 .then(function(data) { callback(data.country_code); })
                 .catch(function() { callback(); });
         },
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@20.2.0/build/js/utils.js",
+        utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
     });
 </script>
 
