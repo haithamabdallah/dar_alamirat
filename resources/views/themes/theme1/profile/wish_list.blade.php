@@ -21,7 +21,7 @@
                     </li>
                     <li>
                         <span> Wish List</span>
-                    </li>  
+                    </li>
                 </ul>
                 <!-- ./content -->
             </div>

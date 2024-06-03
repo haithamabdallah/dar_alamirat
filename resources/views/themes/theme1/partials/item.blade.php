@@ -27,13 +27,14 @@
                 <strong>{{ $product->variants->first()->price_with_discount }}</strong>
                 <span>SAR</span>
             </h4>
-
-            <div class="add-favourite">
-                <button class="icon-fav @if(in_array($product->id , \App\Models\User::find(1)->favoriteProducts->pluck('id')->toArray())) added @endif"
-                        onclick="addToFavorites('{{route('toggle.favorites' ,$product->id)}}')">
-                    <i class="sicon-heart"></i>
-                </button>
-            </div>
+            @auth()
+                <div class="add-favourite">
+                    <button class="icon-fav @if(in_array($product->id , auth()->user()->favoriteProducts->pluck('id')->toArray())) added @endif"
+                            onclick="addToFavorites('{{route('toggle.favorites' ,$product->id)}}')">
+                        <i class="sicon-heart"></i>
+                    </button>
+                </div>
+            @endauth
         </div>
         <!-- ./price -->
 

@@ -109,9 +109,9 @@ Route::put('/user/profile/{user}', [ProfileController::class, 'updateProfile'])-
 Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('subscribe');
 
 
-//Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
     Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');
-//});
+});
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
