@@ -1,0 +1,74 @@
+/******* Single Brand ********/
+
+.single_brand {
+  .s-block {
+    margin-top: 0;
+  }
+  .brand_data {
+    display: flex;
+    grid-gap: 20px;
+    align-items: center;
+    .brand_img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 160px;
+      height: 100px;
+      padding: 10px;
+      --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+      box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
+    }
+    .brand_title {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        opacity: .5;
+      }
+    }
+  }
+
+  .brand_products {
+    display: grid;
+    grid-gap: 20px;
+    .item {
+      border: 1px solid #eee;
+    }
+  }
+}
+
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .single_brand {
+    .brand_products {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  .single_brand {
+    .brand_products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  .single_brand {
+    .brand_products {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {
+
+}
+
+/******* Single Brand ********/
