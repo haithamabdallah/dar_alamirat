@@ -19,9 +19,9 @@
             <div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.home') }}</a></li>
-                    <li class="breadcrumb-item">{{ __('dashboard.send_newsletter') }}</li>
+                    <li class="breadcrumb-item">Send newsletter</li>
                 </ul>
-                <h1 class="page-header mb-0">{{ __('dashboard.send_newsletter') }}</h1>
+                <h1 class="page-header mb-0">Send newsletter</h1>
             </div>
         </div>
 
@@ -36,21 +36,18 @@
                         @csrf
                         <div class="mb-3">
                             <label for="newsEmailSender" class="form-label">Send From Email</label>
-                            <input type="email" class="form-control" placeholder="Email Sender">
+                            <input type="email" name="sender" class="form-control" placeholder="Email Sender">
                         </div>
                         <div class="mb-3">
                             <label for="newsSubject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" placeholder="Subject">
+                            <input type="text" name="subject" class="form-control" placeholder="Subject">
                         </div>
                         <div class="mb-3">
-                            <label for="newsletterContent" class="form-label">{{ __('dashboard.newsletter_content') }}</label>
+                            <label for="newsletterContent" class="form-label">Newsletter content</label>
                             <textarea class="form-control" id="newsletterContent" name="content" rows="6" required></textarea>
                         </div>
-                        {{-- <div class="mb-3">
-                            <label for="newsletterImage" class="form-label">{{ __('dashboard.newsletter_image') }}</label>
-                            <input type="file" class="form-control" id="newsletterImage" name="image" accept="image/*" required>
-                        </div> --}}
-                        <button type="submit" class="btn btn-primary">{{ __('dashboard.send_newsletter') }}</button>
+
+                        <button type="submit" class="btn btn-primary">Send newsletter</button>
                     </form>
 
                     <!-- ./newsletter form -->

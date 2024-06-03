@@ -16,16 +16,19 @@ class SendNewsletterMail extends Mailable
     /**
      * Create a new message instance.
      */
+    public $sender;
+    public $subject;
     public $content;
 
     /**
      * Create a new message instance.
      *
-     * @param  string  $content
      * @return void
      */
-    public function __construct($content)
+    public function __construct($sender, $subject, $content)
     {
+        $this->sender = $sender;
+        $this->subject = $subject;
         $this->content = $content;
     }
 
@@ -34,11 +37,12 @@ class SendNewsletterMail extends Mailable
      *
      * @return $this
      */
+
     public function build()
     {
-        return $this->from('newsletter@daaralamirat.com', config('app.name'))
-        ->subject('Nor replay: Newsletters')
-         ->view('emails.sendnewsletter')
-         ->with($this->content);
+        return $this->from($this->sender, config('app.name'))
+                    ->subject($this->subject)
+                    ->view('emails.sendnewsletter')
+                    ->with($this->content);
     }
 }

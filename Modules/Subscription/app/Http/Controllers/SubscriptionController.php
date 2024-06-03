@@ -5,6 +5,7 @@ namespace Modules\Subscription\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Mail\SendNewsletterMail;
+use App\Services\NewsletterService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,12 @@ class SubscriptionController extends Controller
     /**
      * Display a listing of the resource.
      */
+    protected $newsletterService;
+    public function __construct(NewsletterService $newsletterService)
+    {
+        $this->newsletterService = $newsletterService;
+    }
+
     public function index()
     {
         $subscribers=Subscriber::get();
@@ -68,21 +75,24 @@ class SubscriptionController extends Controller
     {
         //
     }
+
+
+
+
     public function sendNewsletter(Request $request)
     {
-        // Validate the request
         $request->validate([
-            'content' => 'required',
+            'sender' => 'email',
+            'subject' => 'string|max:255',
+            'content' => 'string',
         ]);
 
-        // Get all users
-        $subscribers = Subscriber::all();
+        $this->newsletterService->sendNewsletter(
+            $request->input('sender'),
+            $request->input('subject'),
+            $request->input('content')
+        );
 
-        // Send newsletter to each user
-        foreach ($subscribers as $subscriber) {
-            Mail::to($subscriber->email)->send(new SendNewsletterMail($request->content));
-        }
-
-        return redirect()->route('subscription.index')->with('success', __('dashboard.newsletter_sent_successfully'));
+        return redirect()->route('subscription.index')->with('success', 'Newsletter sent successfully!');
     }
 }

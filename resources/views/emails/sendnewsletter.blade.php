@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Newsletter</title>
+    <title>{{ $subject }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,7 +63,7 @@
             <p>{{ $content }}</p>
         </div>
         <div class="footer">
-            <p>Thank you for being with us!</p>
+            <p>Thank you for being with us!,<br>{{ $sender }}</p>
         </div>
     </div>
 </body>

@@ -15,7 +15,7 @@
         }
     });
 </script>
-<script>
+{{-- <script>
    const newsletterPopup = document.getElementById('newsletterPopup');
     const form = document.getElementById('newsletter-form');
     const subscribeDiv = document.getElementById('subscription');
@@ -40,6 +40,6 @@
         });
     });
 
-</script>
+</script> --}}
 
 @yield('scripts')
