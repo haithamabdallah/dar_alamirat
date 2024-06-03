@@ -1,0 +1,133 @@
+
+#cookiesPopup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  opacity: 1;
+  z-index: 2000;
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+  }
+
+  &.show {
+    opacity: 1 !important;
+  }
+  &.hide {
+    opacity: 0 !important;
+  }
+
+  .newContent {
+    position: relative;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 460px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: $white;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 8px;
+      outline: 0;
+      box-shadow: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      color: $black;
+      background: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+   #cookiesSms {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      grid-gap: 15px;
+      p {
+        line-height: 1.5;
+        font-size: 12px;
+        opacity: .5;
+        a {
+          font-size: 12px;
+          text-decoration: underline;
+        }
+      }
+      a {
+        font-size: 12px;
+        text-decoration: underline;
+      }
+     .btns {
+       display: flex;
+       grid-gap: 20px;
+       a {
+         padding: 10px 20px;
+         border-radius: 5px;
+         border: 1px solid #eee;
+         text-decoration: none;
+         color: rgba(0, 0, 0, .5);
+         &:last-child {
+           background: #1a1a1a;
+           color: $white;
+           border-color: transparent;
+         }
+       }
+     }
+     &.show {
+       display: flex;
+     }
+     &.hide {
+       display: none;
+     }
+    }
+
+  }
+
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  #newsletterPopup {
+    .newContent {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+  #newsletterPopup {
+    .newContent {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+  #newsletterPopup {
+    .newContent {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

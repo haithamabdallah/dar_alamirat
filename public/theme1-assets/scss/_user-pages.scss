@@ -136,6 +136,15 @@
           color: rgba(107, 114, 128, var(--tw-text-opacity));
         }
       }
+      .whishlist_items {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-gap: 20px;
+        .item {
+          border: 1px solid #eee;
+          border-radius: 8px;
+        }
+      }
     }
     form {
       margin-bottom: 2.5rem;

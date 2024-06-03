@@ -48,6 +48,50 @@
   animation: pulse-anime-mini .4s;
 }
 
+//brands page
+#section {
+  h2 {
+    padding-top: 130px;
+    padding-bottom: 30px;
+  }
+}
+#brands-nav {
+  position: fixed;
+  right: 0;
+  grid-gap: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 1000; /* Ensure the navbar stays on top */
+  transition: all 0.3s ease;
+  a {
+    width: 20px;
+    height: 20px;
+    text-decoration: none;
+    color: #6b7280;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 15px;
+    flex-wrap: wrap;
+    &:hover {
+      background-color: $accentColor;
+      color: $white;
+    }
+    &.active {
+      background-color: $accentColor;
+      color: $white;
+    }
+  }
+}
 
 
 
