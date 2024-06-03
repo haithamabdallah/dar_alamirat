@@ -47,12 +47,10 @@
     function addToFavorites(url) {
         axios.post(url)
             .then(response => {
-                alert(response.data.message);
-                // Optionally, update the UI to reflect the favorite status
+                location.reload()
             })
             .catch(error => {
-                console.error('There was an error toggling the favorite status!', error);
-                alert('Failed to toggle favorite status.');
+
             });
     }
 </script>
