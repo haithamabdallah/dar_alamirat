@@ -346,3 +346,33 @@
 
 @endsection
 
+<script src="{{ asset('theme1-assets/js/intlTelInput.min.js') }}"></script>
+<script>
+    const phone = document.querySelector("#phone");
+    window.intlTelInput(phone, {
+        showSelectedDialCode: true,
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+            fetch("https://ipapi.co/json")
+                .then(function(res) { return res.json(); })
+                .then(function(data) { callback(data.country_code); })
+                .catch(function() { callback(); });
+        },
+        utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
+    });
+</script>
+
+<script>
+    const whatsapp = document.querySelector("#whatsapp");
+    window.intlTelInput(whatsapp, {
+        showSelectedDialCode: true,
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+            fetch("https://ipapi.co/json")
+                .then(function(res) { return res.json(); })
+                .then(function(data) { callback(data.country_code); })
+                .catch(function() { callback(); });
+        },
+        utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
+    });
+</script>
