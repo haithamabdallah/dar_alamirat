@@ -4,45 +4,54 @@ namespace App\Http\Controllers\Front\Order;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Modules\Cart\Models\Cart;
 use Modules\Product\Models\Product;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
     //
-    public function addToCart(Request $request)
+    public function addToCart($productId)
     {
-        Log::info('Add to cart request received', ['request' => $request->all()]);
-        $product = Product::find($request->id);
-        
-        if (!$product) {
-            Log::error('Product not found', ['id' => $request->id]);
-            return response()->json(['error' => 'Product not found!'], 404);
+        $userId = auth()->user()->id;
+
+        // Check if the product is already in the cart
+        $existingCart = Cart::where(['user_id' => $userId , 'product_id' => $productId])->first();
+
+        // If the product is already in the cart, return a message
+        if ($existingCart) {
+
+            return response()->json([
+                'message' => 'Product already added to cart',
+                'status' => 'danger'
+            ]);
         }
 
-        $cart = session()->get('cart', []);
+        $cart = Cart::create([
+            'product_id' => $productId,
+            'user_id' => $userId,
+        ]);
 
-        if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantity']++;
-        } else {
-            $cart[$product->id] = [
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price,
-                "image" => $product->image
-            ];
+        if ($cart){
+            return response()->json([
+                'message' => 'Product added to cart successfully',
+                'status' => 'success'
+            ]);
+
+        }else{
+            return response()->json([
+                'message' => 'Product did not add to cart',
+                'status' => 'error'
+            ]);
         }
+    }
 
-        session()->put('cart', $cart);
-
-        Log::info('Product added to cart', ['cart' => $cart]);
-        return response()->json([true]);
-      }
-
-      public function showCart()
+    public function showCart()
     {
-        $cart = session()->get('cart', []);
-        dd($cart);
-        return view('themes.theme1.cart-page', compact('cart'));
+        $carts     = cache()->remember('cart', 60 * 60, function () {
+             return auth()->user()->carts;
+         });
+
+        return view('themes.theme1.cart-page', compact('carts'));
     }
 }

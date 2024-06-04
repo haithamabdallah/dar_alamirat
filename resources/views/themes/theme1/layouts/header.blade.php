@@ -49,13 +49,14 @@
                         </a>
                     </li>
                     @endauth
+
                     <li>
                         <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
                             <i class="icon sicon-shopping-bag"></i>
-                            <span class="s-cart-summary-count">0</span>
+                            <span class="s-cart-summary-count">{{auth()->user()->carts->count()}}</span>
                             <span class="d-flex flex-column">
                                 <p>Cart</p>
-                                <span class="cart-amount">0 SAR</span>
+                                <span class="cart-amount">{{cartTotalPrice()}} SAR</span>
                             </span>
                         </a>
                     </li>

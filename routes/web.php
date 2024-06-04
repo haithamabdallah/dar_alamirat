@@ -96,14 +96,12 @@ Route::prefix('settings')->group(function () {
 });
 Route::prefix('brands')->group(function () {
     Route::get('brands/{brand}',[BrandController::class,'showBrand'])->name('brand');
-
 });
+
 Route::prefix('products')->group(function () {
     Route::get('product/{product}',[ProductController::class,'showProduct'])->name('product');
-
 });
-Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
 Route::get('/user/profile/{user}', [ProfileController::class, 'showProfile'])->name('user.profile');
 Route::put('/user/profile/{user}', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
@@ -113,6 +111,9 @@ Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('sub
 Route::middleware('auth')->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
     Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');
+    // Cart
+    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
 });
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
