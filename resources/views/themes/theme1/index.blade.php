@@ -8,39 +8,45 @@
         </div>
     @endif
 
+
+
     @foreach ($categories as $category)
         @if ($category->type === 'default')
             <section class="s-block">
                 <div class="pixel-container">
                     <div class="wrap">
+                        <!-- swiper #01 -->
                         <div class="section-categories">
 
-                            <div class="section-head">
-                                <div class="s-block-title">
-                                    <h2>{{ $category->name }}</h2>
-                                </div>
+                            <div class="swiper category">
+                                <div class="section-head">
+                                    <div class="s-block-title">
+                                        <h2>{{ $category->name }}</h2>
+                                    </div>
 
-                                <div class="category-nav">
-                                    <a href="{{ route('category.products', $category->id) }}" class="btn-all">View All</a>
-                                    <div class="navigation">
-                                        <button class="cat-prev">
-                                            <i class="fa-solid fa-chevron-left"></i>
-                                        </button>
-                                        <button class="cat-next">
-                                            <i class="fa-solid fa-chevron-right"></i>
-                                        </button>
+                                    <div class="category-nav">
+                                        <a href="{{ route('category.products', $category->id) }}" class="btn-all">View All</a>
+                                        <div class="navigation">
+                                            <button class="cat-prev">
+                                                <i class="fa-solid fa-chevron-left"></i>
+                                            </button>
+                                            <button class="cat-next">
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="swiper categories">
                                 <div class="swiper-wrapper">
-                                    @foreach ($category->products as $product)
-                                        <!-- product item -->
-                                        @include('themes.theme1.partials.item')
+
+                                @foreach ($category->products as $product)
+                                    <!-- product item -->
+                                        <div class="swiper-slide">
+                                            @include('themes.theme1.partials.item')
+                                        </div>
                                         <!-- product item -->
                                     @endforeach
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -129,4 +135,49 @@
             }
         </script>
     @endsection --}}
+@endsection
+
+@section('scripts')
+    <script>
+        document.querySelectorAll(".category").forEach(function (s) {
+            let next = s.querySelector(".cat-next");
+            let prev = s.querySelector(".cat-prev");
+
+            new Swiper(s, {
+                navigation: {
+                    nextEl: next,
+                    prevEl: prev
+                },
+                slidesPerView: 4,
+                spaceBetween: 20,
+                slidesPerGroup: 1,
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    425: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 50,
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                },
+            });
+        });
+    </script>
 @endsection
