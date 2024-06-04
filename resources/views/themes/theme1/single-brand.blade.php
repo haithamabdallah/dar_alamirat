@@ -1,5 +1,7 @@
 @extends('themes.theme1.layouts.app')
+
 @section('content')
+
 <!-- single brand -->
 <section class="category-page single_brand">
     <!-- container -->
@@ -13,7 +15,7 @@
                 <div class="brand_data">
                     <!-- img -->
                     <div class="brand_img">
-                        <img class="brand-item" src="{{storage_asset($brand->image)}}" alt="{{ $brand->name }}">
+                        <img class="brand-item w-full object-contain" src="{{storage_asset($brand->image)}}" alt="{{ $brand->name }}">
                     </div>
                     <!-- ./img -->
                     <!-- title -->
@@ -34,12 +36,12 @@
 
 
                     @forelse ($brand->products as $product)
-                    <div class="col-md-4 mb-4">
                         <div class="item">
                             <!-- tags -->
-                            <div class="item-tags">
-                                {{-- <span>most popular</span> --}}
+                            {{-- <div class="item-tags">
+                                 <span>most popular</span>
                             </div>
+                            --}}
                             <!-- ./tags -->
 
                             <!-- img -->
@@ -102,7 +104,6 @@
                             </div>
                             <!-- ./data -->
                         </div>
-                    </div>
                 @empty
                     <p>No products found for this brand.</p>
                 @endforelse
@@ -118,58 +119,62 @@
     <!-- ./container -->
 </section>
 <!-- ./single brand -->
+
+@endsection
+
 @section('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
-            const productId = this.dataset.productId;
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
 
-            fetch('{{ route("cart.add") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ id: productId })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(error => { throw new Error(error.error); });
-                }
-                return response.json();
-            })
-            .then(data => {
-                const alertMessageDiv = document.getElementById('alert-message');
-                alertMessageDiv.textContent = data.success || data.error;
-                alertMessageDiv.className = data.success ? 'alert alert-success' : 'alert alert-danger';
-                alertMessageDiv.style.display = 'block';
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const productId = this.dataset.productId;
 
-                // Hide the message after 5 seconds
-                setTimeout(() => {
-                    alertMessageDiv.style.display = 'none';
-                }, 5000);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                const alertMessageDiv = document.getElementById('alert-message');
-                alertMessageDiv.textContent = 'An error occurred. Please try again.';
-                alertMessageDiv.className = 'alert alert-danger';
-                alertMessageDiv.style.display = 'block';
+                    fetch('{{ route("cart.add") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({ id: productId })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(error => { throw new Error(error.error); });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const alertMessageDiv = document.getElementById('alert-message');
+                            alertMessageDiv.textContent = data.success || data.error;
+                            alertMessageDiv.className = data.success ? 'alert alert-success' : 'alert alert-danger';
+                            alertMessageDiv.style.display = 'block';
 
-                // Hide the message after 5 seconds
-                setTimeout(() => {
-                    alertMessageDiv.style.display = 'none';
-                }, 5000);
+                            // Hide the message after 5 seconds
+                            setTimeout(() => {
+                                alertMessageDiv.style.display = 'none';
+                            }, 5000);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            const alertMessageDiv = document.getElementById('alert-message');
+                            alertMessageDiv.textContent = 'An error occurred. Please try again.';
+                            alertMessageDiv.className = 'alert alert-danger';
+                            alertMessageDiv.style.display = 'block';
+
+                            // Hide the message after 5 seconds
+                            setTimeout(() => {
+                                alertMessageDiv.style.display = 'none';
+                            }, 5000);
+                        });
+                });
             });
         });
-    });
-});
 
 
-</script>
-@endsection
+    </script>
+
 @endsection
