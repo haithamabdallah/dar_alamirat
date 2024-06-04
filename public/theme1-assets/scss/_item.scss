@@ -106,6 +106,8 @@
         font-size: 13px;
         line-height: 26px;
         color: $linkColor;
+          @extend .line_2;
+          min-height: 52px;
         &:hover {
           color: $accentColor;
         }
