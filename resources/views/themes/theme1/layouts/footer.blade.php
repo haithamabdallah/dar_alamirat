@@ -9,21 +9,23 @@
                 <!-- item -->
                 <div class="f-item">
                     @foreach ($settings->where('type', 'general') as $setting)
-                        <div class="logo">
+    <div class="logo">
+        @if (isset($setting->value['logo_path']))
+            @php
+                $logoPath = $setting->value['logo_path'];
+                $logoUrl = Storage::url($logoPath);
+            @endphp
+            <img src="{{ $logoUrl }}" alt="Logo">
+        @endif
+    </div>
 
-                            @php
-                                $logoPath = $setting->value['logo_path'];
-                                $logoUrl = Storage::url($logoPath);
-                            @endphp
+    <p>
+        @if (isset($setting->value['website_address']))
+            {{ $setting->value['website_address'] }}
+        @endif
+    </p>
+@endforeach
 
-                            <img src="{{ $logoUrl }}" alt="Logo">
-
-                        </div>
-
-                        <p>
-                            {{ $setting->value['website_address'] }}
-                        </p>
-                    @endforeach
 
                     <ul class="social-accounts">
                         @foreach ($settings->where('type', 'social_media') as $setting)

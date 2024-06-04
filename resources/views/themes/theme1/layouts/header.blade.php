@@ -13,7 +13,7 @@
         @if($IconUrl)
             <img src="{{ $IconUrl }}" alt="Icon">
         @else
-           <h3>DarAlamirate</h3> <!-- Provide a default icon path if needed -->
+           <h3>{{ $setting->value['website_name'] ?? '' }}</h3> <!-- Provide a default icon path if needed -->
         @endif
     </a>
 @endforeach
