@@ -40,7 +40,11 @@
                             </div>
                         </div>
                         <!-- END panel-heading -->
+                        @php
+                            use App\Models\Setting;
 
+                     $setting = Setting::where('type', 'social_media')->first();
+                     @endphp
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
                             <form action="{{ route('social') }}" id="socialMedia" method="POST">
@@ -48,49 +52,49 @@
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-facebook-f"></i></div>
-                                    <input type="text" name="facebook" class="form-control" placeholder="facebook">
+                                    <input type="text" name="facebook" class="form-control" placeholder="facebook" value="{{ isset($setting->value['facebook']) ? $setting->value['facebook'] : '' }}">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><span class="fab fa-twitter"></span></div>
-                                    <input type="text" name="twitter" class="form-control" placeholder="twitter">
+                                    <input type="text" name="twitter" class="form-control" placeholder="twitter" value="{{ isset($setting->value['twitter']) ? $setting->value['twitter'] : '' }}">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-instagram"></i></div>
-                                    <input type="text" name="instagram" class="form-control" placeholder="instagram">
+                                    <input type="text" name="instagram" class="form-control" placeholder="instagram" value="{{ isset($setting->value['instagram']) ? $setting->value['instagram'] : '' }}">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-youtube"></i></div>
-                                    <input type="text" name="youtube" class="form-control" placeholder="youtube">
+                                    <input type="text" name="youtube" class="form-control" placeholder="youtube" value="{{ isset($setting->value['youtube']) ? $setting->value['youtube'] : '' }}">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-whatsapp"></i></div>
-                                    <input type="text" name="whatsapp" class="form-control" placeholder="whatsapp">
+                                    <input type="text" name="whatsapp" class="form-control" placeholder="whatsapp" value="{{ isset($setting->value['whatsapp']) ? $setting->value['whatsapp'] : '' }}">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-tiktok"></i></div>
-                                    <input type="text" name="tiktok" class="form-control" placeholder="tiktok">
+                                    <input type="text" name="tiktok" class="form-control" placeholder="tiktok" value="{{ isset($setting->value['tiktok']) ? $setting->value['tiktok'] : '' }}">
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <div class="input-group input-group-lg mb-10px">
                                     <div class="input-group-text"><i class="fa-brands fa-snapchat"></i></div>
-                                    <input type="text" name="snapchat" class="form-control" placeholder="snapchat">
+                                    <input type="text" name="snapchat" class="form-control" placeholder="snapchat" value="{{ isset($setting->value['snapchat']) ? $setting->value['snapchat'] : '' }}">
                                 </div>
                             </div>
 

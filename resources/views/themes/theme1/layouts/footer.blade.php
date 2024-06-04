@@ -26,10 +26,6 @@
                     @endforeach
 
                     <ul class="social-accounts">
-
-
-
-
                         @foreach ($settings->where('type', 'social_media') as $setting)
                             @php
                                 $socialMediaPlatforms = [
@@ -40,6 +36,7 @@
                                     'tiktok'=>'sicon-tiktok',
                                     'whatsapp' => 'sicon-whatsapp',
                                     'youtube'=>'sicon-youtube',
+                                    'twitter'=>'sicon-twitter',
                                 ];
                             @endphp
                             @foreach ($setting->value as $platform => $url)
@@ -47,7 +44,7 @@
                                     <li>
                                         <a href="{{ $url }}">
                                             <i class="{{ $socialMediaPlatforms[$platform] }}"></i>
-                                            {{ ucfirst($platform) }}
+
                                         </a>
                                     </li>
                                 @endif
@@ -129,27 +126,33 @@
                 <div class="f-item">
                     <h3>Contact us</h3>
                     <ul class="social-icons">
-
                         @foreach ($settings->where('type', 'general') as $setting)
+                        @if (isset($setting->value['whats_app']))
                             <li>
                                 <a href="">
                                     <i class="sicon-whatsapp2"></i>
-                                    <span>{{ singleSetting('company_phone') }}</span>
+                                    <span>{{ $setting->value['whats_app'] }}</span>
                                 </a>
                             </li>
+                        @endif
+
+                        @if (isset($setting->value['tel']))
                             <li>
                                 <a href="">
                                     <i class="sicon-iphone"></i>
-                                    <span>{{ singleSetting('whats_app') }}</span>
+                                    <span>{{ $setting->value['tel'] }}</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="">
-                                    <i class="sicon-phone"></i>
-                                    <span>+966920014688</span>
-                                </a>
-                            </li>
-                        @endforeach
+                        @endif
+
+                        <li>
+                            <a href="">
+                                <i class="sicon-phone"></i>
+                                <span>+966920014688</span>
+                            </a>
+                        </li>
+                    @endforeach
+
                     </ul>
                 </div>
                 <!-- ./item -->
