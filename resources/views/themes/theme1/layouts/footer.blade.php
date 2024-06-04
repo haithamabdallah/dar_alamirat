@@ -66,7 +66,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="wishlist.php">
+                                <a href="{{route('user.favorites')}}">
                                     <i class="fa-solid fa-angles-right"></i>
                                     <span>Wishlist</span>
                                 </a>
@@ -111,6 +111,7 @@
                 <div class="f-item">
                     <h3>Contact us</h3>
                     <ul class="social-icons">
+
                         @foreach ($settings->where('type', 'general') as $setting)
                             <li>
                                 <a href="">
