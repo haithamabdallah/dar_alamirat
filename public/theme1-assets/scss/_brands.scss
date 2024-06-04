@@ -99,22 +99,24 @@
 @media (max-width: 575.98px) {
   .s-brands-list {
     grid-template-columns: repeat(2, 1fr);
+      .brand-item {
+          height: 100px;
+          padding: 10px;
+      }
   }
-  .brand-item {
-    height: 100px;
-    padding: 10px;
-  }
+
 }
 
 // `md` applies to small devices (landscape phones, less than 768px)
 @media (min-width: 767.98px) {
   .s-brands-list {
     grid-template-columns: repeat(4, 1fr);
+      .brand-item {
+          height:160px;
+          padding: 20px;
+      }
   }
-  .brand-item {
-    height:160px;
-    padding: 20px;
-  }
+
 }
 
 // `lg` applies to medium devices (tablets, less than 992px)
