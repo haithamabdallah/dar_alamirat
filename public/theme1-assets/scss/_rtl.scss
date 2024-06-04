@@ -1,0 +1,18 @@
+:dir(rtl) {
+    body {
+        text-align: right;
+    }
+    .user-control li a span.s-cart-summary-count {
+        left: inherit;
+        right: -5px;
+    }
+    .section-categories .navigation .care-next, .section-categories .navigation .care-prev, .section-categories .navigation .cat-next, .section-categories .navigation .cat-prev, .section-categories .navigation .latest-next, .section-categories .navigation .latest-prev, .section-categories .navigation .salon-next, .section-categories .navigation .salon-prev,
+    #footer .footer .f-item li a .fa-solid, #footer .footer .f-item li a .fas {
+        transform: rotate(-180deg);
+    }
+    .item .item-data .item-dec a {
+        text-align: right;
+    }
+
+
+}

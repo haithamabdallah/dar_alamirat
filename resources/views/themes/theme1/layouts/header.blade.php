@@ -5,7 +5,7 @@
             <div class="header d-flex justify-content-between align-items-center">
                 <div class="logo">
                     @foreach ($settings->where('type', 'general') as $setting)
-                        <a href="index.php">
+                        <a href="/">
                             @php
                                 $IconPath = $setting->value['icon_path'];
                                 $IconUrl = Storage::url($IconPath);
