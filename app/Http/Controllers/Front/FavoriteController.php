@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Modules\Product\Models\Product;
 
 class FavoriteController extends Controller
