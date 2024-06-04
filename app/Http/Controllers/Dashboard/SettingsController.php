@@ -18,7 +18,7 @@ class SettingsController extends Controller
 
         // Validate the request inputs
         $validatedData = $request->validate([
-            'website_name' => 'required|string|max:255',
+            'website_name' => 'string|max:255',
             'website_description' => 'nullable|string|max:255',
             'website_address' => 'nullable|string|max:255',
             'tel' => 'nullable|string',
