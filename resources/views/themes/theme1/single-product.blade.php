@@ -93,28 +93,8 @@
                             <div class="swiper p-full-image zoom-gallery">
                                 <div class="swiper-wrapper">
                                     <li class="swiper-slide">
-                                        <a href="images/products/01.webp" title="The Product name">
-                                            <img src="images/products/01.webp" width="75" height="75">
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <a href="images/products/02.webp" title="The Product name">
-                                            <img src="images/products/02.webp" width="75" height="75">
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <a href="images/products/03.webp" title="The Product name">
-                                            <img src="images/products/03.webp" width="75" height="75">
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <a href="images/products/04.webp" title="The Product name">
-                                            <img src="images/products/04.webp" width="75" height="75">
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <a href="images/products/05.webp" title="The Product name">
-                                            <img src="images/products/05.webp" width="75" height="75">
+                                        <a href="{{ $product->thumbnail }}" title="The Product name">
+                                            <img src="{{ $product->thumbnail }}" width="75" height="75">
                                         </a>
                                     </li>
                                 </div>
@@ -125,18 +105,6 @@
                                 <div class="swiper-wrapper">
                                     <li class="swiper-slide">
                                         <img src="{{ $product->thumbnail }}" />
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <img src="images/products/02.webp" />
-                                    </li>
-                                    <div class="swiper-slide">
-                                        <img src="images/products/03.webp" />
-                                    </div>
-                                    <li class="swiper-slide">
-                                        <img src="images/products/04.webp" />
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <img src="images/products/05.webp" />
                                     </li>
                                 </div>
                             </div>
