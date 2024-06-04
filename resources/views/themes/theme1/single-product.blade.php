@@ -93,11 +93,11 @@
                             <div class="swiper p-full-image zoom-gallery">
                                 <div class="swiper-wrapper">
                                     <li class="swiper-slide">
-                                        <a href="images/products/01.webp" title="The Product name">
-                                            <img src="images/products/01.webp" width="75" height="75">
+                                        <a href="#" title="{{ $product->slug }}">
+                                            <img src="{{ $product->thumbnail }}" width="75" height="75">
                                         </a>
                                     </li>
-                                    <li class="swiper-slide">
+                                    {{-- <li class="swiper-slide">
                                         <a href="images/products/02.webp" title="The Product name">
                                             <img src="images/products/02.webp" width="75" height="75">
                                         </a>
@@ -116,7 +116,7 @@
                                         <a href="images/products/05.webp" title="The Product name">
                                             <img src="images/products/05.webp" width="75" height="75">
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </div>
                                 <div class="p-prev"><i class="fa-solid fa-chevron-left"></i></div>
                                 <div class="p-next"><i class="fa-solid fa-chevron-right"></i></div>
@@ -126,7 +126,7 @@
                                     <li class="swiper-slide">
                                         <img src="{{ $product->thumbnail }}" />
                                     </li>
-                                    <li class="swiper-slide">
+                                    {{-- <li class="swiper-slide">
                                         <img src="images/products/02.webp" />
                                     </li>
                                     <div class="swiper-slide">
@@ -137,7 +137,7 @@
                                     </li>
                                     <li class="swiper-slide">
                                         <img src="images/products/05.webp" />
-                                    </li>
+                                    </li> --}}
                                 </div>
                             </div>
                         </div>
