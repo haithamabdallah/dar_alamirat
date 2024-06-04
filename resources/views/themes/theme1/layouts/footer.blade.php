@@ -31,11 +31,29 @@
 
 
                         @foreach ($settings->where('type', 'social_media') as $setting)
-                            <li><a href="{{ $setting->value['facebook'] }}"><i class="sicon-facebook"></i> Facebook</a></li>
-                            <li><a href="{{ $setting->value['snapchat'] }}"><i class="sicon-snapchat"></i> Snapchat</a></li>
-                            <li><a href="{{ $setting->value['instagram'] }}"><i class="sicon-instagram"></i> Instagram</a></li>
-                            {{-- <li><a href="{{ $setting->value['facebook'] }}"><i class=""></i> Facebook</a></li> --}}
+                            @php
+                                $socialMediaPlatforms = [
+                                    'facebook' => 'sicon-facebook',
+                                    'snapchat' => 'sicon-snapchat',
+                                    'instagram' => 'sicon-instagram',
+                                    'snapchat'=>'sicon-snapchat',
+                                    'tiktok'=>'sicon-tiktok',
+                                    'whatsapp' => 'sicon-whatsapp',
+                                    'youtube'=>'sicon-youtube',
+                                ];
+                            @endphp
+                            @foreach ($setting->value as $platform => $url)
+                                @if (array_key_exists($platform, $socialMediaPlatforms) && !empty($url))
+                                    <li>
+                                        <a href="{{ $url }}">
+                                            <i class="{{ $socialMediaPlatforms[$platform] }}"></i>
+                                            {{ ucfirst($platform) }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
                         @endforeach
+
                         {{-- <li><a href=""><i class="sicon-snapchat"></i></a></li> --}}
                         {{-- <li><a href=""><i class="sicon-tiktok"></i></a></li> --}}
                     </ul>
@@ -45,7 +63,7 @@
                 <!-- item -->
                 @auth
                     <div class="f-item f-my-account">
-                      <h3>My Account</h3>
+                        <h3>My Account</h3>
                         <ul>
                             <li>
                                 <a href="notification.php">
@@ -66,27 +84,27 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{route('user.favorites')}}">
+                                <a href="{{ route('user.favorites') }}">
                                     <i class="fa-solid fa-angles-right"></i>
                                     <span>Wishlist</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('user.profile',auth()->user()->id) }}">
+                                <a href="{{ route('user.profile', auth()->user()->id) }}">
                                     <i class="fa-solid fa-angles-right"></i>
                                     <span>My Account</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <form action="{{ route('user.logout') }}" method="POST">
-                                    @csrf
-                                    <button type="submit" style="background: none; border: none; cursor: pointer;">
-                                        <i class="fa-solid fa-angles-right"></i>
-                                        <span>Logout</span>
-                                    </button>
-                                </form>
-                            </a>
+                                    <form action="{{ route('user.logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                            <i class="fa-solid fa-angles-right"></i>
+                                            <span>Logout</span>
+                                        </button>
+                                    </form>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -98,7 +116,7 @@
                     @foreach ($pages as $page)
                         <ul>
                             <li>
-                                <a href="{{ route('page.show',  $page->id) }}">
+                                <a href="{{ route('page.show', $page->id) }}">
                                     <i class="fa-solid fa-angles-right"></i>
                                     <span>{{ $page->name }}</span>
                                 </a>
