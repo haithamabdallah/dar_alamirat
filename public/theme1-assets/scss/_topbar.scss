@@ -143,3 +143,47 @@
 
 // `xxl` applies to x-large devices (large desktops, less than 1400px)
 @media (max-width: 1399.98px) {}
+
+:dir(rtl) {
+    #topbar {
+
+        .topbar {
+
+            .right {
+                ul {
+                    li {
+                        padding-left: 0px;
+                        padding-right: 10px;
+                        border-left: 0px;
+                        border-right: 1px solid rgb(188, 188, 195);
+                        &:first-child {
+                            border-left: 0;
+                            padding-left: 0;
+                            border-right: 0;
+                            padding-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .lang {
+
+        .language {
+
+            img {
+                width: 20px;
+                height: 10px;
+                border-radius: 2px;
+            }
+            span {
+                padding-left: 10px;
+                padding-right: 10px;
+                border-right: 1px solid $black;
+                border-left: 0;
+            }
+        }
+
+
+    }
+}
