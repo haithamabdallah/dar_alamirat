@@ -17,10 +17,15 @@ class OtpService
 
     public function sendOtp(string $email): JsonResponse
     {
-        try {
 
-            $otp = rand(1000, 9999);
-          //  $otp = 1234; // For testing, replace with actual OTP generation logic
+        try {
+            // for testing in local
+            $ip = request()->ip();
+            if ($ip === '127.0.0.1' || $ip === '::1') {
+                $otp = 1234; // For testing, replace with actual OTP generation logic
+            } else {
+                $otp = rand(1000, 9999);
+            }
 
             Otp::create([
                 'email' => $email,

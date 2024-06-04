@@ -42,4 +42,16 @@
 
 </script> --}}
 
+{{--Favorits --}}
+<script>
+    function addToFavorites(url) {
+        axios.post(url)
+            .then(response => {
+                location.reload()
+            })
+            .catch(error => {
+
+            });
+    }
+</script>
 @yield('scripts')

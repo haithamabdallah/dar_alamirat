@@ -1,14 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Front\AuthController;
-use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\Front\BrandController;
-use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\Order\CartController;
-use App\Http\Controllers\Front\SubscriberController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Front\AuthController;
+use App\Http\Controllers\Front\BrandController;
+use App\Http\Controllers\Front\FavoriteController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\Order\CartController;
+use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Profile\ProfileController;
+use App\Http\Controllers\Front\SubscriberController;
+use Illuminate\Support\Facades\Route;
 
 /************************************ clients ****************************/
 
@@ -107,5 +108,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
 Route::get('/user/profile/{user}', [ProfileController::class, 'showProfile'])->name('user.profile');
 Route::put('/user/profile/{user}', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
 Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('subscribe');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
+    Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');
+});
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
