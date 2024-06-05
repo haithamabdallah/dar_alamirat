@@ -6,6 +6,9 @@
     <nav id="brands-nav">
         @for ($letter = 'A'; $letter <= 'Z'; $letter++)
             <a href="#section-{{$letter}}" class="" data-id="{{$letter}}">{{$letter}}</a>
+            @if($letter == 'Z')
+                    <?php break ?>
+            @endif
         @endfor
     </nav>
     <!-- ./Brands Nav -->
@@ -27,7 +30,7 @@
                     <div class="section-brands">
                         <div class="s-brands-list">
                             @foreach ($brandsByLetter as $brand)
-                                <a href="" class="brand-item">
+                                <a href="{{ route('brand', $brand->id) }}" class="brand-item">
                                     <img class="" src="{{ storage_asset($brand->image) }}" alt="{{ $brand->name }}">
                                 </a>
                             @endforeach
@@ -40,9 +43,5 @@
     </div>
     <!-- Brands items -->
 
-
-@endsection
-
-@section('scripts')
 
 @endsection
