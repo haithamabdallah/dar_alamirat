@@ -14,39 +14,39 @@ use Illuminate\Support\Facades\Route;
 /************************************ clients ****************************/
 
 
-Route::get('/clients', function () {
-    return view('dashboard.clients.clients');
-})->name('client.index');
+//Route::get('/clients', function () {
+//    return view('dashboard.clients.clients');
+//})->name('client.index');
 
-
-Route::get('/clients/create', function () {
-    return view('dashboard.clients.create_client');
-})->name('client.create');
-
-
-Route::get('/clients/edit', function () {
-    return view('dashboard.clients.edit_client');
-})->name('client.edit');
+//
+//Route::get('/clients/create', function () {
+//    return view('dashboard.clients.create_client');
+//})->name('client.create');
+//
+//
+//Route::get('/clients/edit', function () {
+//    return view('dashboard.clients.edit_client');
+//})->name('client.edit');
 
 /************************************ products ****************************/
 
-Route::get('/products', function () {
-    return view('dashboard.products.products');
-})->name('product.index');
+//Route::get('/products', function () {
+//    return view('dashboard.products.products');
+//})->name('product.index');
 
 
-Route::get('/products/create', function () {
-    return view('dashboard.products.create_product');
-})->name('product.create');
-
-
-Route::get('/products/edit', function () {
-    return view('dashboard.products.edit_product');
-})->name('product.edit');
-
-Route::get('/products/details', function () {
-    return view('dashboard.products.edit_details');
-})->name('product.details');
+//Route::get('/products/create', function () {
+//    return view('dashboard.products.create_product');
+//})->name('product.create');
+//
+//
+//Route::get('/products/edit', function () {
+//    return view('dashboard.products.edit_product');
+//})->name('product.edit');
+//
+//Route::get('/products/details', function () {
+//    return view('dashboard.products.edit_details');
+//})->name('product.details');
 
 /************************************ reports ****************************/
 

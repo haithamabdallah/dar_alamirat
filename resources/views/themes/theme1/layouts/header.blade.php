@@ -28,35 +28,36 @@
 
                 <ul class="user-control d-flex">
                     @guest
-                    <li>
-                        <a class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#loginEmail">
-                            <i class="icon sicon-user"></i>
-                            <span class="d-flex flex-column">
+                        <li>
+                            <a class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#loginEmail">
+                                <i class="icon sicon-user"></i>
+                                <span class="d-flex flex-column">
                                 <p>My Account</p>
                                 <span>Login</span>
                             </span>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
                     @endguest
                     @auth
-                    <li>
-                        <a href="{{ route('user.profile',auth()->user()->id) }}" class="d-flex align-items-center">
-                            <i class="icon sicon-user"></i>
-                            <span class="d-flex flex-column">
+                        <li>
+                            <a href="{{ route('user.profile',auth()->user()->id) }}" class="d-flex align-items-center">
+                                <i class="icon sicon-user"></i>
+                                <span class="d-flex flex-column">
                                 <p>My Account</p>
                                 <span>{{ auth()->user()->FullName }}</span>
                             </span>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
                     @endauth
 
                     <li>
                         <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
                             <i class="icon sicon-shopping-bag"></i>
-                            <span class="s-cart-summary-count">{{auth()->user()->carts->count()}}</span>
+
+                            <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
                                 <p>Cart</p>
-                                <span class="cart-amount">{{cartTotalPrice()}} SAR</span>
+                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} SAR</span>
                             </span>
                         </a>
                     </li>
@@ -69,89 +70,3 @@
     @include('themes.theme1.partials.modals.email')
     @include('themes.theme1.partials.modals.otp')
 </header>
-
-@section('scripts')
-
-<script>
-    $(document).ready(function() {
-        // Handle email form submission
-        $('#emailForm').on('submit', function(e) {
-            e.preventDefault();
-            sendOtp();
-        });
-
-        // Handle OTP input fields
-        $('.s-verify-input').on('input', function() {
-            if (isOtpComplete()) {
-                verifyOtp();
-            }
-        });
-
-        // Function to send OTP
-        function sendOtp() {
-            $.ajax({
-                url: '{{ route("sendOtp") }}',
-                method: 'POST',
-                data: $('#emailForm').serialize(),
-                success: function(response) {
-                    handleOtpSent(response);
-                },
-                error: function() {
-                    alert('An error occurred. Please try again.');
-                }
-            });
-        }
-
-        // Function to handle OTP sent response
-        function handleOtpSent(response) {
-            if (response.success) {
-                var email = $('input[name="email"]').val();
-                $('#writtenEmail').text(email);
-                $('#otpEmail').val(email);
-                $('#loginEmail').modal('hide');
-                $('#enterOtp').modal('show');
-            } else {
-                alert(response.message);
-            }
-        }
-
-        // Function to check if OTP is complete
-        function isOtpComplete() {
-            var otp = '';
-            $('.s-verify-input').each(function() {
-                otp += $(this).val();
-            });
-            return otp.length === 4;
-        }
-
-        // Function to verify OTP
-        function verifyOtp() {
-            var formData = $('#otpForm').serialize();
-            $.ajax({
-                url: '{{ route("verifyOtp") }}',
-                method: 'POST',
-                data: formData,
-                success: function(response) {
-                    handleOtpVerification(response);
-                },
-                error: function() {
-                    $('#otpError').text('An error occurred. Please try again.').show();
-                }
-            });
-        }
-
-        // Function to handle OTP verification response
-        function handleOtpVerification(response) {
-            if (response.success) {
-                $('#enterOtp').modal('hide');
-                // Redirect to the same page to refresh after successful login
-                window.location.reload();
-            } else {
-                $('#otpError').text(response.message || 'Invalid OTP. Please try again.').show();
-            }
-        }
-    });
-</script>
-
-
-@endsection

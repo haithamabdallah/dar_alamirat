@@ -50,6 +50,87 @@
 
 </script> --}}
 
+<script>
+    $(document).ready(function() {
+        // Handle email form submission
+        $('#emailForm').on('submit', function(e) {
+            e.preventDefault();
+            sendOtp();
+        });
+
+        // Handle OTP input fields
+        $('.s-verify-input').on('input', function() {
+            if (isOtpComplete()) {
+                verifyOtp();
+            }
+        });
+
+        // Function to send OTP
+        function sendOtp() {
+            $.ajax({
+                url: '{{ route("sendOtp") }}',
+                method: 'POST',
+                data: $('#emailForm').serialize(),
+                success: function(response) {
+                    handleOtpSent(response);
+                },
+                error: function() {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        }
+
+        // Function to handle OTP sent response
+        function handleOtpSent(response) {
+            if (response.success) {
+                var email = $('input[name="email"]').val();
+                $('#writtenEmail').text(email);
+                $('#otpEmail').val(email);
+                $('#loginEmail').modal('hide');
+                $('#enterOtp').modal('show');
+            } else {
+                alert(response.message);
+            }
+        }
+
+        // Function to check if OTP is complete
+        function isOtpComplete() {
+            var otp = '';
+            $('.s-verify-input').each(function() {
+                otp += $(this).val();
+            });
+            return otp.length === 4;
+        }
+
+        // Function to verify OTP
+        function verifyOtp() {
+            var formData = $('#otpForm').serialize();
+            $.ajax({
+                url: '{{ route("verifyOtp") }}',
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    handleOtpVerification(response);
+                },
+                error: function() {
+                    $('#otpError').text('An error occurred. Please try again.').show();
+                }
+            });
+        }
+
+        // Function to handle OTP verification response
+        function handleOtpVerification(response) {
+            if (response.success) {
+                $('#enterOtp').modal('hide');
+                // Redirect to the same page to refresh after successful login
+                window.location.reload();
+            } else {
+                $('#otpError').text(response.message || 'Invalid OTP. Please try again.').show();
+            }
+        }
+    });
+</script>
+
 {{--Favorits --}}
 <script>
     function addToFavorites(url) {
@@ -103,4 +184,8 @@
             });
     }
 </script>
+
+{{-- Login --}}
+
+
 @yield('scripts')
