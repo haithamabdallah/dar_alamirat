@@ -95,6 +95,7 @@ Route::prefix('settings')->group(function () {
     Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
 });
 Route::prefix('brands')->group(function () {
+    Route::get('allBrands',[BrandController::class,'index'])->name('brands.index');
     Route::get('brands/{brand}',[BrandController::class,'showBrand'])->name('brand');
 });
 
