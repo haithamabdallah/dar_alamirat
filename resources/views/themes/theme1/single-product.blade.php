@@ -97,26 +97,6 @@
                                             <img src="{{ $product->thumbnail }}" width="75" height="75">
                                         </a>
                                     </li>
-                                    {{-- <li class="swiper-slide">
-                                        <a href="images/products/02.webp" title="The Product name">
-                                            <img src="images/products/02.webp" width="75" height="75">
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <a href="images/products/03.webp" title="The Product name">
-                                            <img src="images/products/03.webp" width="75" height="75">
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <a href="images/products/04.webp" title="The Product name">
-                                            <img src="images/products/04.webp" width="75" height="75">
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <a href="images/products/05.webp" title="The Product name">
-                                            <img src="images/products/05.webp" width="75" height="75">
-                                        </a>
-                                    </li> --}}
                                 </div>
                                 <div class="p-prev"><i class="fa-solid fa-chevron-left"></i></div>
                                 <div class="p-next"><i class="fa-solid fa-chevron-right"></i></div>
@@ -126,18 +106,6 @@
                                     <li class="swiper-slide">
                                         <img src="{{ $product->thumbnail }}" />
                                     </li>
-                                    {{-- <li class="swiper-slide">
-                                        <img src="images/products/02.webp" />
-                                    </li>
-                                    <div class="swiper-slide">
-                                        <img src="images/products/03.webp" />
-                                    </div>
-                                    <li class="swiper-slide">
-                                        <img src="images/products/04.webp" />
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <img src="images/products/05.webp" />
-                                    </li> --}}
                                 </div>
                             </div>
                         </div>

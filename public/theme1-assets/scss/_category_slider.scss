@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   grid-gap: 30px;
+    position: relative;
 .section-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+    margin-bottom: 30px;
 }
 .navigation {
   display: flex;
@@ -31,6 +33,7 @@
     border-radius: 6px;
     cursor: pointer;
     opacity: .7;
+      text-rendering: auto;
     i {
       color: #6b7280;
     }
