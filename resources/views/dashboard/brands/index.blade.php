@@ -106,19 +106,29 @@
                     <!-- pagination -->
                     <div class="d-md-flex align-items-center">
                         <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                            Showing 1 to 10 of 57 entries
+                            Showing {{ $brands->firstItem() }} to {{ $brands->lastItem() }} of {{ $brands->total() }} entries
                         </div>
                         <ul class="pagination mb-0 justify-content-center">
-                            <li class="page-item disabled"><a class="page-link">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            @if ($brands->previousPageUrl())
+                                <li class="page-item"><a class="page-link" href="{{ $brands->previousPageUrl() }}">Previous</a></li>
+                            @else
+                                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                            @endif
+
+                            @for ($i = 1; $i <= $brands->lastPage(); $i++)
+                                <li class="page-item {{ $brands->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $brands->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+
+                            @if ($brands->nextPageUrl())
+                                <li class="page-item"><a class="page-link" href="{{ $brands->nextPageUrl() }}">Next</a></li>
+                            @else
+                                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                            @endif
                         </ul>
                     </div>
+
                     <!-- ./pagination -->
 
                 </div>

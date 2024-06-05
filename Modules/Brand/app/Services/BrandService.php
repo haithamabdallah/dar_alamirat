@@ -7,14 +7,24 @@ use Modules\Brand\Models\Brand;
 
 class BrandService {
 
-    public function getAllData()
-    {
-        return Brand::orderBy('id','DESC')->get();
-    }
+    // public function getAllData()
+    // {
+    //     return Brand::orderBy('id','DESC')->get();
+    // }
 
-    public function getPaginatedData(array $data ,int $paginate = 15 )
+    // public function getPaginatedData(array $data ,int $paginate = 1 )
+    // {
+    //     return  Brand::paginate($paginate);
+    // }
+    public function getData(array $data, int $paginate = null)
     {
-        return  Brand::paginate($paginate);
+        $query = Brand::orderBy('id', 'DESC');
+
+        if ($paginate !== null) {
+            return $query->paginate($paginate);
+        }
+
+        return $query->get();
     }
 
     public function storeData(array $data)

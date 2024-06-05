@@ -13,7 +13,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'title.*' => 'required|string',
-            'description.*' => 'sometimes|string',
+            'description.*' => 'sometimes',
             'instructions.*' => 'sometimes',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
