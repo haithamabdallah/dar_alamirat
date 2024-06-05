@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
 use Modules\Brand\Models\Brand;
+use Modules\Cart\Models\Cart;
 use Modules\Category\Models\Category;
 use Modules\Order\Models\Order;
 use Modules\Product\app\ModelFilters\ProductFilter;
@@ -36,6 +37,8 @@ class Product extends Model
     ];
 
     public $translatable = ['title', 'description', 'instructions'];
+
+    public $appends = ['product_price'];
 
     /**
      * Get the category associated with the product.
@@ -84,6 +87,12 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'favorites');
     }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class);
+    }
+
     public function getThumbnailAttribute()
     {
         if (isset($this->attributes['thumbnail']) && Storage::disk('public')->exists($this->attributes['thumbnail'])){
@@ -104,4 +113,17 @@ class Product extends Model
         return $this->provideFilter(ProductFilter::class);
     }
 
+    public function getPriceAttribute()
+    {
+        // Check if there's a default variant
+        $defaultVariant = $this->variants()->first();
+
+        // If default variant exists, return its price
+        if ($defaultVariant) {
+            return $defaultVariant->price;
+        }
+
+        // If no default variant, return null (or handle differently)
+        return null;
+    }
 }
