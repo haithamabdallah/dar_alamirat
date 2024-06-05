@@ -67,14 +67,39 @@ class ProductService {
         return implode('-', array_filter($elements)); // Combine elements to form SKU
     }
 
-    public function updateData(array $data , $category)
+    // public function updateData(array $data , $category)
+    // {
+
+    //     $data['slug'] = Str::slug($data['name']['en']);
+
+    //     $category->update($data);
+
+    //     return  $category;
+    // }
+    public function find($id)
     {
-
-        $data['slug'] = Str::slug($data['name']['en']);
-
-        $category->update($data);
-
-        return  $category;
+        return Product::findOrFail($id);
     }
+
+    public function updateData(Product $product, array $data)
+    {
+        $product->update($data);
+
+        // Handle translations
+        foreach (Config('language') as $key => $lang) {
+            if (isset($data['title'][$key])) {
+                $product->setTranslation('title', $key, $data['title'][$key]);
+            }
+            if (isset($data['description'][$key])) {
+                $product->setTranslation('description', $key, $data['description'][$key]);
+            }
+            if (isset($data['instructions'][$key])) {
+                $product->setTranslation('instructions', $key, $data['instructions'][$key]);
+            }
+        }
+
+        $product->save();
+    }
+
 
 }

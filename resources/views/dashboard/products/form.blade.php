@@ -277,11 +277,37 @@
                                 </thead>
                                 <tbody>
 
+                                    @foreach ($product->variants as $index => $variant)
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div class="btn-group">
+                                                <button class="btn btn-default btn-sm" type="button" title="Remove variant">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span>{{ $variant->color }}-{{ $variant->size }}</span>
+                                            <input type="hidden" name="variants[{{$index}}][id]" value="{{ $variant->id }}">
+                                        </td>
+                                        {{-- <td>
+                                            <input type="text" class="form-control" name="variants[{{$index}}][color]" value="{{ $variant->color }}" placeholder="Color">
+                                        </td> --}}
+                                        <td>
+                                            <input type="number" class="form-control" name="variants[{{$index}}][price]" value="{{ $variant->price }}" placeholder="Price">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" name="variants[{{$index}}][quantity]" value="{{ $variant->quantity }}" placeholder="Quantity">
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
+
+            </div>
                 <div class="col-lg-4">
                     <div class="card border-0 mb-4">
                         <div class="card-header h6 mb-0 bg-none p-3 d-flex">
@@ -295,12 +321,12 @@
                                 <div class="input-group">
                                     <select class="default-select2 form-control" name="discount_type">
                                         <option selected disabled>Select Discount type</option>
-                                        <option value="flat">Flat</option>
-                                        <option value="percent">Percent</option>
+                                        <option value="flat" {{ $product->discount_type == 'flat' ? 'selected' : '' }}>Flat</option>
+                                        <option value="percent" {{ $product->discount_type == 'percent' ? 'selected' : '' }}>Percent</option>
                                     </select>
                                 </div>
                                 @error('discount_type')
-                                <span class="text-danger" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -308,10 +334,10 @@
                             <div class="mb-0">
                                 <label class="form-label">Discount Value</label>
                                 <div class="input-group">
-                                    <input type="number" name="discount_value" class="form-control" placeholder="Insert the discount value" />
+                                    <input type="number" name="discount_value" class="form-control" placeholder="Insert the discount value" value="{{ $product->discount_value ?? old('discount_value') }}" />
                                 </div>
                                 @error('discount_value')
-                                <span class="text-danger" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -319,6 +345,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!--begin::Actions-->
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-primary">
