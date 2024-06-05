@@ -15,7 +15,7 @@ class ProductService {
         return Product::orderByRaw('ISNULL(priority), priority ASC')->get();
     }
 
-    public function getPaginatedData(int $paginate = 20 )
+    public function getPaginatedData(int $paginate = 10 )
     {
 
         return  Product::paginate($paginate);

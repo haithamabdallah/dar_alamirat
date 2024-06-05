@@ -2,15 +2,14 @@
 
 namespace Modules\Brand\Http\Controllers;
 
-use Modules\Brand\Models\Brand;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Modules\Brand\app\Services\BrandService;
 use Modules\Brand\app\ViewModels\BrandViewModel;
 use Modules\Brand\Http\Requests\StoreBrandRequest;
 use Modules\Brand\Http\Requests\UpdateBrandRequest;
+use Modules\Brand\Models\Brand;
 
 class BrandController extends Controller
 {
@@ -27,12 +26,9 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $paginate = $request->has('paginate') ? $request->input('paginate') : null;
-
-        $brands = $this->brandService->getData([], $paginate);
-
+        $brands = $this->brandService->getAllData();
         return view('dashboard.brands.index', compact('brands'));
     }
 

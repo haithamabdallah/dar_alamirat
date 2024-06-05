@@ -96,6 +96,10 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{-- <!-- Pagination Links -->
+                        <div class="d-flex justify-content-center">
+                            {{ $admins->links() }}
+                        </div> --}}
                     </div>
                     <!-- END panel-body -->
 
