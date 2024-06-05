@@ -143,8 +143,9 @@ class ProductController extends Controller
     {
         return [
             'title.*' => 'required|string|max:255',
-            'description.*' => 'required|string',
-            'instructions.*' => 'required|string',
+            'description.*' => 'sometimes|string',
+            'instructions.*' => 'sometimes|string',
+            'instructions.*' => 'sometimes',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
