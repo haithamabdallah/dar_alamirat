@@ -6,30 +6,38 @@
 @endsection
 
 @section('crumbs')
-    <!-- breadcrumbs -->
-    <section class="category-crumb">
-        <!-- container-->
+    <section class="user-cover">
         <div class="pixel-container">
-            <!-- row -->
             <div class="wrap">
-                <!-- content -->
-                <ul class="breadcrumbs">
-                    <li>
-                        <a href="{{route('index')}}">
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <span> Wish List</span>
-                    </li>
-                </ul>
-                <!-- ./content -->
+                <div class="cover-contents">
+                    <!-- breadcrumbs container-->
+                    <div class="pixel-container">
+                        <!-- row -->
+                        <div class="wrap">
+                            <!-- content -->
+
+                            <ul class="breadcrumbs">
+                                <li>
+                                    <a href="{{ route('index') }}">
+                                        <span>Home</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span>Wish list</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <!-- ./content -->
+                        </div>
+                        <!-- ./row -->
+                    </div>
+                    <!-- ./breadcrumbs container-->
+                </div>
             </div>
-            <!-- ./row -->
         </div>
-        <!-- ./container-->
     </section>
-    <!-- breadcrumbs -->
 @endsection
 
 @section('content')
