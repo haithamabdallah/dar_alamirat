@@ -11,5 +11,6 @@
     "Settings": true,
     "Subiscription": true,
     "Subscriber": true,
-    "Subscription": true
+    "Subscription": true,
+    "Cart": true
 }

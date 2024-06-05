@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Modules\Category\Models\Category;
 use Modules\Brand\Models\Brand;
+use Modules\Product\Models\Product;
+use Modules\Cart\Models\Cart;
 
 if (!function_exists('setting'))
 {
@@ -131,5 +133,29 @@ if(!function_exists('storage_asset'))
     function storage_asset($file)
     {
         return asset('storage/' . $file) ;
+    }
+}
+
+if(!function_exists('cartTotalPrice'))
+{
+    function cartTotalPrice()
+    {
+        $userId = auth()->user()->id;
+        $carts = Cart::where('user_id', $userId)->with('product')->get();
+
+        $totalPrice = 0;
+
+        foreach ($carts as $cart) {
+
+            $product = $cart->product; // Assuming you have a `products` relationship
+
+            // Access the product price using the accessor
+            $price = $product->price;
+
+            // Calculate the total price considering quantity
+            $totalPrice += $price;
+        }
+
+        return $totalPrice;
     }
 }

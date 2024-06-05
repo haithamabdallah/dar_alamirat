@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Carbon\Carbon;
+use Modules\Cart\Models\Cart;
 use Modules\Favorite\Models\Favorite;
 use Modules\Order\Models\Order;
 use Laravel\Passport\HasApiTokens;
@@ -63,6 +64,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'favorites');
     }
 
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     public function getFullNameAttribute()
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
@@ -80,5 +86,6 @@ class User extends Authenticatable
     {
         return Carbon::parse($this->attributes['birthday'])->age;
     }
+
 
 }

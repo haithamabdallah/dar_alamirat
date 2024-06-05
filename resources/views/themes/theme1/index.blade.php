@@ -38,8 +38,8 @@
                                 </div>
                                 <div class="swiper-wrapper">
 
-                                @foreach ($category->products as $product)
-                                    <!-- product item -->
+                                    @foreach ($category->products as $product)
+                                        <!-- product item -->
                                         <div class="swiper-slide">
                                             @include('themes.theme1.partials.item')
                                         </div>
@@ -80,7 +80,7 @@
                 <div class="section-brands">
                     <div class="s-block-title">
                         <h2>Browse All Brands</h2>
-                        <a href="#" class="">View All</a>
+                        <a href="{{route('brands.index')}}" class="">View All</a>
                     </div>
                     <div class="s-brands-list">
                         @foreach ($brands as $brand)
