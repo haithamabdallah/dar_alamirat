@@ -5,14 +5,19 @@
             <div class="header d-flex justify-content-between align-items-center">
                 <div class="logo">
                     @foreach ($settings->where('type', 'general') as $setting)
-                        <a href="/">
-                            @php
-                                $IconPath = $setting->value['icon_path'];
-                                $IconUrl = Storage::url($IconPath);
-                            @endphp
+                    <a href="index.php">
+                        @php
+                            $IconPath = $setting->value['icon_path'] ?? null;
+                            $IconUrl = $IconPath ? Storage::url($IconPath) : null;
+                        @endphp
+                        @if($IconUrl)
                             <img src="{{ $IconUrl }}" alt="Icon">
-                        </a>
-                    @endforeach
+                        @else
+                           <h3>{{ $setting->value['website_name'] ?? '' }}</h3> <!-- Provide a default icon path if needed -->
+                        @endif
+                    </a>
+                @endforeach
+
                 </div>
                 <div class="d-flex flex-fill align-items-center navigate">
                     <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">

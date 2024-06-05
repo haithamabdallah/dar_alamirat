@@ -2,7 +2,7 @@
 
 @section('customcss')
     <link rel="stylesheet" href="{{ asset('theme1-assets/css/intlTelInput.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme1-assets/css/faltpicker.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
 
 @section('content')
@@ -251,7 +251,7 @@
     });
 </script>
 
-@endsection
+
 
 <script src="{{ asset('theme1-assets/js/intlTelInput.min.js') }}"></script>
 <script>
@@ -283,3 +283,5 @@
         utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
     });
 </script>
+
+@endsection

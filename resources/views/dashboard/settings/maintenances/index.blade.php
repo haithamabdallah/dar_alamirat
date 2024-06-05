@@ -67,14 +67,18 @@
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Maintenance Title</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" name="maintenance_title" rows="3" placeholder="we back soon"></textarea>
+                                    <textarea class="form-control" name="maintenance_title" rows="3" placeholder="we back soon">
+                                        {{ \App\Models\Setting::where('type', 'maintenance')->value('value')['maintenance_title'] ?? '' }}
+                                    </textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Maintenance Message</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" name="maintenance_message" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP"></textarea>
+                                    <textarea class="form-control" name="maintenance_message" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP">
+                                        {{ \App\Models\Setting::where('type', 'maintenance')->value('value')['maintenance_message'] ?? '' }}
+                                    </textarea>
                                 </div>
                             </div>
 

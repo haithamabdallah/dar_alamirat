@@ -30,10 +30,13 @@
                         </div>
                     </div>
                     @foreach ($settings->where('type', 'general') as $setting)
-                        <a href="{{  singleSetting('company_phone') }}" class="topnav-link-item">
+                    @if (isset($setting->value['tel']))
+
+                        <a href="{{  $setting->value['tel'] }}" class="topnav-link-item">
                             <i class="sicon-phone"></i>
-                            <span class="">{{ singleSetting('company_phone') }}</span>
+                            <span class="">{{ $setting->value['tel'] }}</span>
                         </a>
+                        @endif
                     @endforeach
                 </div>
                 <div class="right">
