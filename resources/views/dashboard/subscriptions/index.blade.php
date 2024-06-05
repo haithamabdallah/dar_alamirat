@@ -2,7 +2,7 @@
 
 @section('meta')
     <meta charset="utf-8" />
-    <title>{{ __('dashboard.subscribers') }}</title>
+    <title>Subscribers</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -19,9 +19,9 @@
             <div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.home') }}</a></li>
-                    <li class="breadcrumb-item">{{ __('dashboard.subscribers') }}</li>
+                    <li class="breadcrumb-item">Subscribers</li>
                 </ul>
-                <h1 class="page-header mb-0">{{ __('dashboard.subscribers') }}</h1>
+                <h1 class="page-header mb-0">Subscribers</h1>
             </div>
             <div class="ms-auto">
                 <a href="{{ route('subscription.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>Send Newsletter </a>
@@ -53,7 +53,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="2" class="text-center">{{ __('dashboard.no_subscribers_found') }}</td>
+                                        <td colspan="2" class="text-center">No Subscribers found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
