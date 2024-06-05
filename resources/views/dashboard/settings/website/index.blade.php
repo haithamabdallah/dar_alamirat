@@ -49,7 +49,11 @@
                             </div>
                         </div>
                         <!-- END panel-heading -->
+                        @php
+                            use App\Models\Setting;
 
+                     $setting = Setting::where('type', 'general')->first();
+                     @endphp
                         <!-- BEGIN panel-body -->
                         <div class="panel-body">
                             <form action="{{ route('site') }}" id="siteInfo" method="POST" enctype="multipart/form-data">
@@ -76,7 +80,7 @@
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">Website Name</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control @error('website_name') is-invalid @enderror" name="website_name" type="text" placeholder="Website Name"  />
+                                        <input class="form-control @error('website_name') is-invalid @enderror" name="website_name" type="text" placeholder="Website Name"  value="{{ isset($setting->value['website_name']) ? $setting->value['website_name'] : '' }}" />
                                         @error('website_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -86,7 +90,7 @@
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">Website Description</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control @error('website_description') is-invalid @enderror" name="website_description" type="text" placeholder="Website Description"  />
+                                        <input class="form-control @error('website_description') is-invalid @enderror" name="website_description" type="text" placeholder="Website Description" value="{{ isset($setting->value['website_description']) ? $setting->value['website_description'] : '' }}" />
                                         @error('website_description')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -96,7 +100,7 @@
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">Website Address</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control @error('website_address') is-invalid @enderror" name="website_address" type="text" placeholder="Website Address"  />
+                                        <input class="form-control @error('website_address') is-invalid @enderror" name="website_address" type="text" placeholder="Website Address" value="{{ isset($setting->value['website_address']) ? $setting->value['website_address'] : '' }}"  />
                                         @error('website_address')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -106,7 +110,7 @@
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">Phone Number</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control @error('tel') is-invalid @enderror" name="tel" type="tel" placeholder="Phone Number"  />
+                                        <input class="form-control @error('tel') is-invalid @enderror" name="tel" type="tel" placeholder="Phone Number" value="{{ isset($setting->value['tel']) ? $setting->value['tel'] : '' }}"  />
                                         @error('tel')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -116,7 +120,7 @@
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">WhatsApp</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control @error('whats_app') is-invalid @enderror" name="whats_app" type="tel" placeholder="WhatsApp"  />
+                                        <input class="form-control @error('whats_app') is-invalid @enderror" name="whats_app" type="tel" placeholder="WhatsApp" value="{{ isset($setting->value['whats_app']) ? $setting->value['whats_app'] : '' }}"   />
                                         @error('whats_app')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

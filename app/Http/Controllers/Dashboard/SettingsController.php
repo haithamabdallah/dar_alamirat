@@ -17,62 +17,56 @@ class SettingsController extends Controller
     {
 
         // Validate the request inputs
-        $validatedData = $request->validate([
-            'website_name' => 'required|string|max:255',
-            'website_description' => 'nullable|string|max:255',
-            'website_address' => 'nullable|string|max:255',
-            'tel' => 'nullable|string',
-            'whats_app' => 'nullable|string',
-            'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+$validatedData = $request->validate([
+    'website_name' => 'nullable',
+    'website_description' => 'nullable',
+    'website_address' => 'nullable',
+    'tel' => 'nullable',
+    'whats_app' => 'nullable',
+    'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+]);
 
-        // Retrieve or create the setting entry
-        $setting = Setting::firstOrCreate(
-            ['type' => 'general'],
-            ['value' => []]
-        );
+// Retrieve or create the setting entry
+$setting = Setting::firstOrCreate(
+    ['type' => 'general'],
+    ['value' => []]
+);
 
-        // Merge new values with the existing ones
-        $currentValue = $setting->value;
+// Merge new values with the existing ones
+$currentValue = $setting->value;
 
-        $newValue = array_merge($currentValue, [
-            'website_name' => $validatedData['website_name'],
-            'website_description' => $validatedData['website_description'],
-            'website_address' => $validatedData['website_address'],
-            'tel' => $validatedData['tel'],
-            'whats_app' => $validatedData['whats_app'],
-        ]);
+$newValue = array_merge($currentValue, array_filter($validatedData));
 
-        // Handle website icon upload
-        if ($request->hasFile('website_icon') && $request->file('website_icon')->isValid()) {
-            $websiteIconPath = $request->website_icon->store("website/{$setting->id}/img", 'public');
-            $newValue['icon_path'] = $websiteIconPath;
-        }
+// Handle website icon upload
+if ($request->hasFile('website_icon') && $request->file('website_icon')->isValid()) {
+    $websiteIconPath = $request->website_icon->store("website/{$setting->id}/img", 'public');
+    $newValue['icon_path'] = $websiteIconPath;
+}
 
-        // Handle website logo upload
-        if ($request->hasFile('website_logo') && $request->file('website_logo')->isValid()) {
-            $websiteLogoPath = $request->website_logo->store("website/{$setting->id}/img", 'public');
-            $newValue['logo_path'] = $websiteLogoPath;
-        }
+// Handle website logo upload
+if ($request->hasFile('website_logo') && $request->file('website_logo')->isValid()) {
+    $websiteLogoPath = $request->website_logo->store("website/{$setting->id}/img", 'public');
+    $newValue['logo_path'] = $websiteLogoPath;
+}
 
-        // Update the setting entry with the merged values
-        $setting->value = $newValue;
-        $setting->save();
+// Update the setting entry with the merged values
+$setting->value = $newValue;
+$setting->save();
+
 
         return redirect()->route('site-info.index')->with('success', 'setting saved successfully');
     }
     public function saveSocialMedia(Request $request)
     {
-        // Validate the request inputs
         $validatedData = $request->validate([
-            'facebook' => 'nullable|url',
-            'twitter' => 'nullable|url',
-            'instagram' => 'nullable|url',
-            'youtube' => 'nullable|url',
-            'whatsapp' => 'nullable|string|max:15',
-            'tiktok' => 'nullable|url',
-            'snapchat' => 'nullable|url',
+            'facebook' => 'nullable',
+            'twitter' => 'nullable',
+            'instagram' => 'nullable',
+            'youtube' => 'nullable',
+            'whatsapp' => 'nullable',
+            'tiktok' => 'nullable',
+            'snapchat' => 'nullable',
         ]);
 
         // Retrieve or create the social media setting entry
@@ -82,21 +76,11 @@ class SettingsController extends Controller
         );
 
         // Merge new values with the existing ones
-        $currentValue = $setting->value;
-
-        $newValue = array_merge($currentValue, [
-            'facebook' => $validatedData['facebook'],
-            'twitter' => $validatedData['twitter'],
-            'instagram' => $validatedData['instagram'],
-            'youtube' => $validatedData['youtube'],
-            'whatsapp' => $validatedData['whatsapp'],
-            'tiktok' => $validatedData['tiktok'],
-            'snapchat' => $validatedData['snapchat'],
-        ]);
+        $setting->value = array_merge($setting->value, array_filter($validatedData));
 
         // Update the setting entry with the merged values
-        $setting->value = $newValue;
         $setting->save();
+
 
 
         return redirect()->route('socialMedia.index')->with('success', 'Social saved successfully');

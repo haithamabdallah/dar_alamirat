@@ -50,6 +50,8 @@
 
 </script> --}}
 
+
+{{-- login --}}
 <script>
     $(document).ready(function() {
         // Handle email form submission
@@ -130,6 +132,7 @@
         }
     });
 </script>
+
 
 {{--Favorits --}}
 <script>

@@ -65,7 +65,8 @@
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Announcements Message</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" name="announcement_message" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP"></textarea>
+                                    <textarea class="form-control" name="announcement_message" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP">    {{ \App\Models\Setting::where('type', 'announcement')->value('value')['announcement_message'] ?? 'Our dear customers, we are sorry and we will back ASAP' }}
+                                    </textarea>
                                 </div>
                             </div>
 
