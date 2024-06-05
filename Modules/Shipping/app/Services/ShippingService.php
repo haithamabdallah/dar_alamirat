@@ -16,7 +16,7 @@ class ShippingService
         return Shipping::latest()->get();
     }
 
-    public function getPaginatedData(array $data = [] ,int $paginate = 20 )
+    public function getPaginatedData(array $data = [] ,int $paginate = 10 )
     {
         return  Shipping::latest()->paginate($paginate);
     }

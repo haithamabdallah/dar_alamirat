@@ -143,8 +143,8 @@ class ProductController extends Controller
     {
         return [
             'title.*' => 'required|string|max:255',
-            'description.*' => 'sometimes|string',
-            'instructions.*' => 'sometimes|string',
+            'description.*' => 'sometimes',
+            'instructions.*' => 'sometimes',
             'instructions.*' => 'sometimes',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',

@@ -29,7 +29,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::all();
+        $admins = Admin::orderBy('id', 'DESC')->paginate(10);
         return view('dashboard.admins.index', compact('admins'));
     }
 

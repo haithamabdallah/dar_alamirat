@@ -96,19 +96,42 @@
                     <!-- pagination -->
                     <div class="d-md-flex align-items-center">
                         <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                            Showing 1 to 10 of 57 entries
+                            Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} entries
                         </div>
                         <ul class="pagination mb-0 justify-content-center">
-                            <li class="page-item disabled"><a class="page-link">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            {{-- Previous Page Link --}}
+                            @if ($orders->onFirstPage())
+                                <li class="page-item disabled">
+                                    <span class="page-link">Previous</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $orders->previousPageUrl() }}" rel="prev">Previous</a>
+                                </li>
+                            @endif
+
+                            {{-- Pagination Elements --}}
+                            @foreach ($orders->getUrlRange(1, $orders->lastPage()) as $page => $url)
+                                @if ($page == $orders->currentPage())
+                                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                @endif
+                            @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if ($orders->hasMorePages())
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $orders->nextPageUrl() }}" rel="next">Next</a>
+                                </li>
+                            @else
+                                <li class="page-item disabled">
+                                    <span class="page-link">Next</span>
+                                </li>
+                            @endif
                         </ul>
                     </div>
+
                     <!-- ./pagination -->
                 </div>
             </div>
