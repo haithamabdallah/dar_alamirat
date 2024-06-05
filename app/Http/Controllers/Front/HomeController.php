@@ -30,13 +30,18 @@ class HomeController extends Controller
     public function index()
     {
 //        $categories = Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
-        $categories     = cache()->remember('categories', 60 * 60, function () {
-            return Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
-        });
+//        $categories     = cache()->remember('categories', 60 * 60, function () {
+//            return Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
+//        });
+//
+//        $brands     = cache()->remember('brands', 60 * 60, function () {
+//            return Brand::active()->limit(12)->inRandomOrder()->get();
+//        });
 
-        $brands     = cache()->remember('brands', 60 * 60, function () {
-            return Brand::active()->limit(12)->random(12)->get();
-        });
+
+        $categories = Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
+
+        $brands = Brand::active()->limit(12)->inRandomOrder()->get();
 
         return view('themes.theme1.index' , get_defined_vars());
     }
