@@ -4,6 +4,31 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+        <ul class="user-control d-flex">
+            @guest
+                <li>
+                    <a class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#loginEmail">
+                        <i class="icon sicon-user"></i>
+                        <span class="d-flex flex-column">
+                                <p>My Account</p>
+                                <span>Login</span>
+                            </span>
+                    </a>
+                </li>
+            @endguest
+            @auth
+                <li>
+                    <a href="{{ route('user.profile',auth()->user()->id) }}" class="d-flex align-items-center">
+                        <i class="icon sicon-user"></i>
+                        <span class="d-flex flex-column">
+                                <p>My Account</p>
+                                <span>{{ auth()->user()->FullName }}</span>
+                            </span>
+                    </a>
+                </li>
+            @endauth
+        </ul>
+
         <ul class="nav">
             @foreach(defaultCategory() as $category)
                 @if($category->childes->isNotEmpty())

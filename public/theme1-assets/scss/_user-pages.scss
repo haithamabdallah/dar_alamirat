@@ -364,6 +364,11 @@
   .user-page-layout {
     .user-layout {
       grid-template-columns: 1fr;
+        main {
+            .whishlist_items {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
     }
     .account-form {
       grid-template-columns: 1fr;
@@ -376,6 +381,11 @@
   .user-page-layout {
     .user-layout {
       grid-template-columns: 1fr;
+        main {
+            .whishlist_items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     }
     .account-form {
       grid-template-columns: 1fr;
@@ -388,6 +398,11 @@
   .user-page-layout {
     .user-layout {
       grid-template-columns: 1fr 3fr;
+        main {
+            .whishlist_items {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
     }
     .account-form {
       grid-template-columns: 1fr 1fr;

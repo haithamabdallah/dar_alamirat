@@ -93,8 +93,8 @@
                             <div class="swiper p-full-image zoom-gallery">
                                 <div class="swiper-wrapper">
                                     <li class="swiper-slide">
-                                        <a href="#" title="{{ $product->slug }}">
-                                            <img src="{{ $product->thumbnail }}" width="75" height="75">
+                                        <a href="{{ $product->thumbnail }}" title="{{ $product->slug }}">
+                                            <img src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                         </a>
                                     </li>
                                 </div>

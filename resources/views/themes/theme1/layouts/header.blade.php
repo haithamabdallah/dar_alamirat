@@ -72,6 +72,56 @@
             </div>
         </div>
     </div>
+</header>
+
     @include('themes.theme1.partials.modals.email')
     @include('themes.theme1.partials.modals.otp')
+
+
+<header id="mobileHeader">
+    <div class="pixel-container">
+        <div class="wrap">
+            <div class="header d-flex justify-content-between align-items-center">
+                <div class="navigate">
+                    <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <i class="fa-solid fa-bars"></i>
+                    </a>
+                </div>
+
+                <div class="logo">
+                    @foreach ($settings->where('type', 'general') as $setting)
+                        <a href="{{route('index')}}">
+                            @php
+                                $IconPath = $setting->value['icon_path'] ?? null;
+                                $IconUrl = $IconPath ? Storage::url($IconPath) : null;
+                            @endphp
+                            @if($IconUrl)
+                                <img src="{{ $IconUrl }}" alt="Icon">
+                            @else
+                                <h3>{{ $setting->value['website_name'] ?? '' }}</h3> <!-- Provide a default icon path if needed -->
+                            @endif
+                        </a>
+                    @endforeach
+
+                </div>
+
+
+                <ul class="user-control d-flex">
+                    <li>
+                        <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
+                            <i class="icon sicon-shopping-bag"></i>
+
+                            <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
+                            <span class="d-flex flex-column">
+                                <p>Cart</p>
+                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} SAR</span>
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
 </header>
