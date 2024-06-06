@@ -115,7 +115,8 @@
             }
         }
         .p-full-image {
-
+            border: 1px solid #eee;
+            border-radius: 5px;
             width: 100%;
             img {
                 height: 400px;
@@ -124,6 +125,7 @@
         .p-thumb {
             img {
                 height: 100px;
+                padding: 4px 0;
             }
         }
     }
