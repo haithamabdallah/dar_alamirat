@@ -5,16 +5,19 @@ $(window).on("load", function() {
 
     window.onscroll = function() {fixedHeader()};
     var header = document.getElementById("header");
+    var mobileHeader = document.getElementById("mobileHeader");
     var sticky = header.offsetTop;
+
 
     function fixedHeader() {
         if (window.pageYOffset > sticky) {
             header.classList.add("fixed-top");
+            mobileHeader.classList.add("fixed-top");
         } else {
             header.classList.remove("fixed-top");
+            mobileHeader.classList.remove("fixed-top");
         }
     }
-
 
 
 

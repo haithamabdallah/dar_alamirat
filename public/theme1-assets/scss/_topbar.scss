@@ -117,23 +117,45 @@
 @media (max-width: 575.98px) {
   #topbar {
     height: auto;
-
+      padding: 10px 0;
     .topbar {
       height: auto;
-      flex-direction: column;
+      flex-direction: row-reverse;
+        .left {
+            .lang {
+                .dropdown {
+                    width: 110px;
+                }
+            }
+        }
       .right {
         display: none;
       }
-      .left {
-        justify-content: space-between;
-        width: 100%;
-      }
+        .search-box {
+            display: block;
+        }
     }
   }
 }
 
 // `md` applies to small devices (landscape phones, less than 768px)
-@media (min-width: 767.98px) {}
+@media (min-width: 767.98px) {
+    #topbar {
+        .topbar {
+            flex-direction: row;
+            .right {
+                display: block;
+            }
+            .search-box {
+                display: none;
+            }
+            .left {
+                justify-content: space-between;
+
+            }
+        }
+    }
+}
 
 // `lg` applies to medium devices (tablets, less than 992px)
 @media (min-width: 991.98px) {}
