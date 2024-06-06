@@ -13,6 +13,30 @@
     .item .item-data .item-dec a {
         text-align: right;
     }
+    .item .item-data .add-favourite {
+        margin-left: inherit;
+        margin-right: auto;
+    }
+    .order-summary .coupons .apply button {
+        left: 0;
+        right: inherit;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+    .item_cart .entries .removeItem {
+        right: inherit;
+        left: 15px;
+    }
 
+}
 
+@media (max-width: 575.98px) {
+    :dir(rtl) {
+        #mobileHeader .header .user-control {
+            margin-left: inherit;
+            margin-right: auto;
+        }
+    }
 }

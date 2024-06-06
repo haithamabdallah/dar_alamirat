@@ -32,7 +32,7 @@
                     <!-- ./brand -->
 
                     <!-- product info -->
-                    {{-- <h2 class="product_info">Mielle Organics Rosemary Mint Scalp & Hair Strengthening Oil - 59ml</h2> --}}
+                    <h2 class="product_info">{{ $product->title }}</h2>
                     <!-- ./product info -->
 
                     <!-- product info -->
