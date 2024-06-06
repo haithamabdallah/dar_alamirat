@@ -148,7 +148,7 @@
                         @endif
 
                         <li>
-                            <a href="">
+                            <a href="tel:+966920014688">
                                 <i class="sicon-phone"></i>
                                 <span>+966920014688</span>
                             </a>
