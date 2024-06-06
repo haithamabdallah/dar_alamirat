@@ -10,6 +10,7 @@
 
 
 
+    <!-- categories & Banners -->
     @foreach ($categories as $category)
         @if ($category->type === 'default')
             <section class="s-block">
@@ -73,7 +74,9 @@
             @endforeach
         @endif
     @endforeach
+    <!-- ./categories & Banners -->
 
+    <!-- Brands -->
     <section class="s-block">
         <div class="pixel-container">
             <div class="wrap">
@@ -93,6 +96,7 @@
             </div>
         </div>
     </section>
+    <!-- ./Brands -->
 
     {{-- <section id="newsletterPopup" class="hide">
    <div class="newContent">
