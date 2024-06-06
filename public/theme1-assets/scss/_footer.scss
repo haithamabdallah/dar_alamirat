@@ -61,6 +61,14 @@
           &:focus {
             opacity: .7;
           }
+            form {
+                button {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    grid-gap: 7px;
+                }
+            }
         }
       }
       .social-icons {
