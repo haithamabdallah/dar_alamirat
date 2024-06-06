@@ -115,10 +115,10 @@
             }
         }
         .p-full-image {
-            height: 400px;
+
             width: 100%;
             img {
-                object-fit: cover !important;
+                height: 400px;
             }
         }
         .p-thumb {
