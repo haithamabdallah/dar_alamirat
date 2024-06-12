@@ -22,11 +22,12 @@
                     <strong>{{ $product->variants->first()->price }}</strong>
                     <span>SAR</span>
                 </h4>
-            @endif
             <h4 class="after-dis">
                 <strong>{{ $product->variants->first()->price_with_discount }}</strong>
                 <span>SAR</span>
             </h4>
+            @endif
+
             @auth()
                 <div class="add-favourite">
                     <button class="icon-fav @if(in_array($product->id , auth()->user()->favoriteProducts->pluck('id')->toArray())) added @endif"
