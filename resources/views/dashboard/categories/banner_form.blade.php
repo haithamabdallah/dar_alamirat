@@ -183,7 +183,8 @@
                                         <div class="form-group row"> 
                                             <label class="form-label col-form-label col-lg-4"> Category : </label>
                                             <div class="col-lg-8">
-                                                <select class="default-select2 form-control" name="category_id">
+                                                {{-- <select class="default-select2 form-control" name="category_id" id="category-selector-element"> --}}
+                                                <select class="form-control" name="bannerableId" id="category-selector-element">
                                                     <option selected disabled value="null">Select Category</option>
                                                     @foreach ($categories as $id => $name)
                                                         <option value="{{ $id }}"> {{ $name }} </option>
@@ -202,7 +203,8 @@
                                         <div class="form-group row">
                                             <label class="form-label col-form-label col-lg-4"> Brand : </label>
                                             <div class="col-lg-8">
-                                                <select class="default-select2 form-control" name="brand_id">
+                                                {{-- <select class="default-select2  form-control" name="brand_id" id="brand-selector-element"> --}}
+                                                <select class="form-control" name="bannerableId" id="brand-selector-element">
                                                     <option selected disabled value="null">Select Brand</option>
                                                     @foreach ($brands as $id => $name)
                                                         <option value="{{ $id }}"> {{ $name }} </option>
@@ -309,16 +311,12 @@
             let brandSelectorDiv = $("#brand-selector").prop('outerHTML');
 
             selectorContainer.html('')
-
+            
             typeSelector.on('change', function () {
                 if (typeSelector.val() == "category") {
                     selectorContainer.html(categorySelectorDiv)
-                    $('.select2-selection.select2-selection--single').remove();
-                    $('.default-select2.form-control.select2-hidden-accessible').removeClass('select2-hidden-accessible');
                 } else if (typeSelector.val() == "brand") {
                     selectorContainer.html(brandSelectorDiv)
-                    $('.select2-selection.select2-selection--single').remove();
-                    $('.select2.select2-container').removeClass('select2-container--default');
                 } 
             })
             

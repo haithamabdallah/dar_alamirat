@@ -14,9 +14,14 @@ class CategoryService {
         return Category::where('type','default')->orderByRaw('ISNULL(priority), priority ASC')->get();
     }
 
-    public function getPaginatedData(array $data = [],int $paginate = 20 )
+    public function getPaginatedData(array $data = [],int $count = 20 )
     {
-        return  Category::where('type','default')->orderByRaw('ISNULL(priority), priority ASC')->paginate($paginate);
+        return  Category::where('type','default')->orderByRaw('ISNULL(priority), priority ASC')->paginate($count);
+    }
+
+    public function getAllcategoriesForSelectElement()
+    {
+        return category::pluck('name', 'id')->toArray();  
     }
 
 

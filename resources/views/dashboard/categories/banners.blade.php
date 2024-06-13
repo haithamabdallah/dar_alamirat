@@ -61,6 +61,8 @@
                             <thead>
                             <tr>
                                 <th width="1%"></th>
+                                <th class="text-nowrap" width="5%">Type</th>
+                                <th class="text-nowrap" width="5%">Name</th>
                                 <th class="text-nowrap" width="5%">Priority</th>
                                 <th class="text-nowrap" width="5%">Image</th>
                                 <th class="text-nowrap" width="5%">status</th>
@@ -73,12 +75,14 @@
                             @foreach($banners as $banner)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    <td>{{$banner->category->priority}}</td>
+                                    <td>{{$banner->type}}</td>
+                                    <td>{{$banner->bannerable->name}}</td>
+                                    <td>{{$banner->priority}}</td>
                                     <td width="1%" class="with-img">
                                         <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>
                                     <td>
-                                        <input type="checkbox" class="switch-status" data-url="{{ route('banner.status' , $banner->id) }}" @if($banner->category->status) checked @endif/>
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('banner.status' , $banner->id) }}" @if($banner->status) checked @endif/>
                                     </td>
                                     <td nowrap="">
                                         @adminCan('categories.edit')

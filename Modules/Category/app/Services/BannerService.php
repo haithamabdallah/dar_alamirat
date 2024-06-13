@@ -5,6 +5,7 @@ namespace Modules\Category\app\Services;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Banner;
 use Modules\Category\Models\Category;
 
@@ -27,16 +28,25 @@ class BannerService {
 
     public function storeData(array $data)
     {
-        $category = Category::create([
-            'type' => 'banner',
-            'name' => '',
-            'slug' => '',
-            'priority' => $data['priority'],
-        ]);
+        $data = collect( $data );
 
-        $data['category_id'] = $category->id;
+        if (isset($data['image'])) {
+            $image = $data['image'];
+            $imagePath = $image->store("banners/{$data['type']}", 'public');
+            $data['image'] = $imagePath;
+        }
 
-        $banner = Banner::create(Arr::only($data, ['category_id' , 'image']));
+        if ( $data['type'] == 'category' ) {
+            $bannerable = Category::find($data['bannerableId']);
+        }
+
+        if ( $data['type'] == 'brand' ) {
+            $bannerable = Brand::find($data['bannerableId']);
+        }
+
+        $banner = $bannerable->banner()->create($data->only(['priority' , 'image'])->toArray());
+
+
         return  $banner;
     }
 

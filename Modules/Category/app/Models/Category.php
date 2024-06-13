@@ -2,11 +2,12 @@
 
 namespace Modules\Category\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Storage;
 use Modules\Product\Models\Product;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -19,6 +20,20 @@ class Category extends Model
      */
     protected $fillable = ['name' , 'slug' , 'icon' , 'position' , 'priority', 'status' , 'type','parent_id'];
 
+    // # accessors 
+
+    // public function getNameAttribute()
+    // {
+    //     if( app()->isLocale('ar') && isset($this->name['ar']) ) {
+    //         return $this->name['ar'] ;
+    //     } else {
+    //         return $this->name['en'] ;
+    //     } 
+        
+    // }
+
+    # relations 
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');
@@ -30,14 +45,18 @@ class Category extends Model
     }
 
     /**
-     * Get the products for the Category.
+     * Get the banners for the Category.
      */
-    public function banners() {
-        return $this->hasMany(Banner::class);
+    // public function banners() {
+    //     return $this->hasMany(Banner::class);
+    // }
+    public function banner() : MorphOne 
+    { 
+        return $this->morphOne(Banner::class , 'bannerable'); 
     }
 
     /**
-     * Get the brands for the Category.
+     * Get the products for the Category.
      */
     public function products()
     {

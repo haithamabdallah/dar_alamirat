@@ -17,42 +17,42 @@ class SettingsController extends Controller
     {
 
         // Validate the request inputs
-$validatedData = $request->validate([
-    'website_name' => 'nullable',
-    'website_description' => 'nullable',
-    'website_address' => 'nullable',
-    'tel' => 'nullable',
-    'whats_app' => 'nullable',
-    'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-]);
+        $validatedData = $request->validate([
+            'website_name' => 'nullable',
+            'website_description' => 'nullable',
+            'website_address' => 'nullable',
+            'tel' => 'nullable',
+            'whats_app' => 'nullable',
+            'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-// Retrieve or create the setting entry
-$setting = Setting::firstOrCreate(
-    ['type' => 'general'],
-    ['value' => []]
-);
+        // Retrieve or create the setting entry
+        $setting = Setting::firstOrCreate(
+            ['type' => 'general'],
+            ['value' => []]
+        );
 
-// Merge new values with the existing ones
-$currentValue = $setting->value;
+        // Merge new values with the existing ones
+        $currentValue = $setting->value;
 
-$newValue = array_merge($currentValue, array_filter($validatedData));
+        $newValue = array_merge($currentValue, array_filter($validatedData));
 
-// Handle website icon upload
-if ($request->hasFile('website_icon') && $request->file('website_icon')->isValid()) {
-    $websiteIconPath = $request->website_icon->store("website/{$setting->id}/img", 'public');
-    $newValue['icon_path'] = $websiteIconPath;
-}
+        // Handle website icon upload
+        if ($request->hasFile('website_icon') && $request->file('website_icon')->isValid()) {
+            $websiteIconPath = $request->website_icon->store("website/{$setting->id}/img", 'public');
+            $newValue['icon_path'] = $websiteIconPath;
+        }
 
-// Handle website logo upload
-if ($request->hasFile('website_logo') && $request->file('website_logo')->isValid()) {
-    $websiteLogoPath = $request->website_logo->store("website/{$setting->id}/img", 'public');
-    $newValue['logo_path'] = $websiteLogoPath;
-}
+        // Handle website logo upload
+        if ($request->hasFile('website_logo') && $request->file('website_logo')->isValid()) {
+            $websiteLogoPath = $request->website_logo->store("website/{$setting->id}/img", 'public');
+            $newValue['logo_path'] = $websiteLogoPath;
+        }
 
-// Update the setting entry with the merged values
-$setting->value = $newValue;
-$setting->save();
+        // Update the setting entry with the merged values
+        $setting->value = $newValue;
+        $setting->save();
 
 
         return redirect()->route('site-info.index')->with('success', 'setting saved successfully');
@@ -117,7 +117,7 @@ $setting->save();
 
 
         $maintenanceMode = $request->input('maintenance_mode');
-        $maintenanceMode = $request->input('maintenance_message');
+        $maintenanceMessage = $request->input('maintenance_message');
         $maintenanceTitle = $request->input('maintenance_title');
 
         // Retrieve or create the maintenance setting entry
@@ -129,7 +129,7 @@ $setting->save();
         // Update the settings value with the new data
         $setting->value = [
             'maintenance_mode' => $maintenanceMode,
-            'maintenance_message' => $maintenanceMode,
+            'maintenance_message' => $maintenanceMessage,
             'maintenance_title' => $maintenanceTitle,
         ];
 
