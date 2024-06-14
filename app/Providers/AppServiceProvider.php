@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $settings =Setting::all();
             $pages=Page::all();
-            $currency =     Setting::where('type' , 'general')->first()->value['currency'];
+            $currency =     Setting::where('type' , 'general')->first()->value['currency'] ?? "LYD";
 
             $view->with( 
                 compact('settings', 'currency' ,'pages')
