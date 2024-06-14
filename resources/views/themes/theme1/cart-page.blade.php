@@ -201,9 +201,9 @@
             const itemTotalPrice = (quantity * pricePerUnit).toFixed(2);
 
             selectedVariantElement.innerHTML = `<b>chosen Product:</b> ${selectedVariantText}`;
-            variantPriceSummaryElement.innerHTML = `<b>Product Price:</b> {{ $currency }} ${variantPrice}`;
+            variantPriceSummaryElement.innerHTML = `<b>Product Price:</b> ${ {{ $currency }} } ${variantPrice}`;
             quantitySummaryElement.innerHTML = `<b>Quantity:</b> ${quantity}`;
-            itemTotalPriceElement.innerHTML = `<b>Item Total:</b> {{ $currency }} ${itemTotalPrice}`;
+            itemTotalPriceElement.innerHTML = `<b>Item Total:</b> ${ {{ $currency }} } ${itemTotalPrice}`;
 
             const finalTotalPrice = priceElement.textContent;
             finalTotalPriceElement.textContent = `{{ $currency }} ${finalTotalPrice}`;
