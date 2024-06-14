@@ -60,13 +60,13 @@ class SettingsController extends Controller
     public function saveSocialMedia(Request $request)
     {
         $validatedData = $request->validate([
-            'facebook' => 'nullable',
-            'twitter' => 'nullable',
-            'instagram' => 'nullable',
-            'youtube' => 'nullable',
-            'whatsapp' => 'nullable',
-            'tiktok' => 'nullable',
-            'snapchat' => 'nullable',
+            'facebook' => 'nullable|url:http,https',
+            'twitter' => 'nullable|url:http,https',
+            'instagram' => 'nullable|url:http,https',
+            'youtube' => 'nullable|url:http,https',
+            'whatsapp' => 'nullable|url:http,https',
+            'tiktok' => 'nullable|url:http,https',
+            'snapchat' => 'nullable|url:http,https',
         ]);
 
         // Retrieve or create the social media setting entry

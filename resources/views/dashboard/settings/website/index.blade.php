@@ -61,19 +61,21 @@
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">Website Logo</label>
                                     <div class="col-sm-9">
-                                        <input type="file" name="website_logo" class="form-control @error('website_logo') is-invalid @enderror">
+                                        <input type="file" name="website_logo" class="form-control @error('website_logo') is-invalid @enderror"  onchange="preview1()">
                                         @error('website_logo')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                        <img id="frame1" src="" width="50px" height="50px" class="my-2" alt="img preview"/> 
                                     </div>
                                 </div>
                                 <div class="row mb-15px">
                                     <label class="form-label col-form-label col-md-3">Website Icon</label>
                                     <div class="col-sm-9">
-                                        <input type="file" name="website_icon" class="form-control @error('website_icon') is-invalid @enderror">
+                                        <input type="file" name="website_icon" class="form-control @error('website_icon') is-invalid @enderror" onchange="preview2()">
                                         @error('website_icon')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                        <img id="frame2" src="" width="50px" height="50px" class="my-2" alt="img preview"/> 
                                     </div>
                                 </div>
 
@@ -176,6 +178,12 @@
 
 @section('scripts')
     <script src="{{ asset('admin-panel/assets/plugins/dropzone/dist/min/dropzone.min.js') }}"></script>
+    <script>
+        $('#frame1').hide()
+        $('#frame2').hide()
+        function preview1() { frame1.src=URL.createObjectURL(event.target.files[0]); $('#frame1').show() }
+        function preview2() { frame2.src=URL.createObjectURL(event.target.files[0]); $('#frame2').show() }
+    </script>
     {{--<script src="{{ asset('theme1-assets/js/intlTelInput.min.js') }}"></script>
     <script>
         const phone = document.querySelector("#phone");
