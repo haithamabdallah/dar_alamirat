@@ -17,11 +17,11 @@
         <div class="item-price">
             <h4 class="before-dis">
                 <strong>24.73</strong>
-                <span>SAR</span>
+                <span>LYD</span>
             </h4>
             <h4 class="after-dis">
                 <strong>24.73</strong>
-                <span>SAR</span>
+                <span>LYD</span>
             </h4>
             <div class="add-favourite">
                 <button class="icon-fav">

@@ -62,11 +62,11 @@
                                             <div class="item-price">
                                                 <h4 class="before-dis">
                                                     <strong>{{$product->variants()->latest()->first()->price}}</strong>
-                                                    <span>SAR</span>
+                                                    <span>LYD</span>
                                                 </h4>
                                                 <h4 class="after-dis">
                                                     <strong>{{$product->variants()->latest()->first()->price_with_discount}}</strong>
-                                                    <span>SAR</span>
+                                                    <span>LYD</span>
                                                 </h4>
                                                 <div class="add-favourite">
                                                     <button class="icon-fav">

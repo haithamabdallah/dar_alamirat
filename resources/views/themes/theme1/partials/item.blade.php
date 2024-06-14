@@ -20,11 +20,16 @@
             @if ($product->discount_value > 0)
                 <h4 class="before-dis">
                     <strong>{{ $product->variants->first()->price }}</strong>
-                    <span>SAR</span>
+                    <span>LYD</span>
                 </h4>
-            <h4 class="after-dis">
-                <strong>{{ $product->variants->first()->price_with_discount }}</strong>
-                <span>SAR</span>
+                <h4 class="after-dis">
+                    <strong>{{ $product->variants->first()->price_with_discount }}</strong>
+                    <span>LYD</span>
+                </h4>
+            @else
+            <h4 class="">
+                <strong>{{ $product->variants->first()->price }}</strong>
+                <span>LYD</span>
             </h4>
             @endif
 

@@ -56,6 +56,12 @@ class AuthController extends Controller
             'expires_at' => Carbon::now()->addMinutes(10)
         ]);
 
+        try {
+            Mail::to($email)->send(new OtpMail($otp));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
+
         Mail::to($email)->send(new OtpMail($otp));
 
         return response()->json(['message' => 'OTP resent!']);
