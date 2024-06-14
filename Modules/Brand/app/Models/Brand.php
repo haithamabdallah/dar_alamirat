@@ -2,10 +2,12 @@
 
 namespace Modules\Brand\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Category\Models\Banner;
 use Modules\Product\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Brand extends Model
 {
@@ -18,6 +20,31 @@ class Brand extends Model
      */
     protected $fillable = ['name'  , 'image'  , 'status' ];
 
+    // protected $appends = ['name'];
+
+
+    // # accessors 
+
+    // public function getNameAttribute()
+    // {
+    //     if( app()->isLocale('ar') && isset($this->name['ar']) ) {
+    //         return $this->name['ar'] ;
+    //     } else {
+    //         return $this->name['en'] ;
+    //     } 
+        
+    // }
+    
+    
+    #scopes 
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    # relations 
+
     /**
      * Get the products for the Brand.
      */
@@ -26,9 +53,10 @@ class Brand extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function scopeActive($query)
-    {
-        return $query->where('status', 1);
+    public function banner() : MorphOne 
+    { 
+        return $this->morphOne(Banner::class , 'bannerable'); 
     }
 
+    
 }

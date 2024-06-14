@@ -4,19 +4,25 @@ namespace Modules\Category\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Category\Models\Banner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Modules\Brand\app\Services\BrandService;
 use Modules\Category\app\Services\BannerService;
+use Modules\Category\app\Services\CategoryService;
 use Modules\Category\app\ViewModels\BannerViewModel;
 use Modules\Category\Http\Requests\StoreBannerRequest;
 use Modules\Category\Http\Requests\UpdateBannerRequest;
-use Modules\Category\Models\Banner;
 
 class BannerController extends Controller
 {
     protected $bannerService;
 
-    public function __construct(BannerService $bannerService)
+    public function __construct(
+        BannerService $bannerService ,
+        public CategoryService $categoryService,
+        public BrandService $brandService
+    )
     {
         $this->bannerService = $bannerService;
         $this->middleware('permission:categories.read,admin', ['only' => ['index','bannersData']]);
@@ -40,7 +46,9 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('dashboard.categories.banner_form' , new BannerViewModel());
+        $brands = $this->brandService->getAllBrandsForSelectElement();
+        $categories = $this->categoryService->getAllCategoriesForSelectElement();
+        return view('dashboard.categories.banner_form' , new BannerViewModel( null , $categories ,  $brands ));
     }
 
     /**
@@ -50,15 +58,7 @@ class BannerController extends Controller
     {
         $validatedData = $request->validated();
 
-        if ($request->hasFile('image')) {
-            foreach ($request->image as $image) {
-
-                $banner =$this->bannerService->storeData(['image' => $image , 'priority' => $validatedData['priority']]);
-
-                $imagePath = $image->store("banners/{$banner->id}", 'public');
-                $banner->update(['image' => $imagePath]);
-            }
-        }
+        $banner = $this->bannerService->storeData($validatedData);
 
         if ($banner){
             Session()->flash('success', 'Banner Created Successfully');

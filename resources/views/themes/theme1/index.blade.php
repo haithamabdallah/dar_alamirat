@@ -54,7 +54,7 @@
                 </div>
             </section>
         @else
-            @foreach ($category->banners as $image)
+            @if ( isset($category->banner) )
                 <!-- full banner -->
                 <section class="banner-block">
                     <!-- container -->
@@ -71,7 +71,7 @@
                     <!-- ./container -->
                 </section>
                 <!-- ./full banner -->
-            @endforeach
+            @endif
         @endif
     @endforeach
     <!-- ./categories & Banners -->

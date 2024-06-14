@@ -17,6 +17,10 @@ class BrandService {
         return  Brand::paginate($paginate);
     }
 
+    public function getAllBrandsForSelectElement()
+    {
+        return Brand::pluck('name', 'id')->toArray();  
+    }
 
     public function storeData(array $data)
     {

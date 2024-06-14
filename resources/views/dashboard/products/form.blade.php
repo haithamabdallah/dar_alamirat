@@ -239,6 +239,23 @@
                                         height="200">
                                     <div class="clear-image" onclick="clearImage();" style="display: none;">x</div>
                                 </div>
+                                <br>
+                                <div class="custom-file-upload">
+                                    <label for="formFile2" class="upload-area">
+                                        <div class="icon-upload form-control"> <span class="p-1">Upload Images </span>
+                                        </div>
+                                        <input class="file-input" name="images[]" type="file" id="formFile2"
+                                            accept=".png, .jpg, .jpeg ,.svg ,.webp" onchange="previewImages();" multiple/>
+                                    </label>
+                                </div>
+                                @error('images')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <div class="py-5"  id="preview-images">
+                                    
+                                </div>
                             </div>
 
                         </div>
@@ -505,6 +522,14 @@
     </script>
 
     <script>
+        function previewImages() {
+            var files = document.getElementById('formFile2').files;
+            var previewImages = document.getElementById('preview-images');
+            files.forEach(function(file) {
+                previewImages.innerHTML += `${file['name']} <br/> `
+            })
+        }
+
         function previewImage() {
             var file = document.getElementById('formFile').files[0];
             var reader = new FileReader();

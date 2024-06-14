@@ -12,7 +12,7 @@
                         <article class="content-entry">
 
                             <p>introduction</p>
-                            <p> {{ $page->content}}</p>
+                            <p> {!! $page->content !!}</p>
 
                             {{-- <p> 1. It is extremely important to know and review the details of this agreement</p>
                             <p> 2. We are not concerned with any personal information of a specific person. Rather, personal information is collected from those wishing to use the (Dar Al-Amirat) website or related internet pages (including but not limited to your buying and selling of goods, or your participation in auctions, or when you call by phone. Or by email to our User Support Center team). Once you provide us with your personal information, you have authorized us to process this information in accordance with the terms and conditions of the Information Confidentiality Agreement.</p>

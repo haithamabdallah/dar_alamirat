@@ -10,7 +10,7 @@ class BannerViewModel extends ViewModel
 {
     public Banner $banner;
 
-    public function __construct( $banner = null)
+    public function __construct( $banner = null , public $categories , public $brands )
     {
         $this->banner = is_null($banner) ? new Banner(old()) : $banner;
     }
@@ -25,6 +25,16 @@ class BannerViewModel extends ViewModel
     public function method(): string
     {
         return is_null($this->banner->id) ? 'POST' : 'PUT';
+    }
+
+    public function brands() :array
+    {
+        return $this->brands;
+    }
+
+    public function categories() :array
+    {
+        return $this->categories;
     }
 
 }

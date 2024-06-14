@@ -97,6 +97,15 @@
                                             <img src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                         </a>
                                     </li>
+                                    @if ( count($product->media) > 0)
+                                        @foreach($product->media as $image)
+                                        <li class="swiper-slide">
+                                            <a href="{{ $image->file }}" title="{{ $product->slug . $image->id }}">
+                                                <img src="{{ $image->file }}" alt="{{ $product->slug . $image->id }}">
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="p-prev"><i class="fa-solid fa-chevron-left"></i></div>
                                 <div class="p-next"><i class="fa-solid fa-chevron-right"></i></div>
@@ -106,6 +115,13 @@
                                     <li class="swiper-slide">
                                         <img src="{{ $product->thumbnail }}" />
                                     </li>
+                                    @if ( count($product->media) > 0)
+                                        @foreach($product->media as $image)
+                                            <li class="swiper-slide">
+                                                <img src="{{ $image->file  }}" />
+                                            </li>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>

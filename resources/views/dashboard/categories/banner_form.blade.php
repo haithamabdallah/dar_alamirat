@@ -12,6 +12,8 @@
 
     <link href="{{ asset('admin-panel/assets/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
 
+<!-- ================== END page-css ================== -->
+
     <style>
         .custom-file-upload {
             justify-content: center;
@@ -102,7 +104,7 @@
             <li class="breadcrumb-item"><a href="{{route('banner.index')}}">{{__('dashboard.banners')}}</a></li>
             <li class="breadcrumb-item active">
                 @if($method == 'PUT')
-                    {{__('dashboard.banner.edit')}}
+                    {{__('dashboard.banner.edit')}} 
                 @else
                     {{__('dashboard.banner.add')}}
                 @endif
@@ -152,10 +154,72 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
+                            <div class="card border-0 mb-4">
+                                <div class="card-header h6 mb-0 bg-none p-3">
+                                    <i class="fa fa-sitemap fa-lg fa-fw text-dark text-opacity-50 me-1"></i> Selectors
+                                </div>
+                                <div class="m-2">
+                                    <div class="form-group row">
+                                        <label class="form-label col-form-label col-lg-4"> Type: </label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control" name="type" id="type-selector">
+                                                <option selected disabled value="null">Select Type</option>
+                                                <option value="category"> {{ __('Category') }} </option>
+                                                <option value="brand"> {{ __('Brand') }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @error('type')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="m-2" id="selector-container">
+                                    <div   id="category-selector">
+                                        <div class="form-group row"> 
+                                            <label class="form-label col-form-label col-lg-4"> Category : </label>
+                                            <div class="col-lg-8">
+                                                {{-- <select class="default-select2 form-control" name="category_id" id="category-selector-element"> --}}
+                                                <select class="form-control" name="bannerableId" id="category-selector-element">
+                                                    <option selected disabled value="null">Select Category</option>
+                                                    @foreach ($categories as $id => $name)
+                                                        <option value="{{ $id }}"> {{ $name }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        @error('category_id')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div  id="brand-selector">
+                                        <div class="form-group row">
+                                            <label class="form-label col-form-label col-lg-4"> Brand : </label>
+                                            <div class="col-lg-8">
+                                                {{-- <select class="default-select2  form-control" name="brand_id" id="brand-selector-element"> --}}
+                                                <select class="form-control" name="bannerableId" id="brand-selector-element">
+                                                    <option selected disabled value="null">Select Brand</option>
+                                                    @foreach ($brands as $id => $name)
+                                                        <option value="{{ $id }}"> {{ $name }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        @error('brand_id')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">priority :</label>
                                 <div class="col-sm-9">
@@ -173,13 +237,13 @@
                                 </div>
                             </div>
                             @if($method == 'POST')
-                                <div class="row mb-15px" id="bannerImagesRow">
-                                    <label class="form-label col-form-label col-md-3">Banner Images </label>
+                                <div class="row mb-15px" id="bannerImageRow">
+                                    <label class="form-label col-form-label col-md-3"> Banner Image: </label>
                                     <div class="col-sm-9">
                                         <div class="custom-file-upload">
                                             <label for="formFile" class="upload-area">
-                                                <div class="icon-upload form-control"> <span class="p-1">Upload Banner Images </span></div>
-                                                <input class="file-input" name="image[]" type="file" accept=".png, .jpg, .jpeg ,.svg ,.webp" multiple />
+                                                <div class="icon-upload form-control"> <span class="p-1"> Upload Banner Image </span></div>
+                                                <input class="file-input" name="image" type="file" accept=".png, .jpg, .jpeg ,.svg ,.webp" />
                                             </label>
                                         </div>
                                         @error('icon')
@@ -191,7 +255,7 @@
                                 </div>
                             @else
                                 <div class="row mb-15px categoryDetails">
-                                    <label class="form-label col-form-label col-md-3">Banner image :</label>
+                                    <label class="form-label col-form-label col-md-3">Banner Image :</label>
                                     <div class="col-md-9">
                                         <div class="custom-file-upload">
                                             <label for="formFile" class="upload-area">
@@ -238,6 +302,26 @@
     <script src="{{ asset('admin-panel/assets/plugins/select2/dist/js/select2.min.js') }}"></script>
 
     <script>
+        $(document).ready(function () {
+            let typeSelector = $("#type-selector");
+            let selectorContainer = $("#selector-container");
+            let categorySelector = $("#category-selector");
+            let brandSelector = $("#brand-selector");
+            let categorySelectorDiv = $("#category-selector").prop('outerHTML');
+            let brandSelectorDiv = $("#brand-selector").prop('outerHTML');
+
+            selectorContainer.html('')
+            
+            typeSelector.on('change', function () {
+                if (typeSelector.val() == "category") {
+                    selectorContainer.html(categorySelectorDiv)
+                } else if (typeSelector.val() == "brand") {
+                    selectorContainer.html(brandSelectorDiv)
+                } 
+            })
+            
+        })
+
         function previewImage() {
             var file = document.getElementById('formFile').files[0];
             var reader = new FileReader();

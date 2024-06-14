@@ -68,7 +68,7 @@ return [
         'add' => 'Add Banner',
         'edit' => 'Edit Banner',
 
-        'delete' => 'Delete Category',
+        'delete' => 'Delete Banner',
     ],
     'brands' => 'Brands',
     'brand' => [

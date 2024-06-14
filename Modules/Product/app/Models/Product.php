@@ -36,6 +36,8 @@ class Product extends Model
         'choice',
     ];
 
+    protected $with = ['media', 'variants'];
+
     public $translatable = ['title', 'description', 'instructions'];
 
     public $appends = ['product_price'];
