@@ -17,7 +17,7 @@
 
             <h4 class="after-dis">
                 <strong>24.73</strong>
-                <span>LYD</span>
+                <span>{{ $currency }}</span>
             </h4>
             <div class="add-favourite">
                 <button class="icon-fav">

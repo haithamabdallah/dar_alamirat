@@ -23,6 +23,7 @@ class SettingsController extends Controller
             'website_address' => 'nullable',
             'tel' => 'nullable',
             'whats_app' => 'nullable',
+            'currency' => 'required',
             'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

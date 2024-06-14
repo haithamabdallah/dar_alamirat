@@ -128,6 +128,16 @@
                                         @enderror
                                     </div>
                                 </div>
+                                
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Currency</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('currency') is-invalid @enderror" name="currency" type="tel" placeholder="currency" value="{{ isset($setting->value['currency']) ? $setting->value['currency'] : '' }}"   />
+                                        @error('currency')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
 
                                 <!-- NEW CODE HERE -->
                                 {{--<div class="row mb-15px">

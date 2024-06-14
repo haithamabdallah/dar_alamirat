@@ -31,11 +31,11 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $settings =Setting::all();
             $pages=Page::all();
+            $currency =     Setting::where('type' , 'general')->first()->value['currency'];
 
-            $view->with([
-                'settings'=> $settings,
-                'pages' => $pages
-            ]);
+            $view->with( 
+                compact('settings', 'currency' ,'pages')
+            );
         });
     }
 }

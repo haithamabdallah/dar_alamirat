@@ -306,27 +306,27 @@
                                         <div class="s-filters-widget-values">
                                             <form class="filter-form" id="price-filter-form" method="GET" action="{{ route('category.products', $category->id) }}">
                                                 <label class="s-filters-label" for="price-0">
-                                                    <input id="price-0" name="filter[price]" type="radio" class="s-filters-radio" value="<100" {{ request('filter.price') == '<100' ? 'checked' : '' }}> less than 100 LYD
+                                                    <input id="price-0" name="filter[price]" type="radio" class="s-filters-radio" value="<100" {{ request('filter.price') == '<100' ? 'checked' : '' }}> less than 100 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-1">
-                                                    <input id="price-1" name="filter[price]" type="radio" class="s-filters-radio" value="100-200" {{ request('filter.price') == '100-200' ? 'checked' : '' }}> 100 LYD to 200 LYD
+                                                    <input id="price-1" name="filter[price]" type="radio" class="s-filters-radio" value="100-200" {{ request('filter.price') == '100-200' ? 'checked' : '' }}> 100 {{ $currency }} to 200 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-2">
-                                                    <input id="price-2" name="filter[price]" type="radio" class="s-filters-radio" value="200-300" {{ request('filter.price') == '200-300' ? 'checked' : '' }}> 200 LYD to 300 LYD
+                                                    <input id="price-2" name="filter[price]" type="radio" class="s-filters-radio" value="200-300" {{ request('filter.price') == '200-300' ? 'checked' : '' }}> 200 {{ $currency }} to 300 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-3">
-                                                    <input id="price-3" name="filter[price]" type="radio" class="s-filters-radio" value=">300" {{ request('filter.price') == '>300' ? 'checked' : '' }}> more than 300 LYD
+                                                    <input id="price-3" name="filter[price]" type="radio" class="s-filters-radio" value=">300" {{ request('filter.price') == '>300' ? 'checked' : '' }}> more than 300 {{ $currency }}
                                                 </label>
                                                 <div class="flex justify-center items-center">
                                                     <div class="relative max-w-xl w-full">
                                                         <div class="s-price-range-inputs">
                                                             <div class="s-price-range-relative">
-                                                                <div class="s-price-range-currency"> LYD</div>
+                                                                <div class="s-price-range-currency"> {{ $currency }}</div>
                                                                 <input type="number" maxlength="5" placeholder="from" class="s-price-range-number-input" name="filter[price_min]" value="{{ request('filter.price_min') }}">
                                                             </div>
                                                             <div class="s-price-range-gray-text"> - </div>
                                                             <div class="s-price-range-relative">
-                                                                <div class="s-price-range-currency"> LYD</div>
+                                                                <div class="s-price-range-currency"> {{ $currency }}</div>
                                                                 <input type="number" maxlength="5" placeholder="to" class="s-price-range-number-input" name="filter[price_max]" value="{{ request('filter.price_max') }}">
                                                             </div>
                                                         </div>
@@ -397,8 +397,8 @@
                             <div class="item-data">
                                 <!-- price -->
                                 <div class="item-price">
-                                    ${product.discount_value > 0 ? `<h4 class="before-dis"><strong>${product.variants[0].price}</strong><span>LYD</span></h4>` : ''}
-                                    <h4 class="after-dis"><strong>${product.variants[0].price_with_discount}</strong><span>LYD</span></h4>
+                                    ${product.discount_value > 0 ? `<h4 class="before-dis"><strong>${product.variants[0].price}</strong><span>{{ $currency }}</span></h4>` : ''}
+                                    <h4 class="after-dis"><strong>${product.variants[0].price_with_discount}</strong><span>{{ $currency }}</span></h4>
                                     <div class="add-favourite">
                                         <button class="icon-fav">
                                             <i class="sicon-heart"></i>

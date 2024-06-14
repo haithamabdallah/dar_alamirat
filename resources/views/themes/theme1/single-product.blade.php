@@ -44,11 +44,11 @@
                     <!-- price -->
                     <div class="item-price">
                         <h4 class="before-dis">
-                            <strong><span>LYD</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
+                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
                         </h4>
                         @if($product->variants->first()->price_with_discount)
                         <h4 class="after-dis">
-                            <strong><span>LYD</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
+                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
                             {{-- <span class="discount">50%</span> --}}
                         </h4>
                         @endif

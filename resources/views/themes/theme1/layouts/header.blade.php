@@ -62,7 +62,7 @@
                             <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
                                 <p>Cart</p>
-                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} LYD</span>
+                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span>
                             </span>
                         </a>
                     </li>
@@ -114,7 +114,7 @@
                             <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
                                 <p>Cart</p>
-                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} LYD</span>
+                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span>
                             </span>
                         </a>
                     </li>

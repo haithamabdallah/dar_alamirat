@@ -41,6 +41,7 @@ class Product extends Model
     public $translatable = ['title', 'description', 'instructions'];
 
     public $appends = ['product_price'];
+    // public $appends = ['product_price' , 'currency'];
 
     /**
      * Get the category associated with the product.
@@ -114,6 +115,12 @@ class Product extends Model
     {
         return $this->provideFilter(ProductFilter::class);
     }
+
+    // # accessors 
+    // public function getCurrencyAttribute()
+    // {
+    //     return     Setting::where('type' , 'general')->first()->value['currency'];
+    // }
 
     public function getPriceAttribute()
     {
