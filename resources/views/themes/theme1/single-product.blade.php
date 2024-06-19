@@ -2,6 +2,12 @@
 
 @section('customcss')
     <link rel="stylesheet" href="{{asset('theme1-assets/css/magnific-popup.css')}}">
+    <style>
+        .price {
+            font-size: 24px;
+            color: green;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -49,15 +55,39 @@
                         @if($product->variants->first()->price_with_discount)
                         <h4 class="after-dis">
                             <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
-                            {{-- <span class="discount">50%</span> --}}
+                             <span class="discount">50%</span>
                         </h4>
                         @endif
                     </div>
                     <!-- ./price -->
 
+                    <div class="quantity-controls">
+                        <button id="decrease-quantity">-</button>
+                        <input type="number" id="quantity" class="quantity" value="1" min="1" readonly>
+                        <button id="increase-quantity">+</button>
+                    </div>
+
+                    <div class="variants">
+                        <h4>Variants</h4>
+                        <select id="variant-select" class="form-control">
+                            <option value="10" selected>Variant 1 ($10 extra)</option>
+                            <option value="20">Variant 2 ($20 extra)</option>
+                        </select>
+                    </div>
+
+
                     <!-- vat -->
-                    {{-- <p class="vat">VAT included</p> --}}
+                     <p class="vat">VAT included</p>
                     <!-- ./vat -->
+
+                    <!-- item -->
+                    <div class="price">Price: $<span id="base-price">100</span></div>
+
+
+                    <div>
+                        <h3>Total Price: $<span id="total-price">110</span></h3>
+                    </div>
+                    <!-- ./item -->
 
                     <!-- alert -->
                     <div class="alert alert-danger" role="alert">This item cannot be returned or replaced</div>
@@ -201,5 +231,44 @@
                 }
             });
         });
+    </script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const basePrice = 100;
+            const basePriceElement = document.getElementById('base-price');
+            const totalPriceElement = document.getElementById('total-price');
+            const quantityInput = document.getElementById('quantity');
+            const increaseQuantityButton = document.getElementById('increase-quantity');
+            const decreaseQuantityButton = document.getElementById('decrease-quantity');
+            const variantSelect = document.getElementById('variant-select');
+
+            function calculateTotalPrice() {
+                const quantity = parseInt(quantityInput.value);
+                const variantPrice = parseInt(variantSelect.value);
+                const totalPrice = (basePrice * quantity) + variantPrice;
+                totalPriceElement.innerText = totalPrice.toFixed(2);
+            }
+
+            increaseQuantityButton.addEventListener('click', function() {
+                let quantity = parseInt(quantityInput.value);
+                quantityInput.value = quantity + 1;
+                calculateTotalPrice();
+            });
+
+            decreaseQuantityButton.addEventListener('click', function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantityInput.value = quantity - 1;
+                    calculateTotalPrice();
+                }
+            });
+
+            variantSelect.addEventListener('change', calculateTotalPrice);
+
+            calculateTotalPrice();
+        });
+
+
     </script>
 @endsection
