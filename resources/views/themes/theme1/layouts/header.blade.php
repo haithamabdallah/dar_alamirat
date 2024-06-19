@@ -1,5 +1,10 @@
 <!-- resources/views/layouts/header.blade.php -->
 <header id="header">
+
+    @if (Session::has('success'))
+    <div class="bg-success text-white p-2" id="flashSuccess" 
+    style="position: fixed; top: 10vh; left: 5vw; width: fit-content; z-index: 9999; opacity: 0.8">{{ Session::get('success') }} <button class="text-white p-1" style="border: white solid 1px" onclick="document.getElementById('flashSuccess').style.display = 'none'">X</button></div>
+    @endif
     <div class="pixel-container">
         <div class="wrap">
             <div class="header d-flex justify-content-between align-items-center">
@@ -62,7 +67,7 @@
                             <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
                                 <p>Cart</p>
-                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span>
+                                {{-- <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span> --}}
                             </span>
                         </a>
                     </li>
@@ -114,7 +119,7 @@
                             <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
                                 <p>Cart</p>
-                                <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span>
+                                {{-- <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span> --}}
                             </span>
                         </a>
                     </li>
