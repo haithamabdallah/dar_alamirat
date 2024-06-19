@@ -15,6 +15,8 @@ class Cart extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = ['user_id' , 'product_id'];
+    protected $with = ['product'];
+
 
     public function user()
     {
@@ -23,6 +25,6 @@ class Cart extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class , 'product_id');
+        return $this->belongsTo(Product::class);
     }
 }

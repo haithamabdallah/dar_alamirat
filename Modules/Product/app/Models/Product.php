@@ -40,7 +40,7 @@ class Product extends Model
 
     public $translatable = ['title', 'description', 'instructions'];
 
-    public $appends = ['product_price'];
+    public $appends = ['price'];
     // public $appends = ['product_price' , 'currency'];
 
     /**
@@ -125,11 +125,11 @@ class Product extends Model
     public function getPriceAttribute()
     {
         // Check if there's a default variant
-        $defaultVariant = $this->variants()->first();
+        $defaultVariant = $this->variants()?->first();
 
         // If default variant exists, return its price
         if ($defaultVariant) {
-            return $defaultVariant->price;
+            return $defaultVariant?->price;
         }
 
         // If no default variant, return null (or handle differently)

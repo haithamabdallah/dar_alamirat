@@ -37,7 +37,7 @@
 
                     <!-- product info -->
                     <div class="product_description">
-                        <p>{{ $product->description }}</p>
+                        <p>{!! $product->description !!}</p>
                     </div>
                     <!-- ./product info -->
 
@@ -155,7 +155,7 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{{ $product->description }}</div>
+                    <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{!! $product->description !!}</div>
                     <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0">use</div>
                     {{-- <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
                     <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
