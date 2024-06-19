@@ -18,8 +18,15 @@
                                         <!-- data -->
                                         <div class="entries">
 
-                                            <a class="removeItem" href="javascript:;" data-bs-dismiss="alert"
-                                                aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
+                                            {{-- <a class="removeItem" href="javascript:;" data-bs-dismiss="alert"
+                                            aria-label="Close"><i class="fa-solid fa-xmark"></i></a> --}}
+
+
+                                            <form action="{{ route('cart.destroy' , $cart->id) }}" method="POST" id="delete-form-{{ $index }}" data-index="{{ $index }}">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                            <button class="removeItem" onclick="event.preventDefault(); removeItemFromCart({{ $index }})"><i class="fa-solid fa-xmark"></i></button>
 
                                                 <div class="d-none" id="product-title-{{ $index }}" data-title="{{ $cart->product->title }}"></div>
                                             <!-- img and title -->
@@ -175,6 +182,7 @@
 
         function updateOrderSummary(index) {
             const variantSelect = document.getElementById('variant-'+index);
+            const selectedProductElement = document.getElementById('selected-product-' + index); // Order summary element
             const selectedVariantElement = document.getElementById('selected-variant-' + index); // Order summary element
             const variantPriceSummaryElement = document.getElementById('variant-price-summary-' + index); // Order summary element
             const quantitySummaryElement = document.getElementById('quantity-summary-' + index); // Order summary element
@@ -186,7 +194,8 @@
             const quantity = parseInt($(`#quantity-${index}`).val());
             const itemTotalPrice = (quantity * variantPrice).toFixed(2);
 
-            selectedVariantElement.innerHTML = `<b>chosen Product:</b> ${selectedVariantText}`;
+            selectedProductElement.innerHTML = `<b>chosen Product:</b> ${$('#product-title-' + index).data('title')}`;
+            selectedVariantElement.innerHTML = `<b>chosen Variant:</b> ${selectedVariantText}`;
             variantPriceSummaryElement.innerHTML = `<b>Product Price:</b> ${variantPrice} {!! $currency !!} ` ;
             quantitySummaryElement.innerHTML = `<b>Quantity:</b> ${quantity}`;
             itemTotalPriceElement.innerHTML = `<b>Item Total:</b> ${itemTotalPrice} {!! $currency !!} ` ;
@@ -230,11 +239,8 @@
             updateVariantPrice(index);
             updateOrderSummary(index);
         })
-    </script>
 
-    <script>
-
-        function removeItemFromCart() {
+        function removeItemFromCart(index) {
             Swal.fire({
                 title: "هل تريد الاستمرار؟",
                 icon: "question",
@@ -242,8 +248,13 @@
                 confirmButtonText: "نعم",
                 cancelButtonText: "لا",
                 showCancelButton: true,
-                showCloseButton: true
+                showCloseButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#delete-form-'+index).submit();
+                }
             });
         }
     </script>
+
 @endsection

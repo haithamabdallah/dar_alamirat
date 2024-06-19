@@ -11,7 +11,12 @@ use Modules\Product\Models\Variant;
 
 class CartController extends Controller
 {
-    //
+    public function cartCount()
+    {
+        $cartCount = Cart::where('user_id', auth()->user()->id)->count();
+        return response()->json($cartCount);
+    }
+    
     public function addToCart($productId)
     {
         $userId = auth()->user()->id;
@@ -58,5 +63,11 @@ class CartController extends Controller
         $prices = Variant::pluck('price','id')->toJson();
 
         return view('themes.theme1.cart-page', compact('carts' , 'prices'));
+    }
+
+    public function destroy(Cart $cart)
+    {
+        $cart->delete();
+        return redirect()->back()->with('success', __('Deleted Successfully.'));
     }
 }

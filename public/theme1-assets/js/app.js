@@ -66,39 +66,39 @@ $(window).on("load", function() {
 
 });
 
-$( document ).ready(function() {
-    $(".tocart .button-title").text($(".tocart").data("title"));
+// $( document ).ready(function() {
+//     $(".tocart .button-title").text($(".tocart").data("title"));
 
-    let itemCount = 0;
+//     let itemCount = 0;
 
-    $( ".tocart" ).on( "click", function() {
-        var hello = $(this);
-        itemCount ++;
-        $('.s-cart-summary-count').html(itemCount);
-        $( hello ).addClass("button--wait");
-        $( hello ).find(".button-title").text("Adding...");
-        $( hello ).find(".button-icon.icon-tocart").hide();
-        $( hello ).find(".button-icon.icon-wait").show();
-        $.jGrowl("Item added to cart successfully!", { theme: 'green' });
+//     $( ".tocart" ).on( "click", function() {
+//         var hello = $(this);
+//         itemCount ++;
+//         $('.s-cart-summary-count').html(itemCount);
+//         $( hello ).addClass("button--wait");
+//         $( hello ).find(".button-title").text("Adding...");
+//         $( hello ).find(".button-icon.icon-tocart").hide();
+//         $( hello ).find(".button-icon.icon-wait").show();
+//         $.jGrowl("Item added to cart successfully!", { theme: 'green' });
 
-        setTimeout(function() {
-            $( hello ).removeClass("button--wait").addClass("button--success");
-            $( hello ).find(".button-title").text("Added!");
-            $( hello ).find(".button-icon.icon-wait").hide();
-            $( hello ).find(".button-icon.icon-success").show();
-            setTimeout(function() {
-                $( hello ).removeClass("button--wait").removeClass("button--success");
-                $( hello ).find(".button-title").text($(".tocart").data("title"));
-                $( hello ).find(".button-icon.icon-success").hide();
-                $( hello ).find(".button-icon.icon-tocart").show();
-            }, 2000);
-        }, 2000);
-
-
-    });
+//         setTimeout(function() {
+//             $( hello ).removeClass("button--wait").addClass("button--success");
+//             $( hello ).find(".button-title").text("Added!");
+//             $( hello ).find(".button-icon.icon-wait").hide();
+//             $( hello ).find(".button-icon.icon-success").show();
+//             setTimeout(function() {
+//                 $( hello ).removeClass("button--wait").removeClass("button--success");
+//                 $( hello ).find(".button-title").text($(".tocart").data("title"));
+//                 $( hello ).find(".button-icon.icon-success").hide();
+//                 $( hello ).find(".button-icon.icon-tocart").show();
+//             }, 2000);
+//         }, 2000);
 
 
-});
+//     });
+
+
+// });
 
 $(document).on("click", ".icon-fav", function() {
     const favIcon = $(this);

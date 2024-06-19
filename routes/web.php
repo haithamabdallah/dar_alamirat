@@ -115,6 +115,8 @@ Route::middleware('auth')->group(function () {
     // Cart
     Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+    Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
+    Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
 });
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');
