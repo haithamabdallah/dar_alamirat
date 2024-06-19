@@ -58,9 +58,9 @@ class CartController extends Controller
         //      return auth()->user()->carts;
         //  });
 
-        $carts     = auth()->user()->carts ;
+        $carts = auth()->user()->carts ;
 
-        $prices = Variant::pluck('price','id')->toJson();
+        $prices = Variant::lazy()->map(function ($variant) { return $variant->only(['priceWithDiscount','id']) ; })->keyBy('id')->toJson();
 
         return view('themes.theme1.cart-page', compact('carts' , 'prices'));
     }

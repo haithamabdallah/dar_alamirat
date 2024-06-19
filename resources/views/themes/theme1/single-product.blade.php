@@ -52,14 +52,22 @@
 
                     <!-- price -->
                     <div class="item-price">
-                        <h4 class="before-dis">
-                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
-                        </h4>
-                        @if($product->variants->first()->price_with_discount)
-                        <h4 class="after-dis">
-                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
-                             <span class="discount">50%</span>
-                        </h4>
+                        @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
+                            <h4 class="before-dis">
+                                <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
+                            </h4>
+                            <h4 class="after-dis">
+                                <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
+                                @if( $product->discount_type == 'flat'  )
+                                <span class="discount">- {{ $product->discount_value }} {{ $currency }}</span>
+                                @elseif($product->discount_type == 'percent')
+                                <span class="discount">- {{ $product->discount_value }}%</span>
+                                @endif
+                            </h4>
+                        @else
+                            <h4 class="after-dis">
+                                <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
+                            </h4>
                         @endif
                     </div>
                     <!-- ./price -->
@@ -73,8 +81,9 @@
                     <div class="variants">
                         <h4>Variants</h4>
                         <select id="variant-select" class="form-control">
-                            <option value="10" selected>Variant 1 ($10 extra)</option>
-                            <option value="20">Variant 2 ($20 extra)</option>
+                            @foreach ($product->variants as $variant)
+                                <option value="{{$variant->id}}"> {{ $variant->variantName }} </option>
+                            @endforeach
                         </select>
                     </div>
 

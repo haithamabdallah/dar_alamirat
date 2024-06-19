@@ -37,7 +37,7 @@
                                                 </a>
 
                                                 <h2>
-                                                    <a href="#">{{ $cart->product->title }}</a>
+                                                    <a href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
                                                     <div class="variant-price">Variant Price: <span
                                                             id="variant-price-{{ $index }}">{{ $cart->product->price }}</span> {{ $currency }}
                                                     </div>
@@ -164,7 +164,7 @@
 
         function getPricePerUnit(index) {
             let variantId = $(`#variant-${index}`).val();
-            return prices[variantId];
+            return prices[variantId]['priceWithDiscount'];
         }
 
         function updateTotalPrice(index) {

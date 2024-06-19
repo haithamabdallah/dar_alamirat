@@ -40,9 +40,51 @@ class Product extends Model
 
     public $translatable = ['title', 'description', 'instructions'];
 
-    public $appends = ['price'];
+    public $appends = ['price' , 'variant_prices' ];
     // public $appends = ['product_price' , 'currency'];
 
+
+    # accessors
+
+    public function getPriceAttribute()
+    {
+        // Check if there's a default variant
+        $defaultVariant = $this->variants()?->first();
+
+        // If default variant exists, return its price
+        if ($defaultVariant) {
+            return $defaultVariant?->priceWithDiscount;
+        }
+
+        // If no default variant, return null (or handle differently)
+        return null;
+    }
+    public function getThumbnailAttribute()
+    {
+        if (isset($this->attributes['thumbnail']) && Storage::disk('public')->exists($this->attributes['thumbnail'])){
+            return storage_asset($this->attributes['thumbnail']);
+        }else{
+            return asset('assets/images/image.png');
+        }
+    }
+    public function getVariantPricesAttribute()
+    {
+        return $this->variants->map(function ($variant) {
+            return $variant->only(['price_with_discount','id']);
+        })->keyBy('id')->toJson();
+    }
+
+
+    /**
+     * Get the media for the product.
+     */
+    public function media()
+    {
+        return $this->hasMany(ProductMedia::class);
+    }
+
+    # Relations
+    
     /**
      * Get the category associated with the product.
      */
@@ -67,15 +109,6 @@ class Product extends Model
         return $this->hasMany(Variant::class);
     }
 
-
-    /**
-     * Get the media for the product.
-     */
-    public function media()
-    {
-        return $this->hasMany(ProductMedia::class);
-    }
-
     public function inventory()
     {
         return $this->hasManyThrough(Inventory::class, Variant::class);
@@ -96,15 +129,8 @@ class Product extends Model
         return $this->belongsToMany(Cart::class);
     }
 
-    public function getThumbnailAttribute()
-    {
-        if (isset($this->attributes['thumbnail']) && Storage::disk('public')->exists($this->attributes['thumbnail'])){
-            return storage_asset($this->attributes['thumbnail']);
-        }else{
-            return asset('assets/images/image.png');
-        }
-    }
 
+    #scopes
 
     public function scopeActive($query)
     {
@@ -121,18 +147,4 @@ class Product extends Model
     // {
     //     return     Setting::where('type' , 'general')->first()->value['currency'];
     // }
-
-    public function getPriceAttribute()
-    {
-        // Check if there's a default variant
-        $defaultVariant = $this->variants()?->first();
-
-        // If default variant exists, return its price
-        if ($defaultVariant) {
-            return $defaultVariant?->price;
-        }
-
-        // If no default variant, return null (or handle differently)
-        return null;
-    }
 }
