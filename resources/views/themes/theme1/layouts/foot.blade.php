@@ -160,16 +160,14 @@
         const url = button.getAttribute('data-cart-url');
 
         // Set up the Axios request headers, including the CSRF token
-        const config = 
+        const data = 
         { 
-            variantId = button.getAttribute('data-variant-id') ?? null
-            ,{
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            } 
-        }};
+            variantId : $('#variant-select').val() ?? null
+            , quantity : $('#quantity').val() ?? 1
+            , _token : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        };
 
-        axios.post(url, config)
+        axios.post(url, data)
             .then(function (response) {
                 const icon = response.data.status === 'danger' ? 'warning' : 'success';
                 console.log(response)
@@ -196,3 +194,5 @@
 
 
 @yield('scripts')
+
+@stack('scripts')

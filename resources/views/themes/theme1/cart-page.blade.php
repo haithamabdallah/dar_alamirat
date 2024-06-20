@@ -48,7 +48,7 @@
                                             <!-- quantity -->
                                             <div class="quantity-control">
                                                 <button id="decrement-{{ $index }}">-</button>
-                                                <input type="number" id="quantity-{{ $index }}" value="1"
+                                                <input type="number" id="quantity-{{ $index }}" value="{!! intval(session()->get($cart->id.'-quantity')) ?? 1 !!}"
                                                     min="1">
                                                 <button id="increment-{{ $index }}">+</button>
                                             </div>
@@ -67,7 +67,10 @@
                                             <label class="title" for="Variant">Choose Product</label>
                                             <select id="variant-{{ $index }}">
                                                 @foreach ($cart->product->variants as $variant)
-                                                    <option value="{{ $variant->id }}" >{{ $variant->variant_name  }}
+                                                    <option value="{{ $variant->id }}" 
+                                                            {{  ( session()->has($cart->id.'-variantId') && session()->get($cart->id.'-variantId')  == $variant->id ) 
+                                                            ?  'selected' : 'null' }}
+                                                    >{{ $variant->variant_name  }}
                                                     </option>
                                                 @endforeach
                                             </select>

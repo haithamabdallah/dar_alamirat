@@ -38,6 +38,11 @@ class CartController extends Controller
             'user_id' => $userId,
         ]);
 
+        if ( $cart ){ 
+            request()->has('variantId') ? session()->put($cart->id . '-variantId' , request('variantId')) : null ;
+            request()->has('quantity') ? session()->put($cart->id .'-quantity' , request('quantity')) : null ;
+        }
+
         if ($cart){
             return response()->json([
                 'message' => 'Product added to cart successfully',

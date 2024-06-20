@@ -3,8 +3,10 @@
 @section('customcss')
     <link rel="stylesheet" href="{{asset('theme1-assets/css/magnific-popup.css')}}">
     <style>
-        .price {
-            font-size: 24px;
+        .price , #base-price , #total-price {
+            font-size: 24px !important;
+        }
+        .price  {
             color: green;
         }
     </style>
@@ -93,11 +95,11 @@
                     <!-- ./vat -->
 
                     <!-- item -->
-                    <div class="price">Price: $<span id="base-price">100</span></div>
+                    <div class="price">Price: <span id="base-price"> {{ $product->variants->first()->price_with_discount }}</span> {{ $currency }} </div>
 
 
                     <div>
-                        <h3>Total Price: $<span id="total-price">110</span></h3>
+                        <h3>Total Price: <span id="total-price"> {{ $product->variants->first()->price_with_discount }} </span> {{ $currency }} </h3>
                     </div>
                     <!-- ./item -->
 
@@ -105,6 +107,11 @@
                     <div class="alert alert-danger" role="alert">This item cannot be returned or replaced</div>
                     <!-- ./alert -->
                         <!-- button cart -->
+                        <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this)">
+                            <span class="button-title">Add to Cart</span>
+                            <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
+                        </button>
+                        {{-- 
                         <button class="tocart add-to-cart button--submit" data-title="Add to Cart" onclick="addToCart(this)" data-cart-url="{{route('cart.add', $product->id)}}">
                             <span class="button-title"></span>
                             <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
@@ -124,6 +131,7 @@
                             </span>
 
                         </button>
+                        --}}
                         <!-- ./button cart -->
 
                     </main>
@@ -220,75 +228,7 @@
     <!-- ./Product Page -->
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('theme1-assets/js/jquery.magnific-popup.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('.zoom-gallery').magnificPopup({
-                delegate: 'a',
-                type: 'image',
-                closeOnContentClick: false,
-                closeBtnInside: false,
-                tLoading: 'Loading image #%curr%...',
-                mainClass: 'mfp-with-zoom mfp-img-mobil',
-                gallery: {
-                    enabled: true,
-                    navigateByImgClick: true,
-                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-                },
-                image: {
-                    tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-                    titleSrc: function(item) {
-                        return item.el.attr('title') + '<small>by Dar Alamirat</small>';
-                    }
-                },
-                zoom: {
-                    enabled: true,
-                    duration: 300, // don't foget to change the duration also in CSS
-                    opener: function(element) {
-                        return element.find('img');
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
+@push('scripts')
+    @include('themes.theme1.single-product-scripts')
+@endpush
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const basePrice = 100;
-            const basePriceElement = document.getElementById('base-price');
-            const totalPriceElement = document.getElementById('total-price');
-            const quantityInput = document.getElementById('quantity');
-            const increaseQuantityButton = document.getElementById('increase-quantity');
-            const decreaseQuantityButton = document.getElementById('decrease-quantity');
-            const variantSelect = document.getElementById('variant-select');
-
-            function calculateTotalPrice() {
-                const quantity = parseInt(quantityInput.value);
-                const variantPrice = parseInt(variantSelect.value);
-                const totalPrice = (basePrice * quantity) + variantPrice;
-                totalPriceElement.innerText = totalPrice.toFixed(2);
-            }
-
-            increaseQuantityButton.addEventListener('click', function() {
-                let quantity = parseInt(quantityInput.value);
-                quantityInput.value = quantity + 1;
-                calculateTotalPrice();
-            });
-
-            decreaseQuantityButton.addEventListener('click', function() {
-                let quantity = parseInt(quantityInput.value);
-                if (quantity > 1) {
-                    quantityInput.value = quantity - 1;
-                    calculateTotalPrice();
-                }
-            });
-
-            variantSelect.addEventListener('change', calculateTotalPrice);
-
-            calculateTotalPrice();
-        });
-
-
-    </script>
-@endsection
