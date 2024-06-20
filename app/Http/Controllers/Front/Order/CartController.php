@@ -38,6 +38,11 @@ class CartController extends Controller
             'user_id' => $userId,
         ]);
 
+        if ( $cart ){ 
+            request()->has('variantId') ? session()->put($cart->id . '-variantId' , request('variantId')) : null ;
+            request()->has('quantity') ? session()->put($cart->id .'-quantity' , request('quantity')) : null ;
+        }
+
         if ($cart){
             return response()->json([
                 'message' => 'Product added to cart successfully',
@@ -58,9 +63,9 @@ class CartController extends Controller
         //      return auth()->user()->carts;
         //  });
 
-        $carts     = auth()->user()->carts ;
+        $carts = auth()->user()->carts ;
 
-        $prices = Variant::pluck('price','id')->toJson();
+        $prices = Variant::lazy()->map(function ($variant) { return $variant->only(['priceWithDiscount','id']) ; })->keyBy('id')->toJson();
 
         return view('themes.theme1.cart-page', compact('carts' , 'prices'));
     }

@@ -12,7 +12,7 @@ class UpdateBannerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'priority' => 'required',
+            'priority' => 'nullable',
             'image' => 'sometimes',
         ];
     }

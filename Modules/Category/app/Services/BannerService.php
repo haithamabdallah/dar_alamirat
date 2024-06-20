@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Brand\Models\Brand;
+use Illuminate\Support\Facades\DB;
 use Modules\Category\Models\Banner;
 use Modules\Category\Models\Category;
 
@@ -43,9 +44,18 @@ class BannerService {
         if ( $data['type'] == 'brand' ) {
             $bannerable = Brand::find($data['bannerableId']);
         }
+        try {
+        DB::beginTransaction();
 
         $banner = $bannerable->banner()->create($data->only(['priority' , 'image'])->toArray());
 
+        $banner->priority()->create([]);
+
+        DB::commit();
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+        }
 
         return  $banner;
     }

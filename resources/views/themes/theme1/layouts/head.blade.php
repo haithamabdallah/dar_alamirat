@@ -27,5 +27,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- custom style -->
 
+    @stack('head')
+
     @yield('customcss')
 </head>

@@ -4,6 +4,7 @@ namespace Modules\Category\app\Services;
 
 use App\Models\User;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Modules\Category\Models\Category;
 
@@ -29,8 +30,19 @@ class CategoryService {
     {
         $data['slug'] = isset($data['name']) ? Str::slug($data['name']['en']) : '';
 
-        $category = Category::create($data);
+        try {
 
+            DB::beginTransaction();
+            $category = Category::create($data);
+
+            $category->priority()->create([]);
+            
+            DB::commit();
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+        }
+        
         return  $category;
     }
 

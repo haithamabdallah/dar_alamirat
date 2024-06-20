@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\IndexPriority;
 use App\Services\CarService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -38,12 +39,11 @@ class HomeController extends Controller
 //            return Brand::active()->limit(12)->inRandomOrder()->get();
 //        });
 
-
-        $categories = Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
+        $priorityables = IndexPriority::where('status' , 1)->orderBy('priority' , 'ASC')->get();
 
         $brands = Brand::active()->limit(12)->inRandomOrder()->get();
 
-        return view('themes.theme1.index' , get_defined_vars());
+        return view('themes.theme1.index' , compact('brands' , 'priorityables'));
     }
 
 

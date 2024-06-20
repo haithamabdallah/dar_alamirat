@@ -13,7 +13,7 @@ class StoreBannerRequest extends FormRequest
     {
         $rules = [
             'type' => 'required|in:category,brand',
-            'priority' => 'required|numeric|min:0|max:9999999999',
+            'priority' => 'nullable|numeric|min:0|max:9999999999',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240',
         ];
         if ($this->type == 'category') {

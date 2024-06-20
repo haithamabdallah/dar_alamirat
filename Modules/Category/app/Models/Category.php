@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Models;
 
+use App\Models\IndexPriority;
 use Modules\Product\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -33,6 +34,11 @@ class Category extends Model
     // }
 
     # relations 
+
+    public function priority() : MorphOne
+    {
+        return $this->morphOne(IndexPriority::class, 'priorityable');
+    }
 
     public function parent()
     {

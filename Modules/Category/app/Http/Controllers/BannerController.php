@@ -75,7 +75,9 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        return view('dashboard.categories.banner_form' , new BannerViewModel($banner));
+        $brands = $this->brandService->getAllBrandsForSelectElement();
+        $categories = $this->categoryService->getAllCategoriesForSelectElement();
+        return view('dashboard.categories.banner_form' , new BannerViewModel($banner , $categories ,  $brands ));
     }
 
     /**

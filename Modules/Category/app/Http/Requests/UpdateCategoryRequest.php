@@ -14,7 +14,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name.*'    =>'required',
             'icon'      => 'sometimes',
-            'priority'  => 'sometimes',
+            'priority'  => 'nullable',
         ];
     }
 
