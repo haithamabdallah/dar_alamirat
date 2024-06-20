@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\IndexPriorityController;
 use Illuminate\Support\Facades\Route;
 use Modules\Category\Http\Controllers\CategoryController;
 use Modules\Category\Http\Controllers\BannerController;
@@ -20,4 +21,7 @@ Route::group(['middleware' => 'admin' , 'prefix'=>'dashboard'], function () {
     Route::post('category/status/{category}', [CategoryController::class , 'changeStatus'])->name('category.status');
     Route::resource('banners', BannerController::class )->names('banner');
     Route::post('banner/status/{banner}', [BannerController::class , 'changeStatus'])->name('banner.status');
+
+    Route::get('index-priority', [IndexPriorityController::class , 'index'])->name('index.priority');
+    Route::match(['put','patch'],'/index-priority/{id}/update', [IndexPriorityController::class , 'update'])->name('index.priority.update');
 });

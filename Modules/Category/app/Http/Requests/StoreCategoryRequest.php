@@ -14,7 +14,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name.*' => 'required',
             'icon' => 'sometimes',
-            'priority' => 'required',
+            'priority' => 'nullable',
             'parent_id' => 'exists:categories,id',
         ];
     }

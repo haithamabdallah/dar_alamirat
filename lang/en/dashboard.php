@@ -51,6 +51,7 @@ return [
         'delete' => 'Delete Admin',
     ],
     'categories' => 'Categories',
+    'index-priority' => 'Index Priority',
     'category' => [
         'name' => 'Name',
         'image' => 'Image',

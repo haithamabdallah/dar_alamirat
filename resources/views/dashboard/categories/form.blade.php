@@ -189,7 +189,7 @@
                                 </div>
                             @endforeach
 
-                            <div class="row mb-15px">
+                            {{-- <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">priority :</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="priority" id="" required>
@@ -204,7 +204,7 @@
                                             </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row mb-15px" >
                                 <label class="form-label col-form-label col-md-3">Category image :</label>

@@ -8,17 +8,39 @@
         </div>
     @endif
 
-
-
     <!-- categories & Banners -->
-    @foreach ($categories as $category)
-        @if ($category->type === 'default')
+    @foreach ($priorityables as $priorityable)
+        @if ($priorityable->type === 'Banner')
+        @php $banner = $priorityable->priorityable; @endphp
+            <!-- full banner -->
+            <section class="banner-block">
+                <!-- container -->
+                
+                <div class=" {{ $loop->index == 0 ? '' : 'pixel-container'}}">
+                    <!-- row -->
+                    <div class="wrap">
+                        <a href="{{ $banner->type == 'Category' 
+                        ? route('category.products', $banner->bannerable_id) 
+                        :  route('brand',  $banner->bannerable_id)
+                        }}" class="" aria-label="Banner">
+                            <img class="w-full object-cover" src="{{ storage_asset($banner->image) }}"
+                                alt="baaner image">
+                        </a>
+                    </div>
+                    <!-- ./row -->
+                </div>
+                <!-- ./container -->
+            </section>
+            <!-- ./full banner -->
+        @endif
+
+        @if ($priorityable->type === 'Category')
+            @php $category = $priorityable->priorityable; @endphp
             <section class="s-block">
                 <div class="pixel-container">
                     <div class="wrap">
                         <!-- swiper #01 -->
                         <div class="section-categories">
-
                             <div class="swiper category">
                                 <div class="section-head">
                                     <div class="s-block-title">
@@ -26,7 +48,8 @@
                                     </div>
 
                                     <div class="category-nav">
-                                        <a href="{{ route('category.products', $category->id) }}" class="btn-all">View All</a>
+                                        <a href="{{ route('category.products', $category->id) }}" class="btn-all">View
+                                            All</a>
                                         <div class="navigation">
                                             <button class="cat-prev">
                                                 <i class="fa-solid fa-chevron-left"></i>
@@ -53,25 +76,6 @@
                     </div>
                 </div>
             </section>
-        @else
-            @if ( isset($category->banner) )
-                <!-- full banner -->
-                <section class="banner-block">
-                    <!-- container -->
-                    <div class="pixel-container">
-                        <!-- row -->
-                        <div class="wrap">
-                            <a href="#" class="" aria-label="Banner">
-                                <img class="w-full object-cover" src="{{ storage_asset($image->image) }}"
-                                     alt="baaner image">
-                            </a>
-                        </div>
-                        <!-- ./row -->
-                    </div>
-                    <!-- ./container -->
-                </section>
-                <!-- ./full banner -->
-            @endif
         @endif
     @endforeach
     <!-- ./categories & Banners -->
@@ -83,7 +87,7 @@
                 <div class="section-brands">
                     <div class="s-block-title">
                         <h2>Browse All Brands</h2>
-                        <a href="{{route('brands.index')}}" class="">View All</a>
+                        <a href="{{ route('brands.index') }}" class="">View All</a>
                     </div>
                     <div class="s-brands-list">
                         @foreach ($brands as $brand)
@@ -143,7 +147,7 @@
 
 @section('scripts')
     <script>
-        document.querySelectorAll(".category").forEach(function (s) {
+        document.querySelectorAll(".category").forEach(function(s) {
             let next = s.querySelector(".cat-next");
             let prev = s.querySelector(".cat-prev");
 

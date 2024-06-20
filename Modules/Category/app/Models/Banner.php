@@ -2,8 +2,10 @@
 
 namespace Modules\Category\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\IndexPriority;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Banner extends Model
@@ -41,6 +43,11 @@ class Banner extends Model
     public function bannerable()
     {
         return $this->morphTo();
+    }
+
+    public function priority() : MorphOne
+    {
+        return $this->morphOne(IndexPriority::class, 'priorityable');
     }
 
 }

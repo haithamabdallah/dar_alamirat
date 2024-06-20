@@ -65,7 +65,7 @@
                                 <th class="text-nowrap" width="20%">Name</th>
                                 <th class="text-nowrap" width="20%">Slug</th>
                                 <th class="text-nowrap" width="5%">icon</th>
-                                <th class="text-nowrap" width="5%">Priority</th>
+                                {{-- <th class="text-nowrap" width="5%">Priority</th> --}}
                                 <th class="text-nowrap" width="5%">status</th>
                                 <th class="text-nowrap" width="10%">created At</th>
                                 <th class="text-nowrap" width="5%">Edit</th>
@@ -82,7 +82,7 @@
                                     <td width="1%" class="with-img">
                                         <img src="{{$category->icon}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>
-                                    <td>{{$category->priority}}</td>
+                                    {{-- <td>{{$category->priority}}</td> --}}
                                     {{-- <td>{{$category->status}}</td> --}}
                                     <td>
                                         <input type="checkbox" class="switch-status" data-url="{{ route('category.status' , $category->id) }}" @if($category->status) checked @endif/>
