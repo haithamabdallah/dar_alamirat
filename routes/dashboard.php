@@ -11,7 +11,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/logout', [AuthController::class , 'logout' ])->name('logout');
 });
 
-Route::group(['as' => 'auth.'], function () {
+Route::group(['as' => 'auth.' , 'middleware' => 'guest:admin'], function () {
     Route::get('/login', [AuthController::class , 'showLoginForm' ])->name('login');
     Route::post('/login', [AuthController::class , 'login' ])->name('postLogin');
     Route::get('/register', [AuthController::class , 'register' ])->name('register');

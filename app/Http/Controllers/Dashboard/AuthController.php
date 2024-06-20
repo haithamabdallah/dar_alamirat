@@ -34,7 +34,7 @@ class AuthController extends Controller
 
     public function register()
     {
-        return view('admin-views.auth.login');
+        return view('dashboard.auth.login');
     }
 
     public function logout()
