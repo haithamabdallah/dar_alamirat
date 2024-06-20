@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Dashboard\SettingsController;
-use App\Http\Controllers\Front\AuthController;
-use App\Http\Controllers\Front\BrandController;
-use App\Http\Controllers\Front\FavoriteController;
-use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\Front\Order\CartController;
-use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\Profile\ProfileController;
-use App\Http\Controllers\Front\SubscriberController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Front\AuthController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\BrandController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\FavoriteController;
+use Modules\Order\Http\Controllers\OrderController;
+use App\Http\Controllers\Front\Order\CartController;
+use App\Http\Controllers\Front\SubscriberController;
+use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Front\Profile\ProfileController;
 
 /************************************ clients ****************************/
 
@@ -87,13 +88,6 @@ Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('sendOtp');
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOtp');
 Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOtp');
 
-
-Route::prefix('settings')->group(function () {
-    Route::post('site-info-store', [SettingsController::class, 'siteInfo'])->name('site');
-    Route::post('social-store', [SettingsController::class, 'saveSocialMedia'])->name('social');
-    Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
-    Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
-});
 Route::prefix('brands')->group(function () {
     Route::get('allBrands',[BrandController::class,'index'])->name('brands.index');
     Route::get('brands/{brand}',[BrandController::class,'showBrand'])->name('brand');
@@ -110,13 +104,24 @@ Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('sub
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::prefix('settings')->group(function () {
+        Route::post('site-info-store', [SettingsController::class, 'siteInfo'])->name('site');
+        Route::post('social-store', [SettingsController::class, 'saveSocialMedia'])->name('social');
+        Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
+        Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
+    });
+
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
     Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');
     // Cart
     Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
-    Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
+    // Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+
 });
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');

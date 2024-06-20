@@ -26,6 +26,10 @@ class OrderController extends Controller
     }
 
 
+    public function checkout()
+    {
+        return view('themes.theme1.checkout');
+    }
     /**
      * Display a listing of the resource.
      */

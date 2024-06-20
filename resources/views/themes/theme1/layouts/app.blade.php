@@ -6,7 +6,6 @@
     <html dir="rtl" lang="ar">
 @endif
 
-<head>
 
     @section('meta')
         <meta charset="UTF-8">
@@ -16,7 +15,8 @@
     @endsection
 
     @include('themes.theme1.layouts.head')
-</head>
+
+    
 <body>
 @include('themes.theme1.layouts.note')
 
