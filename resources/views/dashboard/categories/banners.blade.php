@@ -63,10 +63,10 @@
                                 <th width="1%"></th>
                                 <th class="text-nowrap" width="5%">Type</th>
                                 <th class="text-nowrap" width="5%">Name</th>
-                                <th class="text-nowrap" width="5%">Priority</th>
+                                {{-- <th class="text-nowrap" width="5%">Priority</th> --}}
                                 <th class="text-nowrap" width="5%">Image</th>
-                                <th class="text-nowrap" width="5%">status</th>
-                                <th class="text-nowrap" width="5%">Edit</th>
+                                {{-- <th class="text-nowrap" width="5%">status</th> --}}
+                                {{-- <th class="text-nowrap" width="5%">Edit</th> --}}
                                 <th class="text-nowrap" width="5%">Delete</th>
                             </tr>
                             </thead>
@@ -77,18 +77,20 @@
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
                                     <td>{{$banner->type}}</td>
                                     <td>{{$banner->bannerable->name}}</td>
-                                    <td>{{$banner->priority}}</td>
+                                    {{-- <td>{{$banner->priority}}</td> --}}
                                     <td width="1%" class="with-img">
-                                        <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
+                                        <a href="{{storage_asset($banner->image)}}" class="" target="_blank">
+                                            <img src="{{storage_asset($banner->image)}}" class="rounded h-30px my-n1 mx-n1" />
+                                        </a>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <input type="checkbox" class="switch-status" data-url="{{ route('banner.status' , $banner->id) }}" @if($banner->status) checked @endif/>
-                                    </td>
-                                    <td nowrap="">
+                                    </td> --}}
+                                    {{-- <td nowrap="">
                                         @adminCan('categories.edit')
                                         <a href="{{route('banner.edit' , $banner->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.banner.edit')}}</a>
                                         @endadminCan
-                                    </td>
+                                    </td> --}}
                                     <td nowrap="">
                                         @adminCan('categories.delete')
                                         <form id="deleteForm{{$banner->id}}" action="{{ route('banner.destroy', $banner->id) }}" method="POST">

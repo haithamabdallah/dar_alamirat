@@ -75,9 +75,9 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        $brands = $this->brandService->getAllBrandsForSelectElement();
-        $categories = $this->categoryService->getAllCategoriesForSelectElement();
-        return view('dashboard.categories.banner_form' , new BannerViewModel($banner , $categories ,  $brands ));
+        // $brands = $this->brandService->getAllBrandsForSelectElement();
+        // $categories = $this->categoryService->getAllCategoriesForSelectElement();
+        // return view('dashboard.categories.banner_form' , new BannerViewModel($banner , $categories ,  $brands ));
     }
 
     /**
@@ -85,27 +85,27 @@ class BannerController extends Controller
      */
     public function update(UpdateBannerRequest $request, Banner $banner)
     {
-        $validatedData = $request->validated();
+        // $validatedData = $request->validated();
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if ($banner->image && Storage::disk('public')->exists($banner->image)) {
-                Storage::disk('public')->delete($banner->image);
-            }
+        // if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        //     if ($banner->image && Storage::disk('public')->exists($banner->image)) {
+        //         Storage::disk('public')->delete($banner->image);
+        //     }
 
-            $path = $request->file('image')->store("banners/{$banner->id}", 'public');
-            $validatedData['image'] = $path;
-        }
+        //     $path = $request->file('image')->store("banners/{$banner->id}", 'public');
+        //     $validatedData['image'] = $path;
+        // }
 
-        $banner =$this->bannerService->updateData($validatedData , $banner);
+        // $banner =$this->bannerService->updateData($validatedData , $banner);
 
-        if ($banner){
-            Session()->flash('success', 'Banner Updated Successfully');
-        }else{
-            Session()->flash('error', 'Banner didn\'t Created');
+        // if ($banner){
+        //     Session()->flash('success', 'Banner Updated Successfully');
+        // }else{
+        //     Session()->flash('error', 'Banner didn\'t Created');
 
-        }
+        // }
 
-        return redirect()->route('banner.index');
+        // return redirect()->route('banner.index');
     }
 
     /**
