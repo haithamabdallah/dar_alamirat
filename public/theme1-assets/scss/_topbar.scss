@@ -127,6 +127,9 @@
                     width: 110px;
                 }
             }
+            .topnav-link-item {
+                display: none;
+            }
         }
       .right {
         display: none;
@@ -151,7 +154,9 @@
             }
             .left {
                 justify-content: space-between;
-
+                .topnav-link-item {
+                    display: block;
+                }
             }
         }
     }

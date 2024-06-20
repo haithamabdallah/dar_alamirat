@@ -156,6 +156,17 @@
             <!-- ./item -->
 
             <!-- item -->
+            <div class="menu-item {{ activeLink('coupons') }}">
+                <a href="coupons" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+                    <div class="menu-text">Coupons</div>
+                </a>
+            </div>
+            <!-- ./item -->
+
+            <!-- item -->
             <div class="menu-item">
                 <a href="{{ route('client.index') }}" class="menu-link">
                     <div class="menu-icon">
