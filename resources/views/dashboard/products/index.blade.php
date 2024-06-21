@@ -48,8 +48,10 @@
                                     <th class="pt-0 pb-2" width="1%"></th>
                                     <th class="pt-0 pb-2" width="1%">Image</th>
                                     <th class="pt-0 pb-2" width="20%">Title</th>
-                                    <th class="pt-0 pb-2" width="20%">Choice</th>
-                                    <th class="pt-0 pb-2" width="20%">Price</th>
+                                    {{-- <th class="pt-0 pb-2" width="20%">Choice</th> --}}
+                                    <th class="pt-0 pb-2" width="20%">variants  ( index ----- name ----- price ----- sku  ) </th>
+                                    {{-- <th class="pt-0 pb-2" width="20%">Price</th>
+                                    <th class="pt-0 pb-2" width="20%">SKU</th> --}}
                                     <th class="pt-0 pb-2" width="15%">Quantity</th>
                                     <th class="pt-0 pb-2" width="10%">category</th>
                                     <th class="pt-0 pb-2" width="10">brand</th>
@@ -76,19 +78,33 @@
                                     <td>
                                         <a href="{{route('product.show' , $product->id)}}" class="text-dark text-decoration-none">{{$product->title}}</a>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <input type="checkbox" class="switch-status" data-url="{{ route('product.toggleChoice' , $product->id) }}" @if($product->choice) checked @endif/>
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <ul>
-                                        @foreach($product->variants as $variant)
-                                            <li>{{$variant->variant_name}} - {{$variant->price_with_discount}}</li>
+                                        @foreach($product->variants as $index => $variant)
+                                            <li>{{$index  + 1  }} ----- {{$variant->variant_name}} ----- {{$variant->price_with_discount}} ----- {{$variant->sku}} </li>
                                         @endforeach
                                         </ul>
                                     </td>
+                                    {{-- <td>
+                                        <ul>
+                                        @foreach($product->variants as   $index  => $variant)
+                                            <li>{{$index  + 1  }} - {{$variant->price_with_discount}}</li>
+                                        @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                        @foreach($product->variants as $index => $variant)
+                                            <li>{{$index  + 1  }} - {{$variant->sku}}</li>
+                                        @endforeach
+                                        </ul>
+                                    </td> --}}
                                     <td class="align-middle">{{$product->inventory->sum('quantity')}} in stock for {{$product->variants->count()}} variants</td>
-                                    <td class="align-middle">category</td>
-                                    <td class="align-middle">brand</td>
+                                    <td class="align-middle">{{$product->category->name}}</td>
+                                    <td class="align-middle">{{$product->brand->name}}</td>
                                     <td nowrap="">
                                         @adminCan('categories.edit')
                                         <a href="{{route('product.edit' , $product->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.product.edit')}}</a>

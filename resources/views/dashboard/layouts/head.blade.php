@@ -1,9 +1,16 @@
+@php
+    $settings = $settings->keyBy('type');
+@endphp
+
 <head>
     @yield('meta')
     <!-- ================== BEGIN core-css ================== -->
     <link href="{{ asset('admin-panel/assets/css/vendor.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin-panel/assets/css/default/app.min.css') }}" rel="stylesheet" />
     <!-- ================== END core-css ================== -->
+
+    <link rel="icon" type="image/png" href="{{ storage_asset($settings['general']->value['icon_path']) }}">
+
 
     <!-- ================== BEGIN page-css ================== -->
     <link href="{{asset('admin-panel/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />

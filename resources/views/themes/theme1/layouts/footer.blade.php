@@ -9,23 +9,22 @@
                 <!-- item -->
                 <div class="f-item">
                     @foreach ($settings->where('type', 'general') as $setting)
-    <div class="logo">
-        @if (isset($setting->value['logo_path']))
-            @php
-                $logoPath = $setting->value['logo_path'];
-                $logoUrl = Storage::url($logoPath);
-            @endphp
-            <img src="{{ $logoUrl }}" alt="Logo">
-        @endif
-    </div>
+                        <div class="logo">
+                            @if (isset($setting->value['logo_path']))
+                                @php
+                                    $logoPath = $setting->value['logo_path'];
+                                    $logoUrl = Storage::url($logoPath);
+                                @endphp
+                                <img src="{{ $logoUrl }}" alt="Logo">
+                            @endif
+                        </div>
 
-    <p>
-        @if (isset($setting->value['website_address']))
-            {{ $setting->value['website_address'] }}
-        @endif
-    </p>
-@endforeach
-
+                        <p>
+                            @if (isset($setting->value['website_address']))
+                                {{ $setting->value['website_address'] }}
+                            @endif
+                        </p>
+                    @endforeach
 
                     <ul class="social-accounts">
                         @foreach ($settings->where('type', 'social_media') as $setting)
@@ -34,11 +33,11 @@
                                     'facebook' => 'sicon-facebook',
                                     'snapchat' => 'sicon-snapchat',
                                     'instagram' => 'sicon-instagram',
-                                    'snapchat'=>'sicon-snapchat',
-                                    'tiktok'=>'sicon-tiktok',
+                                    'snapchat' => 'sicon-snapchat',
+                                    'tiktok' => 'sicon-tiktok',
                                     'whatsapp' => 'sicon-whatsapp',
-                                    'youtube'=>'sicon-youtube',
-                                    'twitter'=>'sicon-twitter',
+                                    'youtube' => 'sicon-youtube',
+                                    'twitter' => 'sicon-twitter',
                                 ];
                             @endphp
                             @foreach ($setting->value as $platform => $url)
@@ -129,31 +128,31 @@
                     <h3>Contact us</h3>
                     <ul class="social-icons">
                         @foreach ($settings->where('type', 'general') as $setting)
-                        @if (isset($setting->value['whats_app']))
+                            @if (isset($setting->value['whats_app']))
+                                <li>
+                                    <a href="">
+                                        <i class="sicon-whatsapp2"></i>
+                                        <span>{{ $setting->value['whats_app'] }}</span>
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if (isset($setting->value['tel']))
+                                <li>
+                                    <a href="">
+                                        <i class="sicon-iphone"></i>
+                                        <span>{{ $setting->value['tel'] }}</span>
+                                    </a>
+                                </li>
+                            @endif
+
                             <li>
-                                <a href="">
-                                    <i class="sicon-whatsapp2"></i>
-                                    <span>{{ $setting->value['whats_app'] }}</span>
+                                <a href="tel:+966920014688">
+                                    <i class="sicon-phone"></i>
+                                    <span>+966920014688</span>
                                 </a>
                             </li>
-                        @endif
-
-                        @if (isset($setting->value['tel']))
-                            <li>
-                                <a href="">
-                                    <i class="sicon-iphone"></i>
-                                    <span>{{ $setting->value['tel'] }}</span>
-                                </a>
-                            </li>
-                        @endif
-
-                        <li>
-                            <a href="tel:+966920014688">
-                                <i class="sicon-phone"></i>
-                                <span>+966920014688</span>
-                            </a>
-                        </li>
-                    @endforeach
+                        @endforeach
 
                     </ul>
                 </div>

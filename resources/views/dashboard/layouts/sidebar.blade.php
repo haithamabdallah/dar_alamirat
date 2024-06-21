@@ -57,7 +57,7 @@
             </div>
             <!-- ./item -->
 
-            <!-- item -->
+            <!-- shipping item -->
             <div class="menu-item has-sub {{ activeLink('roles') }} {{ activeLink('admin') }}">
                 <a href="javascript:;" class="menu-link">
                     <div class="menu-icon">
@@ -80,6 +80,35 @@
                 </div>
             </div>
             <!-- ./item -->
+
+            {{-- <!-- item -->
+            <div class="menu-item has-sub {{ activeLink('shipping') }}">
+                <a href="javascript:;" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="menu-text">{{ __('dashboard.shippings') }}</div>
+                    <div class="menu-caret"></div>
+                </a>
+                <div class="menu-submenu">
+                    <div class="menu-item {{ activeLink('shipping/countries') }}">
+                        <a href="" class="menu-link">
+                            <div class="menu-text">{{ __('dashboard.shipping.countries') }}</div>
+                        </a>
+                    </div>
+                    <div class="menu-item {{ activeLink('shipping/states') }}">
+                        <a href="" class="menu-link">
+                            <div class="menu-text">{{ __('dashboard.shipping.states') }}</div>
+                        </a>
+                    </div>
+                    <div class="menu-item {{ activeLink('shipping/cities') }}">
+                        <a href="" class="menu-link">
+                            <div class="menu-text">{{ __('dashboard.shipping.cities') }}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- ./item --> --}}
 
             <!-- item -->
             <div class="menu-item {{ activeLink('product') }}">

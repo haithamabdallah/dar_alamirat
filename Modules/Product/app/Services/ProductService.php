@@ -42,7 +42,7 @@ class ProductService {
                     'color' => $variantData['color'] ?? null,
                     'price' => $variantData['price'],
                     'quantity' => $variantData['quantity'],
-                    'sku' => $this->generateSKU($variantData, $product->id)
+                    'sku' => $variantData['sku']
                 ]);
 
                 // Create inventory record

@@ -5,6 +5,7 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\Variant;
 use Illuminate\Http\RedirectResponse;
@@ -53,21 +54,29 @@ class ProductController extends Controller
     {
 
         $validatedData = $request->validated();
-
-        $product = $this->productService->storeData($validatedData);
-
-        // Handle thumbnail
-        if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
-            $thumbnailPath = $request->file('thumbnail')->store("products/{$product->id}/thumbnail", 'public');
-            $product->update(['thumbnail' => $thumbnailPath]);
-        }
-
-        // Handle images
-        if ($request->hasFile('images')) {
-            foreach ($request->images as $image) {
-                $imagePath = $image->store("products/{$product->id}/images", 'public');
-                $product->media()->create(['file' => $imagePath]);
+        
+        try{
+            DB::beginTransaction();
+            $product = $this->productService->storeData($validatedData);
+    
+            // Handle thumbnail
+            if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
+                $thumbnailPath = $request->file('thumbnail')->store("products/{$product->id}/thumbnail", 'public');
+                $product->update(['thumbnail' => $thumbnailPath]);
             }
+    
+            // Handle images
+            if ($request->hasFile('images')) {
+                foreach ($request->images as $image) {
+                    $imagePath = $image->store("products/{$product->id}/images", 'public');
+                    $product->media()->create(['file' => $imagePath]);
+                }
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
         }
 
         return redirect()->route('product.index')->with('success', 'Product created successfully!');
@@ -155,6 +164,7 @@ class ProductController extends Controller
             'variant.*.color' => 'nullable|string|max:255',
             'variant.*.price' => 'nullable|numeric|min:0',
             'variant.*.quantity' => 'nullable|integer|min:0',
+            'variant.*.sku' => 'nullable|string|max:255|unique:variants,sku',
         ];
     }
 
@@ -191,7 +201,7 @@ class ProductController extends Controller
                         'color' => $variantData['color'] ?? null,
                         'price' => $variantData['price'],
                         'quantity' => $variantData['quantity'],
-                        'sku' => $this->generateSKU($variantData, $product->id)
+                        'sku' => $variantData['sku']
                     ]);
 
                     // Create inventory for the new variant
@@ -211,7 +221,8 @@ class ProductController extends Controller
 
                 // Update the variant with the new price
                 $variant->update([
-                    'price' => $variantData['price']
+                    'price' => $variantData['price'],
+                    'sku' => $variantData['sku']
                 ]);
 
                 // Get the associated inventory for the variant

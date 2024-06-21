@@ -57,17 +57,18 @@ class IndexPriorityController extends Controller
         $request['status'] = $request['status']  == true  ?  1 :  0 ;
 
         $validated = $request->validate([
-            'priority' => 'required|numeric',
-            'status' => 'required|in:1,0',
+            'priority' => 'nullable|numeric|min:0',
+            'status' => 'nullable|in:1,0',
         ]);
 
         $priorityable = IndexPriority::find($id);
+
         $priorityable->update([
             'priority' => $validated['priority'] ,
             'status' => $validated['status']
         ]);
 
-        return redirect()->back()->with('success', __('Done Successfully')); 
+        return response()->json(['message' => __('Done Successfully') , 'status' => 'success']); 
     }
 
     /**

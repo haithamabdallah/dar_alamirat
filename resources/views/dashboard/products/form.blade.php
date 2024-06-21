@@ -309,8 +309,8 @@
                                         <th width="1%"></th>
                                         <th>Variant</th>
                                         <th width="150px">Price</th>
-                                        <th width="75px">Quantity</th>
-                                        <th width="150px"></th>
+                                        <th width="150px">Quantity</th>
+                                        <th width="150px">SKU</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -350,6 +350,13 @@
                                                     name="variants[{{ $index }}][quantity]"
                                                     value="{{ $inventory ? $inventory->quantity : 0 }}"
                                                     placeholder="Quantity">
+
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    name="variants[{{ $index }}][sku]"
+                                                    value="{{ $variant->sku }}"
+                                                    placeholder="sku">
                                             </td>
                                         </tr>
                                     @endforeach
@@ -506,9 +513,14 @@
                     <input type="hidden" name="variant[${newIndex}][color]" value="${color}" />
                     <span>${size ? size : ''}${size && color ? ' • ' : ''}${color ? color : ''}</span>
                 </td>
-                <td><input type="text" class="form-control" name="variant[${newIndex}][price]" placeholder="0.00" /></td>
-                <td><input type="text" class="form-control" name="variant[${newIndex}][quantity]" placeholder="0" /></td>
-                <td><a href="#modal-dialog" class="btn btn-primary" data-bs-toggle="modal">Modal</a></td>
+                <td><input type="number" class="form-control" name="variant[${newIndex}][price]" placeholder="0.00" /></td>
+                <td><input type="number" class="form-control" name="variant[${newIndex}][quantity]" placeholder="0" /></td>
+                <td>
+                    <input type="text" class="form-control"
+                        name="variant[${newIndex}][sku]"
+                        value=""
+                        placeholder="sku">
+                </td>
             `;
                     document.getElementById('newSize').value = '';
                     document.getElementById('newColor').value = '';

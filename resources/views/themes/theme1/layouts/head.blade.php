@@ -1,11 +1,15 @@
-
+@php
+    $settings = $settings->keyBy('type');
+@endphp
 <head>
     @yield('meta')
-
+    
     <!-- icons -->
     <script src="https://kit.fontawesome.com/24eabd5129.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('theme1-assets/css/icons.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="icon" type="image/png" href="{{ storage_asset($settings['general']->value['icon_path']) }}">
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="{{asset('theme1-assets/css/bootstrap.min.css')}}">
