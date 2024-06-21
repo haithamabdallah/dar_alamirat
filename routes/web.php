@@ -97,6 +97,7 @@ Route::prefix('products')->group(function () {
     Route::get('product/{product}',[ProductController::class,'showProduct'])->name('product');
 });
 
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
 Route::get('/user/profile/{user}', [ProfileController::class, 'showProfile'])->name('user.profile');
 Route::put('/user/profile/{user}', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');

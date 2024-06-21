@@ -29,6 +29,11 @@ class AuthController extends Controller
         $this->otpVerificationService = $otpVerificationService;
     }
 
+    public function login()
+    {
+        return abort('401');
+    }
+
     public function sendOtp(Request $request): JsonResponse
     {
         $request->validate(['email' => 'required|email']);

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('code')</title>
+    <title>@yield('title')</title>
 
     <style>
         html,
@@ -411,7 +411,7 @@
     <div class="star star5"></div>
 
     <div class="error">
-        <div class="error__title">@yield('code')</div>
+        <div class="error__title">@yield('code')  @yield('msg') </div>
         <div class="error__subtitle">Hmmm...</div>
         <div class="error__description"> @yield('message') </div>
          <button class="error__button error__button--active"><a href="{{route('dashboard.auth.login')}}">{{__('dashboard.login')}}</a> </button>
