@@ -15,6 +15,7 @@ class SettingsController extends Controller
 
     public function siteInfo(Request $request)
     {
+        $request['main_banner_status'] = $request['main_banner_status'] == true ? 1 : 0;
 
         // Validate the request inputs
         $validatedData = $request->validate([
@@ -26,6 +27,8 @@ class SettingsController extends Controller
             'currency' => 'required',
             'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'main_banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'main_banner_status' => 'required|in:0,1',
         ]);
 
         // Retrieve or create the setting entry
@@ -51,6 +54,12 @@ class SettingsController extends Controller
             $newValue['logo_path'] = $websiteLogoPath;
         }
 
+        // Handle website banner upload
+        if ($request->hasFile('main_banner') && $request->file('main_banner')->isValid()) {
+            $mainBannerPath = $request->main_banner->store("website/{$setting->id}/img", 'public');
+            $newValue['main_banner'] = $mainBannerPath;
+        }
+
         // Update the setting entry with the merged values
         $setting->value = $newValue;
         $setting->save();
@@ -58,6 +67,7 @@ class SettingsController extends Controller
 
         return redirect()->route('site-info.index')->with('success', 'setting saved successfully');
     }
+
     public function saveSocialMedia(Request $request)
     {
         $validatedData = $request->validate([

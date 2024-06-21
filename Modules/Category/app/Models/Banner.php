@@ -50,4 +50,11 @@ class Banner extends Model
         return $this->morphOne(IndexPriority::class, 'priorityable');
     }
 
+    # overrides 
+    public function delete()
+    {
+        $this->priority()->delete();
+        parent::delete();
+    }
+
 }

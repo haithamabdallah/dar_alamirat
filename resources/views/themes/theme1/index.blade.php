@@ -8,7 +8,16 @@
         </div>
     @endif
 
+    @php
+        $bannerSettings = $settings->where('type', 'general')->first();
+    @endphp
+
     <!-- categories & Banners -->
+    @if ( isset($bannerSettings->value['main_banner_status']) &&  isset($bannerSettings->value['main_banner']) && $bannerSettings->value['main_banner_status'] )
+        <img class="w-full object-cover mb-2" src="{{ storage_asset($bannerSettings->value['main_banner']) }}"
+        alt="baaner image">
+    @endif
+
     @foreach ($priorityables as $priorityable)
         @if ($priorityable->type === 'Banner')
         @php $banner = $priorityable->priorityable; @endphp

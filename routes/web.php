@@ -103,7 +103,7 @@ Route::put('/user/profile/{user}', [ProfileController::class, 'updateProfile'])-
 Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('subscribe');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:admin')->group(function () {
 
     Route::prefix('settings')->group(function () {
         Route::post('site-info-store', [SettingsController::class, 'siteInfo'])->name('site');
@@ -111,6 +111,9 @@ Route::middleware('auth')->group(function () {
         Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
         Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
     });
+}); 
+
+Route::middleware('auth')->group(function () {
 
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
     Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');

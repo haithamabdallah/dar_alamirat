@@ -29,6 +29,11 @@ class SettingSeeder extends Seeder
         ]);
 
         Setting::create([
+            'type' => 'main_banner',
+            'value'  => ''
+        ]);
+
+        Setting::create([
             'type' => 'company_mobile_logo',
             'value'  => 'admin-panel/assets/img/logo.png'
         ]);

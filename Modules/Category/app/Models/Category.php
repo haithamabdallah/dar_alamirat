@@ -89,4 +89,11 @@ class Category extends Model
         }
     }
 
+    # overrides 
+    public function delete()
+    {
+        $this->priority()->delete();
+        parent::delete();
+    }
+
 }
