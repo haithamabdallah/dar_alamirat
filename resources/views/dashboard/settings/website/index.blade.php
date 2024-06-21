@@ -17,8 +17,9 @@
             cursor: pointer;
             border: 1px dashed #495057;
         }
+
         .custom-file-upload .form-control {
-            border:0;
+            border: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,7 +35,8 @@
         .file-input {
             width: 100%;
             height: 100%;
-            opacity: 0; /* Hide the default file input */
+            opacity: 0;
+            /* Hide the default file input */
             position: absolute;
             top: 0;
             left: 0;
@@ -42,7 +44,8 @@
         }
 
         .icon-upload::before {
-            content: '\f093'; /* FontAwesome upload icon */
+            content: '\f093';
+            /* FontAwesome upload icon */
             font-family: 'FontAwesome';
             font-size: 24px;
             color: #999;
@@ -232,51 +235,57 @@
                                                 accept=".png, .jpg, .jpeg ,.svg ,.webp" onchange="preview3();" />
                                         </label>
                                     </div>
-                                    @error('image')
+                                    @error('main_banner')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
 
                                     <div class="preview-area d-flex">
-                                        <div class="" style="position: relative;">
-                                            <img id=""
-                                            class=" m-2"
-                                            src="{{ isset($setting?->value['main_banner']) ? storage_asset( $setting?->value['main_banner']) : '' }}"
-                                            alt="Image preview"
-                                            style="display: {{ isset($setting?->value['main_banner']) ? 'flex' : 'none' }};"
-                                            width="200" height="200">
-                                            <div class="bg-danger p-2 d-flex justify-content-center align-items-center " style="top:10px ; right: 10px ; position: absolute; font-weight: 600">
-                                                status : &nbsp; &nbsp; 
-                                                <input type="checkbox" name="main_banner_status" id="" value="1" {!! isset($setting?->value['main_banner_status']) && $setting?->value['main_banner_status'] == true ? 'checked' : '' !!} >
-                                            </div>
-                                        </div>
-                                        <img id="frame3" src="" alt="Image preview" style="display: none;"
-                                        class=" m-2"
-                                            width="200" height="200">
+                                        @if (isset($setting?->value['main_banner']))
+                                            <div class="" style="position: relative;">
+                                                <img id="" class=" m-2"
+                                                    src="{{ isset($setting?->value['main_banner']) ? storage_asset($setting?->value['main_banner']) : '' }}"
+                                                    alt="Image preview"
+                                                    style="display: {{ isset($setting?->value['main_banner']) ? 'flex' : 'none' }};"
+                                                    width="200" height="200">
+
+                                                <div class="bg-danger p-2 d-flex justify-content-center align-items-center "
+                                                    style="top:10px ; right: 10px ; position: absolute; font-weight: 600">
+                                                    status : &nbsp; &nbsp;
+                                                    <input type="checkbox" name="main_banner_status" id=""
+                                                        value="1" {!! isset($setting?->value['main_banner_status']) && $setting?->value['main_banner_status'] == true
+                                                            ? 'checked'
+                                                            : '' !!}>
+                                                </div>
+                                        @endif
+
                                     </div>
+                                    <img id="frame3" src="" alt="Image preview" style="display: none;"
+                                        class=" m-2" width="200" height="200">
                                 </div>
                             </div>
-
-                            <div class="row mb-15px">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary d-block w-100"><i
-                                            class="fa-regular fa-floppy-disk"></i> Save</button>
-                                </div>
-                            </div>
-                        </form>
-
                     </div>
-                    <!-- END panel-body -->
+
+                    <div class="row mb-15px">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary d-block w-100"><i
+                                    class="fa-regular fa-floppy-disk"></i> Save</button>
+                        </div>
+                    </div>
+                    </form>
 
                 </div>
-                <!-- END panel -->
+                <!-- END panel-body -->
 
             </div>
-            <!-- END col-6 -->
+            <!-- END panel -->
 
         </div>
-        <!-- ./row -->
+        <!-- END col-6 -->
+
+    </div>
+    <!-- ./row -->
 
     </div>
     <!-- END #content -->
@@ -302,8 +311,6 @@
             frame3.src = URL.createObjectURL(event.target.files[0]);
             $('#frame3').show()
         }
-
-
     </script>
     {{-- <script src="{{ asset('theme1-assets/js/intlTelInput.min.js') }}"></script>
     <script>
