@@ -246,8 +246,9 @@
                                             alt="Image preview"
                                             style="display: {{ isset($setting?->value['main_banner']) ? 'flex' : 'none' }};"
                                             width="200" height="200">
-                                            <div class="bg-danger p-2 d-flex justify-content-center align-items-center" style="top:10px ; right: 10px ; position: absolute">
-                                                <input type="checkbox" name="main_banner_status" id="" value="1" checked="{{ isset($setting?->value['main_banner_status']) ? $setting?->value['main_banner_status'] : '' }}" >
+                                            <div class="bg-danger p-2 d-flex justify-content-center align-items-center " style="top:10px ; right: 10px ; position: absolute; font-weight: 600">
+                                                status : &nbsp; &nbsp; 
+                                                <input type="checkbox" name="main_banner_status" id="" value="1" {!! isset($setting?->value['main_banner_status']) && $setting?->value['main_banner_status'] == true ? 'checked' : '' !!} >
                                             </div>
                                         </div>
                                         <img id="frame3" src="" alt="Image preview" style="display: none;"

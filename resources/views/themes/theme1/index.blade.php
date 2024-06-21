@@ -13,7 +13,7 @@
     @endphp
 
     <!-- categories & Banners -->
-    @if ( isset($bannerSettings->value['main_banner_status']) &&  isset($bannerSettings->value['main_banner']) && $bannerSettings->value['main_banner_status'] )
+    @if (   isset($bannerSettings->value['main_banner']) &&   isset($bannerSettings->value['main_banner_status']) && $bannerSettings->value['main_banner_status'] )
         <img class="w-full object-cover mb-2" src="{{ storage_asset($bannerSettings->value['main_banner']) }}"
         alt="baaner image">
     @endif
@@ -25,7 +25,7 @@
             <section class="banner-block">
                 <!-- container -->
                 
-                <div class=" {{ $loop->index == 0 ? '' : 'pixel-container'}}">
+                <div class=" {{ ($loop->index == 0 &&  !$bannerSettings->value['main_banner_status']) ? '' : 'pixel-container'}}">
                     <!-- row -->
                     <div class="wrap">
                         <a href="{{ $banner->type == 'Category' 
