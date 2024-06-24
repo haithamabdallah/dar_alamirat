@@ -168,7 +168,7 @@
                                 <label class="form-label col-form-label col-md-3">Phone Number</label>
                                 <div class="col-sm-9">
                                     <input class="form-control @error('tel') is-invalid @enderror" name="tel"
-                                        type="tel" placeholder="Phone Number"
+                                        type="number" placeholder="Phone Number" min="0"
                                         value="{{ isset($setting->value['tel']) ? $setting->value['tel'] : '' }}" />
                                     @error('tel')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -180,7 +180,7 @@
                                 <label class="form-label col-form-label col-md-3">WhatsApp</label>
                                 <div class="col-sm-9">
                                     <input class="form-control @error('whats_app') is-invalid @enderror" name="whats_app"
-                                        type="tel" placeholder="WhatsApp"
+                                        type="number" placeholder="WhatsApp" min="0"
                                         value="{{ isset($setting->value['whats_app']) ? $setting->value['whats_app'] : '' }}" />
                                     @error('whats_app')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -192,9 +192,21 @@
                                 <label class="form-label col-form-label col-md-3">Currency</label>
                                 <div class="col-sm-9">
                                     <input class="form-control @error('currency') is-invalid @enderror" name="currency"
-                                        type="tel" placeholder="currency"
+                                        type="text" placeholder="currency"
                                         value="{{ isset($setting->value['currency']) ? $setting->value['currency'] : '' }}" />
                                     @error('currency')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-3">Vat</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control @error('vat') is-invalid @enderror" name="vat"
+                                        type="number" min="0" placeholder="vat"
+                                        value="{{ isset($setting->value['vat']) ? $setting->value['vat'] : '' }}" />
+                                    @error('vat')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

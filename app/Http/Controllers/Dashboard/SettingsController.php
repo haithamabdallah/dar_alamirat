@@ -25,6 +25,7 @@ class SettingsController extends Controller
             'tel' => 'nullable',
             'whats_app' => 'nullable',
             'currency' => 'required',
+            'vat' => 'nullable|numeric|min:0|max:100',
             'website_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'website_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'main_banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
