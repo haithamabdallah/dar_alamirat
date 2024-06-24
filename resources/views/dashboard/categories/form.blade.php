@@ -163,9 +163,21 @@
                                         <select class=" form-control" name="parent_id">
                                             <option disabled selected>Select Parent Category</option>
                                             @foreach($parentCategories as $parentCategory)
-                                                @foreach($parentCategory->childes as $parentCategory2)
-                                                    @foreach($parentCategory2->childes as $parentCategory3)
+                                                @foreach($parentCategory?->childes as $parentCategory2)
+                                                    @foreach($parentCategory2?->childes as $parentCategory3)
                                                         @foreach($parentCategory3?->childes as $parentCategory4)
+                                                            @foreach($parentCategory4?->childes as $parentCategory5)
+                                                                @foreach($parentCategory5?->childes as $parentCategory6)
+                                                                    @foreach($parentCategory6?->childes as $parentCategory7)
+                                                                        @foreach($parentCategory7?->childes as $parentCategory8)
+                                                                            <option value="{{$parentCategory8->id}}" @if($parentCategory8->id == $category->parent_id) selected @endif>{{$parentCategory->name}}  ===== >> {{$parentCategory2->name}} ===== >> {{$parentCategory3->name}} ===== >> {{$parentCategory4->name}} ===== >> {{$parentCategory5->name}} ===== >> {{$parentCategory6->name}} ===== >> {{$parentCategory7->name}} ===== >> {{$parentCategory8->name}} </option>
+                                                                        @endforeach
+                                                                        <option value="{{$parentCategory7->id}}" @if($parentCategory7->id == $category->parent_id) selected @endif>{{$parentCategory->name}}  ===== >> {{$parentCategory2->name}} ===== >> {{$parentCategory3->name}} ===== >> {{$parentCategory4->name}} ===== >> {{$parentCategory5->name}} ===== >> {{$parentCategory6->name}} ===== >> {{$parentCategory7->name}} </option>
+                                                                    @endforeach
+                                                                    <option value="{{$parentCategory6->id}}" @if($parentCategory6->id == $category->parent_id) selected @endif>{{$parentCategory->name}}  ===== >> {{$parentCategory2->name}} ===== >> {{$parentCategory3->name}} ===== >> {{$parentCategory4->name}} ===== >> {{$parentCategory5->name}} ===== >> {{$parentCategory6->name}} </option>
+                                                                @endforeach
+                                                                <option value="{{$parentCategory5->id}}" @if($parentCategory5->id == $category->parent_id) selected @endif>{{$parentCategory->name}}  ===== >> {{$parentCategory2->name}} ===== >> {{$parentCategory3->name}} ===== >> {{$parentCategory4->name}} ===== >> {{$parentCategory5->name}} </option>
+                                                            @endforeach
                                                             <option value="{{$parentCategory4->id}}" @if($parentCategory4->id == $category->parent_id) selected @endif>{{$parentCategory->name}}  ===== >> {{$parentCategory2->name}} ===== >> {{$parentCategory3->name}} ===== >> {{$parentCategory4->name}} </option>
                                                         @endforeach
                                                         <option value="{{$parentCategory3->id}}" @if($parentCategory3->id == $category->parent_id) selected @endif>{{$parentCategory->name}} ===== >> {{$parentCategory2->name}} ===== >> {{$parentCategory3->name}} </option>
