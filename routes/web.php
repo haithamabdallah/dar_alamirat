@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\BrandController;
+use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\FavoriteController;
 use Modules\Order\Http\Controllers\OrderController;
@@ -125,6 +126,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
     
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+
+    Route::resource('addresses' , UserAddressController::class)->only(['store', 'update', 'destroy']);
 
 });
 

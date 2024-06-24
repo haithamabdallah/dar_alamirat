@@ -33,8 +33,10 @@ class OrderController extends Controller
         }
 
         $cartTotal = session('final_total');
+
+        $addresses = auth()->user()->addresses;
         
-        return view('themes.theme1.checkout' , compact('cartTotal'));
+        return view('themes.theme1.checkout.checkout' , compact('cartTotal' , 'addresses'));
     }
     /**
      * Display a listing of the resource.
