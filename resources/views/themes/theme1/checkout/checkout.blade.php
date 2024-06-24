@@ -80,11 +80,11 @@
     <!-- ./checkout -->
 
     <script src="theme1-assets/js/jquery-3.6.4.min.js"></script>
-    <script src="{{ asset('theme1-assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('theme1-assets/js/checkout.js') }}"></script>
-    <script src="{{ asset('assets/js/axios.js') }}"></script>
+    <script src="assets/js/axios.js"></script>
+    <script src="theme1-assets/js/bootstrap.bundle.min.js"></script>
+    {{-- <script src="theme1-assets/js/checkout.js"></script> --}}
 
-    @include('themes.theme1.checkout.scripts.new-address')
+    @include('themes.theme1.checkout.scripts.script ')
 
 </body>
 

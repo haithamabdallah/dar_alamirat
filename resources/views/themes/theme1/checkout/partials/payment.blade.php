@@ -2,7 +2,7 @@
     data-bs-parent="#checkoutAccordion">
     <div class="accordion-body">
         <div class="payment-options">
-            <div class="form-check payment-wrap">
+            {{-- <div class="form-check payment-wrap">
                 <label class="form-check-label" for="visa">
                     <input class="form-check-input" type="radio" name="payment" id="visa" value="visa"
                         onclick="showPaymentForm('visa')">
@@ -15,7 +15,7 @@
                         onclick="showPaymentForm('mastercard')">
                     <img src="images/payment/mada_mini.webp" alt="MasterCard" style="width: 50px;">
                 </label>
-            </div>
+            </div> --}}
             <div class="form-check payment-wrap">
                 <label class="form-check-label" for="cod">
                     <input class="form-check-input" type="radio" name="payment" id="cod" value="cod"
@@ -24,7 +24,7 @@
                 </label>
             </div>
         </div>
-        <div class="visa-form" id="visaForm" style="display:none;">
+        {{-- <div class="visa-form" id="visaForm" style="display:none;">
             <div class="payment-wrapper">
                 <div class="mb-3">
                     <label for="visaCardNumber" class="form-label">Card Number</label>
@@ -39,9 +39,9 @@
                     <input type="text" class="form-control" id="visaCVC" placeholder="Enter your CVC">
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="mastercard-form" id="mastercardForm" style="display:none;">
+        {{-- <div class="mastercard-form" id="mastercardForm" style="display:none;">
             <div class="payment-wrapper">
                 <div class="mb-3">
                     <label for="masterCardNumber" class="form-label">Card Number</label>
@@ -57,7 +57,7 @@
                     <input type="text" class="form-control" id="masterCVC" placeholder="Enter your CVC">
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <button class="btn-save" onclick="completeOrder()">Complete Order</button>
     </div>

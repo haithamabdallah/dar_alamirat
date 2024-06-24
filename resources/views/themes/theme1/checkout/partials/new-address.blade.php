@@ -37,5 +37,5 @@
       <div class="" id="store-errors" > 
       </div>
   </div>
-  <button class="btn-save" onclick="saveNewAddress()">Save Address</button>
+  <button class="btn-save" onclick="saveNewAddress('{{ route('addresses.store') }}' , '{{ csrf_token() }}')">Save Address</button>
 </div>

@@ -35,6 +35,8 @@ class OrderController extends Controller
         $cartTotal = session('final_total');
 
         $addresses = auth()->user()->addresses;
+
+        $shippings = Shipping::all();
         
         return view('themes.theme1.checkout.checkout' , compact('cartTotal' , 'addresses'));
     }

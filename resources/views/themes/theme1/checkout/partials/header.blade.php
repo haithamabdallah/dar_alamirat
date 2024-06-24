@@ -2,7 +2,7 @@
   <header class="header">
       <!-- logo -->
       <div class="logo">
-          <a href="">
+          <a href="{{ route('index') }}">
               <img src="theme1-assets/images/logo/dar-logo3.svg" alt="">
           </a>
       </div>

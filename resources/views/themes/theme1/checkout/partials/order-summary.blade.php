@@ -8,17 +8,17 @@
             </div>
             <div class="item">
                 <h6>Shipping Cost</h6>
-                <span id="shipping-cost">16.48 </span> <b>{{ $currency }}</b>
+                <span id="shipping-cost"> </span> <b>{{ $currency }}</b>
             </div>
             <div class="item">
                 <h6>VAT</h6>
-                <span id="vat">6.76 </span> <b>{{ $currency }}</b>
+                <span id="vat"> {{ $settings->keyBy('type')['general']->value['vat'] ?? 0 }} % </span>  <b>{{ $currency }}</b>
             </div>
         </div>
     </div>
     <div class="item_coupons">
         <h6>Total Order</h6>
-        <span id="order-total">54.25 </span> <b>{{ $currency }}</b>
+        <span id="order-total">  </span> <b>{{ $currency }}</b>
     </div>
     <div class="has_coupons">
         <a class="" data-bs-toggle="collapse" href="#couponCode" role="button" aria-expanded="false"

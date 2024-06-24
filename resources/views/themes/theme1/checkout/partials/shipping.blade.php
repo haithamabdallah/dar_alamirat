@@ -15,7 +15,7 @@
                   <label class="form-check-label" for="shipping1">
                       <input class="form-check-input" type="radio" name="shipping"
                           id="shipping1" value="companyA">
-                      <img src="images/shipping/01.svg" alt="Express Trade House">
+                      {{-- <img src="images/shipping/01.svg" alt="Express Trade House"> --}}
                       <span>Express Trade House</span>
                   </label>
                   <span class="shipping-cost">40 LYD</span>
@@ -24,7 +24,7 @@
                   <label class="form-check-label" for="shipping2">
                       <input class="form-check-input" type="radio" name="shipping"
                           id="shipping2" value="companyB">
-                      <img src="images/shipping/02.png" alt="Aramix">
+                      {{-- <img src="images/shipping/02.png" alt="Aramix"> --}}
                       <span>Aramix Standard Shipping</span>
                   </label>
                   <span class="shipping-cost">30 LYD</span>
@@ -33,7 +33,7 @@
                   <label class="form-check-label" for="shipping3">
                       <input class="form-check-input" type="radio" name="shipping"
                           id="shipping3" value="companyC">
-                      <img src="images/shipping/03.png" alt="J&T">
+                      {{-- <img src="images/shipping/03.png" alt="J&T"> --}}
                       <span>J&T Economy Shipping</span>
                   </label>
                   <span class="shipping-cost">20 LYD</span>
