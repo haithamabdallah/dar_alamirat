@@ -32,13 +32,13 @@
                 <div class="heading">
                     <!-- user -->
                     <div class="user">
-                        Hello, <span>Haitham Abdallah</span>
+                        Hello, <span>{{ auth()->user()->FullName }}</span>
                     </div>
                     <!-- ./user -->
                     <!-- nav -->
                     <ul class="breadcrumb">
-                        <li><a href="">Home</a></li>
-                        <li><a href="">My Cart</a></li>
+                        <li><a href="{{ route('index') }}">Home</a></li>
+                        <li><a href="{{ route('cart.index') }}">My Cart</a></li>
                         <li>checkout</li>
                     </ul>
                     <!-- ./nav -->
@@ -53,21 +53,21 @@
                     <div class="checkout_summary">
                         <div class="item">
                             <h6>Subtotal</h6>
-                            <span>29.25 <b>LYD</b></span>
+                            <span id="cart-total"> {{ $cartTotal }} </span> <b>{{ $currency }}</b>
                         </div>
-                        <div class="item">
+                        <div class="item" >
                             <h6>Shipping Cost</h6>
-                            <span>16.48 <b>LYD</b></span>
+                            <span id="shipping-cost">16.48 </span> <b>{{ $currency }}</b>
                         </div>
                         <div class="item">
                             <h6>VAT</h6>
-                            <span>6.76 <b>LYD</b></span>
+                            <span id="vat">6.76 </span> <b>{{ $currency }}</b>
                         </div>
                     </div>
                 </div>
                 <div class="item_coupons">
                     <h6>Total Order</h6>
-                    <span>54.25 <b>LYD</b></span>
+                    <span id="order-total">54.25 </span> <b>{{ $currency }}</b>
                 </div>
                 <div class="has_coupons">
                     <a class="" data-bs-toggle="collapse" href="#couponCode" role="button" aria-expanded="false"

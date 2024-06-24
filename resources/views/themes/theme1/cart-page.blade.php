@@ -119,7 +119,11 @@
 
                                     <p class="vat">VAT Inclusive</p>
 
-                                    <button class="place_order" type="submit">Submit Order</button>
+                                    <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
+                                        @csrf
+                                        <input type="hidden" name="final_total" id="final-total-input" value="">
+                                        <button class="place_order" type="submit" id="final-total-btn">Submit Order</button>
+                                    </form>
                                 </div>
                                 <!-- summary -->
                             </div>
@@ -212,7 +216,12 @@
                 finalPrice += parseFloat($(`#price-${index}`).text());
             })
             $('#final-total-price').text(finalPrice.toFixed(2) + ' {!! $currency !!}');
+            $('#final-total-input').val(finalPrice.toFixed(2));
         }
+
+        $('#final-total-btn').on('click', () => {
+            $('#final-total-form').submit();
+        })
 
         $('.items_in_cart').each(function(index) {
             $(`#decrement-${index}`).on('click', function () {

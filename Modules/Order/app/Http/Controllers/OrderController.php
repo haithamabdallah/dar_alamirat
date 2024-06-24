@@ -26,9 +26,15 @@ class OrderController extends Controller
     }
 
 
-    public function checkout()
+    public function checkout(Request $request)
     {
-        return view('themes.theme1.checkout');
+        if ($request->has('final_total')) {
+            $request->session()->put('final_total', $request->final_total);
+        }
+
+        $cartTotal = session('final_total');
+        
+        return view('themes.theme1.checkout' , compact('cartTotal'));
     }
     /**
      * Display a listing of the resource.

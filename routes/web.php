@@ -124,7 +124,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
     
-    Route::get('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 
 });
 
