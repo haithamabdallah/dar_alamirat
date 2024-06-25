@@ -1,6 +1,5 @@
 @extends('themes.theme1.layouts.app')
 @section('content')
-
     @if (!empty($carts) && count($carts) > 0)
         <section class="user_cart">
             <div class="pixel-container">
@@ -14,6 +13,7 @@
                                 <!-- Items In cart -->
                                 <div class="items_in_cart">
                                     <div class="d-none" id="cart-id-{{ $index }}" data-id="{{ $cart->id }}"></div>
+
                                     <!-- item -->
                                     <div class="alert item_cart alert-dismissible fade show" role="alert">
                                         <!-- data -->
@@ -32,10 +32,15 @@
                                                     class="fa-solid fa-xmark"></i></button>
 
                                             <div class="d-none" id="product-id-{{ $index }}"
-                                                data-id="{{ $cart->product->id }}"></div>
+                                                data-id="{{ $cart->product->id }}">
+                                            </div>
 
                                             <div class="d-none" id="product-title-{{ $index }}"
                                                 data-title="{{ $cart->product->title }}"></div>
+
+                                        </div>
+
+                                        <div class="entries">
                                             <!-- img and title -->
                                             <div class="itemInfo">
                                                 <a href="#">
@@ -58,18 +63,20 @@
                                             <div class="quantity-control">
                                                 <button id="decrement-{{ $index }}">-</button>
                                                 <input type="number" id="quantity-{{ $index }}"
-                                                    value="{{ intval($cart->quantity) }}" min="1">
+                                                    value="{{ intval($cart->quantity) }}" min="1" readonly>
+
                                                 <button id="increment-{{ $index }}">+</button>
                                             </div>
                                             <!-- ./quantity -->
 
                                             <!-- total price -->
-                                            <div class="price">Total Price: 
-                                                <span id="price-{{ $index }}"> {{ $cart->product->price }} </span>
+                                            <div class="price">Total Price:
+                                                <span id="price-{{ $index }}"> {{ $cart->product->price }}
+                                                </span>
                                             </div>
                                             <!-- ./total price -->
-
                                         </div>
+
                                         <!-- data -->
 
                                         <!-- variants -->
@@ -95,21 +102,26 @@
 
                                     </div>
                                     <!-- ./item -->
-                                </div>
-                                <!-- ./Items in Cart -->
                             @endforeach
-                        </main>
-                        <!-- .main -->
+                    </div>
+                    <!-- ./Items in Cart -->
+                    </main>
+                    <!-- .main -->
 
-                        <!-- aside -->
-                        <aside>
-                            <!-- stick on scroll -->
-                            <div class="sticky-top">
-                                <!-- summary -->
-                                <div class="order-summary">
-                                    <h6 class="p-2 rounded" style="background-color: #cccccc ;">Order Summary</h6>
+                    <!-- aside -->
+                    <aside>
+                        <!-- stick on scroll -->
+                        <div class="sticky-top">
+                            <!-- summary -->
+                            <div class="order-summary">
+                                <h6>Order Summary</h6>
 
-                                    @foreach ($carts as $index => $cart)
+                                <div class="final-total">
+                                    <p id="final-total"><b>Final Total:</b><span id="final-total-up"></span></p>
+                                </div>
+
+                                @foreach ($carts as $index => $cart)
+                                    <div class="item-summary">
                                         <p id="selected-product-{{ $index }}"></p>
 
                                         <p id="selected-variant-{{ $index }}"></p>
@@ -122,35 +134,36 @@
 
                                         <div class="" style="background-color: #cccccc ; height: 5px ; width: 100%">
                                         </div>
-                                    @endforeach
-
-                                    <div class="coupons">
-                                        <label for="apply_coupons">Do you have a promo code?</label>
-                                        <div class="apply">
-                                            <input type="text" placeholder="Apply Coupon">
-                                            <button type="submit">Apply</button>
-                                        </div>
                                     </div>
+                                @endforeach
 
-                                    <p id="final-total"><b>Final Total:</b><span id="final-total-price"></span></p>
-
-                                    <p class="vat">VAT Inclusive</p>
-
-                                    <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
-                                        @csrf
-                                        <input type="hidden" name="final_total" id="final-total-input" value="">
-                                    </form>
-                                    <button class="place_order" id="final-total-btn">Submit Order</button>
+                                <div class="coupons">
+                                    <label for="apply_coupons">Do you have a promo code?</label>
+                                    <div class="apply">
+                                        <input type="text" placeholder="Apply Coupon">
+                                        <button type="submit">Apply</button>
+                                    </div>
                                 </div>
-                                <!-- summary -->
+
+                                <p id="final-total"><b>Final Total:</b><span id="final-total-price"></span></p>
+
+                                <p class="vat">VAT Inclusive</p>
+
+                                <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
+                                    @csrf
+                                    <input type="hidden" name="final_total" id="final-total-input" value="">
+                                </form>
+                                <button class="place_order" id="final-total-btn">Submit Order</button>
                             </div>
-                            <!-- stick on scroll -->
-                        </aside>
-                        <!-- ./aside -->
-                    </div>
-                    <!-- ./content -->
+                            <!-- summary -->
+                        </div>
+                        <!-- stick on scroll -->
+                    </aside>
+                    <!-- ./aside -->
                 </div>
-                <!-- ./row -->
+                <!-- ./content -->
+            </div>
+            <!-- ./row -->
             </div>
         </section>
     @else

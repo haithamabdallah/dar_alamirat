@@ -2,9 +2,20 @@
   <header class="header">
       <!-- logo -->
       <div class="logo">
-          <a href="{{ route('index') }}">
-              <img src="theme1-assets/images/logo/dar-logo3.svg" alt="">
-          </a>
+        <div class="logo">
+            @foreach ($settings->where('type', 'general') as $setting)
+                <a href="{{route('index')}}">
+                    @php
+                        $IconPath = $setting->value['icon_path'] ?? null;
+                        $IconUrl = $IconPath ? Storage::url($IconPath) : null;
+                    @endphp
+                    @if($IconUrl)
+                        <img src="{{ $IconUrl }}" alt="Icon">
+                    @else
+                        <h3>{{ $setting->value['website_name'] ?? '' }}</h3> <!-- Provide a default icon path if needed -->
+                    @endif
+                </a>
+            @endforeach
       </div>
       <!-- ./logo -->
 

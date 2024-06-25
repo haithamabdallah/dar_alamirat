@@ -37,6 +37,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
   &.sub__close {
     justify-content: flex-start;
     grid-gap: 7px;
