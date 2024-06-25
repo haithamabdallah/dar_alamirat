@@ -6,7 +6,8 @@
 <script src="{{asset('theme1-assets/js/jquery.jgrowl.min.js')}}"></script>
 <script src="{{asset('theme1-assets/cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.js')}}"></script>
 <script src="{{asset('theme1-assets/js/jquery.magnific-popup.min.js')}}"></script>
-<script src="{{asset('assets/js/app.js')}}"></script> {{-- // import jquery and axios --}}
+{{-- <script src="{{asset('assets/js/app.js')}}"></script> // import jquery and axios --}}
+<script src="{{asset('assets/js/axios.js')}}"></script> 
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://kit.fontawesome.com/24eabd5129.js" crossorigin="anonymous"></script>
@@ -156,13 +157,13 @@
 {{--Add to cart --}}
 
 <script>
-    function addToCart(button) {
+    function addToCart(button , variantId) {
         const url = button.getAttribute('data-cart-url');
 
         // Set up the Axios request headers, including the CSRF token
         const data = 
         { 
-            variantId : $('#variant-select').val() ?? null
+            variantId : $('#variant-select').val() ?? variantId
             , quantity : $('#quantity').val() ?? 1
             , _token : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         };
@@ -170,7 +171,10 @@
         axios.post(url, data)
             .then(function (response) {
                 const icon = response.data.status === 'danger' ? 'warning' : 'success';
-                console.log(response)
+                // console.log(response)
+                if (response.data.status === 'success') {
+                    $('#cart-summary-count').text(response.data.cartCount);
+                }
                 Swal.fire({
                     title: response.data.status === 'danger' ? 'Oops...' : 'Success!',
                     text: response.data.message,

@@ -64,7 +64,7 @@
                         <a href="{{ route('cart.index') }}" class="d-flex align-items-center">
                             <i class="icon sicon-shopping-bag"></i>
 
-                            <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
+                            <span class="s-cart-summary-count" id="cart-summary-count" >{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
                                 <p>Cart</p>
                                 {{-- <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span> --}}

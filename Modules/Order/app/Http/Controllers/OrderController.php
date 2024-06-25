@@ -36,9 +36,9 @@ class OrderController extends Controller
 
         $addresses = auth()->user()->addresses;
 
-        $shippings = Shipping::all();
+        $shippings = Shipping::active()->get();
         
-        return view('themes.theme1.checkout.checkout' , compact('cartTotal' , 'addresses'));
+        return view('themes.theme1.checkout.checkout' , compact('cartTotal' , 'addresses' , 'shippings'));
     }
     /**
      * Display a listing of the resource.
@@ -66,7 +66,7 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request): RedirectResponse
+    public function store(StoreOrderRequest $request): RedirectResponse // from dashboard
     {
         $validatedData = $request->validated();
 
@@ -76,6 +76,25 @@ class OrderController extends Controller
             return redirect()->route('order.index')->with('success', 'Order placed successfully.');
         } catch (\Exception $e) {
             return redirect()->route('order.index')->with('error', 'Failed to place order. Please try again.');
+        }
+
+
+    }
+
+    public function storeCheckout(Request $request) // from checkout page
+    {
+        $validatedData = $request->validate([
+            "address_id" => "required|exists:user_addresses,id",
+            "shipping_id" => "required|exists:shippings,id",
+        ]);
+
+        try {
+            $this->orderService->createCheckoutOrder($validatedData);
+
+            return redirect()->route('index')->with('success', 'Order placed successfully.');
+        } catch (\Exception $e) {
+            return dd($e->getMessage());
+            // return redirect()->route('index')->with('error', 'Failed to place order. Please try again.');
         }
 
 

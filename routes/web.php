@@ -121,11 +121,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');
     // Cart
     Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
     // Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
     
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+    Route::post('/checkout/order', [OrderController::class, 'storeCheckout'])->name('order.checkout.store');
 
     Route::resource('addresses' , UserAddressController::class)->only(['store', 'update', 'destroy']);
 

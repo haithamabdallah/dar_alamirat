@@ -1,4 +1,4 @@
-{{-- <div class="edit-address-form" id="editAddressForm">
+<div class="edit-address-form" id="editAddressForm">
     <h3>Edit Address</h3>
     <div class="mb-3">
         <label for="editCountry" class="form-label">Country</label>
@@ -24,6 +24,8 @@
         <label for="editHouseNumber" class="form-label">House Number</label>
         <input type="text" class="form-control" id="editHouseNumber" placeholder="Enter your house number">
     </div>
+    <div class="" id="edit-errors" > 
+    </div>
     <button class="btn btn-primary" onclick="saveEditAddress()">Save Address</button>
     <button class="btn btn-secondary" onclick="cancelEditAddress()">Cancel</button>
-</div> --}}
+</div>

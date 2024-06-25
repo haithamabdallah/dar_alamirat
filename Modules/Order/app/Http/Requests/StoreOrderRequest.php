@@ -19,6 +19,7 @@ class StoreOrderRequest extends FormRequest
             'quantity' => 'required|integer|min:1',
             'user_id' => 'required|exists:users,id',
             'shipping_id' => 'required|exists:shippings,id',
+            'user_address_id' => 'nullable|exists:user_addresses,id',
         ];
     }
 

@@ -34,16 +34,16 @@ class UserAddressController extends Controller
             'city' => 'required|string|max:255',
             'street' => 'required|string|max:255',
             'house_number' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:255',
-            'famous_place_nearby' => 'required|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
+            'famous_place_nearby' => 'nullable|string|max:255',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-        $errors = $validator->errors(); 
-        $status = 'error';
-        return response()->json(compact( 'status' ,"errors"));
+            $errors = $validator->errors();
+            $status = 'error';
+            return response()->json(compact('status', "errors"));
         }
 
         $validated = $validator->safe()->all();
@@ -55,7 +55,7 @@ class UserAddressController extends Controller
         }
 
         $status = 'success';
-        return response()->json(compact( 'status' ,"address"));
+        return response()->json(compact('status', "address"));
     }
 
     /**
@@ -77,16 +77,45 @@ class UserAddressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserAddress $userAddress)
+    public function update(Request $request, UserAddress $address)
     {
-        //
+        $rules = [
+            'governorate' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'house_number' => 'required|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
+            'famous_place_nearby' => 'nullable|string|max:255',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $status = 'error';
+            return response()->json(compact('status', "errors"));
+        }
+
+        $validated = $validator->safe()->all();
+
+        try {
+            $address->update($validated);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage());
+        }
+
+        $status = 'success';
+        return response()->json(compact('status', "address"));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserAddress $userAddress)
+    public function destroy(UserAddress $address)
     {
-        //
+        $address->delete();
+        $status = 'success';
+        $message = 'Deleted Successfully.';
+        return response()->json(compact('status', "message"));
     }
 }

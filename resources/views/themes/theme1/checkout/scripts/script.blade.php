@@ -20,7 +20,7 @@
         document.getElementById('newHouseNumber').value = '';
     }
 
-    function saveNewAddress(url , token) {
+    function saveNewAddress(url, token) {
         const newGovernorate = document.getElementById('newGovernorate').value;
         const newCity = document.getElementById('newCity').value;
         const newStreet = document.getElementById('newStreet').value;
@@ -37,6 +37,7 @@
                 'postal_code': $('#newPostalCode').val(),
                 'famous_place_nearby': $('#newFamousPlaceNearby').val(),
             }).then(function(response) {
+                // console.log(response);
                 if (response.data.status === 'error') {
                     let errors = response.data.errors;
                     let lists = '';
@@ -75,8 +76,8 @@
             <a class="btn-close-address" onclick="cancelEditAddress()"><i class="fa-solid fa-xmark"></i></a>
             <div class="grid-list">
                 <div class="grid-item">
-                    <label for="editCountry" class="form-label">Country</label>
-                    <input type="text" class="form-control" id="editCountry" value="${address.governorate}">
+                    <label for="editGovernorate" class="form-label">Governorate</label>
+                    <input type="text" class="form-control" id="editGovernorate" value="${address.governorate}">
                 </div>
                 <div class="grid-item">
                     <label for="editCity" class="form-label">City</label>
@@ -99,8 +100,10 @@
                     <input type="text" class="form-control" id="editHouseNumber" value="${address.house_number}">
                 </div>
             </div>
+            <div class="" id="edit-errors" > 
+            </div>
             <button class="btn-save" onclick="saveEditedAddress()">Save</button>
-            
+            <button class="btn btn-secondary" onclick="cancelEditAddress()">Cancel</button>
         `;
             document.getElementById('editAddressForm').style.display = 'block';
             document.getElementById('newAddressForm').style.display = 'none';
@@ -114,35 +117,68 @@
 
     function saveEditedAddress() {
         var editId = document.getElementById('editId').value;
-        var editCountry = document.getElementById('editCountry').value;
+        const url = `/addresses/${editId}`;
+        const token = "{{ csrf_token() }}";
+        var editGovernorate = document.getElementById('editGovernorate').value;
         var editCity = document.getElementById('editCity').value;
         var editStreet = document.getElementById('editStreet').value;
         var editPostalCode = document.getElementById('editPostalCode').value;
-        var editNeighborhood = document.getElementById('editNeighborhood').value;
+        var editFamousPlaceNearby = document.getElementById('editFamousPlaceNearby').value;
         var editHouseNumber = document.getElementById('editHouseNumber').value;
 
-        if (editCountry && editCity && editStreet && editPostalCode && editNeighborhood && editHouseNumber) {
-            const address = addressList.find(a => a.id == editId);
-            if (address) {
-                address.country = editCountry;
-                address.city = editCity;
-                address.street = editStreet;
-                address.postalCode = editPostalCode;
-                address.neighborhood = editNeighborhood;
-                address.houseNumber = editHouseNumber;
+        if (editGovernorate && editCity && editStreet && editPostalCode && editFamousPlaceNearby && editHouseNumber) {
 
-                renderAddressList();
-                cancelEditAddress();
-            }
+            axios.patch(url, {
+                _token: token,
+                id: editId,
+                'governorate': editGovernorate,
+                'city': editCity,
+                'street': editStreet,
+                'house_number': editHouseNumber,
+                'postal_code': editPostalCode,
+                'famous_place_nearby': editFamousPlaceNearby,
+            }).then(function(response) {
+                console.log(response);
+                if (response.data.status === 'error') {
+                    let errors = response.data.errors;
+                    let lists = '';
+                    for (const [key, value] of Object.entries(errors)) {
+                        lists += ` <li class="text-danger">${value}</li>`;
+                    }
+                    $('#edit-errors').html(`<ul>${lists}</ul>`);
+                } else {
+                    const address = addressList.find(a => a.id == editId);
+                    if (address) {
+                        address.governorate = editGovernorate;
+                        address.city = editCity;
+                        address.street = editStreet;
+                        address.postal_code = editPostalCode;
+                        address.famous_place_nearby = editFamousPlaceNearby;
+                        address.house_number = editHouseNumber;
+
+                        renderAddressList();
+                        cancelEditAddress();
+                    }
+                }
+            }).catch(function(error) {
+                console.log(error);
+            });
         } else {
             alert('Please fill all fields.');
         }
     }
 
     function deleteAddress(id) {
-        addressList = addressList.filter(a => a.id !== id);
-        document.getElementById('editAddressForm').style.display = 'none';
-        renderAddressList();
+        axios.delete(
+            `/addresses/${id}`
+        ).then(function(response) {
+            console.log(response);
+            addressList = addressList.filter(a => a.id !== id);
+            document.getElementById('editAddressForm').style.display = 'none';
+            renderAddressList();
+        }).catch(function(error) {
+            console.log(error);
+        })
     }
 
     function confirmAddress() {
@@ -150,7 +186,7 @@
         if (selectedAddress) {
             const address = addressList.find(a => a.id == selectedAddress.value);
             document.getElementById('selectedAddressInfo').textContent =
-                `${address.country}, ${address.city}, ${address.street}, ${address.postalCode}`;
+                `${address.governorate}, ${address.city}, ${address.street}, ${address.postal_code}`;
             const collapseOne = new bootstrap.Collapse(document.getElementById('collapseOne'), {
                 toggle: false
             });
@@ -228,22 +264,18 @@
     }
 
     function showPaymentForm(paymentMethod) {
-        document.getElementById('visaForm').style.display = 'none';
-        document.getElementById('mastercardForm').style.display = 'none';
-        document.getElementById('selectedPaymentInfo').textContent = '';
+        // document.getElementById('visaForm').style.display = 'none';
+        // document.getElementById('mastercardForm').style.display = 'none';
+        // document.getElementById('selectedPaymentInfo').textContent = '';
         if (paymentMethod === 'visa') {
-            document.getElementById('visaForm').style.display = 'block';
-            document.getElementById('selectedPaymentInfo').textContent = 'Visa';
+            // document.getElementById('visaForm').style.display = 'block';
+            // document.getElementById('selectedPaymentInfo').textContent = 'Visa';
         } else if (paymentMethod === 'mastercard') {
-            document.getElementById('mastercardForm').style.display = 'block';
-            document.getElementById('selectedPaymentInfo').textContent = 'MasterCard';
+            // document.getElementById('mastercardForm').style.display = 'block';
+            // document.getElementById('selectedPaymentInfo').textContent = 'MasterCard';
         } else if (paymentMethod === 'cod') {
             document.getElementById('selectedPaymentInfo').textContent = 'Cash on Delivery';
         }
-    }
-
-    function completeOrder() {
-        alert('Order Completed!');
     }
 
     function renderAddressList() {
@@ -264,6 +296,22 @@
         `;
             addressListContainer.appendChild(addressItem);
         });
+    }
+
+    function completeOrder() {
+        $('#shipping_id').val($('input[name="shipping"]:checked').val());
+        $('#address_id').val($('input[name="address"]:checked').val());
+        $('#complete-order-form').submit();
+        // axios.post('{{ route("order.checkout.store") }}', {
+        //     _token: '{{ csrf_token() }}',
+        //     shipping_id: $('input[name="shipping"]:checked').val(),
+        //     address_id: $('input[name="address"]:checked').val(),
+        // }).then(function(response) {
+        //     console.log(response);
+        // }).catch(function(error) {
+        //     console.log(error);
+        // })
+        // alert('Order Completed!');
     }
 
     // Initial render for the address list

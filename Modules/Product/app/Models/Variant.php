@@ -14,7 +14,9 @@ class Variant extends Model
      */
     protected $fillable = ['product_id', 'size', 'color', 'material', 'sku', 'price'];
 
-    protected $appends = ['price_with_discount' , 'variant_name'];
+    protected $appends = ['price_with_discount' , 'variant_name' , 'inventory_quantity'];
+
+    // protected $with = ['inventory'];
 
     /**
      * Get the product that owns the variant.
@@ -22,6 +24,12 @@ class Variant extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    
+    public function inventory()
+    {
+        return $this->hasOne(Inventory::class);
     }
 
     /**
@@ -51,6 +59,11 @@ class Variant extends Model
                 $this->color ?? '',
         ];
         return implode('-', array_filter($elements));
+    }
+
+    public function getInventoryQuantityAttribute()
+    {
+        return $this->inventory->quantity ?? 0;
     }
 
 }

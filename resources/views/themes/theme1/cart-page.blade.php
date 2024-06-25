@@ -13,6 +13,7 @@
                             @foreach ($carts as $index => $cart)
                                 <!-- Items In cart -->
                                 <div class="items_in_cart">
+                                    <div class="d-none" id="cart-id-{{ $index }}" data-id="{{ $cart->id }}"></div>
                                     <!-- item -->
                                     <div class="alert item_cart alert-dismissible fade show" role="alert">
                                         <!-- data -->
@@ -21,25 +22,33 @@
                                             {{-- <a class="removeItem" href="javascript:;" data-bs-dismiss="alert"
                                             aria-label="Close"><i class="fa-solid fa-xmark"></i></a> --}}
 
-
-                                            <form action="{{ route('cart.destroy' , $cart->id) }}" method="POST" id="delete-form-{{ $index }}" data-index="{{ $index }}">
+                                            <form action="{{ route('cart.destroy', $cart->id) }}" method="POST"
+                                                id="delete-form-{{ $index }}" data-index="{{ $index }}">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
-                                            <button class="removeItem" onclick="event.preventDefault(); removeItemFromCart({{ $index }})"><i class="fa-solid fa-xmark"></i></button>
+                                            <button class="removeItem"
+                                                onclick="event.preventDefault(); removeItemFromCart({{ $index }})"><i
+                                                    class="fa-solid fa-xmark"></i></button>
 
-                                                <div class="d-none" id="product-title-{{ $index }}" data-title="{{ $cart->product->title }}"></div>
+                                            <div class="d-none" id="product-id-{{ $index }}"
+                                                data-id="{{ $cart->product->id }}"></div>
+
+                                            <div class="d-none" id="product-title-{{ $index }}"
+                                                data-title="{{ $cart->product->title }}"></div>
                                             <!-- img and title -->
                                             <div class="itemInfo">
                                                 <a href="#">
-                                                    <img class="w-full object-contain" src="{{ $cart->product->thumbnail }}"
-                                                        alt="product image">
+                                                    <img class="w-full object-contain"
+                                                        src="{{ $cart->product->thumbnail }}" alt="product image">
                                                 </a>
 
                                                 <h2>
-                                                    <a href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
+                                                    <a
+                                                        href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
                                                     <div class="variant-price">Variant Price: <span
-                                                            id="variant-price-{{ $index }}">{{ $cart->product->price }}</span> {{ $currency }}
+                                                            id="variant-price-{{ $index }}">{{ $cart->product->price }}</span>
+                                                        {{ $currency }}
                                                     </div>
                                                 </h2>
                                             </div>
@@ -48,15 +57,16 @@
                                             <!-- quantity -->
                                             <div class="quantity-control">
                                                 <button id="decrement-{{ $index }}">-</button>
-                                                <input type="number" id="quantity-{{ $index }}" value="{!! intval(session()->get($cart->id.'-quantity')) ?? 1 !!}"
-                                                    min="1">
+                                                <input type="number" id="quantity-{{ $index }}"
+                                                    value="{{ intval($cart->quantity) }}" min="1">
                                                 <button id="increment-{{ $index }}">+</button>
                                             </div>
                                             <!-- ./quantity -->
 
                                             <!-- total price -->
                                             <div class="price">Total Price: 
-                                                <span id="price-{{ $index }}">  {{ $cart->product->price }}  </span></div>
+                                                <span id="price-{{ $index }}"> {{ $cart->product->price }} </span>
+                                            </div>
                                             <!-- ./total price -->
 
                                         </div>
@@ -67,13 +77,19 @@
                                             <label class="title" for="Variant">Choose Product</label>
                                             <select id="variant-{{ $index }}">
                                                 @foreach ($cart->product->variants as $variant)
-                                                    <option value="{{ $variant->id }}" 
-                                                            {{  ( session()->has($cart->id.'-variantId') && session()->get($cart->id.'-variantId')  == $variant->id ) 
-                                                            ?  'selected' : 'null' }}
-                                                    >{{ $variant->variant_name  }}
+                                                    <option value="{{ $variant->id }}"
+                                                        {{ $cart->variant_id == $variant->id ? 'selected' : 'null' }}>
+                                                        {{ $variant->variant_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            @foreach ($cart->product->variants as $variant)
+                                                {{-- <div class="d-none" id="inventory-quantity-{{ $variant->id }}"
+                                                    data-quantity="{{ $variant->inventory->quantity }}"></div>
+                                                    --}}
+                                                <div class="d-none" id="inventory-quantity-{{ $variant->id }}"
+                                                    data-quantity="{{ $variant->inventory_quantity }}"></div>
+                                            @endforeach
                                         </div>
                                         <!-- variants -->
 
@@ -104,7 +120,8 @@
 
                                         <p id="item-total-price-{{ $index }}"></p>
 
-                                        <div class="" style="background-color: #cccccc ; height: 5px ; width: 100%"></div>
+                                        <div class="" style="background-color: #cccccc ; height: 5px ; width: 100%">
+                                        </div>
                                     @endforeach
 
                                     <div class="coupons">
@@ -122,8 +139,8 @@
                                     <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
                                         @csrf
                                         <input type="hidden" name="final_total" id="final-total-input" value="">
-                                        <button class="place_order" type="submit" id="final-total-btn">Submit Order</button>
                                     </form>
+                                    <button class="place_order" id="final-total-btn">Submit Order</button>
                                 </div>
                                 <!-- summary -->
                             </div>
@@ -164,109 +181,5 @@
 @endsection
 
 @section('scripts')
-
-    <script>
-
-        let prices = {!! $prices !!}; 
-
-        function getPricePerUnit(index) {
-            let variantId = $(`#variant-${index}`).val();
-            return prices[variantId]['priceWithDiscount'];
-        }
-
-        function updateTotalPrice(index) {
-            let currentQuantity = parseInt($(`#quantity-${index}`).val());
-            let pricePerUnit = getPricePerUnit(index);
-            let totalPrice = currentQuantity * pricePerUnit;
-            $('#price-' + index).text(totalPrice.toFixed(2));
-        }
-
-        function updateVariantPrice(index) {
-            let pricePerUnit = getPricePerUnit(index);
-            // $(`#variant-price-${index}`).text(pricePerUnit.toFixed(2)) ; // Update variant price element
-            $(`#variant-price-${index}`).text(pricePerUnit) ; // Update variant price element
-        }
-
-        function updateOrderSummary(index) {
-            const variantSelect = document.getElementById('variant-'+index);
-            const selectedProductElement = document.getElementById('selected-product-' + index); // Order summary element
-            const selectedVariantElement = document.getElementById('selected-variant-' + index); // Order summary element
-            const variantPriceSummaryElement = document.getElementById('variant-price-summary-' + index); // Order summary element
-            const quantitySummaryElement = document.getElementById('quantity-summary-' + index); // Order summary element
-            const itemTotalPriceElement = document.getElementById('item-total-price-' + index); // Order summary element
-            const finalTotalPriceElement = document.getElementById('final-total-price'); // Order summary element
-
-            const selectedVariantText = variantSelect.options[variantSelect.selectedIndex].text;
-            const variantPrice = getPricePerUnit(index);
-            const quantity = parseInt($(`#quantity-${index}`).val());
-            const itemTotalPrice = (quantity * variantPrice).toFixed(2);
-
-            selectedProductElement.innerHTML = `<b>chosen Product:</b> ${$('#product-title-' + index).data('title')}`;
-            selectedVariantElement.innerHTML = `<b>chosen Variant:</b> ${selectedVariantText}`;
-            variantPriceSummaryElement.innerHTML = `<b>Product Price:</b> ${variantPrice} {!! $currency !!} ` ;
-            quantitySummaryElement.innerHTML = `<b>Quantity:</b> ${quantity}`;
-            itemTotalPriceElement.innerHTML = `<b>Item Total:</b> ${itemTotalPrice} {!! $currency !!} ` ;
-
-            updateFinalPrice();
-        }
-
-        function updateFinalPrice() {
-            let finalPrice = 0;
-            $('.items_in_cart').each(function(index) {
-                finalPrice += parseFloat($(`#price-${index}`).text());
-            })
-            $('#final-total-price').text(finalPrice.toFixed(2) + ' {!! $currency !!}');
-            $('#final-total-input').val(finalPrice.toFixed(2));
-        }
-
-        $('#final-total-btn').on('click', () => {
-            $('#final-total-form').submit();
-        })
-
-        $('.items_in_cart').each(function(index) {
-            $(`#decrement-${index}`).on('click', function () {
-                let currentQuantity = parseInt($(`#quantity-${index}`).val());
-                if (currentQuantity > 1) {
-                    $(`#quantity-${index}`).val(currentQuantity - 1);
-                }
-                updateTotalPrice(index);
-                updateOrderSummary(index);
-            });
-
-            $(`#increment-${index}`).on('click', function () {
-                let currentQuantity = parseInt($(`#quantity-${index}`).val());
-                $(`#quantity-${index}`).val(currentQuantity + 1);
-                updateTotalPrice(index);
-                updateOrderSummary(index);
-            });
-
-            $(`#variant-${index}`).on('change', () => {
-                updateTotalPrice(index);
-                updateVariantPrice(index); // Update variant price display on selection change
-                updateOrderSummary(index);
-            });
-
-            // Call update functions
-            updateTotalPrice(index);
-            updateVariantPrice(index);
-            updateOrderSummary(index);
-        })
-
-        function removeItemFromCart(index) {
-            Swal.fire({
-                title: "هل تريد الاستمرار؟",
-                icon: "question",
-                iconHtml: "؟",
-                confirmButtonText: "نعم",
-                cancelButtonText: "لا",
-                showCancelButton: true,
-                showCloseButton: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#delete-form-'+index).submit();
-                }
-            });
-        }
-    </script>
-
+    @include('themes.theme1.cart-page-scripts')
 @endsection

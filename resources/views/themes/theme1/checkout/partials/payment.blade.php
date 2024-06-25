@@ -20,7 +20,8 @@
                 <label class="form-check-label" for="cod">
                     <input class="form-check-input" type="radio" name="payment" id="cod" value="cod"
                         onclick="showPaymentForm('cod')">
-                    <img src="images/payment/apple_pay_mini.webp" alt="Cash on Delivery" style="width: 50px;">
+                        Cash on Delivery
+                    {{-- <img src="images/payment/apple_pay_mini.webp" alt="Cash on Delivery" style="width: 50px;"> --}}
                 </label>
             </div>
         </div>
@@ -58,7 +59,11 @@
                 </div>
             </div>
         </div> --}}
-
+        <form action="{{ route('order.checkout.store') }}" method="POST" id="complete-order-form" class="d-none">
+            @csrf
+            <input type="text" name="shipping_id" id="shipping_id">
+            <input type="text" name="address_id" id="address_id">
+        </form>
         <button class="btn-save" onclick="completeOrder()">Complete Order</button>
     </div>
 </div>

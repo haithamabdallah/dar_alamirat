@@ -14,7 +14,8 @@ class Cart extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['user_id' , 'product_id'];
+    // protected $fillable = ['user_id' , 'product_id'];
+    protected $guarded = ['id'];
     protected $with = ['product'];
 
 

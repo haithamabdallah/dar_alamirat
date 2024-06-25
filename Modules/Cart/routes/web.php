@@ -15,5 +15,5 @@ use Modules\Cart\Http\Controllers\CartController;
 */
 
 Route::group([], function () {
-    Route::resource('cart', CartController::class)->names('cart');
+    // Route::resource('cart', CartController::class)->names('cart');
 });
