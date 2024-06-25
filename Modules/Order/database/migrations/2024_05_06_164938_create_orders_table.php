@@ -27,11 +27,11 @@ return new class extends Migration
             $table->foreign('user_address_id')->references('id')->on('user_addresses')->onDelete('set null');
         });
 
-        if (Schema::hasTable('order_product')) {
-            Schema::table('order_product', function (Blueprint $table) {
-                $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            });
-        }
+        // if (Schema::hasTable('order_product')) {
+        //     Schema::table('order_product', function (Blueprint $table) {
+        //         $table->foreign('order_id')->on('orders')->references('id')->onDelete('cascade');
+        //     });
+        // }
     }
 
     /**
@@ -39,12 +39,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('order_product')) {
-            Schema::table('order_product', function (Blueprint $table) {
-                $table->dropForeign(['order_id']);
-            });
-        }
-        
+        // if (Schema::hasTable('order_product')) {
+        //     Schema::table('order_product', function (Blueprint $table) {
+        //         $table->dropForeign(['order_id']);
+        //     });
+        // }
+
 
         Schema::dropIfExists('orders');
     }
