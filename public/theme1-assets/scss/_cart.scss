@@ -30,7 +30,11 @@
   h6 {
     margin-bottom: 10px;
   }
-
+    .final-total {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
   #selected-variant,
   #variant-price-summary,
   #quantity-summary,

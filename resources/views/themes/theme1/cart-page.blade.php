@@ -10,9 +10,10 @@
                     <div class="s-block cart_content">
                         <!-- main -->
                         <main>
-                            @foreach ($carts as $index => $cart)
+
                                 <!-- Items In cart -->
                                 <div class="items_in_cart">
+                                @foreach ($carts as $index => $cart)
                                     <!-- item -->
                                     <div class="alert item_cart alert-dismissible fade show" role="alert">
                                         <!-- data -->
@@ -55,7 +56,7 @@
                                             <!-- ./quantity -->
 
                                             <!-- total price -->
-                                            <div class="price">Total Price: 
+                                            <div class="price">Total Price:
                                                 <span id="price-{{ $index }}">  {{ $cart->product->price }}  </span></div>
                                             <!-- ./total price -->
 
@@ -67,8 +68,8 @@
                                             <label class="title" for="Variant">Choose Product</label>
                                             <select id="variant-{{ $index }}">
                                                 @foreach ($cart->product->variants as $variant)
-                                                    <option value="{{ $variant->id }}" 
-                                                            {{  ( session()->has($cart->id.'-variantId') && session()->get($cart->id.'-variantId')  == $variant->id ) 
+                                                    <option value="{{ $variant->id }}"
+                                                            {{  ( session()->has($cart->id.'-variantId') && session()->get($cart->id.'-variantId')  == $variant->id )
                                                             ?  'selected' : 'null' }}
                                                     >{{ $variant->variant_name  }}
                                                     </option>
@@ -79,9 +80,10 @@
 
                                     </div>
                                     <!-- ./item -->
+                                    @endforeach
                                 </div>
                                 <!-- ./Items in Cart -->
-                            @endforeach
+
                         </main>
                         <!-- .main -->
 
@@ -91,7 +93,7 @@
                             <div class="sticky-top">
                                 <!-- summary -->
                                 <div class="order-summary">
-                                    <h6 class="p-2 rounded" style="background-color: #cccccc ;">Order Summary</h6>
+                                    <h6>Order Summary</h6>
 
                                     @foreach ($carts as $index => $cart)
                                         <p id="selected-product-{{ $index }}"></p>
@@ -103,8 +105,6 @@
                                         <p id="quantity-summary-{{ $index }}"></p>
 
                                         <p id="item-total-price-{{ $index }}"></p>
-
-                                        <div class="" style="background-color: #cccccc ; height: 5px ; width: 100%"></div>
                                     @endforeach
 
                                     <div class="coupons">
@@ -167,7 +167,7 @@
 
     <script>
 
-        let prices = {!! $prices !!}; 
+        let prices = {!! $prices !!};
 
         function getPricePerUnit(index) {
             let variantId = $(`#variant-${index}`).val();
