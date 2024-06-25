@@ -5,7 +5,7 @@
 <script src="{{asset('theme1-assets/js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('theme1-assets/js/jquery.jgrowl.min.js')}}"></script>
 <script src="{{asset('theme1-assets/js/jquery.magnific-popup.min.js')}}"></script>
-<script src="{{asset('assets/js/app.js')}}"></script> {{-- // import jquery and axios --}}
+
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://kit.fontawesome.com/24eabd5129.js" crossorigin="anonymous"></script>

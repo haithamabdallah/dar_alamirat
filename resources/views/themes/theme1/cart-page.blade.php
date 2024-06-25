@@ -10,9 +10,8 @@
                     <div class="s-block cart_content">
                         <!-- main -->
                         <main>
-
-                                <!-- Items In cart -->
-                                <div class="items_in_cart">
+                            <!-- Items In cart -->
+                            <div class="items_in_cart">
                                 @foreach ($carts as $index => $cart)
                                     <!-- item -->
                                     <div class="alert item_cart alert-dismissible fade show" role="alert">
@@ -30,6 +29,9 @@
                                             <button class="removeItem" onclick="event.preventDefault(); removeItemFromCart({{ $index }})"><i class="fa-solid fa-xmark"></i></button>
 
                                                 <div class="d-none" id="product-title-{{ $index }}" data-title="{{ $cart->product->title }}"></div>
+                                        </div>
+
+                                            <div class="entries">
                                             <!-- img and title -->
                                             <div class="itemInfo">
                                                 <a href="#">
@@ -49,8 +51,8 @@
                                             <!-- quantity -->
                                             <div class="quantity-control">
                                                 <button id="decrement-{{ $index }}">-</button>
-                                                <input type="number" id="quantity-{{ $index }}" value="{!! intval(session()->get($cart->id.'-quantity')) ?? 1 !!}"
-                                                    min="1">
+                                                <input type="number" class="quantity" id="quantity-{{ $index }}" value="{!! intval(session()->get($cart->id.'-quantity')) ?? 1 !!}"
+                                                    min="1" readonly>
                                                 <button id="increment-{{ $index }}">+</button>
                                             </div>
                                             <!-- ./quantity -->
@@ -59,8 +61,9 @@
                                             <div class="price">Total Price:
                                                 <span id="price-{{ $index }}">  {{ $cart->product->price }}  </span></div>
                                             <!-- ./total price -->
+                                            </div>
 
-                                        </div>
+
                                         <!-- data -->
 
                                         <!-- variants -->
@@ -80,10 +83,9 @@
 
                                     </div>
                                     <!-- ./item -->
-                                    @endforeach
-                                </div>
-                                <!-- ./Items in Cart -->
-
+                                @endforeach
+                            </div>
+                            <!-- ./Items in Cart -->
                         </main>
                         <!-- .main -->
 
@@ -95,16 +97,24 @@
                                 <div class="order-summary">
                                     <h6>Order Summary</h6>
 
+                                    <div class="final-total">
+                                        <p id="final-total"><b>Final Total:</b><span id="final-total-up"></span></p>
+                                    </div>
+
                                     @foreach ($carts as $index => $cart)
-                                        <p id="selected-product-{{ $index }}"></p>
+                                        <div class="item-summary">
+                                            <p id="selected-product-{{ $index }}"></p>
 
-                                        <p id="selected-variant-{{ $index }}"></p>
+                                            <p id="selected-variant-{{ $index }}"></p>
 
-                                        <p id="variant-price-summary-{{ $index }}"></p>
+                                            <p id="variant-price-summary-{{ $index }}"></p>
 
-                                        <p id="quantity-summary-{{ $index }}"></p>
+                                            <p id="quantity-summary-{{ $index }}"></p>
 
-                                        <p id="item-total-price-{{ $index }}"></p>
+                                            <p id="item-total-price-{{ $index }}"></p>
+
+                                            <div class="" style="background-color: #cccccc ; height: 5px ; width: 100%"></div>
+                                        </div>
                                     @endforeach
 
                                     <div class="coupons">
@@ -212,10 +222,11 @@
 
         function updateFinalPrice() {
             let finalPrice = 0;
-            $('.items_in_cart').each(function(index) {
+            $('.item_cart').each(function(index) {
                 finalPrice += parseFloat($(`#price-${index}`).text());
             })
             $('#final-total-price').text(finalPrice.toFixed(2) + ' {!! $currency !!}');
+            $('#final-total-up').text(finalPrice.toFixed(2) + ' {!! $currency !!}');
             $('#final-total-input').val(finalPrice.toFixed(2));
         }
 
@@ -223,7 +234,7 @@
             $('#final-total-form').submit();
         })
 
-        $('.items_in_cart').each(function(index) {
+        $('.item_cart').each(function(index) {
             $(`#decrement-${index}`).on('click', function () {
                 let currentQuantity = parseInt($(`#quantity-${index}`).val());
                 if (currentQuantity > 1) {
