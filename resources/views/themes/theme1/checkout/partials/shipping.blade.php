@@ -14,7 +14,7 @@
                     <div class="form-check shipping-wrap">
                         <label class="form-check-label" for="shipping{{ $index }}">
                             <input class="form-check-input" type="radio" name="shipping" id="shipping{{ $index }}"
-                                value="{{ $shipping->id }}">
+                                value="{{ $shipping->id }}" data-shipping-price="{{ $shipping->price }}">
                             {{-- <img src="images/shipping/01.svg" alt="Express Trade House"> --}}
                             <span>  {{ $shipping->name }} </span>
                         </label>

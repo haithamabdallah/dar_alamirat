@@ -314,6 +314,22 @@
         // alert('Order Completed!');
     }
 
+    $('input[name="shipping"]').each(function(index) {
+        $(this).on('click', function() {
+            let shippingPrice = parseFloat($('#shipping'+index+':checked').data('shipping-price'))
+            $('#shipping-cost').text(shippingPrice);
+            calculateTotal()
+        })
+    })
+
+    function calculateTotal() {
+        let cartTotal = parseFloat('{{ $cartTotal }}');
+        let shippingCost = parseFloat($('#shipping-cost').text());
+        let vat = parseFloat($('#vat').text());
+        let orderTotal = cartTotal + shippingCost + vat;
+        $('#order-total').text(orderTotal.toFixed(2));
+    }
+
     // Initial render for the address list
     renderAddressList();
 </script>

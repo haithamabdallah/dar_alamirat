@@ -11,8 +11,12 @@
                 <span id="shipping-cost"> </span> <b>{{ $currency }}</b>
             </div>
             <div class="item">
-                <h6>VAT</h6>
-                <span id="vat"> {{ $settings->keyBy('type')['general']->value['vat'] ?? 0 }} % </span>  <b>{{ $currency }}</b>
+                @php 
+                    $vatVal = $settings->keyBy('type')['general']->value['vat'] ?? 0;
+                    $vat = $vatVal / 100 * $cartTotal;
+                @endphp
+                <h6>VAT ( {{ $vatVal . '%' }} ) </h6>
+                <span id="vat">{{ $vat }}</span>  <b>{{ $currency }}</b>
             </div>
         </div>
     </div>
