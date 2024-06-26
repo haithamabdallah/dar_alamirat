@@ -17,8 +17,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages=Page::get();
-        return view('dashboard.pages.pages',compact('pages'));
+        $pages = Page::get();
+        return view('dashboard.pages.pages', compact('pages'));
     }
 
     /**
@@ -37,19 +37,15 @@ class PageController extends Controller
     {
         //
         $validatedData = $request->validated();
-        $page=Page::create($validatedData);
+        $page = Page::create($validatedData);
 
-        if ($page)
-        {
+        if ($page) {
             Session()->flash('success', 'Page Created Successfully');
-        }else{
+        } else {
             Session()->flash('error', 'Page didn\'t Created');
-
         }
 
         return redirect()->route('page.index');
-
-
     }
 
     /**
@@ -57,8 +53,8 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        $page=Page::find($id);
-        return view('themes.theme1.page',compact('page'));
+        $page = Page::find($id);
+        return view('themes.theme1.page', compact('page'));
     }
 
     /**
@@ -66,8 +62,8 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        $page=Page::find($id);
-        return view('dashboard.pages.edit_page',compact('page'));
+        $page = Page::find($id);
+        return view('dashboard.pages.edit_page', compact('page'));
     }
 
     /**
@@ -76,27 +72,27 @@ class PageController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         //
-         // Retrieve the Page object
-         $page = Page::findOrFail($id);
+        // Retrieve the Page object
+        $page = Page::findOrFail($id);
 
-         // Validate the incoming request data
-         $validatedData = $request->validate([
-             'name' => 'required|array',
-             'content' => 'required|array',
-             'priority' => 'required|integer',
-         ]);
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|array',
+            'content' => 'required|array',
+            'priority' => 'required|integer',
+        ]);
 
-         // Update the Page object with the validated data
-         $page->name = $validatedData['name'];
-         $page->content = $validatedData['content'];
-         $page->priority = $validatedData['priority'];
+        // Update the Page object with the validated data
+        $page->name = $validatedData['name'];
+        $page->content = $validatedData['content'];
+        $page->priority = $validatedData['priority'];
 
-         // Save the updated Page object
-         $page->save();
+        // Save the updated Page object
+        $page->save();
 
-         // Redirect the user to a relevant page
-         return redirect()->route('page.index')->with('success', 'Page updated successfully.');
-     }
+        // Redirect the user to a relevant page
+        return redirect()->route('page.index')->with('success', 'Page updated successfully.');
+    }
 
 
     /**
@@ -105,19 +101,19 @@ class PageController extends Controller
     public function destroy($id)
     {
         //
-        $page=Page::find($id);
+        $page = Page::find($id);
         $page->delete();
-        return redirect()->route('page.index')->with('success','Page deleted successfully');
+        return redirect()->route('page.index')->with('success', 'Page deleted successfully');
     }
 
-public function toggleStatus(Request $request)
-{
-    $model = Page::findOrFail($request->modelId);
+    public function toggleStatus(Request $request)
+    {
+        $model = Page::findOrFail($request->modelId);
 
-    // Toggle the status
-    $model->status = !$model->status;
-    $model->save();
+        // Toggle the status
+        $model->status = !$model->status;
+        $model->save();
 
-    return response()->json(['success' => true]);
-}
+        return response()->json(['success' => true]);
+    }
 }

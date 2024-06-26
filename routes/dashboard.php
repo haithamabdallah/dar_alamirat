@@ -11,8 +11,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/logout', [AuthController::class , 'logout' ])->name('logout');
     
     Route::group(['middleware' => 'admin' , 'prefix' => 'coupons' , 'as' => 'coupons.'], function () {
-        Route::get('/edit', [DashboardController::class , 'edit' ])->name('edit');
-        Route::resource('/' , CouponController::class);
+        // I made [edit & update] seprate because error in the app
+        Route::get('/{coupon}/edit', [CouponController::class , 'edit' ])->name('edit');
+        Route::match(['put' , 'patch'] , '/{coupon}', [CouponController::class , 'update' ])->name('update');
+        Route::resource('/' , CouponController::class)->except('edit', 'update');
+        Route::post('/toggle-status', [CouponController::class , 'toggleStatus' ])->name('toggle-status');
     });
 });
 

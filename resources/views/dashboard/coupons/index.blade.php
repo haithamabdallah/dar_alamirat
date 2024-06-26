@@ -38,7 +38,7 @@
                                 <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 start-0" style="z-index: 1;">
                                     <i class="fa fa-search opacity-5"></i>
                                 </div>
-                                <input type="text" id="searchForPage" onkeyup="searchPagesName()" class="form-control px-35px bg-light" placeholder="Search For Page..." />
+                                <input type="text" id="searchForPage" onkeyup="searchCouponsName()" class="form-control px-35px bg-light" placeholder="Search For Page..." />
                             </div>
                         </div>
                     </div>
@@ -46,43 +46,47 @@
 
                     <!-- table -->
                     <div class="table-responsive mb-3">
-                        <table id="pagesTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
+                        <table id="couponsTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
                             <thead>
                             <tr>
-                                <th width="1%"></th>
-                                <th class="text-nowrap" width="40%">Name</th>
+                                <th width="1%">#</th>
+                                <th class="text-nowrap" width="10%">Code</th>
+                                <th class="text-nowrap" width="10%">Start Date</th>
+                                <th class="text-nowrap" width="10%">End Date</th>
+                                <th class="text-nowrap" width="10%">Note</th>
+                                <th class="text-nowrap" width="10%">Limit Per User</th>
+                                <th class="text-nowrap" width="10%">Usage Limit</th>
+                                <th class="text-nowrap" width="10%">Usage Count</th>
                                 <th class="text-nowrap" width="5%">status</th>
-                                <th class="text-nowrap" width="20%">created At</th>
+                                <th class="text-nowrap" width="10%">created At</th>
                                 <th class="text-nowrap" width="5%">Edit</th>
-                                <th class="text-nowrap" width="5%">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @forelse ($pages as $page)
-                                {{-- <tr class="odd gradeX">
-                                    <td width="1%" class="fw-bold text-dark">{{ $page->id }}</td>
-                                    <td>{{ $page->name }}</td>
+                                @forelse ($coupons as $index => $coupon)
+                                <tr class="odd gradeX">
+                                    <td width="1%" class="fw-bold text-dark">{{ $index + 1 }}</td>
+                                    <td>{{ $coupon->code }}</td>
+                                    <td>{{ $coupon->start_date }}</td>
+                                    <td>{{ $coupon->end_date }}</td>
+                                    <td>{{ $coupon->note }}</td>
+                                    <td>{{ $coupon->limit_per_user }}</td>
+                                    <td>{{ $coupon->usage_limit }}</td>
+                                    <td>{{ $coupon->usage_count }}</td>
                                     <td>
                                         <div class="form-check form-switch">
-                                            <input id="toggleStatusCheckbox{{ $page->id }}"
-                                                class="form-check-input toggle-status-checkbox {{ $page->status ? '1' : '0' }}"
-                                                type="checkbox" {{ $page->status ? 'checked' : '' }}>
+                                            <input id="toggleStatusCheckbox{{ $coupon->id }}"
+                                                class="form-check-input toggle-status-checkbox {{ $coupon->status ? '1' : '0' }}"
+                                                type="checkbox" {{ $coupon->status ? 'checked' : '' }}>
                                         </div>
                                     </td>
-                                    <td>{{ $page->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $coupon->created_at->format('Y-m-d') }}</td>
                                     <td nowrap="">
-                                        <a href="{{route('page.edit' , $page->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> Edit</a>
+                                        <a href="{{route('dashboard.coupons.edit' , $coupon->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> Edit</a>
                                     </td>
-                                    <td nowrap="">
-                                        <form id="deleteForm{{$page->id}}" action="{{ route('page.destroy', $page->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <a class="btn delete-btn btn-danger" data-id="{{$page->id}}"><i class="fa-solid fa-trash-can"></i> Delete</a>
-                                        </form>
-                                    </td>
-                                </tr> --}}
+                                </tr>
                                 @empty
-                                <p>No Pages Found </p>
+                                <p>No Coupons Found </p>
                                 @endforelse
                             </tbody>
                         </table>
@@ -90,14 +94,14 @@
                     <!-- ./table -->
 
                    <!-- pagination -->
-                   {{-- <div class="d-md-flex align-items-center">
+                   <div class="d-md-flex align-items-center">
                     <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                        Showing {{ $pages->firstItem() }} to {{ $pages->lastItem() }} of {{ $pages->total() }} entries
+                        Showing {{ $coupons->firstItem() }} to {{ $coupons->lastItem() }} of {{ $coupons->total() }} entries
                     </div>
                     <ul class="pagination mb-0 justify-content-center">
-                        {{ $pages->links('pagination::bootstrap-4') }}
+                        {{ $coupons->links('pagination::bootstrap-4') }}
                     </ul>
-                   </div> --}}
+                   </div>
                 <!-- ./pagination -->
                 </div>
                 <!-- ./tab pane -->
@@ -128,12 +132,12 @@
     </script>
 
     <script>
-        function searchPagesName() {
+        function searchCouponsName() {
             // Declare variables
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchForPage");
             filter = input.value.toUpperCase();
-            table = document.getElementById("pagesTableList");
+            table = document.getElementById("couponsTableList");
             tr = table.getElementsByTagName("tr");
 
             // Loop through all table rows, and hide those who don't match the search query
@@ -158,7 +162,7 @@
                 var modelId = $(this).attr('id').replace('toggleStatusCheckbox', '');
 
                 $.ajax({
-                    url: '{{ route('page.toggle-status') }}',
+                    url: '{{ route("dashboard.coupons.toggle-status") }}',
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
