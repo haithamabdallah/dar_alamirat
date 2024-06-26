@@ -10,8 +10,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/', [DashboardController::class , 'index' ])->name('index');
     Route::get('/logout', [AuthController::class , 'logout' ])->name('logout');
     
-    Route::group(['middleware' => 'admin'], function () {
-        Route::resource('coupons' , CouponController::class);
+    Route::group(['middleware' => 'admin' , 'prefix' => 'coupons' , 'as' => 'coupons.'], function () {
+        Route::get('/edit', [DashboardController::class , 'edit' ])->name('edit');
+        Route::resource('/' , CouponController::class);
     });
 });
 
