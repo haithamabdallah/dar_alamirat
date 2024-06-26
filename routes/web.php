@@ -66,23 +66,23 @@ Route::get('/reports/edit', function () {
     return view('dashboard.reports.edit_report');
 })->name('report.edit');
 
-Route::get('/cart-empty', function (){
+Route::get('/cart-empty', function () {
     return view('themes.theme1.cart-empty');
 })->name('cart-empty');
 
-Route::get('/offers', function (){
+Route::get('/offers', function () {
     return view('themes.theme1.offers');
 })->name('offers');
 
-Route::get('/brands', function (){
+Route::get('/brands', function () {
     return view('themes.theme1.brands');
 })->name('brands');
 
 
 /************************************ Front Routs ****************************/
-Route::get('/lang/{lang}' , [HomeController::class , 'changeLanguage'])->name('changeLang');
-Route::get('/' , [HomeController::class , 'index'])->name('index');
-Route::get('/category-products/{category}' , [HomeController::class , 'categoryProducts'])->name('category.products');
+Route::get('/lang/{lang}', [HomeController::class, 'changeLanguage'])->name('changeLang');
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/category-products/{category}', [HomeController::class, 'categoryProducts'])->name('category.products');
 Route::get('/search-products', [HomeController::class, 'search'])->name('products.search');
 
 Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('sendOtp');
@@ -90,12 +90,12 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOt
 Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOtp');
 
 Route::prefix('brands')->group(function () {
-    Route::get('allBrands',[BrandController::class,'index'])->name('brands.index');
-    Route::get('brands/{brand}',[BrandController::class,'showBrand'])->name('brand');
+    Route::get('allBrands', [BrandController::class, 'index'])->name('brands.index');
+    Route::get('brands/{brand}', [BrandController::class, 'showBrand'])->name('brand');
 });
 
 Route::prefix('products')->group(function () {
-    Route::get('product/{product}',[ProductController::class,'showProduct'])->name('product');
+    Route::get('product/{product}', [ProductController::class, 'showProduct'])->name('product');
 });
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -113,24 +113,26 @@ Route::middleware('auth:admin')->group(function () {
         Route::post('announcement-store', [SettingsController::class, 'saveAnnouncements'])->name('announcement');
         Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
     });
-}); 
+});
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
     Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');
     // Cart
-    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
-    Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
     // Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
+
+    // Route::withoutMiddleware('auth')->group(function () {
+    // });
+    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
-    
+
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
     Route::post('/checkout/order', [OrderController::class, 'storeCheckout'])->name('order.checkout.store');
 
-    Route::resource('addresses' , UserAddressController::class)->only(['store', 'update', 'destroy']);
-
+    Route::resource('addresses', UserAddressController::class)->only(['store', 'update', 'destroy']);
 });
 
 // Route::get('page/{page}',[HomeController::class,'showPage'])->name('fron.page.show');

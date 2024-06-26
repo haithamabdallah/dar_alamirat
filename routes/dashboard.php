@@ -3,12 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\SettingsController;
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/', [DashboardController::class , 'index' ])->name('index');
-
     Route::get('/logout', [AuthController::class , 'logout' ])->name('logout');
+    
+    Route::group(['middleware' => 'admin'], function () {
+        Route::resource('coupons' , CouponController::class);
+    });
 });
 
 Route::group(['as' => 'auth.' , 'middleware' => 'guest:admin'], function () {
