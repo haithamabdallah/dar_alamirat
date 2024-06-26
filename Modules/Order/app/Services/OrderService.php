@@ -2,11 +2,14 @@
 
 namespace Modules\Order\Services;
 
+use App\Models\Coupon;
+use App\Models\Setting;
 use Illuminate\Support\Str;
 use Modules\Order\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Variant;
 use Modules\Product\Models\Inventory;
+use Modules\Shipping\Models\Shipping;
 use Modules\Order\Models\OrderProduct;
 
 class OrderService
@@ -83,6 +86,7 @@ class OrderService
             $order->user_id = auth()->id();
             $order->shipping_id = $validatedData['shipping_id'];
             $order->user_address_id = $validatedData['address_id'];
+            $order->coupon_id = $validatedData['coupon_id'];
             $order->save();
 
             $carts = auth()->user()->carts;
@@ -105,12 +109,48 @@ class OrderService
                 }
                 $orderProduct->price = $cart->price;
                 $orderProduct->save();
-
-                // delete cart data
-                $cart->delete();
             }
 
+            $finalPrice = 0;
+
+            foreach ($carts as $cart) {
+                $finalPrice += $cart->price * $cart->quantity;
+            }
+
+            $shipping = Shipping::where('id', $order->shipping_id)->first();
+            $vat = Setting::where('type', 'general')?->first()?->value['vat'];
+
+            if ($order->coupon_id != null) {
+                $coupon = Coupon::where('id', $order->coupon_id)->firstOrFail();
+
+                if ($coupon->discount_type == 'percent') {
+                    $finalPrice = $finalPrice - ($finalPrice * $coupon->discount_value / 100);
+                } else {
+                    $finalPrice = $finalPrice - $coupon->discount_value;
+                }
+            }
+
+            $finalPrice = $finalPrice + ($finalPrice * $vat / 100);
+            $finalPrice = $finalPrice + $shipping->price;
+
+            $order->final_price = $finalPrice;
+            $order->save();
+
+            $coupon->users()->attach($order->user_id);
+
+            $coupon->usage_count += 1;
+            $coupon->save();
+
             DB::commit();
+
+            // delete cart data
+            $carts->each(function ($cart) {
+                $cart->delete();
+            });
+
+            if (session()->has('coupon')) {
+                session()->forget('coupon');
+            }
 
             return $orderProduct;
         } catch (\Exception $e) {

@@ -23,8 +23,6 @@
 
             @include('themes.theme1.checkout.partials.order-summary')
 
-
-
             <!-- Payment -->
             <div class="accordion" id="checkoutAccordion">
                 <!-- Step 1: Shipping Address -->

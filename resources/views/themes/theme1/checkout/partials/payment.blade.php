@@ -63,6 +63,7 @@
             @csrf
             <input type="text" name="shipping_id" id="shipping_id">
             <input type="text" name="address_id" id="address_id">
+            <input type="text" name="coupon_id" id="coupon_id" value="{{ session('coupon')['id'] ?? old('coupon_id') }}">
         </form>
         <button class="btn-save" onclick="completeOrder()">Complete Order</button>
     </div>

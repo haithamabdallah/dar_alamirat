@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CouponController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
@@ -129,8 +130,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+    Route::get('/checkout', [OrderController::class, 'checkoutPage'])->name('checkout');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
     Route::post('/checkout/order', [OrderController::class, 'storeCheckout'])->name('order.checkout.store');
+
+    Route::post('check-coupon', [CouponController::class, 'checkCoupon'])->name('coupon.check');
 
     Route::resource('addresses', UserAddressController::class)->only(['store', 'update', 'destroy']);
 });

@@ -25,20 +25,32 @@ class OrderController extends Controller
         $this->orderService = $orderService;
     }
 
+    
+
+    public function checkoutPage()
+    {
+        $cartTotal = session('final_total');
+            
+        $addresses = auth()->user()->addresses;
+        
+        $shippings = Shipping::active()->get();
+
+        return view('themes.theme1.checkout.checkout' , compact('cartTotal' , 'addresses' , 'shippings'));
+    }
 
     public function checkout(Request $request)
     {
-        if ($request->has('final_total')) {
+        if ($request->has('final_total') || $request->session()->has('final_total')) {
+        if ($request->has('final_total') ) {
             $request->session()->put('final_total', $request->final_total);
         }
+            
+        return redirect()->route('checkout');
 
-        $cartTotal = session('final_total');
+        } else {
 
-        $addresses = auth()->user()->addresses;
-
-        $shippings = Shipping::active()->get();
-        
-        return view('themes.theme1.checkout.checkout' , compact('cartTotal' , 'addresses' , 'shippings'));
+            return redirect()->route('cart.index')->with('error', 'Failed to place order. Please try again.');
+        }
     }
     /**
      * Display a listing of the resource.
@@ -86,6 +98,7 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             "address_id" => "required|exists:user_addresses,id",
             "shipping_id" => "required|exists:shippings,id",
+            'coupon_id' => 'nullable|exists:coupons,id',
         ]);
 
         try {
@@ -119,7 +132,7 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         //
     }

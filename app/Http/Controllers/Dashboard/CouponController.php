@@ -10,6 +10,47 @@ use App\Http\Requests\CouponRequest;
 class CouponController extends Controller
 {
     /**
+     * Checks if the coupon is valid 
+     */
+    public function checkCoupon(Request $request)
+    {
+        try {
+            if ( session()->has('coupon') ) 
+            {
+                session()->forget('coupon');
+            }
+            $coupon = Coupon::where('code', $request->coupon_code)->first();
+
+            if ($coupon) {
+
+                if ($coupon->user_usage_count > $coupon->limit_per_user || $coupon->usage_count > $coupon->usage_limit) {
+                    return response()->json(['status' => 'error', 'msg' => 'Limit reached.']);
+                }
+
+                $todayDate = date('Y-m-d');
+                
+                if( $coupon->start_date <= $todayDate && $coupon->end_date >= $todayDate ) {
+
+                    session()->put('coupon', $coupon);
+                    return response()->json(['status' => 'success', 'coupon' => $coupon]);
+
+                } else {
+
+                    return response()->json(['status' => 'error', 'msg' => 'coupon expired.']);
+
+                }
+
+            } else {
+
+                return response()->json(['status' => 'error', 'msg' => 'Invalid coupon.']);
+
+            }
+        } catch (\Exception $e) {
+
+            return response()->json(['status' => 'error', 'msg' => $e->getMessage()]);
+        }
+    }
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -52,7 +93,7 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
-        return view('dashboard.coupons.edit' , compact('coupon'));
+        return view('dashboard.coupons.edit', compact('coupon'));
     }
 
     /**

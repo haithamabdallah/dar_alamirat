@@ -116,9 +116,9 @@
                             <div class="order-summary">
                                 <h6>Order Summary</h6>
 
-                                <div class="final-total">
+                                {{-- <div class="final-total">
                                     <p id="final-total"><b>Final Total:</b><span id="final-total-up"></span></p>
-                                </div>
+                                </div> --}}
 
                                 @foreach ($carts as $index => $cart)
                                     <div class="item-summary">
@@ -137,15 +137,17 @@
                                     </div>
                                 @endforeach
 
+                                <p id="final-total"><b>Final Total:</b><span id="final-total-price" ></span></p>
+
                                 <div class="coupons">
                                     <label for="apply_coupons">Do you have a promo code?</label>
                                     <div class="apply">
-                                        <input type="text" placeholder="Apply Coupon">
-                                        <button type="submit">Apply</button>
+                                        <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
+                                        <button onclick="applyCoupon()">Apply</button>
                                     </div>
                                 </div>
 
-                                <p id="final-total"><b>Final Total:</b><span id="final-total-price"></span></p>
+                                <p id="final-after-discount" style="display: none"> <span class="text-success">Successful Coupon </span> <br> <b>Final After Discount: </b> <span id="final-after-discount-price" > </span> </p>
 
                                 <p class="vat">VAT Inclusive</p>
 

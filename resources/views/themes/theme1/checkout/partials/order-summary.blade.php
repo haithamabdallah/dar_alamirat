@@ -30,11 +30,13 @@
             Have Coupon?
         </a>
         <div class="collapse" id="couponCode">
-            <form action="">
-                <input type="text" placeholder="Enter the coupon code">
-                <button type="submit">Submit</button>
+            <form>
+                <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
+                <button type="button" onclick="applyCoupon()">Apply</button>
             </form>
         </div>
+        <div id="discount-div" style="display: none"> <span class="text-success">Successful Coupon </span> <br> <b>Discount Value: </b> <span id="discount-value" > </span> </div>
+
     </div>
 
 </div>

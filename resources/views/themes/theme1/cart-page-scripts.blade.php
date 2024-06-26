@@ -136,4 +136,32 @@
                     inventoryQuantity);
             }
         }
+
+        function applyCoupon() {
+            let couponCode = $('#coupon-code').val();
+            axios.post('{{ route("coupon.check") }}', {
+                'coupon_code': couponCode
+            }).then((response) => {
+                if (response.data.status === 'success') {
+                    // console.log(response.data.coupon.discount_value);
+                    
+                    let coupon = response.data.coupon;
+                    if (coupon.discount_type == 'flat') {
+                        // console.log(parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value));
+                        var finalPrice = parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value);
+                    } else {
+                        // console.log(parseFloat($('#final-total-price').text()) - (parseFloat($('#final-total-price').text()) * parseFloat(coupon.discount_value) / 100));
+                        var finalPrice = parseFloat($('#final-total-price').text()) - (parseFloat($('#final-total-price').text()) * parseFloat(coupon.discount_value) / 100);
+                    }
+                    $('#final-after-discount-price').text(parseFloat(finalPrice) + ' {!! $currency !!}');
+                    $('#final-after-discount').show();
+                } else {
+                    $('#final-after-discount').hide();
+                    console.log(response.data);
+                }
+            }).catch((error) => {
+                $('#final-after-discount').hide();
+                console.log(error);
+            });
+        }
     </script>

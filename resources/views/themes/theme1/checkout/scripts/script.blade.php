@@ -302,7 +302,7 @@
         $('#shipping_id').val($('input[name="shipping"]:checked').val());
         $('#address_id').val($('input[name="address"]:checked').val());
         $('#complete-order-form').submit();
-        // axios.post('{{ route("order.checkout.store") }}', {
+        // axios.post('{{ route('order.checkout.store') }}', {
         //     _token: '{{ csrf_token() }}',
         //     shipping_id: $('input[name="shipping"]:checked').val(),
         //     address_id: $('input[name="address"]:checked').val(),
@@ -316,7 +316,7 @@
 
     $('input[name="shipping"]').each(function(index) {
         $(this).on('click', function() {
-            let shippingPrice = parseFloat($('#shipping'+index+':checked').data('shipping-price'))
+            let shippingPrice = parseFloat($('#shipping' + index + ':checked').data('shipping-price'))
             $('#shipping-cost').text(shippingPrice);
             calculateTotal()
         })
@@ -332,4 +332,33 @@
 
     // Initial render for the address list
     renderAddressList();
+
+    function applyCoupon() {
+            let couponCode = $('#coupon-code').val();
+            axios.post('{{ route("coupon.check") }}', {
+                'coupon_code': couponCode
+            }).then((response) => {
+                if (response.data.status === 'success') {
+                    // console.log(response.data.coupon.discount_value);
+                    
+                    let coupon = response.data.coupon;
+                    if (coupon.discount_type == 'flat') {
+                        // console.log(parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value));
+                        var discountValue = parseFloat(coupon.discount_value);
+                    } else {
+                        // console.log(parseFloat($('#cart-total').text()) - (parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100));
+                        var discountValue = parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100;
+                    }
+                    $('#discount-value').text(parseFloat(discountValue) + ' {!! $currency !!}');
+                    $('#discount-div').show();
+                    $('#coupon_id').val(coupon.id);
+                } else {
+                    $('#discount-div').hide();
+                    console.log(response.data);
+                }
+            }).catch((error) => {
+                $('#discount-div').hide();
+                console.log(error);
+            });
+        }
 </script>
