@@ -13,14 +13,14 @@
         <!-- BEGIN breadcrumb -->
         <ol class="breadcrumb float-xl-end">
             <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('category.index')}}">Pages</a></li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard.coupons.index')}}">coupons</a></li>
             <li class="breadcrumb-item active">
-                Create Page
+                Create Coupon
             </li>
         </ol>
         <!-- END breadcrumb -->
         <!-- BEGIN page-header -->
-        <h1 class="page-header">Create Page</h1>
+        <h1 class="page-header">Create Coupon</h1>
         <!-- END page-header -->
 
         <!-- BEGIN row -->
@@ -33,7 +33,7 @@
                 <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                     <!-- panel heading -->
                     <div class="panel-heading ui-sortable-handle">
-                        <h4 class="panel-title">Create Page</h4>
+                        <h4 class="panel-title">Create Coupon</h4>
                         <div class="panel-heading-btn">
                             <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
                             <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>

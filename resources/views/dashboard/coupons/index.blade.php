@@ -12,12 +12,12 @@
             <div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{__('dashboard.home')}}</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('brand.index')}}">{{__('dashboard.pages')}}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('brand.index')}}">{{__('dashboard.coupons')}}</a></li>
                 </ul>
-                <h1 class="page-header mb-0">{{__('dashboard.pages')}}</h1>
+                <h1 class="page-header mb-0">{{__('dashboard.coupons')}}</h1>
             </div>
             <div class="ms-auto">
-                <a href="{{route('page.create')}}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{__('dashboard.page.add')}}</a>
+                <a href="{{route('dashboard.coupons.create')}}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{__('dashboard.coupon.add')}}</a>
             </div>
         </div>
 
@@ -59,7 +59,7 @@
                             </thead>
                             <tbody>
                                 @forelse ($pages as $page)
-                                <tr class="odd gradeX">
+                                {{-- <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $page->id }}</td>
                                     <td>{{ $page->name }}</td>
                                     <td>
@@ -80,7 +80,7 @@
                                             <a class="btn delete-btn btn-danger" data-id="{{$page->id}}"><i class="fa-solid fa-trash-can"></i> Delete</a>
                                         </form>
                                     </td>
-                                </tr>
+                                </tr> --}}
                                 @empty
                                 <p>No Pages Found </p>
                                 @endforelse

@@ -216,7 +216,7 @@
 
             <!-- item -->
             <div class="menu-item {{ activeLink('coupons') }}">
-                <a href="coupons" class="menu-link">
+                <a href="{{ route('dashboard.coupons.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-sitemap"></i>
                     </div>

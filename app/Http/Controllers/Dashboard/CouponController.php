@@ -46,7 +46,7 @@ class CouponController extends Controller
     // public function edit(Coupon $coupon)
     public function edit()
     {
-        return view('dashboard.coupons.create');
+        return view('dashboard.coupons.edit');
     }
 
     /**

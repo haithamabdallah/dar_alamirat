@@ -61,6 +61,14 @@ return [
 
         'delete' => 'Delete Category',
     ],
+    'pages' => 'Pages',
+    'page' => [
+        'add' => 'Add Page',
+    ],
+    'coupons' => 'Coupons',
+    'coupon' => [
+        'add' => 'Add Coupon',
+    ],
     'banners' => 'Banners',
     'banner' => [
         'name' => 'Name',
