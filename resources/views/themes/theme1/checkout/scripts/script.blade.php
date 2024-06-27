@@ -333,32 +333,69 @@
     // Initial render for the address list
     renderAddressList();
 
-    function applyCoupon() {
-            let couponCode = $('#coupon-code').val();
-            axios.post('{{ route("coupon.check") }}', {
-                'coupon_code': couponCode
-            }).then((response) => {
-                if (response.data.status === 'success') {
-                    // console.log(response.data.coupon.discount_value);
-                    
-                    let coupon = response.data.coupon;
-                    if (coupon.discount_type == 'flat') {
-                        // console.log(parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value));
-                        var discountValue = parseFloat(coupon.discount_value);
-                    } else {
-                        // console.log(parseFloat($('#cart-total').text()) - (parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100));
-                        var discountValue = parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100;
-                    }
-                    $('#discount-value').text(parseFloat(discountValue) + ' {!! $currency !!}');
-                    $('#discount-div').show();
-                    $('#coupon_id').val(coupon.id);
-                } else {
-                    $('#discount-div').hide();
-                    console.log(response.data);
-                }
-            }).catch((error) => {
-                $('#discount-div').hide();
-                console.log(error);
-            });
+    function caculateTotalAfterDiscount(coupon) {
+        if (coupon.discount_type == 'flat') {
+            // console.log(parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value));
+            var discountValue = parseFloat(coupon.discount_value);
+        } else {
+            // console.log(parseFloat($('#cart-total').text()) - (parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100));
+            var discountValue = parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100;
         }
+        let cartTotal = parseFloat($('#cart-total').text());
+        @php
+            $vatVal = $settings->keyBy('type')['general']->value['vat'] ?? 0; // used in js code
+        @endphp
+        let vatAfterDiscount = parseFloat({!! $vatVal !!}) / 100 * cartTotal;
+        $('#discount-value').text(parseFloat(discountValue).toFixed(2) + ' {!! $currency !!}');
+        $('#vat-after-discount').text(parseFloat(vatAfterDiscount).toFixed(2) + ' {!! $currency !!}');
+        $('#discount-div').show();
+        $('#coupon_id').val(coupon.id);
+    }
+    // function caculateTotalAfterDiscount(coupon) 
+    // {
+    //     let cartTotal = parseFloat($('$cart-total').text());
+    //     let finalAfterDiscount = 0;
+    //     if (coupon.discount_type == 'flat') {
+    //         // console.log(parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value));
+    //         var discountValue = parseFloat(coupon.discount_value);
+    //     } else {
+    //         // console.log(parseFloat($('#cart-total').text()) - (parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100));
+    //         var discountValue = parseFloat($('#cart-total').text()) * parseFloat(coupon.discount_value) / 100;
+    //     }
+    //     finalAfterDiscount = cartTotal - discountValue;
+    //     finalAfterDiscount = finalAfterDiscount - parseFloat({!! $vatVal !!}) * finalAfterDiscount /100 ;
+    //     let shippingCost = parseFloat($('#shipping-cost').text());
+    //     finalAfterDiscount = finalAfterDiscount + shippingCost;
+
+    //     $('#final-after-discount').text(finalAfterDiscount.toFixed(2));
+    //     $('#discount-div').show();
+    //     $('#coupon_id').val(coupon.id);
+    // }
+
+    function applyCoupon() {
+        let couponCode = $('#coupon-code').val();
+        axios.post('{{ route('coupon.check') }}', {
+            'coupon_code': couponCode
+        }).then((response) => {
+            if (response.data.status === 'success') {
+                // console.log(response.data.coupon.discount_value);
+
+                let coupon = response.data.coupon;
+                caculateTotalAfterDiscount(coupon);
+            } else {
+                $('#discount-div').hide();
+                console.log(response.data);
+            }
+        }).catch((error) => {
+            $('#discount-div').hide();
+            console.log(error);
+        });
+    }
+
+    $(document).ready(function() {
+        if ($('#coupon-code').val() != '') {
+            $('#coupon-code-btn')[0].click();
+            applyCoupon();
+        }
+    });
 </script>

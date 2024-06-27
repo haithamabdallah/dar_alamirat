@@ -153,7 +153,7 @@
                         // console.log(parseFloat($('#final-total-price').text()) - (parseFloat($('#final-total-price').text()) * parseFloat(coupon.discount_value) / 100));
                         var finalPrice = parseFloat($('#final-total-price').text()) - (parseFloat($('#final-total-price').text()) * parseFloat(coupon.discount_value) / 100);
                     }
-                    $('#final-after-discount-price').text(parseFloat(finalPrice) + ' {!! $currency !!}');
+                    $('#final-after-discount-price').text(parseFloat(finalPrice).toFixed(2) + ' {!! $currency !!}');
                     $('#final-after-discount').show();
                 } else {
                     $('#final-after-discount').hide();

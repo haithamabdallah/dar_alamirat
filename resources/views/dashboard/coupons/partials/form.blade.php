@@ -1,3 +1,7 @@
+@section('customcss')
+    <link href="{{ asset('admin-panel/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet" />
+@endsection
+
 <div class="">
     <!-- item -->
     <div class="row mb-15px">
@@ -162,3 +166,21 @@
     </div>
     <!-- ./item -->
 </div>
+
+@section('scripts')
+    <script src="{{ asset('admin-panel/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
+    <script>
+        $("#start_date").datepicker({
+            todayHighlight: true,
+            autoclose: true,
+            /* format: 'dd/mm/yyyy' */ 
+            format: 'yyyy-mm-dd'
+        });
+        $("#end_date").datepicker({
+            todayHighlight: true,
+            autoclose: true,
+            /* format: 'dd/mm/yyyy' */ 
+            format: 'yyyy-mm-dd'
+        });
+    </script>
+@endsection

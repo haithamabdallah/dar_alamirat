@@ -1,9 +1,5 @@
 @extends('dashboard.layouts.app')
 
-@section('customcss')
-    <link href="{{ asset('admin-panel/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet" />
-@endsection
-
 @section('content')
     <!-- BEGIN #content -->
     <div id="content" class="app-content">
@@ -65,18 +61,4 @@
     <!-- END #content -->
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('admin-panel/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
-    <script>
-        $("#start_date").datepicker({
-            todayHighlight: true,
-            autoclose: true,
-            format: 'dd/mm/yyyy'
-        });
-        $("#end_date").datepicker({
-            todayHighlight: true,
-            autoclose: true,
-            format: 'dd/mm/yyyy'
-        });
-    </script>
-@endsection
+

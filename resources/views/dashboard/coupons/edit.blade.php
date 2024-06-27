@@ -1,9 +1,5 @@
 @extends('dashboard.layouts.app')
 
-@section('customcss')
-    <link href="{{ asset('admin-panel/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" />
-@endsection
-
 @section('content')
 
     <!-- BEGIN #content -->
@@ -44,12 +40,4 @@
     </div>
     <!-- END #content -->
 
-@endsection
-
-@section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
-    <script>
-        $('.wysihtml5').wysihtml5();
-    </script>
 @endsection

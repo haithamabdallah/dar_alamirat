@@ -117,29 +117,34 @@ class OrderService
                 $finalPrice += $cart->price * $cart->quantity;
             }
 
-            $shipping = Shipping::where('id', $order->shipping_id)->first();
-            $vat = Setting::where('type', 'general')?->first()?->value['vat'];
-
+            $finalPrice = round($finalPrice, 2);
             if ($order->coupon_id != null) {
                 $coupon = Coupon::where('id', $order->coupon_id)->firstOrFail();
 
                 if ($coupon->discount_type == 'percent') {
-                    $finalPrice = $finalPrice - ($finalPrice * $coupon->discount_value / 100);
+                    $discount_value = round( $finalPrice * $coupon->discount_value / 100 , 2) ; 
                 } else {
-                    $finalPrice = $finalPrice - $coupon->discount_value;
+                    $discount_value = $coupon->discount_value;
                 }
+                $finalPrice = $finalPrice - $discount_value ;
+                $finalPrice = round($finalPrice, 2);
+
+                $coupon->users()->attach($order->user_id);
+
+                $coupon->usage_count += 1;
+                $coupon->save();
             }
 
+            $shipping = Shipping::where('id', $order->shipping_id)->first();
+            $vat = Setting::where('type', 'general')?->first()?->value['vat'];
+
             $finalPrice = $finalPrice + ($finalPrice * $vat / 100);
+            $finalPrice = round($finalPrice, 2);
             $finalPrice = $finalPrice + $shipping->price;
+            $finalPrice = round($finalPrice, 2);
 
             $order->final_price = $finalPrice;
             $order->save();
-
-            $coupon->users()->attach($order->user_id);
-
-            $coupon->usage_count += 1;
-            $coupon->save();
 
             DB::commit();
 

@@ -170,13 +170,13 @@
 
         axios.post(url, data)
             .then(function (response) {
-                const icon = response.data.status === 'danger' ? 'warning' : 'success';
+                const icon = response.data.status === 'danger' || response.data.status === 'error' ? 'warning' : 'success';
                 // console.log(response)
                 if (response.data.status === 'success') {
                     $('#cart-summary-count').text(response.data.cartCount);
                 }
                 Swal.fire({
-                    title: response.data.status === 'danger' ? 'Oops...' : 'Success!',
+                    title: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
                     text: response.data.message,
                     icon: icon,
                     confirmButtonText: 'OK'
