@@ -43,7 +43,8 @@
             <!-- ./full banner -->
         @endif
 
-        @if ($priorityable->type === 'Category')
+        @if ($priorityable->type === 'Category' && $category->products->count() > 0)
+        {{-- @if ($priorityable->type === 'Category') --}}
             @php $category = $priorityable->priorityable; @endphp
             <section class="s-block">
                 <div class="pixel-container">

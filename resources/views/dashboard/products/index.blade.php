@@ -76,7 +76,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{route('product.show' , $product->id)}}" class="text-dark text-decoration-none">{{$product->title}}</a>
+                                        <a href="{{route('product' , $product->id)}}" class="text-dark text-decoration-none">{{$product->title}}</a>
                                     </td>
                                     {{-- <td>
                                         <input type="checkbox" class="switch-status" data-url="{{ route('product.toggleChoice' , $product->id) }}" @if($product->choice) checked @endif/>

@@ -8,7 +8,7 @@
                     <i class="icon sicon-user"></i>
                 </div>
                 <h3>Login</h3>
-                <p class="s-verify-message">Verification code is required to proceed. A verification code has been sent to you.</p>
+                <p class="s-verify-message">Verification code is required to proceed. A verification code has been sent to your email.</p>
                 <div class="s-login-modal-currentEmail" id="writtenEmail"></div>
                 <form id="otpForm" method="POST">
                     @csrf
