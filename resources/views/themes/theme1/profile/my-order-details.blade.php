@@ -154,62 +154,58 @@
                         </div>
                     </aside>
                     <main>
-                        <h1>My Orders</h1>
-                        @forelse ($orders as $order)
-                        <div><a href="{{ route('order.my.details', $order->id) }}">oreder detials page </a></div>
-                            <div class="bg-white p-4 my-4 shadow rounded">
-                                <div> Order Status : <span>{{ $order->status }}</span> </div>
-                                <div> Final Price : <span>{{ $order->final_price }}</span> </div>
-                                <div> Order Payment Status : <span>{{ $order->payment_status }}</span> </div>
-                                <div> Order Payment Method : <span> Cash On Delivery</span> </div>
-                                @php
-                                    $address = $order->userAddress;
-                                @endphp
-                                <div> Order Address :
+                        <h1>My Order</h1>
+                        <div class="bg-white p-4 my-4 shadow rounded">
+                            <div> Order Status : <span>{{ $order->status }}</span> </div>
+                            <div> Final Price : <span>{{ $order->final_price }}</span> </div>
+                            <div> Order Payment Status : <span>{{ $order->payment_status }}</span> </div>
+                            <div> Order Payment Method : <span> Cash On Delivery</span> </div>
+                            @php
+                                $address = $order->userAddress;
+                            @endphp
+                            <div> Order Address :
+                                <ul>
+                                    <li> Governorate : {{ $address->governorate }}</li>
+                                    <li> City : {{ $address->city }}</li>
+                                    <li> Street : {{ $address->street }}</li>
+                                    <li> House Number : {{ $address->house_number }}</li>
+                                </ul>
+                            </div>
+                            @if ($order?->coupon)
+                                <div> Applied Coupon :
                                     <ul>
-                                        <li> Governorate : {{ $address->governorate }}</li>
-                                        <li> City : {{ $address->city }}</li>
-                                        <li> Street : {{ $address->street }}</li>
-                                        <li> House Number : {{ $address->house_number }}</li>
+                                        <li>Code : {{ $order->coupon->code }}</li>
+                                        <li>Type : {{ $order->coupon->discount_type }}</li>
+                                        <li>Value : {{ $order->coupon->discount_value }}</li>
                                     </ul>
                                 </div>
-                                @if ($order?->coupon)
-                                    <div> Applied Coupon :
-                                        <ul>
-                                            <li>Code : {{ $order->coupon->code }}</li>
-                                            <li>Type : {{ $order->coupon->discount_type }}</li>
-                                            <li>Value : {{ $order->coupon->discount_value }}</li>
-                                        </ul>
-                                    </div>
-                                @endif
+                            @endif
 
-                                <!-- order products -->
-                                @php
-                                    $orderDetials = $order->orderDetails;
-                                @endphp
-                                <div> Product Name : <a href="{{ route('product', $orderDetials->product->id) }}"
-                                        target="_blank">
-                                        <span>{{ $orderDetials->product->title }} (
-                                            {{ $orderDetials->variant->variant_name }} )</span>
-                                    </a> </div>
-                                <div> Variant : <span> {{ $orderDetials->variant->variant_name }}
-                                    </span> </div>
-                                <div> Variant SKU: <span>
-                                        {{ $orderDetials->variant->sku }} </span> </div>
-                                <div> Product Unit Price : <span>{{ $orderDetials->price }}</span> </div>
-                                <div> Product Quantity : <span>{{ $orderDetials->quantity }}</span> </div>
-                                <div> Product Total Price :
-                                    <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
-                                </div>
+                            <!-- order products -->
+                            @php
+                                $orderDetials = $order->orderDetails;
+                            @endphp
+                            <div> Product Name : <a href="{{ route('product', $orderDetials->product->id) }}"
+                                    target="_blank">
+                                    <span>{{ $orderDetials->product->title }} (
+                                        {{ $orderDetials->variant->variant_name }} )</span>
+                                </a> </div>
+                            <div> Variant : <span> {{ $orderDetials->variant->variant_name }}
+                                </span> </div>
+                            <div> Variant SKU: <span>
+                                    {{ $orderDetials->variant->sku }} </span> </div>
+                            <div> Product Unit Price : <span>{{ $orderDetials->price }}</span> </div>
+                            <div> Product Quantity : <span>{{ $orderDetials->quantity }}</span> </div>
+                            <div> Product Total Price :
+                                <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
                             </div>
-                        @empty
-                            <!-- If Empty Page -->
+                        </div>
+                        {{-- <!-- If Empty Page -->
                             <div class="no-content-placeholder">
                                 <i class="sicon-packed-box icon"></i>
                                 <p>No orders found</p>
                             </div>
-                            <!-- If Empty Page -->
-                        @endforelse
+                            <!-- If Empty Page --> --}}
 
                         <!-- my order lists -->
                         {{-- <div class="my_orders_items">

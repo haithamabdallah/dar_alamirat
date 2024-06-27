@@ -131,6 +131,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
     Route::get('/my-orders', [OrderController::class, 'myOrdersPage'])->name('order.my');
+    Route::get('/my-orders/{order:id}', [OrderController::class, 'myOrderDetailsPage'])->name('order.my.details');
     Route::get('/checkout', [OrderController::class, 'checkoutPage'])->name('checkout');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
     Route::post('/checkout/order', [OrderController::class, 'storeCheckout'])->name('order.checkout.store');
