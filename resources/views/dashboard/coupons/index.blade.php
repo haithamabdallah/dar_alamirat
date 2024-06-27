@@ -53,6 +53,9 @@
                                 <th class="text-nowrap" width="10%">Code</th>
                                 <th class="text-nowrap" width="10%">Start Date</th>
                                 <th class="text-nowrap" width="10%">End Date</th>
+                                <th class="text-nowrap" width="10%">discount type</th>
+                                <th class="text-nowrap" width="10%">discount value</th>
+                                <th class="text-nowrap" width="10%">Note</th>
                                 <th class="text-nowrap" width="10%">Note</th>
                                 <th class="text-nowrap" width="10%">Limit Per User</th>
                                 <th class="text-nowrap" width="10%">Usage Limit</th>
@@ -67,6 +70,8 @@
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $index + 1 }}</td>
                                     <td>{{ $coupon->code }}</td>
+                                    <td>{{ $coupon->discount_type }}</td>
+                                    <td>{{ $coupon->discount_value }}</td>
                                     <td>{{ $coupon->start_date }}</td>
                                     <td>{{ $coupon->end_date }}</td>
                                     <td>{{ $coupon->note }}</td>
