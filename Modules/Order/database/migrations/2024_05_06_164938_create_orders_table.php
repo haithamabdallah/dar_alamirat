@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('set null');
-            $table->foreign('coupon_id')->references('id')->on('coupon')->onDelete('set null');
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null');
             $table->foreign('user_address_id')->references('id')->on('user_addresses')->onDelete('set null');
         });
     }
