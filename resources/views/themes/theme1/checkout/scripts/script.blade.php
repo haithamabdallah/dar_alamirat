@@ -378,7 +378,7 @@
             'coupon_code': couponCode
         }).then((response) => {
             if (response.data.status === 'success') {
-                // console.log(response.data.coupon.discount_value);
+                console.log(response.data);
 
                 let coupon = response.data.coupon;
                 caculateTotalAfterDiscount(coupon);
