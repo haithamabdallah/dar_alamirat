@@ -21,8 +21,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_address_id')->nullable();
             $table->unsignedBigInteger('coupon_id')->nullable();
             $table->decimal('final_price', 10, 2)->nullable();
-            $table->enum('payment_status', PaymentStatus::getValues())->default(PaymentStatus::PENDING);
-            $table->enum('status', OrderStatus::getValues())->default(OrderStatus::PENDING);
+            // $table->enum('payment_status', PaymentStatus::getValues())->default(PaymentStatus::PENDING);
+            // $table->enum('status', OrderStatus::getValues())->default(OrderStatus::PENDING);
+            $table->string('payment_status')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('set null');
