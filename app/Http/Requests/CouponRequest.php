@@ -30,7 +30,7 @@ class CouponRequest extends FormRequest
             'usage_limit' => 'required|numeric|min:1',
         ];
     
-        if ($this->method() == 'post') {
+        if (request()->has('discount_type') && request()->has('discount_value')) {
             $rules['discount_type'] = 'required|string|in:flat,percent|max:30';
             $rules['discount_value'] = 'required|numeric|min:0';
         };
