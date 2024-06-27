@@ -1,8 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('customcss')
-    <link href="{{ asset('admin-panel/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css') }}"
-        rel="stylesheet" />
+    <link href="{{ asset('admin-panel/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -67,11 +66,17 @@
 @endsection
 
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script
-        src="{{ asset('admin-panel/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}">
-    </script>
+    <script src="{{ asset('admin-panel/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
     <script>
-        $('.wysihtml5').wysihtml5();
+        $("#start_date").datepicker({
+            todayHighlight: true,
+            autoclose: true,
+            format: 'dd/mm/yyyy'
+        });
+        $("#end_date").datepicker({
+            todayHighlight: true,
+            autoclose: true,
+            format: 'dd/mm/yyyy'
+        });
     </script>
 @endsection

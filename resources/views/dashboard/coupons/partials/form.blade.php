@@ -65,8 +65,16 @@
         <label class="form-label col-form-label col-md-3">Start Date <small> (Ex.
                 2022-02-22)</small></label>
         <div class="col-md-9">
-            <input class="form-control" type="text" name="start_date" placeholder="2022-02-22"
-                value="{{ $coupon->start_date ?? old('start_date') }}" required />
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="start_date"
+                    name="start_date"
+                    class="form-control"
+                    value="{{ $coupon->start_date ?? old('start_date') }}"
+                    placeholder="click to select the Start date" required />
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
             @error('start_date')
                 <span class="text-danger" role="alert">
                     <strong>{{ $message }}</strong>
@@ -81,8 +89,16 @@
         <label class="form-label col-form-label col-md-3">End Date <small> (Ex.
                 2022-02-22)</small></label>
         <div class="col-md-9">
-            <input class="form-control" type="text" name="end_date" placeholder="2022-02-22"
-                value="{{ $coupon->end_date ?? old('end_date') }}" required />
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="end_date"
+                    name="end_date"
+                    class="form-control"
+                    value="{{ $coupon->end_date ?? old('end_date') }}"
+                    placeholder="click to select the End Date" required />
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
             @error('end_date')
                 <span class="text-danger" role="alert">
                     <strong>{{ $message }}</strong>
@@ -127,7 +143,7 @@
         <label class="form-label col-form-label col-md-3">Note</label>
         <div class="col-md-9">
             <input class="form-control" type="text" name="note" placeholder="Note for this coupon"
-                value="{{ $coupon->note ?? old('note') }}" required />
+                value="{{ $coupon->note ?? old('note') }}"  />
             @error('note')
                 <span class="text-danger" role="alert">
                     <strong>{{ $message }}</strong>
