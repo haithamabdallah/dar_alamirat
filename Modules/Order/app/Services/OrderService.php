@@ -136,7 +136,7 @@ class OrderService
             }
 
             $shipping = Shipping::where('id', $order->shipping_id)->first();
-            $vat = Setting::where('type', 'general')?->first()?->value['vat'];
+            $vat = Setting::where('type', 'general')?->first()?->value['vat'] ?? 0;
 
             $finalPrice = $finalPrice + ($finalPrice * $vat / 100);
             $finalPrice = round($finalPrice, 2);
