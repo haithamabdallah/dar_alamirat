@@ -4,7 +4,7 @@
         <div class="checkout_summary">
             <div class="item">
                 <h6>Subtotal</h6>
-                <span id="cart-total"> {{ $cartTotal }} </span> <b>{{ $currency }}</b>
+                <span id="cart-total"> {{ $cartTotal ?? '' }} </span> <b>{{ $currency }}</b>
             </div>
             <div class="item">
                 <h6>Shipping Cost</h6>

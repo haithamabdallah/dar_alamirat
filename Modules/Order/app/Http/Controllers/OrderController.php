@@ -25,6 +25,11 @@ class OrderController extends Controller
         $this->orderService = $orderService;
     }
 
+    public function myOrdersPage()
+    {
+        $orders = Order::where('user_id',auth()->user()->id)->with(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod'])->latest()->orderByDesc('id')->paginate(10);
+        return view('themes.theme1.profile.my-orders' , compact('orders'));
+    }
     
 
     public function checkoutPage()

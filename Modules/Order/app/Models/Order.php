@@ -3,6 +3,8 @@
 namespace Modules\Order\Models;
 
 use App\Models\User;
+use App\Models\Coupon;
+use App\Models\UserAddress;
 use Illuminate\Support\Str;
 use Modules\Client\Models\Client;
 use Modules\Product\Models\Product;
@@ -25,6 +27,11 @@ class Order extends Model
         return $this->belongsToMany(Product::class)->withPivot('quantity', 'price','variant_id','product_id','order_id');
     }
 
+    public function orderDetails()
+    {
+        return $this->hasOne(OrderProduct::class);
+    }
+
     public function user()
 {
     return $this->belongsTo(User::class);
@@ -33,6 +40,16 @@ class Order extends Model
 public function shippingMethod()
 {
     return $this->belongsTo(Shipping::class);
+}
+
+public function coupon()
+{
+    return $this->belongsTo(Coupon::class);
+}
+
+public function userAddress()
+{
+    return $this->belongsTo(UserAddress::class);
 }
 // public function getOrderNumberAttribute($value)
 // {

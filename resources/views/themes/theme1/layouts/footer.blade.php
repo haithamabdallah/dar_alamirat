@@ -70,7 +70,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="orders.php">
+                                <a href="{{ route('order.my') }}">
                                     <i class="fa-solid fa-angles-right"></i>
                                     <span>Orders</span>
                                 </a>

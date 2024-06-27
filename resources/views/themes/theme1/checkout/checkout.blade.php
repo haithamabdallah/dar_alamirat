@@ -7,7 +7,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dar Alamirat</title>
-    <link rel="icon" type="image/png" href="{{ storage_asset($settings['general']->value['icon_path']) }}">
+    <link rel="icon" type="image/png" href="{{ storage_asset($settings->keyBy('type')['general']->value['icon_path']) }}">
     <script src="https://kit.fontawesome.com/24eabd5129.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="theme1-assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="theme1-assets/css/checkout.css">
