@@ -148,6 +148,8 @@
                                 </div>
 
                                 <p id="final-after-discount" style="display: none"> <span class="text-success">Successful Coupon </span> <br> <b>Final After Discount: </b> <span id="final-after-discount-price" > </span> </p>
+                                <div id="invalid-coupon" style="display: none"> <span class="text-danger">Invalid Coupn </span> </div>
+
 
                                 <p class="vat">VAT Inclusive</p>
 

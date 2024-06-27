@@ -384,6 +384,8 @@
                 caculateTotalAfterDiscount(coupon);
             } else {
                 $('#discount-div').hide();
+                $('#invalid-coupon').show();
+                $('#invalid-coupon').hide(2000);
                 console.log(response.data);
             }
         }).catch((error) => {

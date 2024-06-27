@@ -39,6 +39,8 @@
             <br> <b>Discount Value: </b> <span id="discount-value" > </span>
             <br> <b>Vat After Discount: </b> <span id="vat-after-discount" > </span>
          </div>
+         <div id="invalid-coupon" style="display: none"> <span class="text-danger">Invalid Coupn </span> </div>
+
 
     </div>
 

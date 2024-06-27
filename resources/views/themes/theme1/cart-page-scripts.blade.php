@@ -157,6 +157,8 @@
                     $('#final-after-discount').show();
                 } else {
                     $('#final-after-discount').hide();
+                    $('#invalid-coupon').show();
+                    $('#invalid-coupon').hide(2000);
                     console.log(response.data);
                 }
             }).catch((error) => {
