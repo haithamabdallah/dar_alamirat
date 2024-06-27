@@ -49,14 +49,89 @@
                                             <form class="filter-form" id="category-filter-form" method="GET"
                                                 action="{{ route('category.products', $category->id) }}">
                                                 @foreach (defaultCategory() as $parentCategory)
+                                                <label class="s-filters-label" 
+                                                for="category_id-option-{{ $parentCategory->id }}">
+                                                <input id="category_id-option-{{ $parentCategory->id }}"
+                                                    type="radio" name="filter[category_id]"
+                                                    value="{{ $parentCategory->id }}"
+                                                    {{ request('filter.category_id') == $parentCategory->id ? 'checked' : '' }}>
+                                                <span class="s-filters-option-name">
+                                                    {{ $parentCategory->name }}
+                                                </span>
+                                            </label>
                                                     @foreach ($parentCategory?->childes as $parentCategory2)
+                                                    <label class="s-filters-label" style="margin-left:0.5rem ; margin-right:0.5rem ; "
+                                                    for="category_id-option-{{ $parentCategory2->id }}">
+                                                    <input id="category_id-option-{{ $parentCategory2->id }}"
+                                                        type="radio" name="filter[category_id]"
+                                                        value="{{ $parentCategory2->id }}"
+                                                        {{ request('filter.category_id') == $parentCategory2->id ? 'checked' : '' }}>
+                                                    <span class="s-filters-option-name">
+                                                        {{ $parentCategory2->name }}
+                                                    </span>
+                                                </label>
                                                         @foreach ($parentCategory2?->childes as $parentCategory3)
+                                                        <label class="s-filters-label" style="margin-left:1rem ; margin-right:1rem ; "
+                                                        for="category_id-option-{{ $parentCategory3->id }}">
+                                                        <input id="category_id-option-{{ $parentCategory3->id }}"
+                                                            type="radio" name="filter[category_id]"
+                                                            value="{{ $parentCategory3->id }}"
+                                                            {{ request('filter.category_id') == $parentCategory3->id ? 'checked' : '' }}>
+                                                        <span class="s-filters-option-name">
+                                                            {{ $parentCategory3->name }}
+                                                        </span>
+                                                    </label>
                                                             @foreach ($parentCategory3?->childes as $parentCategory4)
+                                                            <label class="s-filters-label" style="margin-left:1.5rem ; margin-right:1.5rem ; "
+                                                            for="category_id-option-{{ $parentCategory4->id }}">
+                                                            <input
+                                                                id="category_id-option-{{ $parentCategory4->id }}"
+                                                                type="radio" name="filter[category_id]"
+                                                                value="{{ $parentCategory4->id }}"
+                                                                {{ request('filter.category_id') == $parentCategory4->id ? 'checked' : '' }}>
+                                                            <span class="s-filters-option-name">
+                                                                {{ $parentCategory4->name }}
+                                                            </span>
+                                                        </label>
                                                                 @foreach ($parentCategory4?->childes as $parentCategory5)
+                                                                <label class="s-filters-label" style="margin-left:2rem ; margin-right:2rem ; "
+                                                                for="category_id-option-{{ $parentCategory5->id }}">
+                                                                <input
+                                                                    id="category_id-option-{{ $parentCategory5->id }}"
+                                                                    type="radio" name="filter[category_id]"
+                                                                    value="{{ $parentCategory5->id }}"
+                                                                    {{ request('filter.category_id') == $parentCategory5->id ? 'checked' : '' }}>
+                                                                <span class="s-filters-option-name">
+                                                                    {{ $parentCategory5->name }}
+                                                                </span>
+                                                            </label>
                                                                     @foreach ($parentCategory5?->childes as $parentCategory6)
+                                                                    <label class="s-filters-label" style="margin-left:3.5rem ; margin-right:3.5rem ; "
+                                                                    for="category_id-option-{{ $parentCategory6->id }}">
+                                                                    <input
+                                                                        id="category_id-option-{{ $parentCategory6->id }}"
+                                                                        type="radio" name="filter[category_id]"
+                                                                        value="{{ $parentCategory6->id }}"
+                                                                        {{ request('filter.category_id') == $parentCategory6->id ? 'checked' : '' }}>
+                                                                    <span class="s-filters-option-name">
+                                                                        {{ $parentCategory6->name }}
+                                                                    </span>
+                                                                </label>
                                                                         @foreach ($parentCategory6?->childes as $parentCategory7)
+                                                                        <label class="s-filters-label" style="margin-left:3rem ; margin-right:3rem ; "
+                                                                        for="category_id-option-{{ $parentCategory7->id }}">
+                                                                        <input
+                                                                            id="category_id-option-{{ $parentCategory7->id }}"
+                                                                            type="radio"
+                                                                            name="filter[category_id]"
+                                                                            value="{{ $parentCategory7->id }}"
+                                                                            {{ request('filter.category_id') == $parentCategory7->id ? 'checked' : '' }}>
+                                                                        <span class="s-filters-option-name">
+                                                                            {{ $parentCategory7->name }}
+                                                                        </span>
+                                                                    </label>
                                                                             @foreach ($parentCategory7?->childes as $parentCategory8)
-                                                                                <label class="s-filters-label"
+                                                                                <label class="s-filters-label" style="margin-left:3.5rem ; margin-right:3.5rem ; "
                                                                                     for="category_id-option-{{ $parentCategory8->id }}">
                                                                                     <input
                                                                                         id="category_id-option-{{ $parentCategory8->id }}"
@@ -65,130 +140,17 @@
                                                                                         value="{{ $parentCategory8->id }}"
                                                                                         {{ request('filter.category_id') == $parentCategory8->id ? 'checked' : '' }}>
                                                                                     <span class="s-filters-option-name">
-                                                                                        {{ $parentCategory->name }} =====>>
-                                                                                        {{ $parentCategory2->name }} =====>>
-                                                                                        {{ $parentCategory3->name }} =====>>
-                                                                                        {{ $parentCategory4->name }} =====>>
-                                                                                        {{ $parentCategory5->name }} =====>>
-                                                                                        {{ $parentCategory6->name }} =====>>
-                                                                                        {{ $parentCategory7->name }} =====>>
                                                                                         {{ $parentCategory8->name }}
                                                                                     </span>
                                                                                 </label>
                                                                             @endforeach
-                                                                            <label class="s-filters-label"
-                                                                                for="category_id-option-{{ $parentCategory7->id }}">
-                                                                                <input
-                                                                                    id="category_id-option-{{ $parentCategory7->id }}"
-                                                                                    type="radio"
-                                                                                    name="filter[category_id]"
-                                                                                    value="{{ $parentCategory7->id }}"
-                                                                                    {{ request('filter.category_id') == $parentCategory7->id ? 'checked' : '' }}>
-                                                                                <span class="s-filters-option-name">
-                                                                                    {{ $parentCategory->name }} =====>>
-                                                                                    {{ $parentCategory2->name }} =====>>
-                                                                                    {{ $parentCategory3->name }} =====>>
-                                                                                    {{ $parentCategory4->name }} =====>>
-                                                                                    {{ $parentCategory5->name }} =====>>
-                                                                                    {{ $parentCategory6->name }} =====>>
-                                                                                    {{ $parentCategory7->name }}
-                                                                                </span>
-                                                                            </label>
                                                                         @endforeach
-                                                                        <label class="s-filters-label"
-                                                                            for="category_id-option-{{ $parentCategory6->id }}">
-                                                                            <input
-                                                                                id="category_id-option-{{ $parentCategory6->id }}"
-                                                                                type="radio" name="filter[category_id]"
-                                                                                value="{{ $parentCategory6->id }}"
-                                                                                {{ request('filter.category_id') == $parentCategory6->id ? 'checked' : '' }}>
-                                                                            <span class="s-filters-option-name">
-                                                                                {{ $parentCategory->name }} =====>>
-                                                                                {{ $parentCategory2->name }} =====>>
-                                                                                {{ $parentCategory3->name }} =====>>
-                                                                                {{ $parentCategory4->name }} =====>>
-                                                                                {{ $parentCategory5->name }} =====>>
-                                                                                {{ $parentCategory6->name }}
-                                                                            </span>
-                                                                        </label>
                                                                     @endforeach
-                                                                    <label class="s-filters-label"
-                                                                        for="category_id-option-{{ $parentCategory5->id }}">
-                                                                        <input
-                                                                            id="category_id-option-{{ $parentCategory5->id }}"
-                                                                            type="radio" name="filter[category_id]"
-                                                                            value="{{ $parentCategory5->id }}"
-                                                                            {{ request('filter.category_id') == $parentCategory5->id ? 'checked' : '' }}>
-                                                                        <span class="s-filters-option-name">
-                                                                            {{ $parentCategory->name }} =====>>
-                                                                            {{ $parentCategory2->name }} =====>>
-                                                                            {{ $parentCategory3->name }} =====>>
-                                                                            {{ $parentCategory4->name }} =====>>
-                                                                            {{ $parentCategory5->name }}
-                                                                        </span>
-                                                                    </label>
                                                                 @endforeach
-                                                                <label class="s-filters-label"
-                                                                    for="category_id-option-{{ $parentCategory4->id }}">
-                                                                    <input
-                                                                        id="category_id-option-{{ $parentCategory4->id }}"
-                                                                        type="radio" name="filter[category_id]"
-                                                                        value="{{ $parentCategory4->id }}"
-                                                                        {{ request('filter.category_id') == $parentCategory4->id ? 'checked' : '' }}>
-                                                                    <span class="s-filters-option-name">
-                                                                        {{ $parentCategory->name }} =====>>
-                                                                        {{ $parentCategory2->name }} =====>>
-                                                                        {{ $parentCategory3->name }} =====>>
-                                                                        {{ $parentCategory4->name }}
-                                                                    </span>
-                                                                </label>
                                                             @endforeach
-                                                            <label class="s-filters-label"
-                                                                for="category_id-option-{{ $parentCategory3->id }}">
-                                                                <input id="category_id-option-{{ $parentCategory3->id }}"
-                                                                    type="radio" name="filter[category_id]"
-                                                                    value="{{ $parentCategory3->id }}"
-                                                                    {{ request('filter.category_id') == $parentCategory3->id ? 'checked' : '' }}>
-                                                                <span class="s-filters-option-name">
-                                                                    {{ $parentCategory->name }} =====>>
-                                                                    {{ $parentCategory2->name }} =====>>
-                                                                    {{ $parentCategory3->name }}
-                                                                </span>
-                                                            </label>
                                                         @endforeach
-                                                        <label class="s-filters-label"
-                                                            for="category_id-option-{{ $parentCategory2->id }}">
-                                                            <input id="category_id-option-{{ $parentCategory2->id }}"
-                                                                type="radio" name="filter[category_id]"
-                                                                value="{{ $parentCategory2->id }}"
-                                                                {{ request('filter.category_id') == $parentCategory2->id ? 'checked' : '' }}>
-                                                            <span class="s-filters-option-name">
-                                                                {{ $parentCategory->name }} =====>>
-                                                                {{ $parentCategory2->name }}
-                                                            </span>
-                                                        </label>
                                                     @endforeach
-                                                    <label class="s-filters-label"
-                                                        for="category_id-option-{{ $parentCategory->id }}">
-                                                        <input id="category_id-option-{{ $parentCategory->id }}"
-                                                            type="radio" name="filter[category_id]"
-                                                            value="{{ $parentCategory->id }}"
-                                                            {{ request('filter.category_id') == $parentCategory->id ? 'checked' : '' }}>
-                                                        <span class="s-filters-option-name">
-                                                            {{ $parentCategory->name }}
-                                                        </span>
-                                                    </label>
                                                 @endforeach
-                                                {{-- @foreach (defaultCategory() as $oneCategory)
-                                                    <label class="s-filters-label"
-                                                        for="category_id-option-{{ $oneCategory->id }}">
-                                                        <input id="category_id-option-{{ $oneCategory->id }}"
-                                                            type="radio" name="filter[category_id]"
-                                                            value="{{ $oneCategory->id }}"
-                                                            {{ request('filter.category_id') == $oneCategory->id ? 'checked' : '' }}>
-                                                        <span class="s-filters-option-name">{{ $oneCategory->name }}</span>
-                                                    </label>
-                                                @endforeach --}}
                                             </form>
                                         </div>
                                     </div>
