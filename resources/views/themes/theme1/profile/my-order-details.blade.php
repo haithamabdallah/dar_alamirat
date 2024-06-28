@@ -1,3 +1,7 @@
+{{-- @php
+    dd($order);
+@endphp --}}
+
 @extends('themes.theme1.layouts.app')
 
 @section('customcss')
