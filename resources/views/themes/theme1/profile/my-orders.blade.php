@@ -184,21 +184,21 @@
                                 @endif
 
                                 <!-- order products -->
-
-                                @foreach ($orderDetials as $orderDetials)
-                                    <div> Product Name : <a href="{{ route('product', $orderDetials->product->id) }}"
+                                    php
+                                @foreach ($order->orderDetails as $orderDetails)
+                                    <div> Product Name : <a href="{{ route('product', $orderDetails->product->id) }}"
                                             target="_blank">
-                                            <span>{{ $orderDetials->product->title }} (
-                                                {{ $orderDetials->variant->variant_name }} )</span>
+                                            <span>{{ $orderDetails->product->title }} (
+                                                {{ $orderDetails->variant->variant_name }} )</span>
                                         </a> </div>
-                                    <div> Variant : <span> {{ $orderDetials->variant->variant_name }}
+                                    <div> Variant : <span> {{ $orderDetails->variant->variant_name }}
                                         </span> </div>
                                     <div> Variant SKU: <span>
-                                            {{ $orderDetials->variant->sku }} </span> </div>
-                                    <div> Product Unit Price : <span>{{ $orderDetials->price }}</span> </div>
-                                    <div> Product Quantity : <span>{{ $orderDetials->quantity }}</span> </div>
+                                            {{ $orderDetails->variant->sku }} </span> </div>
+                                    <div> Product Unit Price : <span>{{ $orderDetails->price }}</span> </div>
+                                    <div> Product Quantity : <span>{{ $orderDetails->quantity }}</span> </div>
                                     <div> Product Total Price :
-                                        <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
+                                        <span>{{ $orderDetails->price * $orderDetails->quantity }}</span>
                                     </div>
                                 @endforeach
                             </div>
