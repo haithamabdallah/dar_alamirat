@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -22,6 +22,13 @@ return new class extends Migration
             $table->string('famous_place_nearby')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('user_addresses', function (Blueprint $table) {
+            $table->after('famous_place_nearby', function($table) {
+                $table->string('phone1')->nullable();
+                $table->string('phone2')->nullable();
+            });
+        });
     }
 
     /**
@@ -29,6 +36,28 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('user_addresses', function (Blueprint $table) {
+            $table->dropColumn('phone1');
+            $table->dropColumn('phone2');
+        });
+
         Schema::dropIfExists('user_addresses');
     }
 };
+
+
+/**
+ * to rollback
+ */
+// php artisan tinker 
+        /*  
+        use Illuminate\Support\Facades\Schema;
+        use Illuminate\Support\Facades\DB;
+        use Illuminate\Database\Schema\Blueprint;
+        */
+
+
+/**
+ * to migrate
+ */
+// php artisan migrate --path=/database/migrations/2024_06_24_142534_create_user_addresses_table.php
