@@ -84,7 +84,7 @@
                         <h4>Variants</h4>
                         <select id="variant-select" class="form-control">
                             @foreach ($product->variants as $variant)
-                                <option value="{{$variant->id}}"> {{ $variant->variantName }} </option>
+                                <option value="{{$variant->id}}">  Name  : ( {{ $variant->variantName }} ) #####  SKU : <span > ( {{ $variant->sku }} ) </span> </option>
                             @endforeach
                         </select>
                     </div>
