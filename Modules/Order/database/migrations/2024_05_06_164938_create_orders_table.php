@@ -50,6 +50,7 @@ return new class extends Migration
 /* # may need to use tinker 
 ** truncate order_product table 
 Order
+php artisan tinker
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -58,7 +59,7 @@ use Modules\Order\Models\Order;
 
 OrderProduct::truncate();
 
-Order::truncate();
+Order::all()->each(fn($order)=>$order->delete());   
 
 ** drop foreign key from order_product table
         if (Illuminate\Support\Facades\Schema::hasTable('order_product') && Illuminate\Support\Facades\Schema::hasTable('orders') && Illuminate\Support\Facades\Schema::hasColumn('order_product', 'order_id') && Illuminate\Support\Facades\Schema::hasColumn('orders', 'id') ) {
