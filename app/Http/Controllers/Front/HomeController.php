@@ -96,7 +96,11 @@ class HomeController extends Controller
                 'nextPage' => $products->nextPageUrl()
             ]);
         }
-        return view('themes.theme1.category', compact('category', 'products'));
+
+        $brandIds = $products->pluck('brand_id')->unique();
+        $categoryBrands = Brand::active()->whereIn('id', $brandIds)->get();
+
+        return view('themes.theme1.category', compact('category', 'products' , 'categoryBrands'));
     }
 
     public function search(Request $request)
