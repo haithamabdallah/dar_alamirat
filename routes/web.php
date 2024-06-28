@@ -53,6 +53,10 @@ use App\Http\Controllers\Front\Profile\ProfileController;
 
 /************************************ reports ****************************/
 
+Route::get('/test', function () {
+    return view('test');
+})->name('test');
+
 Route::get('/reports', function () {
     return view('dashboard.reports.reports');
 })->name('report.index');
