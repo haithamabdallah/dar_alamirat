@@ -67,7 +67,7 @@
                                 {{ $orderDetails->price  * $orderDetails->quantity  }} {{ $currency  }}
                             </div>
                         </div>
-                        @if ($loop->index + 1 < $loop->last)
+                        @if ($loop->index + 1 < $loop->count)
                             <hr class="my-4" /> 
                         @endif
                         @endforeach
