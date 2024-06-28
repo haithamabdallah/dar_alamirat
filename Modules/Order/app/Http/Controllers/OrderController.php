@@ -13,6 +13,8 @@ use Modules\Product\Models\Variant;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
+use Modules\Order\Enums\OrderStatus;
+use Modules\Order\Enums\PaymentStatus;
 use Modules\Shipping\Models\Shipping;
 use Modules\Order\Services\OrderService;
 use Modules\Order\Http\Requests\StoreOrderRequest;
@@ -133,8 +135,10 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $paymentStatuses = PaymentStatus::getValues();
+        $orderStatuses = OrderStatus::getValues();
         $order->load(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod']);
-        return view('dashboard.orders.order_details',compact('order'));
+        return view('dashboard.orders.order_details',compact('order' , 'paymentStatuses' , 'orderStatuses'));
     }
 
     /**
@@ -148,9 +152,16 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Order $order)
     {
-        //
+        $validedData = $request->validate([
+            'status' => 'required|in:'.implode(',', OrderStatus::getValues()),
+            'payment_status' => 'required|in:'.implode(',', PaymentStatus::getValues()),
+        ]);
+
+        $order->update($validedData);
+
+        return redirect()->route('order.index')->with('success', 'Updated Successfully.');
     }
 
     /**

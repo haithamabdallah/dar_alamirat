@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-
     <!-- BEGIN #content -->
     <div id="content" class="app-content">
         <div class="d-flex align-items-center">
@@ -43,33 +42,38 @@
                         @php
                             $priceSum = 0;
                         @endphp
-                        @foreach( $order->orderDetails as $orderDetails )
-                        @php
-                            $priceSum += $orderDetails->price * $orderDetails->quantity ;
-                        @endphp
-                        <div class="row align-items-center">
-                            <div class="col-lg-8 d-flex align-items-center">
-                                <div class="h-65px w-65px d-flex align-items-center justify-content-center position-relative">
-                                    <img src="{{ asset($orderDetails->product->thumbnail) }}" class="mw-100 mh-100" />
-                                    <span class="w-20px h-20px p-0 d-flex align-items-center justify-content-center badge bg-primary text-white position-absolute end-0 top-0 fw-bold fs-12px rounded-pill mt-n2 me-n2">{{ $orderDetails->quantity }}</span>
-                                </div>
-                                <div class="ps-3 flex-1">
-                                    <div><a href="#" class="text-decoration-none text-dark"> {{ $orderDetails->product->title }} ({{ $orderDetails->variant->variant_name  }})</a></div>
-                                    <div class="text-dark text-opacity-50 small fw-bold">
-                                        SKU: {{ $orderDetails->variant->sku  }}
+                        @foreach ($order->orderDetails as $orderDetails)
+                            @php
+                                $priceSum += $orderDetails->price * $orderDetails->quantity;
+                            @endphp
+                            <div class="row align-items-center">
+                                <div class="col-lg-8 d-flex align-items-center">
+                                    <div
+                                        class="h-65px w-65px d-flex align-items-center justify-content-center position-relative">
+                                        <img src="{{ asset($orderDetails->product->thumbnail) }}" class="mw-100 mh-100" />
+                                        <span
+                                            class="w-20px h-20px p-0 d-flex align-items-center justify-content-center badge bg-primary text-white position-absolute end-0 top-0 fw-bold fs-12px rounded-pill mt-n2 me-n2">{{ $orderDetails->quantity }}</span>
+                                    </div>
+                                    <div class="ps-3 flex-1">
+                                        <div><a href="#" class="text-decoration-none text-dark">
+                                                {{ $orderDetails->product->title }}
+                                                ({{ $orderDetails->variant->variant_name }})
+                                            </a></div>
+                                        <div class="text-dark text-opacity-50 small fw-bold">
+                                            SKU: {{ $orderDetails->variant->sku }}
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-2 m-0 ps-lg-3">
+                                    {{ $orderDetails->price }} x {{ $orderDetails->quantity }}
+                                </div>
+                                <div class="col-lg-2 text-dark fw-bold m-0 text-end">
+                                    {{ $orderDetails->price * $orderDetails->quantity }} {{ $currency }}
+                                </div>
                             </div>
-                            <div class="col-lg-2 m-0 ps-lg-3">
-                                {{ $orderDetails->price  }} x {{ $orderDetails->quantity  }}
-                            </div>
-                            <div class="col-lg-2 text-dark fw-bold m-0 text-end">
-                                {{ $orderDetails->price  * $orderDetails->quantity  }} {{ $currency  }}
-                            </div>
-                        </div>
-                        @if ($loop->index + 1 < $loop->count)
-                            <hr class="my-4" /> 
-                        @endif
+                            @if ($loop->index + 1 < $loop->count)
+                                <hr class="my-4" />
+                            @endif
                         @endforeach
                     </div>
                     {{-- <div class="card-footer bg-none d-flex p-3">
@@ -77,7 +81,7 @@
                         <a href="#" class="btn btn-primary ms-2">Add Tracking</a>
                     </div> --}}
                 </div>
-                <div class="card border-0">
+                <div class="card border-0 mb-4">
                     <div class="card-header bg-none p-3 h6 m-0 d-flex align-items-center">
                         <i class="fa fa-credit-card fa-lg me-2 text-gray text-opacity-50"></i>
                         Payment Records
@@ -86,7 +90,7 @@
                     <div class="card-body">
                         <table class="table table-borderless table-sm fw-bold m-0">
                             <tbody>
-                            {{-- <tr>
+                                {{-- <tr>
                                 <td class="w-150px">Subtotal</td>
                                 <td>{{ $order->products->count() }} items</td>
                                 <td class="text-end"> {{ $priceSum }} {{ $currency }}</td>
@@ -100,16 +104,17 @@
                                 <td>Tax</td>
                                 <td class="text-end">{{  }}</td>
                             </tr> --}}
-                            <tr>
-                                <td class="pb-2" colspan="2"><b>Total</b></td>
-                                <td class="text-end pb-2 text-decoration-underline"><b>{{ $order->final_price }} {{ $currency }}</b></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <hr class="m-0" />
-                                </td>
-                            </tr>
-                            {{-- <tr>
+                                <tr>
+                                    <td class="pb-2" colspan="2"><b>Total</b></td>
+                                    <td class="text-end pb-2 text-decoration-underline"><b>{{ $order->final_price }}
+                                            {{ $currency }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <hr class="m-0" />
+                                    </td>
+                                </tr>
+                                {{-- <tr>
                                 <td class="pt-2 pb-2" nowrap>
                                     Paid by customer
                                 </td>
@@ -119,6 +124,68 @@
                                 <td class="pt-2 pb-2 text-end">$3670.80</td>
                             </tr> --}}
                             </tbody>
+                        </table>
+                    </div>
+                    {{-- <div class="card-footer bg-none d-flex p-3">
+                        <a href="#" class="btn btn-primary ms-auto">Mark as paid</a>
+                    </div> --}}
+                </div>
+                <div class="card border-0">
+                    <div class="card-header bg-none p-3 h6 m-0 d-flex align-items-center">
+                        <i class="fa fa-circle fa-lg me-2 text-gray text-opacity-50"></i>
+                        Status Update
+                        {{-- <a href="#" class="ms-auto text-decoration-none text-gray-500"><i class="fab fa-paypal me-1 fa-lg"></i> View paypal records</a> --}}
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless table-sm fw-bold m-0">
+                            <form action="{{ route('order.update', $order->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <tbody>
+                                    <tr>
+                                        <td class="pb-2" colspan="2"><b>Fulfillment Status</b></td>
+                                        <td class="text-end pb-2 text-decoration-underline">
+                                            <select name="status" id="status">
+                                                @foreach ($orderStatuses as $status)
+                                                    <option {{ $order->status == $status ? 'selected' : '' }} value="{{$status}}">{{ ucfirst($status) }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('status')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <hr class="m-0" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pb-2" colspan="2"><b>Payment Status</b></td>
+                                        <td class="text-end pb-2 text-decoration-underline">
+                                            <select name="payment_status" id="payment_status">
+                                                @foreach ($paymentStatuses as $status)
+                                                    <option {{ $order->payment_status == $status ? 'selected' : '' }} value="{{$status}}">{{ ucfirst($status) }}</option>
+                                                @endforeach
+                                                @error('payment_status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <hr class="m-0" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-end pb-2 text-decoration-underline">
+                                            <button onclick="saveStatuses()" class="btn btn-primary">Save</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </form>
+
                         </table>
                     </div>
                     {{-- <div class="card-footer bg-none d-flex p-3">
@@ -161,12 +228,12 @@
                         $address = $order->userAddress;
                     @endphp
                     <div class="card-body fw-bold">
-                        {!! $address->phone1 ? "<i class='fa fa-phone fa-fw'></i> {$address->phone1} <br /><br />"  : "" !!}
-                        {!! $address->phone2 ? "<i class='fa fa-phone fa-fw'></i> {$address->phone2} <br /><br />"  :  "" !!}
+                        {!! $address->phone1 ? "<i class='fa fa-phone fa-fw'></i> {$address->phone1} <br /><br />" : '' !!}
+                        {!! $address->phone2 ? "<i class='fa fa-phone fa-fw'></i> {$address->phone2} <br /><br />" : '' !!}
                         {{ $address->house_number }} {{ $address->street }}<br />
                         {{ $address->city }}, {{ $address->governorate }}<br />
-                        {{ " Libya " }}<br />
-                        {{ $address->postal_code ?? "" }}<br />
+                        {{ ' Libya ' }}<br />
+                        {{ $address->postal_code ?? '' }}<br />
                         <br />
                         {{-- <a href="#" class="text-decoration-none text-gray-600"><i class="fa fa-location-dot fa-fw"></i> View map</a> --}}
                     </div>
@@ -187,5 +254,4 @@
         </div>
     </div>
     <!-- END #content -->
-
 @endsection

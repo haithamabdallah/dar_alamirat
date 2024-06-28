@@ -20,7 +20,8 @@ class Order extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['user_id','shipping_id'];
+    // protected $fillable = ['user_id','shipping_id'];
+    protected $guarded = ['id'];
 
     public function products()
     {
