@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Validator;
 
 class UserAddressController extends Controller
 {
+    public function __construct(public $rules=[])
+    {
+        $rules = [
+            'governorate' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'house_number' => 'required|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
+            'famous_place_nearby' => 'nullable|string|max:255',
+            'phone1' => 'required|string|min:1|max:16',
+            'phone2' => 'nullable|string|min:1|max:16',
+        ];
+        $this->rules = $rules;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,29 +43,21 @@ class UserAddressController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'governorate' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'street' => 'required|string|max:255',
-            'house_number' => 'required|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
-            'famous_place_nearby' => 'nullable|string|max:255',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            $status = 'error';
-            return response()->json(compact('status', "errors"));
-        }
-
-        $validated = $validator->safe()->all();
-
         try {
+
+            $validator = Validator::make($request->all(), $this->rules);
+
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                $status = 'error';
+                return response()->json(compact('status', "errors"));
+            }
+
+            $validated = $validator->safe()->all();
+
             $address = auth('web')->user()->addresses()->create($validated);
-        } catch (\Throwable $th) {
-            return response()->json($th->getMessage());
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
         }
 
         $status = 'success';
@@ -79,16 +85,8 @@ class UserAddressController extends Controller
      */
     public function update(Request $request, UserAddress $address)
     {
-        $rules = [
-            'governorate' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'street' => 'required|string|max:255',
-            'house_number' => 'required|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
-            'famous_place_nearby' => 'nullable|string|max:255',
-        ];
 
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $this->rules);
 
         if ($validator->fails()) {
             $errors = $validator->errors();

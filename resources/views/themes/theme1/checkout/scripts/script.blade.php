@@ -18,6 +18,8 @@
         document.getElementById('newPostalCode').value = '';
         document.getElementById('newFamousPlaceNearby').value = '';
         document.getElementById('newHouseNumber').value = '';
+        document.getElementById('newPhone1').value = '';
+        document.getElementById('newPhone2').value = '';
     }
 
     function saveNewAddress(url, token) {
@@ -27,7 +29,9 @@
         const newPostalCode = document.getElementById('newPostalCode').value;
         const newFamousPlaceNearby = document.getElementById('newFamousPlaceNearby').value;
         const newHouseNumber = document.getElementById('newHouseNumber').value;
-        if (newGovernorate && newCity && newStreet && newPostalCode && newFamousPlaceNearby && newHouseNumber) {
+        const newPhone1 = document.getElementById('newPhone1').value;
+        const newPhone2 = document.getElementById('newPhone2').value;
+        if (newGovernorate && newCity && newStreet && newPostalCode && newFamousPlaceNearby && newHouseNumber && newPhone1 && newPhone2) {
             axios.post(url, {
                 __token: token,
                 'governorate': $('#newGovernorate').val(),
@@ -36,6 +40,8 @@
                 'house_number': $('#newHouseNumber').val(),
                 'postal_code': $('#newPostalCode').val(),
                 'famous_place_nearby': $('#newFamousPlaceNearby').val(),
+                'phone1': $('#newPhone1').val(),
+                'phone2': $('#newPhone2').val()
             }).then(function(response) {
                 // console.log(response);
                 if (response.data.status === 'error') {
@@ -53,7 +59,9 @@
                         street: response.data.address.street,
                         postal_code: response.data.address.postal_code,
                         famous_place_nearby: response.data.address.famous_place_nearby,
-                        house_number: response.data.address.house_number
+                        house_number: response.data.address.house_number,
+                        phone1: (response.data.address?.phone1 ?? ''),
+                        phone2: (response.data.address?.phone2 ?? '')
                     });
                     renderAddressList();
                     clearNewAddressForm();
@@ -77,33 +85,40 @@
             <div class="grid-list">
                 <div class="grid-item">
                     <label for="editGovernorate" class="form-label">Governorate</label>
-                    <input type="text" class="form-control" id="editGovernorate" value="${address.governorate}">
+                    <input type="text" class="form-control" id="editGovernorate" value="${address.governorate??''}">
                 </div>
                 <div class="grid-item">
                     <label for="editCity" class="form-label">City</label>
-                    <input type="text" class="form-control" id="editCity" value="${address.city}">
+                    <input type="text" class="form-control" id="editCity" value="${address.city??''}">
                 </div>
                 <div class="grid-item">
                     <label for="editStreet" class="form-label">Street</label>
-                    <input type="text" class="form-control" id="editStreet" value="${address.street}">
+                    <input type="text" class="form-control" id="editStreet" value="${address.street??''}">
                 </div>
                 <div class="grid-item">
                     <label for="editPostalCode" class="form-label">Postal Code</label>
-                    <input type="text" class="form-control" id="editPostalCode" value="${address.postal_code}">
+                    <input type="text" class="form-control" id="editPostalCode" value="${address.postal_code??''}">
                 </div>
                 <div class="grid-item">
                     <label for="editFamousPlaceNearby" class="form-label">Famous Place Nearby</label>
-                    <input type="text" class="form-control" id="editFamousPlaceNearby" value="${address.famous_place_nearby}">
+                    <input type="text" class="form-control" id="editFamousPlaceNearby" value="${address.famous_place_nearby??''}">
                 </div>
                 <div class="grid-item">
                     <label for="editHouseNumber" class="form-label">House Number</label>
-                    <input type="text" class="form-control" id="editHouseNumber" value="${address.house_number}">
+                    <input type="text" class="form-control" id="editHouseNumber" value="${address.house_number??''}">
+                </div>
+                <div class="grid-item">
+                    <label for="editPhone1" class="form-label">Phone1</label>
+                    <input type="text" class="form-control" id="editPhone1" value="${address.phone1??''}">
+                </div>
+                <div class="grid-item">
+                    <label for="editPhone2" class="form-label">Phone2</label>
+                    <input type="text" class="form-control" id="editPhone2" value="${address.phone2??''}">
                 </div>
             </div>
             <div class="" id="edit-errors" > 
             </div>
             <button class="btn-save" onclick="saveEditedAddress()">Save</button>
-            <button class="btn btn-secondary" onclick="cancelEditAddress()">Cancel</button>
         `;
             document.getElementById('editAddressForm').style.display = 'block';
             document.getElementById('newAddressForm').style.display = 'none';
@@ -125,8 +140,10 @@
         var editPostalCode = document.getElementById('editPostalCode').value;
         var editFamousPlaceNearby = document.getElementById('editFamousPlaceNearby').value;
         var editHouseNumber = document.getElementById('editHouseNumber').value;
+        var editPhone1 = document.getElementById('editPhone1').value;
+        var editPhone2 = document.getElementById('editPhone2').value;
 
-        if (editGovernorate && editCity && editStreet && editPostalCode && editFamousPlaceNearby && editHouseNumber) {
+        if (editGovernorate && editCity && editStreet && editPostalCode && editFamousPlaceNearby && editHouseNumber && editPhone1 && editPhone2) {
 
             axios.patch(url, {
                 _token: token,
@@ -137,6 +154,8 @@
                 'house_number': editHouseNumber,
                 'postal_code': editPostalCode,
                 'famous_place_nearby': editFamousPlaceNearby,
+                'phone1': editPhone1,
+                'phone2': editPhone2
             }).then(function(response) {
                 console.log(response);
                 if (response.data.status === 'error') {
@@ -155,6 +174,8 @@
                         address.postal_code = editPostalCode;
                         address.famous_place_nearby = editFamousPlaceNearby;
                         address.house_number = editHouseNumber;
+                        address.phone1 = editPhone1;
+                        address.phone2 = editPhone2;
 
                         renderAddressList();
                         cancelEditAddress();
@@ -287,7 +308,7 @@
             addressItem.innerHTML = `
             <label class="form-check-label" for="address${address.id}">
                 <input class="form-check-input" type="radio" name="address" id="address${address.id}" value="${address.id}">
-                ${address.governorate}, ${address.city}, ${address.street}, ${address.postal_code}
+                ${address.governorate}, ${address.city}, ${address.street}, ${address.postal_code} , ${address.phone1??'no phone'}, ${address.phone2??'no phone'}
             </label>
             <div class="btns">
                 <button class="btn-link" onclick="editAddress(${address.id})">Edit</button>
