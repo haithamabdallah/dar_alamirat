@@ -13,9 +13,9 @@
                 </ul>
                 <h1 class="page-header mb-0">Orders</h1>
             </div>
-            <div class="ms-auto">
+            {{-- <div class="ms-auto">
                 <a href="{{route('order.create')  }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Create Orders</a>
-            </div>
+            </div> --}}
         </div>
 
         @include('dashboard.layouts.alerts')
@@ -24,11 +24,11 @@
         <div class="card border-0">
             <ul class="nav nav-tabs nav-tabs-v2 px-3">
                 <li class="nav-item me-2"><a href="#allTab" class="nav-link px-2 active" data-bs-toggle="tab">All</a></li>
-                <li class="nav-item me-2"><a href="#publishedTab" class="nav-link px-2" data-bs-toggle="tab">Unfulfilled</a></li>
+                {{-- <li class="nav-item me-2"><a href="#publishedTab" class="nav-link px-2" data-bs-toggle="tab">Unfulfilled</a></li>
                 <li class="nav-item me-2"><a href="#expiredTab" class="nav-link px-2" data-bs-toggle="tab">Unpaid</a></li>
                 <li class="nav-item me-2"><a href="#deletedTab" class="nav-link px-2" data-bs-toggle="tab">Open</a></li>
                 <li class="nav-item me-2"><a href="#deletedTab" class="nav-link px-2" data-bs-toggle="tab">Closed</a></li>
-                <li class="nav-item me-2"><a href="#deletedTab" class="nav-link px-2" data-bs-toggle="tab">Local delivery</a></li>
+                <li class="nav-item me-2"><a href="#deletedTab" class="nav-link px-2" data-bs-toggle="tab">Local delivery</a></li> --}}
             </ul>
             <div class="tab-content p-3">
                 <div class="tab-pane fade show active" id="allTab">
@@ -55,11 +55,10 @@
                                 <th>Order</th>
                                 <th>Date</th>
                                 <th>Customer</th>
-                                <th>Total</th>
-                                <th>Items</th>
-                                {{-- <th>Payment status</th> --}}
+                                <th>Total Price</th>
+                                <th>Payment status</th>
                                 <th>Fulfillment status</th>
-                                {{-- <th>Delivery method</th> --}}
+                                <th>Delivery method</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,17 +71,14 @@
                                         <label class="form-check-label" for="product1"></label>
                                     </div>
                                 </td>
-                                <td>{{ $order->order_number }}</td>
+                                <td> <a href="{{ route('order.show', $order->id) }}">{{ $order->order_number }}</a></td>
                                 <td>{{ $order->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $order->user->full_name }}</td>
-                                @foreach ($order->products as $product )
-                                <td>{{  $product->pivot->price }}$</td>
-                                <td>{{  $product->pivot->quantity }}</td>
-                                @endforeach
-                                {{-- <td><span class="badge border border-success text-success px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> </span></td> --}}
-                                <td><span class="badge border border-success text-success px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i>{{ $order->status }} </span></td>
+                                <td>{{  $order->final_price }} {{ $currency }}</td>
+                                <td><span class="badge border border-success text-success px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> {{ $order->payment_status }} </span></td>
+                                <td><span class="badge border border-success text-success px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> {{ $order->status }} </span></td>
 
-                                {{-- <td>{{ $order->shippingMethod->name }}</td> --}}
+                                <td>{{ $order->shippingMethod->name }}</td>
                             </tr>
 
                             @empty

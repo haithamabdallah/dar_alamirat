@@ -184,11 +184,9 @@
                                     </ul>
                                 </div>
                             @endif
-
                             <!-- order products -->
-                            @php
-                                $orderDetials = $order->orderDetails;
-                            @endphp
+                            @foreach ($order->orderDetails as $orderDetials)
+                                
                             <div> Product Name : <a href="{{ route('product', $orderDetials->product->id) }}"
                                     target="_blank">
                                     <span>{{ $orderDetials->product->title }} (
@@ -203,6 +201,7 @@
                             <div> Product Total Price :
                                 <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
                             </div>
+                            @endforeach
                         </div>
                         {{-- <!-- If Empty Page -->
                             <div class="no-content-placeholder">

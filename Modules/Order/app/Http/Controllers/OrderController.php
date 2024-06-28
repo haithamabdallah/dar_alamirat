@@ -3,6 +3,7 @@
 namespace Modules\Order\Http\Controllers;
 
 use App\Models\User;
+use App\Mail\InvoiceMail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Order\Models\Order;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\Variant;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 use Modules\Shipping\Models\Shipping;
 use Modules\Order\Services\OrderService;
@@ -79,11 +81,11 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $products=Product::with(['variants','inventory'])->get();
-        $clients=User::get();
-        $shippingMethods=Shipping::get();
+        // $products=Product::with(['variants','inventory'])->get();
+        // $clients=User::get();
+        // $shippingMethods=Shipping::get();
 
-        return view('dashboard.orders.create_order',compact('products','clients','shippingMethods'));
+        // return view('dashboard.orders.create_order',compact('products','clients','shippingMethods'));
     }
 
     /**
@@ -113,7 +115,9 @@ class OrderController extends Controller
         ]);
 
         try {
-            $this->orderService->createCheckoutOrder($validatedData);
+            $order = $this->orderService->createCheckoutOrder($validatedData);
+
+            Mail::to(auth()->user()->email)->send(new InvoiceMail($order));
 
             return redirect()->route('index')->with('success', 'Order placed successfully.');
         } catch (\Exception $e) {
@@ -127,9 +131,10 @@ class OrderController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        return view('order::show');
+        $order->load(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod']);
+        return view('dashboard.orders.order_details',compact('order'));
     }
 
     /**
@@ -137,7 +142,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        return view('order::edit');
+        // return view('order::edit');
     }
 
     /**

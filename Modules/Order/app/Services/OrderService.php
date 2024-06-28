@@ -157,7 +157,7 @@ class OrderService
                 session()->forget('coupon');
             }
 
-            return $orderProduct;
+            return $order;
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

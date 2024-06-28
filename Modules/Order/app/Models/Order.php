@@ -29,7 +29,7 @@ class Order extends Model
 
     public function orderDetails()
     {
-        return $this->hasOne(OrderProduct::class);
+        return $this->hasMany(OrderProduct::class);
     }
 
     public function user()
@@ -39,7 +39,7 @@ class Order extends Model
 
 public function shippingMethod()
 {
-    return $this->belongsTo(Shipping::class);
+    return $this->belongsTo(Shipping::class , 'shipping_id' , 'id');
 }
 
 public function coupon()
