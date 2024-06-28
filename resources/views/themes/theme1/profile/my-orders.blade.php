@@ -156,7 +156,7 @@
                     <main>
                         <h1>My Orders</h1>
                         @forelse ($orders as $order)
-                        <div><a href="{{ route('order.my.details', $order->id) }}">oreder detials page </a></div>
+                            <div><a href="{{ route('order.my.details', $order->id) }}">oreder detials page </a></div>
                             <div class="bg-white p-4 my-4 shadow rounded">
                                 <div> Order Status : <span>{{ $order->status }}</span> </div>
                                 <div> Final Price : <span>{{ $order->final_price }}</span> </div>
@@ -184,23 +184,23 @@
                                 @endif
 
                                 <!-- order products -->
-                                @php
-                                    $orderDetials = $order->orderDetails;
-                                @endphp
-                                <div> Product Name : <a href="{{ route('product', $orderDetials->product->id) }}"
-                                        target="_blank">
-                                        <span>{{ $orderDetials->product->title }} (
-                                            {{ $orderDetials->variant->variant_name }} )</span>
-                                    </a> </div>
-                                <div> Variant : <span> {{ $orderDetials->variant->variant_name }}
-                                    </span> </div>
-                                <div> Variant SKU: <span>
-                                        {{ $orderDetials->variant->sku }} </span> </div>
-                                <div> Product Unit Price : <span>{{ $orderDetials->price }}</span> </div>
-                                <div> Product Quantity : <span>{{ $orderDetials->quantity }}</span> </div>
-                                <div> Product Total Price :
-                                    <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
-                                </div>
+
+                                @foreach ($orderDetials as $orderDetials)
+                                    <div> Product Name : <a href="{{ route('product', $orderDetials->product->id) }}"
+                                            target="_blank">
+                                            <span>{{ $orderDetials->product->title }} (
+                                                {{ $orderDetials->variant->variant_name }} )</span>
+                                        </a> </div>
+                                    <div> Variant : <span> {{ $orderDetials->variant->variant_name }}
+                                        </span> </div>
+                                    <div> Variant SKU: <span>
+                                            {{ $orderDetials->variant->sku }} </span> </div>
+                                    <div> Product Unit Price : <span>{{ $orderDetials->price }}</span> </div>
+                                    <div> Product Quantity : <span>{{ $orderDetials->quantity }}</span> </div>
+                                    <div> Product Total Price :
+                                        <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
+                                    </div>
+                                @endforeach
                             </div>
                         @empty
                             <!-- If Empty Page -->
