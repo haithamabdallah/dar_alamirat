@@ -54,7 +54,7 @@
                                     <span class="w-20px h-20px p-0 d-flex align-items-center justify-content-center badge bg-primary text-white position-absolute end-0 top-0 fw-bold fs-12px rounded-pill mt-n2 me-n2">{{ $orderDetails->quantity }}</span>
                                 </div>
                                 <div class="ps-3 flex-1">
-                                    <div><a href="#" class="text-decoration-none text-dark"> {{ $orderDetails->product->name }} ({{ $orderDetails->variant->variant_name  }})</a></div>
+                                    <div><a href="#" class="text-decoration-none text-dark"> {{ $orderDetails->product->title }} ({{ $orderDetails->variant->variant_name  }})</a></div>
                                     <div class="text-dark text-opacity-50 small fw-bold">
                                         SKU: {{ $orderDetails->variant->sku  }}
                                     </div>
@@ -67,7 +67,7 @@
                                 {{ $orderDetails->price  * $orderDetails->quantity  }} {{ $currency  }}
                             </div>
                         </div>
-                        @if ($loop->count < $loop->last)
+                        @if ($loop->index + 1 < $loop->last)
                             <hr class="my-4" /> 
                         @endif
                         @endforeach
