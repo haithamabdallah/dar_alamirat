@@ -44,16 +44,36 @@ return new class extends Migration
 
 // php artisan module:migrate-rollback --subpath="2024_05_06_164938_create_orders_table.php" Order
 // php artisan module:migrate --subpath="2024_05_06_164938_create_orders_table.php" Order
+// truncate order_product table and then run this migration
 
 
 /* # may need to use tinker 
+** truncate order_product table 
+Order
 
-down:
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Modules\Order\Models\OrderProduct;
+use Modules\Order\Models\Order;
+
+OrderProduct::truncate();
+
+Order::truncate();
+
+** drop foreign key from order_product table
         if (Illuminate\Support\Facades\Schema::hasTable('order_product') && Illuminate\Support\Facades\Schema::hasTable('orders') && Illuminate\Support\Facades\Schema::hasColumn('order_product', 'order_id') && Illuminate\Support\Facades\Schema::hasColumn('orders', 'id') ) {
-            Illuminate\Support\Facades\Schema::table('order_product', function (Illuminate\Database\Schema\Blueprint $table) {
+            Illuminate\Support\Facades\Schema::table('order_product', function (Blueprint $table) {
                 $table->dropForeign(['order_id']);
             });
         }
+** add foreign key to order_product table
+            if (Schema::hasTable('order_product') && Schema::hasTable('orders') && Schema::hasColumn('order_product', 'order_id') && Schema::hasColumn('orders', 'id') ) {
+            Schema::table('order_product', function (Blueprint $table) {
+                $table->foreign('order_id')->on('orders')->references('id')->onDelete('cascade');
+            });
+        }
+
+
 
 
 */
