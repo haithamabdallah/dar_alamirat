@@ -24,7 +24,7 @@ class SubscriptionController extends Controller
 
     public function index()
     {
-        $subscribers=Subscriber::paginate(10);
+        $subscribers= Subscriber::paginate(10);
         return view('dashboard.subscriptions.index',compact('subscribers'));
     }
 
@@ -82,13 +82,13 @@ class SubscriptionController extends Controller
     public function sendNewsletter(Request $request)
     {
         $request->validate([
-            'sender' => 'email',
+            // 'sender' => 'email',
             'subject' => 'string|max:255',
             'content' => 'string',
         ]);
 
         $this->newsletterService->sendNewsletter(
-            $request->input('sender'),
+            // $request->input('sender'),
             $request->input('subject'),
             $request->input('content')
         );

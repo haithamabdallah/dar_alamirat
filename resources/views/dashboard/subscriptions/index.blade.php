@@ -24,7 +24,8 @@
                 <h1 class="page-header mb-0">Subscribers</h1>
             </div>
             <div class="ms-auto">
-                <a href="{{ route('subscription.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>Send Newsletter </a>
+                <a href="{{ route('subscription.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
+                        class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>Send Newsletter </a>
             </div>
         </div>
 
@@ -59,6 +60,17 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- pagination -->
+                    <div class="d-md-flex align-items-center">
+                        <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                            Showing {{ $subscribers->firstItem() }} to {{ $subscribers->lastItem() }} of {{ $subscribers->total() }}
+                            entries
+                        </div>
+                        <ul class="pagination mb-0 justify-content-center">
+                            {{ $subscribers->links('pagination::bootstrap-4') }}
+                        </ul>
+                    </div>
+                    <!-- ./pagination -->
                     <!-- ./table -->
                 </div>
                 <!-- ./tab pane -->

@@ -7,10 +7,10 @@ use Modules\Subscription\Models\Subscriber;
 
 class NewsletterService
 {
-    public function sendNewsletter($sender, $subject, $content)
+    public function sendNewsletter(/* $sender, */ $subject, $content)
     {
         $details = [
-            'sender' => $sender,
+            // 'sender' => $sender,
             'subject' => $subject,
             'content' => $content
         ];
@@ -19,7 +19,7 @@ class NewsletterService
         $recipients = Subscriber::pluck('email')->toArray();
 
         foreach ($recipients as $recipient) {
-            Mail::to($recipient)->send(new SendNewsletterMail($details['sender'], $details['subject'], $details['content']));
+            Mail::to($recipient)->send(new SendNewsletterMail(/* $details['sender'], */ $details['subject'], $details['content']));
         }
     }
 }

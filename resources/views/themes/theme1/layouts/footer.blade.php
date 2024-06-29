@@ -3,11 +3,34 @@
     <!-- container -->
     <div class="pixel-container">
         <!-- row -->
-        <div class="wrap">
+        <div class="wrap ">
+            <section class="newsletter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="content">
+                                <form action="{{ route('subscribe') }}" method="POST">
+                                    @csrf
+                                    <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" placeholder="Enter your email" name="email">
+                                        <span class="input-group-btn">
+                                            <button class="btn" type="submit">Subscribe Now</button>
+                                        </span>
+                                    </div>
+                                    @error('email')
+                                        <p class="text-danger h5 py-5">{{ $message }}</p>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <!-- content -->
-            <div class="footer">
+            <div class="footer"
+                style="display: grid !important; justify-items: center !important; align-items: center !important; grid-template-columns: repeat(3, 1fr);">
                 <!-- item -->
-                <div class="f-item">
+                <div class="f-item justify-content-center" style="align-items: center !important;">
                     @foreach ($settings->where('type', 'general') as $setting)
                         <div class="logo">
                             @if (isset($setting->value['logo_path']))
@@ -19,11 +42,9 @@
                             @endif
                         </div>
 
-                        <p>
-                            @if (isset($setting->value['website_address']))
-                                {{ $setting->value['website_address'] }}
-                            @endif
-                        </p>
+                        @if (isset($setting->value['website_address']))
+                            <p style="padding: 0 !important">{{ $setting->value['website_address'] }}</p>
+                        @endif
                     @endforeach
 
                     <ul class="social-accounts">
@@ -60,7 +81,7 @@
                 <!-- ./item -->
                 <!-- item -->
                 @auth
-                    <div class="f-item f-my-account">
+                    <div class="f-item justify-content-center f-my-account" style="align-items: center !important;">
                         <h3>My Account</h3>
                         <ul>
                             <li>
@@ -109,7 +130,7 @@
                 @endauth
                 <!-- ./item -->
                 <!-- item -->
-                <div class="f-item">
+                <div class="f-item justify-content-center" style="justify-items: center !important;">
                     <h3>Important Links</h3>
                     @foreach ($pages as $page)
                         <ul>
@@ -146,12 +167,12 @@
                                 </li>
                             @endif
 
-                            <li>
+                            {{-- <li>
                                 <a href="tel:+966920014688">
                                     <i class="sicon-phone"></i>
                                     <span>+966920014688</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endforeach
 
                     </ul>

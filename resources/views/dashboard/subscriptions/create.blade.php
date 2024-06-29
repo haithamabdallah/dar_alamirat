@@ -34,10 +34,10 @@
                     <!-- newsletter form -->
                     <form action="{{ route('send-newsletter') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="newsEmailSender" class="form-label">Send From Email</label>
                             <input type="email" name="sender" class="form-control" placeholder="Email Sender">
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label for="newsSubject" class="form-label">Subject</label>
                             <input type="text" name="subject" class="form-control" placeholder="Subject">

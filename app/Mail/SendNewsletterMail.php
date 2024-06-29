@@ -25,9 +25,9 @@ class SendNewsletterMail extends Mailable
      *
      * @return void
      */
-    public function __construct($sender, $subject, $content)
+    public function __construct(/* $sender, */ $subject, $content)
     {
-        $this->sender = $sender;
+        // $this->sender = $sender;
         $this->subject = $subject;
         $this->content = $content;
     }
@@ -40,7 +40,8 @@ class SendNewsletterMail extends Mailable
 
     public function build()
     {
-        return $this->from($this->sender, config('app.name'))
+        return $this
+                    // ->from($this->sender, config('app.name'))
                     ->subject($this->subject)
                     ->view('emails.sendnewsletter')
                     ->with($this->content);
