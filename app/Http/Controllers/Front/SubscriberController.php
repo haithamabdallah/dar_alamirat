@@ -16,14 +16,14 @@ class SubscriberController extends Controller
     {
         // Validate the request
         $request->validate([
-            'email' => 'required|email|unique:subscribers',
+            'email' => 'required|email|max:255',
         ]);
 
         // Check if the email is already subscribed
-        // $existingSubscriber = Subscriber::where('email', $request->email)->first();
-        $existingSubscriber = Subscriber::firstOrCreate(
-            ['email' => $request->email]
-        );
+        $existingSubscriber = Subscriber::where('email', $request->email)->first();
+        // $existingSubscriber = Subscriber::firstOrCreate(
+        //     ['email' => $request->email]
+        // );
         // if ($existingSubscriber) {
         //     return redirect()->back()->with([
         //         'title' => 'Already Subscribed',
@@ -31,11 +31,14 @@ class SubscriberController extends Controller
         //         'icon' => 'info'
         //     ]);
         // }
+        if ($existingSubscriber) {
+            return redirect()->back()->withInput()->withErrors(['email' => 'You are already subscribed.']);
+        }
 
         // Create subscriber model and save to database
-        // $subscriber = new Subscriber;
-        // $subscriber->email = $request->email;
-        // $subscriber->save();
+        $subscriber = new Subscriber;
+        $subscriber->email = $request->email;
+        $subscriber->save();
         // Prepare data for the email
         $data = [
             'header_title' => 'Welcome to Our Newsletter',
