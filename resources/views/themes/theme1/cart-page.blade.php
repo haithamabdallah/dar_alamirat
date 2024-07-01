@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
 
-                                <p id="final-after-discount" style="display: none"> <span class="text-success">Successful Coupon </span> <br> <b>Final After Discount: </b> <span id="final-after-discount-price" > </span> </p>
+                                <p id="coupon-details-div" style="display: none"> <span class="text-success">Successful Coupon </span> <br> <span id="coupon-details" > </span> </p>
                                 <div id="invalid-coupon" style="display: none"> <span class="text-danger">Invalid Coupn </span> </div>
 
 

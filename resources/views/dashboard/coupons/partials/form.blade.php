@@ -114,6 +114,21 @@
 
     <!-- item -->
     <div class="row mb-15px">
+        <label class="form-label col-form-label col-md-3">Minimum Purchase Limit</label> 
+        <div class="col-md-9">
+            <input class="form-control" type="number" name="min_purchase_limit" min="1" placeholder="1"
+                value="{{ $coupon->min_purchase_limit ?? old('min_purchase_limit') }}" required />
+            @error('min_purchase_limit')
+                <span class="text-danger" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- ./item -->
+
+    <!-- item -->
+    <div class="row mb-15px">
         <label class="form-label col-form-label col-md-3">Limit Per User</label>
         <div class="col-md-9">
             <input class="form-control" type="number" name="limit_per_user" min="1" placeholder="1"

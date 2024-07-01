@@ -26,6 +26,7 @@ class CouponRequest extends FormRequest
             'note' => 'nullable|string|max:255',
             'start_date' => 'required|date|date_format:Y-m-d',
             'end_date' => 'required|date|date_format:Y-m-d',
+            'min_purchase_limit' => 'required|numeric|min:1',
             'limit_per_user' => 'required|numeric|min:1',
             'usage_limit' => 'required|numeric|min:1',
         ];

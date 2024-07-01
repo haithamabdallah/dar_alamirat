@@ -89,7 +89,10 @@ class OrderService
             $order->coupon_id = $validatedData['coupon_id'];
             $order->save();
 
-            $carts = auth()->user()->carts;
+            $carts = auth()->user()->carts->load('product');
+
+            // $sumOfDiscountedProducts = 0;
+            // $sumOfUndiscountedProducts = 0;
 
             foreach ($carts as $cart) {
                 $quantityOfProduct = $this->getQuantityOfProduct($cart->product_id);
@@ -102,6 +105,7 @@ class OrderService
                     $error = 'Insufficient quantity in inventory.';
                     $orderProduct->quantity = $quantityOfProduct;
                     // throw new \Exception('Insufficient quantity in inventory.');
+                    $this->updateInventoryQuantity($cart->product_id, $quantityOfProduct);
                 } else {
                     $orderProduct->quantity = $cart->quantity;
                     // Update inventory quantity

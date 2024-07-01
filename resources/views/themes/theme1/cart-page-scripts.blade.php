@@ -146,23 +146,27 @@
                     console.log(response.data);
                     
                     let coupon = response.data.coupon;
+                    let couponDetails = `<b> Minimum Purchase Limit:</b> ${coupon.min_purchase_limit} {!! $currency !!}<br>`;
                     if (coupon.discount_type == 'flat') {
                         // console.log(parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value));
-                        var finalPrice = parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value);
+                        // var finalPrice = parseFloat($('#final-total-price').text()) - parseFloat(coupon.discount_value);
+                        couponDetails += `<b> Discount Value:</b> ${coupon.discount_value} {!! $currency !!}<br>`;
                     } else {
                         // console.log(parseFloat($('#final-total-price').text()) - (parseFloat($('#final-total-price').text()) * parseFloat(coupon.discount_value) / 100));
-                        var finalPrice = parseFloat($('#final-total-price').text()) - (parseFloat($('#final-total-price').text()) * parseFloat(coupon.discount_value) / 100);
+                        // var finalPrice = parseFloat($('#final-total-price').text()) - (parseFloat($('#final-total-price').text()) * parseFloat(coupon.discount_value) / 100);
+                        couponDetails += `<b> Discount Value:</b> ${coupon.discount_value} % of final total <br> `;
                     }
-                    $('#final-after-discount-price').text(parseFloat(finalPrice).toFixed(2) + ' {!! $currency !!}');
-                    $('#final-after-discount').show();
+                    couponDetails += `<b>The coupon will not be applied to products that already have a discount</b>`;
+                    $('#coupon-details').html(couponDetails);
+                    $('#coupon-details-div').show();
                 } else {
-                    $('#final-after-discount').hide();
+                    $('#coupon-details-div').hide();
                     $('#invalid-coupon').show();
                     $('#invalid-coupon').hide(2000);
                     console.log(response.data);
                 }
             }).catch((error) => {
-                $('#final-after-discount').hide();
+                $('#coupon-details-div').hide();
                 console.log(error);
             });
         }
