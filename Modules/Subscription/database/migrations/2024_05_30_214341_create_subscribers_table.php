@@ -19,7 +19,8 @@ return new class extends Migration
 
         Schema::table('subscribers', function (Blueprint $table) {
             $table->after('email', function (Blueprint $table) {
-                $table->boolean('status')->default(1);
+                $table->boolean('status')->default(0);
+                $table->string('token')->nullable();
             });
         });
     }
