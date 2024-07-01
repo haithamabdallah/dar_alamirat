@@ -42,6 +42,7 @@
                                 <tr>
                                     <th width="1%"></th>
                                     <th class="text-nowrap" width="20%">Email</th>
+                                    <th class="text-nowrap" width="20%">Status</th>
                                     <!-- Add more columns if needed -->
                                 </tr>
                             </thead>
@@ -50,6 +51,7 @@
                                     <tr class="odd gradeX">
                                         <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
                                         <td>{{ $subscriber->email }}</td>
+                                        <td>{{ $subscriber->status ? 'Active' : 'Inactive' }}</td>
                                         <!-- Add more columns if needed -->
                                     </tr>
                                 @empty
