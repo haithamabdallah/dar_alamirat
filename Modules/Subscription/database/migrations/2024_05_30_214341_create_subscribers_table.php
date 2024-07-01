@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
-
             $table->timestamps();
+        });
+
+        Schema::table('subscribers', function (Blueprint $table) {
+            $table->after('email', function (Blueprint $table) {
+                $table->boolean('status')->default(1);
+            });
         });
     }
 
@@ -23,7 +28,14 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
+    {        
         Schema::dropIfExists('subscribers');
     }
 };
+
+// use tinker
+/* 
+Schema::table('subscribers', function (Blueprint $table) {
+    $table->dropColumn('content');
+});
+ */
