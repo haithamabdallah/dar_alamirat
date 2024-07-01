@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Product\Models\VariantImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Variant extends Model
@@ -24,6 +25,11 @@ class Variant extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(VariantImage::class, 'variant_id', 'id');
     }
 
     
