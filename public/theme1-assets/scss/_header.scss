@@ -110,6 +110,13 @@
         }
       }
     }
+      &.dropdown {
+          .loggedin_avatar {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+          }
+      }
   }
 }
 .sticky-top {

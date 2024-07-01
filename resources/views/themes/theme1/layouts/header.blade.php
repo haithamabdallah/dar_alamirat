@@ -2,7 +2,7 @@
 <header id="header">
 
     @if (Session::has('success'))
-    <div class="bg-success text-white p-2" id="flashSuccess" 
+    <div class="bg-success text-white p-2" id="flashSuccess"
     style="position: fixed; top: 10vh; left: 5vw; width: fit-content; z-index: 9999; opacity: 0.8">{{ Session::get('success') }} <button class="text-white p-1" style="border: white solid 1px" onclick="document.getElementById('flashSuccess').style.display = 'none'">X</button></div>
     @endif
     <div class="pixel-container">
@@ -49,14 +49,19 @@
                         </li>
                     @endguest
                     @auth
-                        <li>
-                            <a href="{{ route('user.profile',auth()->user()->id) }}" class="d-flex align-items-center">
-                                <i class="icon sicon-user"></i>
+                        <li class="dropdown">
+                            <a href="{{ route('user.profile',auth()->user()->id) }}" class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="loggedin_avatar" src="{{ asset('theme1-assets/images/avatar_male.webp') }}" alt="">
                                 <span class="d-flex flex-column">
-                                <p>My Account</p>
-                                <span>{{ auth()->user()->FullName }}</span>
-                            </span>
+
+                                    <span>{{ auth()->user()->FullName }}</span>
+                                </span>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
                         </li>
                     @endauth
 
