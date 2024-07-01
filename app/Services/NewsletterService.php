@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+
+use App\Jobs\SendManyEmails;
 use App\Mail\SendNewsletterMail;
 use Illuminate\Support\Facades\Mail;
 use Modules\Subscription\Models\Subscriber;
@@ -16,10 +18,9 @@ class NewsletterService
         ];
 
         // Fetch all subscribers
-        $recipients = Subscriber::pluck('email')->toArray();
+        Subscriber::where('status', 1)->chunk(40, function ($recipients) use ($details) {
+            SendManyEmails::dispatch($recipients, $details);
+        });
 
-        foreach ($recipients as $recipient) {
-            Mail::to($recipient)->send(new SendNewsletterMail(/* $details['sender'], */ $details['subject'], $details['content']));
-        }
     }
 }

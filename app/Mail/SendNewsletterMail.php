@@ -16,20 +16,23 @@ class SendNewsletterMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public $sender;
+    // public $sender;
     public $subject;
     public $content;
+    public $unsubscribeLink;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(/* $sender, */ $subject, $content)
+    public function __construct(/* $sender, */ $subject, $content, $unsubscribeLink)
     {
         // $this->sender = $sender;
         $this->subject = $subject;
         $this->content = $content;
+        $this->unsubscribeLink = $unsubscribeLink;
+
     }
 
     /**

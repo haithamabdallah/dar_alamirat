@@ -108,6 +108,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
 Route::get('/user/profile/{user}', [ProfileController::class, 'showProfile'])->name('user.profile');
 Route::put('/user/profile/{user}', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
 Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('subscribe');
+Route::get('/subscriber/{subscriber}/confirm/{token}', [SubscriberController::class, 'confirmed'])->name('subscriber.confirm');
+Route::get('/subscriber/{subscriber}/unsubscribe/{token}', [SubscriberController::class, 'unsubscribe'])->name('unsubscribe');
 
 
 Route::middleware('auth:admin')->group(function () {

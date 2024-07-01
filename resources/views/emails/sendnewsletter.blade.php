@@ -63,7 +63,8 @@
             <p>{{ $content }}</p>
         </div>
         <div class="footer">
-            <p>Thank you for being with us!,<br>{{ $sender }}</p>
+            <p>Thank you for being with us!{{-- ,<br>{{ $sender }} --}}</p>
+            <p>To unsubscribe, please click here: <a href="{{ $unsubscribeLink }}">{{ $unsubscribeLink }}</a></p>
         </div>
     </div>
 </body>

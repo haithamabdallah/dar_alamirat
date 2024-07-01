@@ -20,8 +20,6 @@ class NewsletterMail extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
-
-
     }
 
     /**
@@ -31,9 +29,10 @@ class NewsletterMail extends Mailable
      */
     public function build()
     {
-        return $this->from('newsletter@daaralamirat.com', config('app.name'))
-                    ->subject('Nor replay: Newsletters')
-                    ->view('emails.newsletter')
-                    ->with($this->data);
+        return $this
+            // ->from('newsletter@daaralamirat.com', config('app.name'))
+            ->subject('No replay: Newsletters')
+            ->view('emails.newsletter')
+            ->with($this->data);
     }
 }
