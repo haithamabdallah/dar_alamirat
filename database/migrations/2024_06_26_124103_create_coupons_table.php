@@ -25,6 +25,12 @@ return new class extends Migration
             $table->unsignedInteger('usage_count')->default(0);
             $table->timestamps();
         });
+
+        Schema::table('coupons', function (Blueprint $table) {
+            $table->after('end_date', function (Blueprint $table) {
+                $table->decimal('min_purchase_limit', 10, 2)->default(100);
+            });
+        });
     }
 
     /**
