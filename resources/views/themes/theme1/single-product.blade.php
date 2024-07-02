@@ -34,7 +34,7 @@
                             <!-- data -->
                             <div class="brand_data">
                                 {{-- <p class="status">100 Original</p> --}}
-                                <a href="{{ route('brand', $product->brand->id) }}">Click here fo more of
+                                <a href="{{ route('brand', $product->brand->id) }}">{{ __("Click here fo more of") }}
                                     <strong>{{ $product->brand->name }}</strong></a>
                             </div>
                             <!-- ./data -->
@@ -60,11 +60,11 @@
                                     <li class="nav-item flex-fill" role="presentation">
                                         <a class="nav-link active" id="description-tab" data-bs-toggle="tab"
                                                 data-bs-target="#description" type="button" role="tab" aria-controls="description"
-                                                aria-selected="true">description</a>
+                                                aria-selected="true">{{ __("Description") }}</a>
                                     </li>
                                     <li class="nav-item flex-fill" role="presentation">
                                         <a class="nav-link" id="use-tab" data-bs-toggle="tab" data-bs-target="#use"
-                                                type="button" role="tab" aria-controls="use" aria-selected="false">How to use</a>
+                                                type="button" role="tab" aria-controls="use" aria-selected="false">{{ __("How to use") }}</a>
                                     </li>
                                     {{-- <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">specifications</button>
@@ -78,7 +78,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab"
                                          tabindex="0">{!! $product->description !!}</div>
-                                    <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0">use
+                                    <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0"> {{ $product->instructions }}
                                     </div>
                                     {{-- <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
                                 <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
@@ -104,7 +104,7 @@
                                     @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
                                         <div class="before-dis">
                                             <span>{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
-                                            <p class="vat">VAT included</p>
+                                            {{-- <p class="vat">VAT included</p>     --}}
                                         </div>
 
                                         <span class="after-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
@@ -139,7 +139,7 @@
 
                                 <!-- add to cart button -->
                                 <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
-                                    <span class="button-title">Add to Cart</span>
+                                    <span class="button-title">{{ __("Add to Cart") }}</span>
                                     <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
                                 </button>
                                 <!-- ./add to cart button -->
@@ -170,10 +170,10 @@
 
 
                     <div class="variants">
-                        <h4>Variants</h4>
+                        <h4>{{ __("Variants") }}</h4>
                         <select id="variant-select" class="form-control">
                             @foreach ($product->variants as $variant)
-                                <option value="{{$variant->id}}">  Name  : ( {{ $variant->variantName }} ) #####  SKU : <span > (  ) </span> </option>
+                                <option value="{{$variant->id}}">  {{ $variant->variantName }} </option>
                             @endforeach
                         </select>
                     </div>
@@ -191,7 +191,7 @@
                     <!-- ./item -->
 
                     <!-- alert -->
-                    <div class="alert alert-danger" role="alert">This item cannot be returned or replaced</div>
+                    <div class="alert alert-danger" role="alert">{{ __("This item cannot be returned or replaced") }}</div>
                     <!-- ./alert -->
                         <!-- button cart -->
 
