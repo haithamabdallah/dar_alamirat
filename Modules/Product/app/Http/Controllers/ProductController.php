@@ -44,7 +44,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('dashboard.products.form' ,new ProductViewModel());
+        return view('dashboard.products.form', new ProductViewModel());
     }
 
     /**
@@ -54,17 +54,17 @@ class ProductController extends Controller
     {
 
         $validatedData = $request->validated();
-        
-        try{
+
+        try {
             DB::beginTransaction();
             $product = $this->productService->storeData($validatedData);
-    
+
             // Handle thumbnail
             if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
                 $thumbnailPath = $request->file('thumbnail')->store("products/{$product->id}/thumbnail", 'public');
                 $product->update(['thumbnail' => $thumbnailPath]);
             }
-    
+
             // Handle images
             if ($request->hasFile('images')) {
                 foreach ($request->images as $image) {
@@ -74,7 +74,6 @@ class ProductController extends Controller
             }
 
             DB::commit();
-
         } catch (\Exception $e) {
             DB::rollback();
         }
@@ -96,154 +95,37 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('dashboard.products.form' ,new ProductViewModel($product));
+        return view('dashboard.products.form', new ProductViewModel($product));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(UpdateProductRequest $request, $id): RedirectResponse
-    // {
-    //     $validatedData = $request->validated();
-
-    // // Find the product
-    // $product = $this->productService->find($id);
-
-    // // Update the product data
-    // $this->productService->updateData($product, $validatedData);
-
-    // // Handle thumbnail
-    // if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
-    //     $thumbnailPath = $request->file('thumbnail')->store("products/{$product->id}/thumbnail", 'public');
-    //     $product->update(['thumbnail' => $thumbnailPath]);
-    // }
-
-    // Handle images
-    // if ($request->hasFile('images')) {
-    //     // First, delete the existing images if necessary
-    //     $product->media()->delete();
-
-    //     // Then, store the new images
-    //     foreach ($request->images as $image) {
-    //         $imagePath = $image->store("products/{$product->id}/images", 'public');
-    //         $product->media()->create(['file' => $imagePath]);
-    //     }
-    // }
-
-    // return redirect()->route('product.index')->with('success', 'Product updated successfully!');
-
-    // }
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), $this->rules());
+        $validator = Validator::make($request->all(), $this->productService->rules());
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $product = Product::findOrFail($id);
-        $this->saveProductData($product, $request);
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('product.index')->with('success', 'Product updated successfully');
-    }
+            $product = Product::findOrFail($id);
+            $this->productService->saveProductData($product, $request);
 
-    private function rules()
-    {
-        return [
-            'title.*' => 'required|string|max:255',
-            'description.*' => 'sometimes',
-            'instructions.*' => 'sometimes',
-            'instructions.*' => 'sometimes',
-            'category_id' => 'required|exists:categories,id',
-            'brand_id' => 'required|exists:brands,id',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'discount_type' => 'nullable|in:flat,percent',
-            'discount_value' => 'nullable|numeric|min:0',
-            'variant.*.size' => 'nullable|string|max:255',
-            'variant.*.color' => 'nullable|string|max:255',
-            'variant.*.price' => 'nullable|numeric|min:0',
-            'variant.*.quantity' => 'nullable|integer|min:0',
-            'variant.*.sku' => 'nullable|string|max:255|unique:variants,sku',
-        ];
-    }
-
-    private function saveProductData(Product $product, Request $request)
-    {
-        $product->category_id = $request->input('category_id');
-        $product->brand_id = $request->input('brand_id');
-
-        $translations = ['title', 'description', 'instructions'];
-        foreach ($translations as $field) {
-            foreach (config('language') as $key => $lang) {
-                $product->setTranslation($field, $key, $request->input("{$field}.{$key}"));
-            }
-        }
-
-        if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
-            $product->thumbnail = $thumbnailPath;
-        }
-
-        $product->discount_type = $request->input('discount_type');
-        $product->discount_value = $request->input('discount_value');
-
-        $product->save();
-
-     //   dd($request->variants);
-
-        if ($request->filled('variant')) {
-            foreach ($request->input('variant') as $variantData) {
-                // Check if the variant is enabled before creating
-                if (isset($variantData['enabled']) && $variantData['enabled'] === 'on') {
-                    $variant = $product->variants()->create([
-                        'size' => $variantData['size'] ?? null,
-                        'color' => $variantData['color'] ?? null,
-                        'price' => $variantData['price'],
-                        'quantity' => $variantData['quantity'],
-                        'sku' => $variantData['sku']
-                    ]);
-
-                    // Create inventory for the new variant
-                    Inventory::create([
-                        'product_id' => $product->id,
-                        'variant_id' => $variant->id,
-                        'quantity' => $variantData['quantity']
-                    ]);
+            // Handle images
+            if ($request->hasFile('images')) {
+                foreach ($request->images as $image) {
+                    $imagePath = $image->store("products/{$product->id}/images", 'public');
+                    $product->media()->create(['file' => $imagePath]);
                 }
             }
-        }
-        foreach ($request->variants as $index => $variantData) {
-            // Check if the variant is enabled before updating
-            // if (isset($variantData['enabled']) && $variantData['enabled'] === 'on') {
-                // Get the variant by its ID
-                $variant = Variant::findOrFail($variantData['id']);
 
-                // Update the variant with the new price
-                $variant->update([
-                    'price' => $variantData['price'],
-                    'sku' => $variantData['sku']
-                ]);
-
-                // Get the associated inventory for the variant
-                $inventory = Inventory::where('variant_id', $variant->id)->first();
-
-                if ($inventory) {
-                    // Update the quantity in the inventory
-                    $inventory->update([
-                        'quantity' => $variantData['quantity']
-                    ]);
-                } else {
-                    // If there is no inventory, create a new one
-                    Inventory::create([
-                        'product_id' => $product->id,
-                        'variant_id' => $variant->id,
-                        'quantity' => $variantData['quantity']
-                    ]);
-                // }
-            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
         }
 
+        return redirect()->route('product.index')->with('success', 'Product updated successfully');
     }
 
     private function generateSKU($variantData, $productId)
@@ -269,6 +151,5 @@ class ProductController extends Controller
 
     public function toggleChoice(Request $request)
     {
-
     }
 }

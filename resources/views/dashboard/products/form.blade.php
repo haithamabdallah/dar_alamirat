@@ -114,6 +114,12 @@
                 </ol>
             </div>
         </div>
+        {{-- {{ $errors['category_id'][0][0] }} --}}
+        @if (count($errors) > 0)
+            @foreach ($errors->all() as $key => $errror)
+                <p class="text-danger"> {{ $errror }} </p>
+            @endforeach
+        @endif
 
         <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="product-dropzone">
             @csrf
@@ -133,11 +139,11 @@
                                         value="{{ old('title.' . $key) ?? $product->getTranslation('title', $key) }}"
                                         placeholder="Product Title">
                                 </div>
-                                @error('title.' . $key)
+                                {{-- @error('title.' . $key)
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                             @endforeach
                             @foreach (Config('language') as $key => $lang)
                                 <div class="">
@@ -146,11 +152,11 @@
                                         <textarea class="textarea form-control wysihtml5" name="description[{{ $key }}]" placeholder="Enter text ..."
                                             rows="12">{{ old('description.' . $key) ?? $product->getTranslation('description', $key) }}</textarea>
                                     </div>
-                                    @error('description.' . $key)
+                                    {{-- @error('description.' . $key)
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                             @endforeach
                             @foreach (Config('language') as $key => $lang)
@@ -160,11 +166,11 @@
                                         <textarea class="textarea form-control wysihtml5" name="instructions[{{ $key }}]" placeholder="Enter text ..."
                                             rows="12">{{ old('instructions.' . $key) ?? $product->getTranslation('instructions', $key) }}</textarea>
                                     </div>
-                                    @error('instructions.' . $key)
+                                    {{-- @error('instructions.' . $key)
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                             @endforeach
                         </div>
@@ -187,11 +193,11 @@
                                     </select>
                                 </div>
                             </div>
-                            @error('category_id')
+                            {{-- @error('category_id')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
+                            @enderror --}}
                         </div>
                         <div class="m-2">
                             <div class="form-group row">
@@ -207,11 +213,11 @@
                                     </select>
                                 </div>
                             </div>
-                            @error('brand_id')
+                            {{-- @error('brand_id')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
+                            @enderror --}}
                         </div>
                     </div>
                     <div class="card border-0 mb-4">
@@ -228,11 +234,11 @@
                                             accept=".png, .jpg, .jpeg ,.svg ,.webp" onchange="previewImage();" />
                                     </label>
                                 </div>
-                                @error('thumbnail')
+                                {{-- @error('thumbnail')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                                 <div class="preview-area">
                                     <img id="imagePreview" src="{{ $product->thumbnail ?? '' }}" alt="Image preview"
                                         style="display: {{ isset($category->icon) ? 'block' : 'none' }};" width="200"
@@ -248,11 +254,11 @@
                                             accept=".png, .jpg, .jpeg ,.svg ,.webp" onchange="previewImages();" multiple/>
                                     </label>
                                 </div>
-                                @error('images')
+                                {{-- @error('images')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                                 <div class="py-5"  id="preview-images">
                                     
                                 </div>
@@ -311,6 +317,7 @@
                                         <th width="150px">Price</th>
                                         <th width="150px">Quantity</th>
                                         <th width="150px">SKU</th>
+                                        <th width="150px">Images</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -358,6 +365,12 @@
                                                     value="{{ $variant->sku }}"
                                                     placeholder="sku">
                                             </td>
+                                            <td>
+                                                <input type="file" class="form-control"
+                                                    name="variants[{{ $index }}][images][]"
+                                                    accept=".png, .jpg, .jpeg ,.svg ,.webp"
+                                                    multiple>
+                                            </td>
                                         </tr>
                                     @endforeach
 
@@ -386,11 +399,11 @@
                                             {{ $product->discount_type == 'percent' ? 'selected' : '' }}>Percent</option>
                                     </select>
                                 </div>
-                                @error('discount_type')
+                                {{-- @error('discount_type')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                             </div>
                             <div class="mb-0">
                                 <label class="form-label">Discount Value</label>
@@ -399,11 +412,11 @@
                                         placeholder="Insert the discount value"
                                         value="{{ $product->discount_value ?? old('discount_value') }}" />
                                 </div>
-                                @error('discount_value')
+                                {{-- @error('discount_value')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                             </div>
                         </div>
                     </div>
@@ -520,6 +533,12 @@
                         name="variant[${newIndex}][sku]"
                         value=""
                         placeholder="sku">
+                </td>
+                <td>
+                    <input type="file" class="form-control"
+                        name="variant[${newIndex}][images][]"
+                        accept=".png, .jpg, .jpeg ,.svg ,.webp"
+                        multiple>
                 </td>
             `;
                     document.getElementById('newSize').value = '';
