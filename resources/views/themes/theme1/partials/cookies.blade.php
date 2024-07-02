@@ -8,8 +8,8 @@
                 rerum saepe similique voluptas<a href="#">Privacy Policy</a></p>
 
             <div class="btns">
-                <a class="closeNews" href="javascript:;">Reject All</a>
-                <a class="closeNews" href="javascript:;">Accept All</a>
+                <a class="closeNews reject-btn" href="javascript:;">Reject All</a>
+                <a class="closeNews accept-btn" href="javascript:;">Accept All</a>
             </div>
         </div>
     </div>

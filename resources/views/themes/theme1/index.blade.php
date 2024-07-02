@@ -20,6 +20,8 @@
 
     @include('themes.theme1.index-layouts.home.brands')
 
+    @include('themes.theme1.index-layouts.home.features')
+
     @include('themes.theme1.partials.newsletters')
 
     @include('themes.theme1.partials.cookies')
@@ -119,21 +121,33 @@
     </script>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookiesPopup = document.getElementById('cookiesPopup');
+            const closeButtons = document.querySelectorAll('.closeNews');
 
-        const newsletterPopup = document.getElementById('cookiesPopup');
+            // Check if the user has already made a cookies choice
+            if (!localStorage.getItem('cookiesChoice')) {
+                setTimeout(() => {
+                    cookiesPopup.classList.remove('hide');
+                }, 4000);
+            }
 
-        setTimeout(() => {
-            newsletterPopup.classList.remove('hide');
-        }, 2000);
+            closeButtons.forEach(closeButton => {
+                closeButton.addEventListener('click', function() {
+                    const isAccept = this.classList.contains('accept-btn');
+                    const isReject = this.classList.contains('reject-btn');
 
-        const closeButtons = document.querySelectorAll('.closeNews'); // Select all elements with class "closeNews"
-        const popup = document.getElementById("cookiesPopup");
+                    if (isAccept) {
+                        localStorage.setItem('cookiesChoice', 'accepted');
+                        // Implement further logic for accepting cookies
+                    } else if (isReject) {
+                        localStorage.setItem('cookiesChoice', 'rejected');
+                        // Implement further logic for rejecting cookies
+                    }
 
-        closeButtons.forEach(closeButton => {
-            closeButton.addEventListener('click', function() {
-                popup.classList.add('hide'); // Add class "hide" to the popup element
+                    cookiesPopup.classList.add('hide'); // Add class "hide" to the popup element
+                });
             });
         });
-
     </script>
 @endsection
