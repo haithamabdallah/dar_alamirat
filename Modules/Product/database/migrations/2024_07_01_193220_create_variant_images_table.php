@@ -28,3 +28,5 @@ return new class extends Migration
         Schema::dropIfExists('variant_images');
     }
 };
+
+// php artisan migrate
