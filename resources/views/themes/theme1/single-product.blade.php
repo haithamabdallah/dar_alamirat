@@ -51,55 +51,142 @@
                         </div>
                         <!-- ./product info -->
 
+                        <!-- TABS -->
+                        <div class="wrap">
+                            <!-- Full Descriptions -->
+                            <div class="product_tabs">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs " id="myTab" role="tablist">
+                                    <li class="nav-item flex-fill" role="presentation">
+                                        <a class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                                                data-bs-target="#description" type="button" role="tab" aria-controls="description"
+                                                aria-selected="true">description</a>
+                                    </li>
+                                    <li class="nav-item flex-fill" role="presentation">
+                                        <a class="nav-link" id="use-tab" data-bs-toggle="tab" data-bs-target="#use"
+                                                type="button" role="tab" aria-controls="use" aria-selected="false">How to use</a>
+                                    </li>
+                                    {{-- <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">specifications</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">(4573) reviews</button>
+                                </li> --}}
+                                </ul>
 
-                    <!-- price -->
-                    <div class="item-price">
-                        @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
-                            <h4 class="before-dis">
-                                <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
-                            </h4>
-                            <h4 class="after-dis">
-                                <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
-                                @if( $product->discount_type == 'flat'  )
-                                <span class="discount">- {{ $product->discount_value }} {{ $currency }}</span>
-                                @elseif($product->discount_type == 'percent')
-                                <span class="discount">- {{ $product->discount_value }}%</span>
-                                @endif
-                            </h4>
-                        @else
-                            <h4 class="after-dis">
-                                <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
-                            </h4>
-                        @endif
-                    </div>
-                    <!-- ./price -->
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab"
+                                         tabindex="0">{!! $product->description !!}</div>
+                                    <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0">use
+                                    </div>
+                                    {{-- <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
+                                <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
+                                </div>
+                            </div>
+                            <!-- ./Full Descriptions -->
+                        </div>
+                        <!-- ./TABS -->
 
-                    <div class="quantity-controls">
-                        <button id="decrease-quantity">-</button>
-                        <input type="number" id="quantity" class="quantity" value="1" min="1" readonly>
-                        <button id="increase-quantity">+</button>
-                    </div>
+                        <!-- Sticky Card -->
+                        <div class="sticky_card">
+                            <div class="product_Properties">
+                                <!-- quantity -->
+                                <div class="quantity-controls">
+                                    <button id="decrease-quantity">-</button>
+                                    <input type="number" id="quantity" class="quantity" value="1" min="1" readonly>
+                                    <button id="increase-quantity">+</button>
+                                </div>
+                                <!-- ./quantity -->
+
+                                <!-- price -->
+                                <div class="product-price">
+                                    @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
+                                        <div class="before-dis">
+                                            <span>{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                            <p class="vat">VAT included</p>
+                                        </div>
+
+                                        <span class="after-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                    @else
+                                        <div class="after-dis">
+                                            <span > {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        </div>
+                                    @endif
+
+                                </div>
+                                <!-- ./price -->
+
+                                {{--<div class="item-price">
+                                    @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
+                                        <h4 class="before-dis">
+                                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
+                                        </h4>
+                                        <h4 class="after-dis">
+                                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
+                                            @if( $product->discount_type == 'flat'  )
+                                                <span class="discount">- {{ $product->discount_value }} {{ $currency }}</span>
+                                            @elseif($product->discount_type == 'percent')
+                                                <span class="discount">- {{ $product->discount_value }}%</span>
+                                            @endif
+                                        </h4>
+                                    @else
+                                        <h4 class="after-dis">
+                                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
+                                        </h4>
+                                    @endif
+                                </div>--}}
+
+                                <!-- add to cart button -->
+                                <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
+                                    <span class="button-title">Add to Cart</span>
+                                    <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
+                                </button>
+                                <!-- ./add to cart button -->
+                            </div>
+                            <div class="small_product">
+                                <h1>hello</h1>
+                            </div>
+                        </div>
+                        <!-- Sticky Card -->
+
+                        <!-- row -->
+                        @foreach ($product->variants as $variant)
+                        <div class="wrap">
+                            <div class="sku_number">
+                                <div class="title">
+                                    <i class="sicon-barcode text-primary text-base"></i>
+                                    <p>Sku</p>
+                                </div>
+                                <p class="code_number">{{ $variant->sku }}</p>
+                            </div>
+                        </div>
+                        <!-- ./row -->
+                    @endforeach
+
+
+
+
+
 
                     <div class="variants">
                         <h4>Variants</h4>
                         <select id="variant-select" class="form-control">
                             @foreach ($product->variants as $variant)
-                                <option value="{{$variant->id}}">  Name  : ( {{ $variant->variantName }} ) #####  SKU : <span > ( {{ $variant->sku }} ) </span> </option>
+                                <option value="{{$variant->id}}">  Name  : ( {{ $variant->variantName }} ) #####  SKU : <span > (  ) </span> </option>
                             @endforeach
                         </select>
                     </div>
 
 
-                    <!-- vat -->
-                     <p class="vat">VAT included</p>
-                    <!-- ./vat -->
+
 
                     <!-- item -->
                     <div class="price">Price: <span id="base-price"> {{ $product->variants->first()->price_with_discount }}</span> {{ $currency }} </div>
 
 
                     <div>
-                        <h3>Total Price: <span id="total-price"> {{ $product->variants->first()->price_with_discount }} </span> {{ $currency }} </h3>
+
                     </div>
                     <!-- ./item -->
 
@@ -107,11 +194,8 @@
                     <div class="alert alert-danger" role="alert">This item cannot be returned or replaced</div>
                     <!-- ./alert -->
                         <!-- button cart -->
-                        <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
-                            <span class="button-title">Add to Cart</span>
-                            <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
-                        </button>
-                        {{-- 
+
+                        {{--
                         <button class="tocart add-to-cart button--submit" data-title="Add to Cart" onclick="addToCart(this)" data-cart-url="{{route('cart.add', $product->id)}}">
                             <span class="button-title"></span>
                             <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
@@ -204,42 +288,7 @@
             </div>
             <!-- ./row -->
 
-            <!-- row -->
-            <div class="wrap">
-                <!-- Full Descriptions -->
-                <div class="s-block product_tabs">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
-                                data-bs-target="#description" type="button" role="tab" aria-controls="description"
-                                aria-selected="true">description</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="use-tab" data-bs-toggle="tab" data-bs-target="#use"
-                                type="button" role="tab" aria-controls="use" aria-selected="false">How to use</button>
-                        </li>
-                        {{-- <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">specifications</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">(4573) reviews</button>
-                    </li> --}}
-                    </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab"
-                            tabindex="0">{!! $product->description !!}</div>
-                        <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0">use
-                        </div>
-                        {{-- <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
-                    <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
-                    </div>
-                </div>
-                <!-- ./Full Descriptions -->
-            </div>
-            <!-- ./row -->
         </div>
         <!-- ./container -->
     </section>
