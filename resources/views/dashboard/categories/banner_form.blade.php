@@ -104,7 +104,7 @@
             <li class="breadcrumb-item"><a href="{{route('banner.index')}}">{{__('dashboard.banners')}}</a></li>
             <li class="breadcrumb-item active">
                 @if($method == 'PUT')
-                    {{__('dashboard.banner.edit')}} 
+                    {{__('dashboard.banner.edit')}}
                 @else
                     {{__('dashboard.banner.add')}}
                 @endif
@@ -158,13 +158,11 @@
                             @csrf
                             @method($method)
                             <div class="card border-0 mb-4">
-                                <div class="card-header h6 mb-0 bg-none p-3">
-                                    <i class="fa fa-sitemap fa-lg fa-fw text-dark text-opacity-50 me-1"></i> Selectors
-                                </div>
+
                                 <div class="m-2">
                                     <div class="form-group row">
-                                        <label class="form-label col-form-label col-lg-4"> Type: </label>
-                                        <div class="col-lg-8">
+                                        <label class="form-label col-form-label col-md-3"> Type: </label>
+                                        <div class="col-sm-9">
                                             <select class="form-control" name="type" id="type-selector">
                                                 <option selected disabled value="null">Select Type</option>
                                                 <option value="category"> {{ __('Category') }} </option>
@@ -180,9 +178,9 @@
                                 </div>
                                 <div class="m-2" id="selector-container">
                                     <div   id="category-selector">
-                                        <div class="form-group row"> 
-                                            <label class="form-label col-form-label col-lg-4"> Category : </label>
-                                            <div class="col-lg-8">
+                                        <div class="form-group row">
+                                            <label class="form-label col-form-label col-md-3"> Category : </label>
+                                            <div class="col-sm-9">
                                                 {{-- <select class="default-select2 form-control" name="category_id" id="category-selector-element"> --}}
                                                 <select class="form-control" name="bannerableId" id="category-selector-element">
                                                     <option selected disabled value="null">Select Category</option>
@@ -201,8 +199,8 @@
 
                                     <div  id="brand-selector">
                                         <div class="form-group row">
-                                            <label class="form-label col-form-label col-lg-4"> Brand : </label>
-                                            <div class="col-lg-8">
+                                            <label class="form-label col-form-label col-md-3"> Brand : </label>
+                                            <div class="col-sm-9">
                                                 {{-- <select class="default-select2  form-control" name="brand_id" id="brand-selector-element"> --}}
                                                 <select class="form-control" name="bannerableId" id="brand-selector-element">
                                                     <option selected disabled value="null">Select Brand</option>
@@ -240,6 +238,7 @@
                                 <div class="row mb-15px" id="bannerImageRow">
                                     <label class="form-label col-form-label col-md-3"> Banner Image: </label>
                                     <div class="col-sm-9">
+                                        <p>minimum image size : 100% X 300px</p>
                                         <div class="custom-file-upload">
                                             <label for="formFile" class="upload-area">
                                                 <div class="icon-upload form-control"> <span class="p-1"> Upload Banner Image </span></div>
@@ -311,15 +310,15 @@
             let brandSelectorDiv = $("#brand-selector").prop('outerHTML');
 
             selectorContainer.html('')
-            
+
             typeSelector.on('change', function () {
                 if (typeSelector.val() == "category") {
                     selectorContainer.html(categorySelectorDiv)
                 } else if (typeSelector.val() == "brand") {
                     selectorContainer.html(brandSelectorDiv)
-                } 
+                }
             })
-            
+
         })
 
         function previewImage() {

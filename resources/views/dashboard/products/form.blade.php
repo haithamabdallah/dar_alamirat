@@ -220,6 +220,7 @@
                         </div>
                         <div class="card-body">
                             <div class="col-6 mt-5">
+                                <p>minimum image size : 400px X 400px</p>
                                 <div class="custom-file-upload">
                                     <label for="formFile" class="upload-area">
                                         <div class="icon-upload form-control"> <span class="p-1">Upload Thumbnail </span>
@@ -240,6 +241,7 @@
                                     <div class="clear-image" onclick="clearImage();" style="display: none;">x</div>
                                 </div>
                                 <br>
+                                <p>minimum image size : 400px X 400px</p>
                                 <div class="custom-file-upload">
                                     <label for="formFile2" class="upload-area">
                                         <div class="icon-upload form-control"> <span class="p-1">Upload Images </span>
@@ -254,7 +256,7 @@
                                     </span>
                                 @enderror
                                 <div class="py-5"  id="preview-images">
-                                    
+
                                 </div>
                             </div>
 
