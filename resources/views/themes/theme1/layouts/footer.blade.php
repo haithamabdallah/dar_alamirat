@@ -5,32 +5,25 @@
         <!-- row -->
         <div class="wrap ">
             <section class="newsletter">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="content">
-                                <form action="{{ route('subscribe') }}" method="POST">
-                                    @csrf
-                                    <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
-                                    <div class="input-group">
-                                        <input type="email" class="form-control" placeholder="Enter your email" name="email">
-                                        <span class="input-group-btn">
-                                            <button class="btn" type="submit">Subscribe Now</button>
-                                        </span>
-                                    </div>
-                                    @error('email')
-                                        <p class="text-danger h5 py-5">{{ $message }}</p>
-                                    @enderror
-                            </div>
+                <div class="content">
+                    <form action="{{ route('subscribe') }}" method="POST">
+                        @csrf
+                        <h2>Subscribe to Our Newsletter</h2>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email" name="email">
+                            <span class="input-group-btn">
+                                <button class="btn" type="submit">Subscribe Now</button>
+                            </span>
                         </div>
-                    </div>
+                        @error('email')
+                        <p class="text-danger h5 py-5">{{ $message }}</p>
+                    @enderror
                 </div>
             </section>
             <!-- content -->
-            <div class="footer"
-                style="display: grid !important; justify-items: center !important; align-items: center !important; grid-template-columns: repeat(3, 1fr);">
+            <div class="footer">
                 <!-- item -->
-                <div class="f-item justify-content-center" style="align-items: center !important;">
+                <div class="f-item">
                     @foreach ($settings->where('type', 'general') as $setting)
                         <div class="logo">
                             @if (isset($setting->value['logo_path']))
@@ -81,7 +74,7 @@
                 <!-- ./item -->
                 <!-- item -->
                 @auth
-                    <div class="f-item justify-content-center f-my-account" style="align-items: center !important;">
+                    <div class="f-item">
                         <h3>My Account</h3>
                         <ul>
                             <li>
@@ -127,10 +120,10 @@
                             </li>
                         </ul>
                     </div>
-                @endauth
-                <!-- ./item -->
+            @endauth
+            <!-- ./item -->
                 <!-- item -->
-                <div class="f-item justify-content-center" style="justify-items: center !important;">
+                <div class="f-item">
                     <h3>Important Links</h3>
                     @foreach ($pages as $page)
                         <ul>
