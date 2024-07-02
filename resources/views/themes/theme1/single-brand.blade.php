@@ -36,7 +36,7 @@
                         @forelse ($brand->products as $product)
                             @include('themes.theme1.partials.item')
                         @empty
-                            <p>No products found for this brand.</p>
+                            <p>{{ __("No products found for this brand.") }}</p>
                         @endforelse
                     </div>
                     <!-- ./brand product items -->

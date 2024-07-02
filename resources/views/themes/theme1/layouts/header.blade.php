@@ -46,8 +46,8 @@
                             <a class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#loginEmail">
                                 <i class="icon sicon-user"></i>
                                 <span class="d-flex flex-column">
-                                <p>My Account</p>
-                                <span>Login</span>
+                                <p> {{ __("My Account") }} </p>
+                                <span> {{ __("Login") }} </span>
                             </span>
                             </a>
                         </li>
@@ -57,7 +57,7 @@
                             <a href="{{ route('user.profile',auth()->user()->id) }}" class="d-flex align-items-center">
                                 <i class="icon sicon-user"></i>
                                 <span class="d-flex flex-column">
-                                <p>My Account</p>
+                                <p>{{ __("My Account") }}</p>
                                 <span>{{ auth()->user()->FullName }}</span>
                             </span>
                             </a>
@@ -70,7 +70,7 @@
 
                             <span class="s-cart-summary-count" id="cart-summary-count" >{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
-                                <p>Cart</p>
+                                <p>{{ __("Cart") }}</p>
                                 {{-- <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span> --}}
                             </span>
                         </a>
@@ -122,7 +122,7 @@
 
                             <span class="s-cart-summary-count">{{auth()->check() ? auth()->user()->carts->count() : 0}}</span>
                             <span class="d-flex flex-column">
-                                <p>Cart</p>
+                                <p>{{ __("Cart") }}</p>
                                 {{-- <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span> --}}
                             </span>
                         </a>

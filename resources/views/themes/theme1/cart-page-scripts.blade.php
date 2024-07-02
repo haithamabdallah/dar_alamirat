@@ -56,11 +56,11 @@
 
         function removeItemFromCart(index) {
             Swal.fire({
-                title: "هل تريد الاستمرار؟",
+                title: "{{ __("Do you want to continue") }}{{ __("?") }}",
                 icon: "question",
                 iconHtml: "؟",
-                confirmButtonText: "نعم",
-                cancelButtonText: "لا",
+                confirmButtonText: "{{ __("Yes") }}",
+                cancelButtonText: "{{ __("No") }}",
                 showCancelButton: true,
                 showCloseButton: true,
             }).then((result) => {
@@ -85,8 +85,8 @@
             const quantity = parseInt($(`#quantity-${index}`).val());
             const itemTotalPrice = (quantity * variantPrice).toFixed(2);
 
-            selectedProductElement.innerHTML = `<b>chosen Product:</b> ${$('#product-title-' + index).data('title')}`;
-            selectedVariantElement.innerHTML = `<b>chosen Variant:</b> ${selectedVariantText}`;
+            selectedProductElement.innerHTML = `<b>Chosen Product:</b> ${$('#product-title-' + index).data('title')}`;
+            selectedVariantElement.innerHTML = `<b>Chosen Variant:</b> ${selectedVariantText}`;
             variantPriceSummaryElement.innerHTML = `<b>Product Price:</b> ${variantPrice} {!! $currency !!} `;
             quantitySummaryElement.innerHTML = `<b>Quantity:</b> ${quantity}`;
             itemTotalPriceElement.innerHTML = `<b>Item Total:</b> ${itemTotalPrice} {!! $currency !!} `;

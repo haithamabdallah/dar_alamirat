@@ -7,8 +7,9 @@
                 <div class="login-icon">
                     <i class="icon sicon-user"></i>
                 </div>
-                <h3>Login</h3>
-                <p class="s-verify-message">Verification code is required to proceed. A verification code has been sent to your email.</p>
+                <h3>{{ __("Login") }}</h3>
+                <p class="s-verify-message">{{ __("Verification code is required to proceed.") }} 
+                    {{ __("A verification code has been sent to your email.") }}</p>
                 <div class="s-login-modal-currentEmail" id="writtenEmail"></div>
                 <form id="otpForm" method="POST">
                     @csrf
@@ -19,7 +20,7 @@
                         <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
                         <input type="text" name="otp[]" maxlength="1" class="s-verify-input" required />
                     </div>
-                    <div id="otpError" class="text-danger" style="display: none;">Invalid OTP. Please try again.</div>
+                    <div id="otpError" class="text-danger" style="display: none;">{{ __("Invalid OTP. Please try again.") }}</div>
                 </form>
             </div>
         </div>

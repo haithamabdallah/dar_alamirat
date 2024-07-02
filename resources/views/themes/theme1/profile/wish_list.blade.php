@@ -19,12 +19,12 @@
                             <ul class="breadcrumbs">
                                 <li>
                                     <a href="{{ route('index') }}">
-                                        <span>Home</span>
+                                        <span>{{ __("Home") }}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:;">
-                                        <span>Wish list</span>
+                                        <span>{{ __("Wishlist") }}</span>
                                     </a>
                                 </li>
 
@@ -49,7 +49,7 @@
                 <div class="user-layout">
                     @include('themes.theme1.profile.profile_aside')
                     <main>
-                        <h1>Wishlist</h1>
+                        <h1>{{ __("Wishlist") }}</h1>
                         <div class="whishlist_items">
                             @foreach($favorites as $product)
                                 @include('themes.theme1.partials.item')

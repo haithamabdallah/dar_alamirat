@@ -1,14 +1,13 @@
 <div class="item">
     <!-- tags -->
     <div class="item-tags">
-        <span>most popular</span>
+        <span> {{ __('Most Popular') }}</span>
     </div>
     <!-- ./tags -->
     <!-- img -->
     <div class="img">
         <a href="{{ route('product', $product->id) }}">
-            <img class="w-full object-contain" src="{{ $product->thumbnail }}"
-                 alt="Product Image">
+            <img class="w-full object-contain" src="{{ $product->thumbnail }}" alt="Product Image">
         </a>
     </div>
     <!-- img -->
@@ -27,16 +26,16 @@
                     <span>{{ $currency }}</span>
                 </h4>
             @else
-            <h4 class="">
-                <strong>{{ $product->variants->first()->price }}</strong>
-                <span>{{ $currency }}</span>
-            </h4>
+                <h4 class="">
+                    <strong>{{ $product->variants->first()->price }}</strong>
+                    <span>{{ $currency }}</span>
+                </h4>
             @endif
 
             @auth()
                 <div class="add-favourite">
-                    <button class="icon-fav @if(in_array($product->id , auth()->user()->favoriteProducts->pluck('id')->toArray())) added @endif"
-                            onclick="addToFavorites('{{route('toggle.favorites' ,$product->id)}}')">
+                    <button class="icon-fav @if (in_array($product->id, auth()->user()->favoriteProducts->pluck('id')->toArray())) added @endif"
+                        onclick="addToFavorites('{{ route('toggle.favorites', $product->id) }}')">
                         <i class="sicon-heart"></i>
                     </button>
                 </div>
@@ -53,8 +52,11 @@
         <!-- ./description -->
 
         <!-- button cart -->
-        <button class="tocart add-to-cart" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this, {{ $product->variants->first()->id }} )">
-            <span class="button-title">Add to Cart</span>
+        <button class="tocart add-to-cart" data-title="Add to Cart"
+            data-variant-id="{{ $product->variants->first()->id }}"
+            data-cart-url="{{ route('cart.add', $product->id) }}"
+            onclick="addToCart(this, {{ $product->variants->first()->id }} )">
+            <span class="button-title"> {{ __('Add to Cart') }}</span>
             <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
         </button>
         <!-- ./button cart -->
@@ -62,4 +64,3 @@
     </div>
     <!-- ./data -->
 </div>
-

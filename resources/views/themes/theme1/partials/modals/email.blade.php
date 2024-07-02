@@ -7,13 +7,13 @@
                 <div class="login-icon">
                     <i class="icon sicon-user"></i>
                 </div>
-                <h3>Login</h3>
+                <h3>{{ __("Login") }}</h3>
                 <form id="emailForm">
                     @csrf
-                    <label class="s-login-modal-label">Email Address</label>
+                    <label class="s-login-modal-label">{{ __("Email Address") }}</label>
                     <input type="email" placeholder="your@email.com" class="s-login-modal-input" name="email" required>
                     <button class="s-login-modal-enter-button" type="submit">
-                        <span class="s-button-text">Enter</span>
+                        <span class="s-button-text">{{ __("Enter") }}</span>
                     </button>
                 </form>
             </div>

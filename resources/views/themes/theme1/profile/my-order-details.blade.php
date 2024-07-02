@@ -22,12 +22,12 @@
                             <ul class="breadcrumbs">
                                 <li>
                                     <a href="{{ route('index') }}">
-                                        <span>Home</span>
+                                        <span>{{ __("Home") }}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:;">
-                                        <span>My Account</span>
+                                        <span>{{ __("Order Detials") }}</span>
                                     </a>
                                 </li>
 
@@ -88,7 +88,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>Orders</span>
+                                        <span> {{ __("Orders") }} </span>
                                     </a>
                                 </li>
                                 {{-- <li>
@@ -115,7 +115,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>Wishlist</span>
+                                        <span>{{ __("Wishlist") }}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -130,7 +130,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>My Account</span>
+                                        <span> {{ __("My Account") }} </span>
                                     </a>
                                 </li>
                                 <li>
@@ -150,7 +150,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>Logout</span>
+                                        <span>{{ __("Logout") }}</span>
                                     </a>
 
                                 </li>
@@ -158,47 +158,47 @@
                         </div>
                     </aside>
                     <main>
-                        <h1>My Order</h1>
+                        <h1>{{ __("Order") }}</h1>
                         <div class="bg-white p-4 my-4 shadow rounded">
-                            <div> Order Status : <span>{{ $order->status }}</span> </div>
-                            <div> Final Price : <span>{{ $order->final_price }}</span> </div>
-                            <div> Order Payment Status : <span>{{ $order->payment_status }}</span> </div>
-                            <div> Order Payment Method : <span> Cash On Delivery</span> </div>
+                            <div> {{ __("Order Status") }} : <span>{{ $order->status }}</span> </div>
+                            <div> {{ __("Final Price") }} : <span>{{ $order->final_price }}</span> </div>
+                            <div> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div>
+                            <div> {{ __("Order Payment Method") }} : <span> Cash On Delivery</span> </div>
                             @php
                                 $address = $order->userAddress;
                             @endphp
-                            <div> Order Address :
+                            <div> {{ __("Order Address") }} :
                                 <ul>
-                                    <li> Governorate : {{ $address->governorate }}</li>
-                                    <li> City : {{ $address->city }}</li>
-                                    <li> Street : {{ $address->street }}</li>
-                                    <li> House Number : {{ $address->house_number }}</li>
+                                    <li> {{ __("Governorate") }} : {{ $address->governorate }}</li>
+                                    <li> {{ __("City") }}: {{ $address->city }}</li>
+                                    <li> {{ __("Street") }} : {{ $address->street }}</li>
+                                    <li> {{ __("House Number") }} : {{ $address->house_number }}</li>
                                 </ul>
                             </div>
                             @if ($order?->coupon)
-                                <div> Applied Coupon :
+                                <div> {{ __("Applied Coupon") }} :
                                     <ul>
-                                        <li>Code : {{ $order->coupon->code }}</li>
-                                        <li>Type : {{ $order->coupon->discount_type }}</li>
-                                        <li>Value : {{ $order->coupon->discount_value }}</li>
+                                        <li>{{ __("Code") }} : {{ $order->coupon->code }}</li>
+                                        <li>{{ __("Type") }} : {{ $order->coupon->discount_type }}</li>
+                                        <li>{{ __("Value") }} : {{ $order->coupon->discount_value }}</li>
                                     </ul>
                                 </div>
                             @endif
                             <!-- order products -->
                             @foreach ($order->orderDetails as $orderDetials)
                                 
-                            <div> Product Name : <a href="{{ route('product', $orderDetials->product->id) }}"
+                            <div> {{ __("Product Name") }} : <a href="{{ route('product', $orderDetials->product->id) }}"
                                     target="_blank">
                                     <span>{{ $orderDetials->product->title }} (
                                         {{ $orderDetials->variant->variant_name }} )</span>
                                 </a> </div>
-                            <div> Variant : <span> {{ $orderDetials->variant->variant_name }}
+                            <div> {{ __("Variant") }} : <span> {{ $orderDetials->variant->variant_name }}
                                 </span> </div>
-                            <div> Variant SKU: <span>
+                            <div> {{ __("Variant SKU") }}: <span>
                                     {{ $orderDetials->variant->sku }} </span> </div>
-                            <div> Product Unit Price : <span>{{ $orderDetials->price }}</span> </div>
-                            <div> Product Quantity : <span>{{ $orderDetials->quantity }}</span> </div>
-                            <div> Product Total Price :
+                            <div> {{ __("Unit Price") }} : <span>{{ $orderDetials->price }}</span> </div>
+                            <div>{{ __("Quantity") }} : <span>{{ $orderDetials->quantity }}</span> </div>
+                            <div> {{ __("Total Price") }} :
                                 <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
                             </div>
                             @endforeach

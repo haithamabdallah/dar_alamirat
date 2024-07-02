@@ -51,7 +51,7 @@
                                                 <h2>
                                                     <a
                                                         href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
-                                                    <div class="variant-price">Variant Price: <span
+                                                    <div class="variant-price">{{ __("Variant Price") }}:  <span
                                                             id="variant-price-{{ $index }}">{{ $cart->product->price }}</span>
                                                         {{ $currency }}
                                                     </div>
@@ -70,7 +70,7 @@
                                             <!-- ./quantity -->
 
                                             <!-- total price -->
-                                            <div class="price">Total Price:
+                                            <div class="price">{{ __("Total Price") }}:
                                                 <span id="price-{{ $index }}"> {{ $cart->product->price }}
                                                 </span>
                                             </div>
@@ -86,7 +86,7 @@
                                                 @foreach ($cart->product->variants as $variant)
                                                     <option value="{{ $variant->id }}"
                                                         {{ $cart->variant_id == $variant->id ? 'selected' : 'null' }}>
-                                                        Name  : ( {{ $variant->variantName }} ) #####  SKU : <span > ( {{ $variant->sku }} ) </span>
+                                                            {{ __("Name") }} : ( {{ $variant->variantName }} ) #####  {{ __("Variant SKU") }} : <span > ( {{ $variant->sku }} ) </span>
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -114,7 +114,7 @@
                         <div class="sticky-top">
                             <!-- summary -->
                             <div class="order-summary">
-                                <h6>Order Summary</h6>
+                                <h6>{{ __("Order Summary") }}</h6>
 
                                 {{-- <div class="final-total">
                                     <p id="final-total"><b>Final Total:</b><span id="final-total-up"></span></p>
@@ -137,27 +137,27 @@
                                     </div>
                                 @endforeach
 
-                                <p id="final-total"><b>Final Total:</b><span id="final-total-price" ></span></p>
+                                <p id="final-total"><b>{{ __("Final Total") }}:</b><span id="final-total-price" ></span></p>
 
                                 <div class="coupons">
-                                    <label for="apply_coupons">Do you have a promo code?</label>
+                                    <label for="apply_coupons">{{ __("Have Coupon") }} {{ __("?") }}</label>
                                     <div class="apply">
                                         <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
-                                        <button onclick="applyCoupon()">Apply</button>
+                                        <button onclick="applyCoupon()">{{ __("Apply") }}</button>
                                     </div>
                                 </div>
 
-                                <p id="coupon-details-div" style="display: none"> <span class="text-success">Successful Coupon </span> <br> <span id="coupon-details" > </span> </p>
-                                <div id="invalid-coupon" style="display: none"> <span class="text-danger">Invalid Coupn </span> </div>
+                                <p id="coupon-details-div" style="display: none"> <span class="text-success"> {{ __("Successful Coupon") }} </span> <br> <span id="coupon-details" > </span> </p>
+                                <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>
 
 
-                                <p class="vat">VAT Inclusive</p>
+                                {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}
 
                                 <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
                                     @csrf
                                     <input type="hidden" name="final_total" id="final-total-input" value="">
                                 </form>
-                                <button class="place_order" id="final-total-btn">Submit Order</button>
+                                <button class="place_order" id="final-total-btn">{{ __("Submit Order") }}</button>
                             </div>
                             <!-- summary -->
                         </div>
@@ -182,8 +182,8 @@
                         <div class="main-content">
                             <div class="no-content-placeholder">
                                 <i class="sicon-shopping-bag icon"></i>
-                                <p>Empty Cart</p>
-                                <a href="{{ route('index') }}" class="btn btn--outline-primary">Back home</a>
+                                <p>{{ __("Empty Cart") }}</p>
+                                <a href="{{route('index')}}" class="btn btn--outline-primary">{{ __("Home Page") }}</a>
                             </div>
                         </div>
                     </main>

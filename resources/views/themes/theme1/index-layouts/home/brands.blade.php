@@ -4,8 +4,8 @@
         <div class="wrap">
             <div class="section-brands">
                 <div class="s-block-title">
-                    <h2>Browse All Brands</h2>
-                    <a href="{{ route('brands.index') }}" class="">View All</a>
+                    <h2>{{ __("Browse All Brands") }}  </h2>
+                    <a href="{{ route('brands.index') }}" class=""> {{ __("View All") }}  </a>
                 </div>
                 <div class="s-brands-list">
                     @foreach ($brands as $brand)

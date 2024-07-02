@@ -8,11 +8,11 @@
                 <div class="content">
                     <form action="{{ route('subscribe') }}" method="POST">
                         @csrf
-                        <h2>Subscribe to Our Newsletter</h2>
+                        <h2> {{ __("Subscribe to Our Newsletter") }}</h2>
                         <div class="input-group">
                             <input type="email" class="form-control" placeholder="Enter your email" name="email">
                             <span class="input-group-btn">
-                                <button class="btn" type="submit">Subscribe Now</button>
+                                <button class="btn" type="submit"> {{ __("Subscribe Now") }}</button>
                             </span>
                         </div>
                         @error('email')
@@ -75,36 +75,36 @@
                 <!-- item -->
                 @auth
                     <div class="f-item">
-                        <h3>My Account</h3>
+                        <h3>{{ __("My Account") }}</h3>
                         <ul>
                             <li>
                                 <a href="notification.php">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>Notifications</span>
+                                    <span>{{ __("Notifications") }}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('order.my') }}">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>Orders</span>
+                                    <span>{{ __("Orders") }}</span>
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="pending_orders.php">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>Pending Payments</span>
+                                    <span>{{ __("Pending Payments") }}</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ route('user.favorites') }}">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>Wishlist</span>
+                                    <span>{{ __("Wishlist") }}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('user.profile', auth()->user()->id) }}">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>My Account</span>
+                                    <span>{{ __("My Account") }}</span>
                                 </a>
                             </li>
                             <li>
@@ -113,7 +113,7 @@
                                         @csrf
                                         <button type="submit" style="background: none; border: none; cursor: pointer;">
                                             <i class="fa-solid fa-angles-right"></i>
-                                            <span>Logout</span>
+                                            <span>{{ __("Logout") }}</span>
                                         </button>
                                     </form>
                                 </a>
@@ -124,7 +124,7 @@
             <!-- ./item -->
                 <!-- item -->
                 <div class="f-item">
-                    <h3>Important Links</h3>
+                    <h3> {{ __("Important Links") }} </h3>
                     @foreach ($pages as $page)
                         <ul>
                             <li>
@@ -139,7 +139,7 @@
                 <!-- ./item -->
                 <!-- item -->
                 <div class="f-item">
-                    <h3>Contact us</h3>
+                    <h3> {{ __("Contact Us") }} </h3>
                     <ul class="social-icons">
                         @foreach ($settings->where('type', 'general') as $setting)
                             @if (isset($setting->value['whats_app']))

@@ -28,7 +28,7 @@
                 <ul class="breadcrumbs">
                     <li>
                         <a href="{{ route('index') }}">
-                            <span>Home</span>
+                            <span>{{ __("Home") }}</span>
                         </a>
                     </li>
                     @if (isset($category?->parent?->parent))
@@ -66,7 +66,7 @@
                                     <button class="accordion-button s-filters-widget-title" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#colCategory" aria-expanded="true"
                                         aria-controls="colCategory">
-                                        Categories
+                                        {{ __("Categories") }}
                                     </button>
                                 </h2>
                                 <div id="colCategory" class="accordion-collapse collapse show"
@@ -237,7 +237,7 @@
                                     <button class="accordion-button s-filters-widget-title" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#colBrands" aria-expanded="false"
                                         aria-controls="colBrands">
-                                        Brands
+                                        {{ __("Brands") }}
                                     </button>
                                 </h2>
                                 <div id="colBrands" class="accordion-collapse collapse show" aria-labelledby="headBrands"
@@ -269,7 +269,7 @@
                                     <button class="accordion-button s-filters-widget-title" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#colRating" aria-expanded="false"
                                         aria-controls="collapseThree">
-                                        Rating
+                                        {{ __("Rating") }}
                                     </button>
                                 </h2>
                                 <div id="colRating" class="accordion-collapse collapse show" aria-labelledby="headRating"
@@ -542,7 +542,7 @@
                                     <button class="accordion-button s-filters-widget-title" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#colPrice" aria-expanded="false"
                                         aria-controls="colPrice">
-                                        Price
+                                        {{ __("Price") }}
                                     </button>
                                 </h2>
                                 <div id="colPrice" class="accordion-collapse collapse show" aria-labelledby="headPrice"
@@ -554,25 +554,25 @@
                                                 <label class="s-filters-label" for="price-0">
                                                     <input id="price-0" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value="<100"
-                                                        {{ request('filter.price') == '<100' ? 'checked' : '' }}> less than
+                                                        {{ request('filter.price') == '<100' ? 'checked' : '' }}>  {{ __("less than") }}
                                                     100 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-1">
                                                     <input id="price-1" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value="100-200"
                                                         {{ request('filter.price') == '100-200' ? 'checked' : '' }}> 100
-                                                    {{ $currency }} to 200 {{ $currency }}
+                                                    {{ $currency }} {{ __("to") }} 200 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-2">
                                                     <input id="price-2" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value="200-300"
                                                         {{ request('filter.price') == '200-300' ? 'checked' : '' }}> 200
-                                                    {{ $currency }} to 300 {{ $currency }}
+                                                    {{ $currency }} {{ __("to") }} 300 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-3">
                                                     <input id="price-3" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value=">300"
-                                                        {{ request('filter.price') == '>300' ? 'checked' : '' }}> more than
+                                                        {{ request('filter.price') == '>300' ? 'checked' : '' }}>  {{ __("more than") }}
                                                     300 {{ $currency }}
                                                 </label>
                                                 <div class="flex justify-center items-center">

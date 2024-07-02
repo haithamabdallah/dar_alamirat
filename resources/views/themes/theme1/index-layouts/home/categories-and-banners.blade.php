@@ -14,7 +14,7 @@
                         :  route('brand',  $banner->bannerable_id)
                         }}" class="" aria-label="Banner">
                         <img class="w-full object-cover" src="{{ storage_asset($banner->image) }}"
-                             alt="baaner image">
+                            alt="baaner image">
                     </a>
                 </div>
                 <!-- ./row -->
@@ -39,8 +39,7 @@
                                 </div>
 
                                 <div class="category-nav">
-                                    <a href="{{ route('category.products', $category->id) }}" class="btn-all">View
-                                        All</a>
+                                    <a href="{{ route('category.products', $category->id) }}" class="btn-all">{{ __('View All') }}</a>
                                     <div class="navigation">
                                         <button class="cat-prev">
                                             <i class="fa-solid fa-chevron-left"></i>

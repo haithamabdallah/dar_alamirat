@@ -6,11 +6,11 @@
         <ul class="breadcrumbs">
             <li>
                 <a href="javascript:;">
-                    <span>Home</span>
+                    <span> {{ __("Home") }}</span>
                 </a>
             </li>
             <li>
-                <span>Cart</span>
+                <span> {{ __("Cart") }}</span>
             </li>
         </ul>
         <!-- ./content -->

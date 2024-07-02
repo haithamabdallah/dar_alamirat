@@ -45,7 +45,7 @@
                     handleOtpSent(response);
                 },
                 error: function() {
-                    alert('An error occurred. Please try again.');
+                    alert('{{ __("An error occurred. Please try again.") }}'  );
                 }
             });
         }
@@ -83,7 +83,7 @@
                     handleOtpVerification(response);
                 },
                 error: function() {
-                    $('#otpError').text('An error occurred. Please try again.').show();
+                    $('#otpError').text('{{ __("An error occurred. Please try again.") }}' ).show();
                 }
             });
         }
@@ -95,7 +95,7 @@
                 // Redirect to the same page to refresh after successful login
                 window.location.reload();
             } else {
-                $('#otpError').text(response.message || 'Invalid OTP. Please try again.').show();
+                $('#otpError').text(response.message || '{{ __("Invalid OTP. Please try again.") }}').show();
             }
         }
     });
@@ -111,9 +111,9 @@
             })
             .catch(error => {
                 Swal.fire({
-                    title: error.response.data.message == 'Unauthenticated.' ? 'Unauthenticated.' : 'Error!',
-                    text: error.response.data.message == 'Unauthenticated.' ? 'you need to login first' : error.response.data.message ,
-                    icon: error.response.data.message == 'Unauthenticated.' ? 'warning' : 'error',
+                    title: error.response.data.message == 'Unauthenticated.' ? ' {{ __("Unauthenticated") }}.  ' : '{{ __("Error") }}!',
+                    text: error.response.data.message == 'Unauthenticated.' ? ' {{ __("you need to login first") }}  ' : error.response.data.message ,
+                    icon: error.response.data.message == 'Unauthenticated.' ? ' "warning"  ' : ' "error"  ',
                     confirmButtonText: 'OK'
                 });
             });
@@ -151,9 +151,9 @@
             .catch(function (error) {
                 console.log(error.response.data)
                 Swal.fire({
-                    title: error.response.data.message == 'Unauthenticated.' ? 'Unauthenticated.' : 'Error!',
-                    text: error.response.data.message == 'Unauthenticated.' ? 'you need to login first' : error.response.data.message ,
-                    icon: error.response.data.message == 'Unauthenticated.' ? 'warning' : 'error',
+                    title: error.response.data.message == 'Unauthenticated.' ? ' {{ __("Unauthenticated") }}.  ' : '{{ __("Error") }}!',
+                    text: error.response.data.message == 'Unauthenticated.' ? ' {{ __("you need to login first") }}  ' : error.response.data.message ,
+                    icon: error.response.data.message == 'Unauthenticated.' ? ' "warning"  ' : ' "error"  ',
                     confirmButtonText: 'OK'
                 });
             });

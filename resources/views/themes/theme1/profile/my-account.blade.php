@@ -20,12 +20,12 @@
                         <ul class="breadcrumbs">
                             <li>
                                 <a href="{{ route('index') }}">
-                                    <span>Home</span>
+                                    <span>{{ __("Home") }}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:;">
-                                    <span>My Account</span>
+                                    <span>{{ __("My Account") }}</span>
                                 </a>
                             </li>
 
@@ -48,7 +48,7 @@
             <div class="user-layout">
                 @include('themes.theme1.profile.profile_aside')
                 <main>
-                    <h1>My Account</h1>
+                    <h1>{{ __("My Account") }}</h1>
                     @if(session('success'))
                         <div id="alert" class="alert" style="display: none;">
                             <div id="progress-bar" class="progress-bar"></div>
@@ -62,23 +62,23 @@
 
                         <div class="account-form">
                             <div class="ac-item">
-                                <label for="first-name">First Name</label>
-                                <input type="text" name="first_name" id="first-name" placeholder="First Name" required class="form-input" value="{{ old('first_name', $user->first_name) }}">
+                                <label for="first-name">{{ __("First Name") }}</label>
+                                <input type="text" name="first_name" id="first-name"  required class="form-input" value="{{ old('first_name', $user->first_name) }}">
                                 @error('first_name')
                                     <div class="text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="ac-item">
-                                <label for="last-name">Last Name</label>
-                                <input type="text" name="last_name" id="last-name" placeholder="Last Name" required class="form-input" value="{{ old('last_name', $user->last_name) }}">
+                                <label for="last-name">{{ __("Last Name") }}</label>
+                                <input type="text" name="last_name" id="last-name" required class="form-input" value="{{ old('last_name', $user->last_name) }}">
                                 @error('last_name')
                                     <div class="text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="ac-item">
-                                <label for="birthday">Birth Date</label>
+                                <label for="birthday">{{ __("Birth Date") }}</label>
                                 <input class="flatpickr flatpickr-input s-datetime-picker-input" type="text" name="birthday" placeholder="Select Date.." readonly="readonly" value="{{ old('birthday', $user->birthday) }}">
                                 @error('birthday')
                                     <div class="text-red-500">{{ $message }}</div>
@@ -86,7 +86,7 @@
                             </div>
 
                             <div class="ac-item">
-                                <label for="gender">Gender</label>
+                                <label for="gender">{{ __("Gender") }}</label>
                                 <select class="form-input" name="gender" required>
                                     <option value="" disabled selected>Select Gender</option>
                                     <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Male</option>
@@ -98,7 +98,7 @@
                             </div>
 
                             <div class="ac-item">
-                                <label for="email">Email Address</label>
+                                <label for="email">{{ __("Email Address") }}</label>
                                 <input type="email" name="email" id="email" class="form-input" required placeholder="Email Address" value="{{ old('email', $user->email) }}">
                                 @error('email')
                                     <div class="text-red-500">{{ $message }}</div>
@@ -106,7 +106,7 @@
                             </div>
 
                             <div class="ac-item">
-                                <label for="phone">Mobile Number</label>
+                                <label for="phone">{{ __("Mobile Number") }}</label>
                                 <input id="phone" type="tel" name="phone_number" class="s-tel-input-control" value="{{ old('phone_number', $user->phone_number) }}">
                                 @error('phone_number')
                                     <div class="text-red-500">{{ $message }}</div>
@@ -116,7 +116,7 @@
 
                         <div class="w-full">
                             <button type="submit" loader-position="end" class="w-full mt-6 sm:mt-8 s-button-element s-button-btn s-button-solid s-button-primary s-button-loader-end">
-                                <span class="s-button-text">Save</span>
+                                <span class="s-button-text">{{ __("Save") }}</span>
                             </button>
                         </div>
                     </form>

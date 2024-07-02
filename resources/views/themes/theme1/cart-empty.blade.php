@@ -9,11 +9,11 @@
             <ul class="breadcrumbs">
                 <li>
                     <a href="{{route('index')}}">
-                        <span>Home</span>
+                        <span>{{ __("Home") }}</span>
                     </a>
                 </li>
                 <li>
-                    <span>Cart</span>
+                    <span>{{ __("Cart") }}</span>
                 </li>
             </ul>
             <!-- ./content -->
@@ -35,8 +35,8 @@
                     <div class="main-content">
                         <div class="no-content-placeholder">
                             <i class="sicon-shopping-bag icon"></i>
-                            <p>Empty Cart</p>
-                            <a href="{{route('index')}}" class="btn btn--outline-primary">Back home</a>
+                            <p>{{ __("Empty Cart") }}</p>
+                            <a href="{{route('index')}}" class="btn btn--outline-primary">{{ __("Home Page") }}</a>
                         </div>
                     </div>
                 </main>
