@@ -150,6 +150,7 @@
                         <div class="row mb-15px">
                             <label class="form-label col-form-label col-md-3">Brand image :</label>
                             <div class="col-md-9">
+                                <p>minimum image size : 250px X 125px</p>
                                 <div class="custom-file-upload">
                                     <label for="formFile" class="upload-area">
                                         <div class="icon-upload form-control"> <span class="p-1">Upload Image </span></div>

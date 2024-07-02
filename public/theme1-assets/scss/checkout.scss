@@ -366,7 +366,7 @@
             input {
               margin-left: 0px;
               margin-right: 10px;
-              margin-top: 11px;
+
             }
             img {
               border-radius: 8px;
@@ -377,6 +377,13 @@
           }
           .shipping-cost {
             font-size: 14px;
+              display: flex;
+              grid-gap: 20px;
+              span {
+                  &:last-child {
+                      font-weight: bold;
+                  }
+              }
           }
         }
       }
@@ -394,7 +401,6 @@
         input {
           margin-left: 0px;
           margin-right: 10px;
-          margin-top: 11px;
         }
         img {
           border-radius: 8px;
@@ -437,4 +443,73 @@
   display: flex;
   align-items: center;
   grid-gap: 20px;
+}
+
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+    .checkout_page .accordion .grid-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {
+    .checkout_page .accordion .grid-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {
+    .checkout_page .accordion .grid-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}
+
+:dir(rtl) {
+    .checkout_page header .heading .breadcrumb li:after {
+        padding-left: inherit;
+        padding-right: 7px;
+    }
+    .checkout_page .accordion .accordion-item .accordion-header .title span {
+        margin-left: inherit;
+        margin-right: 70px;
+    }
+    label {
+        display: inline-flex;
+        align-items: center;
+        grid-gap: 10px;
+    }
+    .checkout_page .accordion .address-list .address-wrap label input {
+        margin-right: 0;
+    }
+    .checkout_page .accordion .shipping-methods .shipping-wrap label input,
+    .checkout_page .accordion .payment-wrap label input {
+        margin-right: 0;
+        margin-left: 5px;
+    }
+
+    .checkout_page .accordion .btn-close-address {
+        left: 15px;
+        right: inherit;
+    }
+    .checkout_page .order_summary #couponCode form button {
+        right: inherit;
+        left: 0;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .checkout_page .order_summary #couponCode form input {
+        padding-right: 20px;
+        padding-left: 120px;
+    }
 }

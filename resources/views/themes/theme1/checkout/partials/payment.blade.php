@@ -20,8 +20,8 @@
                 <label class="form-check-label" for="cod">
                     <input class="form-check-input" type="radio" name="payment" id="cod" value="cod"
                         onclick="showPaymentForm('cod')">
-                        Cash on Delivery
-                    {{-- <img src="images/payment/apple_pay_mini.webp" alt="Cash on Delivery" style="width: 50px;"> --}}
+                     {{--<img src="images/payment/apple_pay_mini.webp" alt="Cash on Delivery" style="width: 50px;">--}}
+                        <span>Cash on Delivery</span>
                 </label>
             </div>
         </div>

@@ -35,6 +35,4 @@
 
     @yield('customcss')
 
-    @include('themes.theme1.layouts.style')
-
 </head>

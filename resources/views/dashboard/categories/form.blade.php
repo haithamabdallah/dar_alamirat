@@ -229,7 +229,9 @@
 
                             <div class="row mb-15px" >
                                 <label class="form-label col-form-label col-md-3">Category image :</label>
+
                                 <div class="col-md-9">
+                                    <p>minimum image size : 400px X 400px</p>
                                     <div class="custom-file-upload">
                                         <label for="formFile" class="upload-area">
                                             <div class="icon-upload form-control"> <span class="p-1">Upload Image </span></div>
@@ -243,7 +245,7 @@
                                     @enderror
 
                                     <div class="preview-area">
-                                        <img id="imagePreview" src="{{  storage_asset($category->icon) ?? ''}}" alt="Image preview" style="display: {{isset($category->icon) ?'block' : 'none'}};" width="200" height="200">
+                                        <img id="imagePreview" src="" alt="Image preview" style="display: {{isset($category->icon) ?'none' : 'block'}};" width="200" height="200">
                                         <div class="clear-image" onclick="clearImage();" style="display: none;">&times;</div>
                                     </div>
                                 </div>

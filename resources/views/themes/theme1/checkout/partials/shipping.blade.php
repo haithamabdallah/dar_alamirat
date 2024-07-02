@@ -15,10 +15,13 @@
                         <label class="form-check-label" for="shipping{{ $index }}">
                             <input class="form-check-input" type="radio" name="shipping" id="shipping{{ $index }}"
                                 value="{{ $shipping->id }}" data-shipping-price="{{ $shipping->price }}">
-                            {{-- <img src="images/shipping/01.svg" alt="Express Trade House"> --}}
+                             {{--<img src="images/shipping/01.svg" alt="Express Trade House">--}}
                             <span>  {{ $shipping->name }} </span>
                         </label>
-                        <span class="shipping-cost"> {{ $shipping->duration }}  ---- {{ $shipping->price }} {{ $currency }}</span>
+                        <div class="shipping-cost">
+                            <span> {{ $shipping->duration }}</span>
+                            <span>{{ $shipping->price }} {{ $currency }}</span>
+                        </div>
                     </div>
                 @empty
                     <p class="text-center">No shipping methods available.</p>

@@ -1,5 +1,10 @@
 <!doctype html>
-<html lang="en">
+
+    @if (App::getLocale() == 'en')
+        <html dir="ltr" lang="en">
+    @else
+        <html dir="rtl" lang="ar">
+    @endif
 
 <head>
     <meta charset="UTF-8">
@@ -40,7 +45,7 @@
                         data-bs-parent="#checkoutAccordion">
                         <div class="accordion-body">
                             <div id="addressList" class="address-list">
-                                &lt;!&ndash; Address items will be added here &ndash;&gt;
+                                {{--Address items will be added here--}}
                             </div>
                             <button class="btn-add" onclick="showNewAddressForm()">
                                 <span>Add New Address</span>

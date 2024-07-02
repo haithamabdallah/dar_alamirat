@@ -104,6 +104,7 @@
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Logo</label>
                                 <div class="col-sm-9">
+                                    <p>minimum image size : 100px X 100px</p>
                                     <input type="file" name="website_logo"
                                         class="form-control @error('website_logo') is-invalid @enderror"
                                         onchange="preview1()">
@@ -117,6 +118,7 @@
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Icon</label>
                                 <div class="col-sm-9">
+                                    <p>minimum image size : 50px X 50px</p>
                                     <input type="file" name="website_icon"
                                         class="form-control @error('website_icon') is-invalid @enderror"
                                         onchange="preview2()">
@@ -239,6 +241,7 @@
                             <div class="row mb-15px categoryDetails">
                                 <label class="form-label col-form-label col-md-3">Main Banner Image :</label>
                                 <div class="col-md-9">
+                                    <p>minimum image size : 100% X 500px</p>
                                     <div class="custom-file-upload">
                                         <label for="formFile" class="upload-area">
                                             <div class="icon-upload form-control"> <span class="p-1">Upload Image

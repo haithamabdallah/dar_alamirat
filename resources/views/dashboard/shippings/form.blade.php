@@ -9,6 +9,50 @@
 @endsection
 
 @section('customcss')
+    <style>
+        .custom-file-upload {
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            border: 1px dashed #495057;
+        }
+        .custom-file-upload .form-control {
+            border: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            grid-gap: 10px;
+        }
+        .custom-file-upload input[type="file"] {
+            position: absolute;
+            font-size: 100px;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+        .upload-area {
+            display: inline-block;
+            cursor: pointer;
+        }
+        .icon-upload {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .icon-upload::before {
+            content: '\f093';
+            /* FontAwesome upload icon */
+            font-family: 'FontAwesome';
+            font-size: 24px;
+            color: #999;
+        }
+        .preview-image {
+            max-width: 100px;
+            margin: 10px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -93,6 +137,19 @@
                                 </div>
                             </div>
                             <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-3">Company Image</label>
+                                <p>minimum image size : 50px X 50px</p>
+                                <div class="custom-file-upload">
+                                    <label for="formFile2" class="upload-area">
+                                        <div class="icon-upload form-control">
+                                            <span class="p-1">Upload Images</span>
+                                        </div>
+                                        <input class="file-input" name="images[]" type="file" id="formFile2" accept=".png, .jpg, .jpeg, .svg, .webp" onchange="previewImages();" multiple/>
+                                    </label>
+                                </div>
+                                <div id="preview-images"></div>
+                            </div>
+                            <div class="row mb-15px">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary d-block w-100">
                                         <span class="indicator-label"> <i class="fa-regular fa-floppy-disk"></i> Save</span>
@@ -117,4 +174,22 @@
 @endsection
 
 @section('scripts')
+    <script>
+        function previewImages() {
+            var files = document.getElementById('formFile2').files;
+            var previewImages = document.getElementById('preview-images');
+            previewImages.innerHTML = ''; // Clear previous content
+
+            Array.from(files).forEach(function(file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-image';
+                    previewImages.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
 @endsection
