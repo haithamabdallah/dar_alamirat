@@ -147,7 +147,7 @@
         .topbar {
             flex-direction: row;
             .right {
-                display: block;
+                display: flex;
             }
             .search-box {
                 display: none;
@@ -163,7 +163,25 @@
 }
 
 // `lg` applies to medium devices (tablets, less than 992px)
-@media (min-width: 991.98px) {}
+@media (min-width: 991.98px) {
+    #topbar {
+        .topbar {
+            flex-direction: row;
+            .right {
+                display: flex;
+            }
+            .search-box {
+                display: none;
+            }
+            .left {
+                justify-content: space-between;
+                .topnav-link-item {
+                    display: block;
+                }
+            }
+        }
+    }
+}
 
 // `xl` applies to large devices (desktops, less than 1200px)
 @media (min-width: 1199.98px) {}
