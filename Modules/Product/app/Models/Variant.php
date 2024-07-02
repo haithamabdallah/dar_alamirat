@@ -17,7 +17,7 @@ class Variant extends Model
 
     protected $appends = ['price_with_discount' , 'variant_name' , 'inventory_quantity'];
 
-    // protected $with = ['inventory'];
+    protected $with = ['inventory', 'images'];
 
     /**
      * Get the product that owns the variant.
