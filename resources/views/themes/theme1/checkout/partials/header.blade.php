@@ -2,7 +2,6 @@
   <header class="header">
       <!-- logo -->
       <div class="logo">
-        <div class="logo">
             @foreach ($settings->where('type', 'general') as $setting)
                 <a href="{{route('index')}}">
                     @php
