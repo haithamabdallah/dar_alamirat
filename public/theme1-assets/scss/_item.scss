@@ -84,20 +84,29 @@
       align-items: center;
       grid-gap: 10px;
       .before-dis {
-          text-decoration: line-through;
-          font-size: 16px;
-          strong,
           span {
-            font-size: 16px;
-            line-height: 28px;
-            color: rgb(31,41,55);
-            font-weight: 700;
+              text-decoration: line-through;
+            font-size: 14px;
+            line-height: 20px;
+            color: #9ca3af;
+            font-weight: 400;
           }
       }
 
       .after-dis {
         text-decoration: none;
         color: $accentColorLight;
+          transition: .35s all;
+          h3 {
+              color: #f87171;
+              font-size: 20px;
+              line-height: 28px;
+              font-weight: 700;
+              transition: .35s all;
+          }
+          #total-price {
+              transition: .35s all;
+          }
       }
     }
 
