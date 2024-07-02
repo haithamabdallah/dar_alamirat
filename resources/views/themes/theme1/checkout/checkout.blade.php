@@ -35,11 +35,11 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <div class="title">
-                            <b><strong>1</strong> Select Shipping Address</b>
+                            <b><strong>1</strong>  {{ __("Select Shipping Address") }}  </b>
                             <span id="selectedAddressInfo"></span>
                         </div>
                         <button class="btn btn-sm btn-link edit-button" style=""
-                            onclick="editStage(1)">Edit</button>
+                            onclick="editStage(1)"> {{ __("Edit") }}  </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                         data-bs-parent="#checkoutAccordion">
@@ -48,14 +48,14 @@
                                 {{--Address items will be added here--}}
                             </div>
                             <button class="btn-add" onclick="showNewAddressForm()">
-                                <span>Add New Address</span>
+                                <span> {{ __("Add New Address") }}  </span>
                             </button>
 
                             @include('themes.theme1.checkout.partials.new-address')
 
                             @include('themes.theme1.checkout.partials.edit-address')
 
-                            <button class="btn-save" onclick="confirmAddress()">Confirm Address</button>
+                            <button class="btn-save" onclick="confirmAddress()"> {{ __("Confirm Address") }}  </button>
                         </div>
                     </div>
                 </div>
@@ -67,11 +67,11 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
                         <div class="title">
-                            <b><strong>3</strong> Payment Method</b>
+                            <b><strong>3</strong>  {{ __("Payment Method") }}  </b>
                             <span id="selectedPaymentInfo"></span>
                         </div>
                         <button class="btn btn-sm btn-link edit-button" style="display:none;"
-                            onclick="editStage(3)">Edit</button>
+                            onclick="editStage(3)"> {{ __("Edit") }}  </button>
                     </h2>
                     @include('themes.theme1.checkout.partials.payment')
                 </div>

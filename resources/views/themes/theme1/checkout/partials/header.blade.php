@@ -22,14 +22,14 @@
       <div class="heading">
           <!-- user -->
           <div class="user">
-              Hello, <span>{{ auth()->user()->FullName }}</span>
+              {{ __("Hello") }}, <span>{{ auth()->user()->FullName }}</span>
           </div>
           <!-- ./user -->
           <!-- nav -->
           <ul class="breadcrumb">
-              <li><a href="{{ route('index') }}">Home</a></li>
-              <li><a href="{{ route('cart.index') }}">My Cart</a></li>
-              <li>checkout</li>
+              <li><a href="{{ route('index') }}">{{ __("Home") }}</a></li>
+              <li><a href="{{ route('cart.index') }}">{{ __("My Cart") }}</a></li>
+              <li>{{ __("Checkout") }}</li>
           </ul>
           <!-- ./nav -->
       </div>

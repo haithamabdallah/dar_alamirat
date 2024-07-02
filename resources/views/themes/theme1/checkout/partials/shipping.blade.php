@@ -1,10 +1,10 @@
 <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
         <div class="title">
-            <b><strong>2</strong> Select Shipping Method</b>
+            <b><strong>2</strong>  {{ __("Select Shipping Method") }} </b>
             <span id="selectedShippingInfo"></span>
         </div>
-        <button class="btn btn-sm btn-link edit-button" style="display:none;" onclick="editStage(2)">Edit</button>
+        <button class="btn btn-sm btn-link edit-button" style="display:none;" onclick="editStage(2)"> {{ __("Edit") }} </button>
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
         data-bs-parent="#checkoutAccordion">
@@ -24,10 +24,10 @@
                         </div>
                     </div>
                 @empty
-                    <p class="text-center">No shipping methods available.</p>
+                    <p class="text-center"> {{ __("No shipping methods available.") }} </p>
                 @endforelse
             </div>
-            <button class="btn-save" onclick="confirmShipping()">Confirm Shipping</button>
+            <button class="btn-save" onclick="confirmShipping()"> {{ __("Confirm Shipping") }} </button>
         </div>
     </div>
 </div>

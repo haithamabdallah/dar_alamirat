@@ -21,7 +21,7 @@
                     <input class="form-check-input" type="radio" name="payment" id="cod" value="cod"
                         onclick="showPaymentForm('cod')">
                      {{--<img src="images/payment/apple_pay_mini.webp" alt="Cash on Delivery" style="width: 50px;">--}}
-                        <span>Cash on Delivery</span>
+                        <span> {{ __("Cash on Delivery") }}  </span>
                 </label>
             </div>
         </div>
@@ -65,6 +65,6 @@
             <input type="text" name="address_id" id="address_id">
             <input type="text" name="coupon_id" id="coupon_id" value="{{ session('coupon')['id'] ?? old('coupon_id') }}">
         </form>
-        <button class="btn-save" onclick="completeOrder()">Complete Order</button>
+        <button class="btn-save" onclick="completeOrder()"> {{ __("Complete Order") }}  </button>
     </div>
 </div>

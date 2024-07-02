@@ -2,42 +2,40 @@
     <a class="btn-close-address" onclick="cancelNewAddress()"><i class="fa-solid fa-xmark"></i></a>
     <div class="grid-list">
         <div class="grid-item">
-            <label for="newGovernorate" class="form-label">Governorate</label>
-            <input type="text" class="form-control" id="newGovernorate" placeholder="Enter your governorate">
+            <label for="newGovernorate" class="form-label"> {{ __("Governorate") }} </label>
+            <input type="text" class="form-control" id="newGovernorate" placeholder="{{ __("Governorate") }}">
         </div>
         <div class="grid-item">
-            <label for="newCity" class="form-label">City</label>
-            <input type="text" class="form-control" id="newCity" placeholder="Enter your city">
+            <label for="newCity" class="form-label">{{ __("City") }}</label>
+            <input type="text" class="form-control" id="newCity" placeholder="{{ __("City") }}">
         </div>
         <div class="grid-item">
-            <label for="newStreet" class="form-label">Street</label>
-            <input type="text" class="form-control" id="newStreet" placeholder="Enter your street">
+            <label for="newStreet" class="form-label">{{ __("Street") }}</label>
+            <input type="text" class="form-control" id="newStreet" placeholder="{{ __("Street") }}">
         </div>
         <div class="grid-item">
-            <label for="newHouseNumber" class="form-label">House Number</label>
-            <input type="text" class="form-control" id="newHouseNumber" placeholder="Enter your house number">
+            <label for="newHouseNumber" class="form-label">{{ __("House Number") }} </label>
+            <input type="text" class="form-control" id="newHouseNumber" placeholder="{{ __("House Number") }}">
         </div>
         <div class="grid-item">
-            <label for="newPostalCode" class="form-label">Postal Code</label>
-            <input type="text" class="form-control" id="newPostalCode" placeholder="Enter your postal code">
+            <label for="newPostalCode" class="form-label">{{ __("Postal Code") }}</label>
+            <input type="text" class="form-control" id="newPostalCode" placeholder="{{ __("Postal Code") }}">
         </div>
         <div class="grid-item">
-            <label for="newFamousPlaceNearby" class="form-label">Famous Place
-                Nearby</label>
+            <label for="newFamousPlaceNearby" class="form-label">{{ __("Famous Place Nearby") }}</label>
             <input type="text" class="form-control" id="newFamousPlaceNearby"
-                placeholder="Enter your famous Place Nearby">
+                placeholder="{{ __("Famous Place Nearby") }}">
         </div>
         <div class="grid-item">
-            <label for="newPhone1" class="form-label">Phone1</label>
-            <input type="text" class="form-control" id="newPhone1" placeholder="Enter your phone1">
+            <label for="newPhone1" class="form-label">{{ __("Phone1") }}</label>
+            <input type="text" class="form-control" id="newPhone1" placeholder="{{ __("Phone1") }}">
         </div>
         <div class="grid-item">
-            <label for="newPhone2" class="form-label">Phone2</label>
-            <input type="text" class="form-control" id="newPhone2" placeholder="Enter your phone2">
+            <label for="newPhone2" class="form-label">{{ __("Phone2") }}</label>
+            <input type="text" class="form-control" id="newPhone2" placeholder="{{ __("Phone2") }}">
         </div>
         <div class="" id="store-errors">
         </div>
     </div>
-    <button class="btn-save" onclick="saveNewAddress('{{ route('addresses.store') }}' , '{{ csrf_token() }}')">Save
-        Address</button>
+    <button class="btn-save" onclick="saveNewAddress('{{ route('addresses.store') }}' , '{{ csrf_token() }}')">{{ __('Save') }}</button>
 </div>

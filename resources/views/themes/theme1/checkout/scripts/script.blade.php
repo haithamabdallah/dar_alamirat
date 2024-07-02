@@ -85,35 +85,35 @@
             <a class="btn-close-address" onclick="cancelEditAddress()"><i class="fa-solid fa-xmark"></i></a>
             <div class="grid-list">
                 <div class="grid-item">
-                    <label for="editGovernorate" class="form-label">Governorate</label>
+                    <label for="editGovernorate" class="form-label">{{ __("Governorate") }}</label>
                     <input type="text" class="form-control" id="editGovernorate" value="${address.governorate??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editCity" class="form-label">City</label>
+                    <label for="editCity" class="form-label">{{ __("City") }}</label>
                     <input type="text" class="form-control" id="editCity" value="${address.city??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editStreet" class="form-label">Street</label>
+                    <label for="editStreet" class="form-label">{{ __("Street") }}</label>
                     <input type="text" class="form-control" id="editStreet" value="${address.street??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editPostalCode" class="form-label">Postal Code</label>
-                    <input type="text" class="form-control" id="editPostalCode" value="${address.postal_code??''}">
-                </div>
-                <div class="grid-item">
-                    <label for="editFamousPlaceNearby" class="form-label">Famous Place Nearby</label>
-                    <input type="text" class="form-control" id="editFamousPlaceNearby" value="${address.famous_place_nearby??''}">
-                </div>
-                <div class="grid-item">
-                    <label for="editHouseNumber" class="form-label">House Number</label>
+                    <label for="editHouseNumber" class="form-label">{{ __("House Number") }}</label>
                     <input type="text" class="form-control" id="editHouseNumber" value="${address.house_number??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editPhone1" class="form-label">Phone1</label>
+                    <label for="editPostalCode" class="form-label">{{ __("Postal Code") }}</label>
+                    <input type="text" class="form-control" id="editPostalCode" value="${address.postal_code??''}">
+                </div>
+                <div class="grid-item">
+                    <label for="editFamousPlaceNearby" class="form-label">{{ __("Famous Place Nearby") }}</label>
+                    <input type="text" class="form-control" id="editFamousPlaceNearby" value="${address.famous_place_nearby??''}">
+                </div>
+                <div class="grid-item">
+                    <label for="editPhone1" class="form-label">{{ __("Phone1") }}</label>
                     <input type="text" class="form-control" id="editPhone1" value="${address.phone1??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editPhone2" class="form-label">Phone2</label>
+                    <label for="editPhone2" class="form-label">{{ __("Phone2") }}</label>
                     <input type="text" class="form-control" id="editPhone2" value="${address.phone2??''}">
                 </div>
             </div>
@@ -365,13 +365,13 @@
             if (response.data.status === 'success') {
                 console.log(response.data);
                 let coupon = response.data.coupon;
-                let couponDetails = `<b> Minimum Purchase Limit:</b> ${coupon.min_purchase_limit} {!! $currency !!}<br>`;
+                let couponDetails = `<b>  {{ __("Minimum Purchase Limit") }}  :</b> ${coupon.min_purchase_limit} {!! $currency !!}<br>`;
                 if (coupon.discount_type == 'flat') {
-                    couponDetails += `<b> Discount Value:</b> ${coupon.discount_value} {!! $currency !!}<br>`;
+                    couponDetails += `<b>  {{ __("Discount Value") }}  :</b> ${coupon.discount_value} {!! $currency !!}<br>`;
                 } else {
-                    couponDetails += `<b> Discount Value:</b> ${coupon.discount_value} % of final total <br> `;
+                    couponDetails += `<b>  {{ __("Discount Value") }}  :</b> ${coupon.discount_value} % of final total <br> `;
                 }
-                couponDetails += `<b>The coupon will not be applied to products that already have a discount</b>`;
+                couponDetails += `<b> {{ __("The coupon will not be applied to products that already have a discount") }}  </b>`;
                 $('#coupon-details').html(couponDetails);
                 $('#coupon-details-div').show();
             } else {
