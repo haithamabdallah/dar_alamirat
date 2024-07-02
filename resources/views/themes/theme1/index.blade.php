@@ -24,12 +24,12 @@
             <!-- full banner -->
             <section class="banner-block">
                 <!-- container -->
-                
+
                 <div class=" {{ ($loop->index == 0 &&  !$bannerSettings->value['main_banner_status']) ? '' : 'pixel-container'}}">
                     <!-- row -->
                     <div class="wrap">
-                        <a href="{{ $banner->type == 'Category' 
-                        ? route('category.products', $banner->bannerable_id) 
+                        <a href="{{ $banner->type == 'Category'
+                        ? route('category.products', $banner->bannerable_id)
                         :  route('brand',  $banner->bannerable_id)
                         }}" class="" aria-label="Banner">
                             <img class="w-full object-cover" src="{{ storage_asset($banner->image) }}"
@@ -112,26 +112,33 @@
     </section>
     <!-- ./Brands -->
 
-    {{-- <section id="newsletterPopup" class="hide">
-   <div class="newContent">
-       <a href="javascript:;" class="closeNews close-btn"><i class="fa-solid fa-xmark"></i></a>
-       <div class="newsImage">
-           <img src="{{ asset('assets/images/newsletter/newsletter.jpg') }}" alt="">
-       </div>
-       <div id="subscription">
-           <h3>Sign Up For</h3>
-           <h1>25% OFF</h1>
-           <p>Subscribe to our newsletter for exclusive beauty tips, new product launches, and special offers.</p>
-           <form id="newsletter-form" action="{{ route('subscribe') }}" method="POST">
-               @csrf
-               <input type="email" name="email" placeholder="Enter your email address" required>
-               <button type="submit">Subscribe Now</button>
-           </form>
-           <a class="closeNews" href="javascript:;">No, thanks</a>
-           <p>By entering, you aagree to the <a href="#">Terms od Use</a> and <a href="#">Privacy policy</a></p>
-       </div>
-    </div>
-</section> --}}
+    <section id="newsletterPopup" class="hide">
+        <div class="newContent">
+            <a href="javascript:;" class="closeNews close-btn"><i class="fa-solid fa-xmark"></i></a>
+            <div class="newsImage">
+                <img src="{{ asset('theme1-assets/images/newsletter/01.jpg') }}" alt="">
+            </div>
+            <div id="subscription">
+                <h3>Sign Up For</h3>
+                <h1>25% OFF</h1>
+                <p>Subscribe to our newsletter for exclusive beauty tips, new product launches, and special offers.</p>
+                <form id="newsletter-form" action="{{ route('subscribe') }}" method="POST">
+                    @csrf
+                    <input type="email" name="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe Now</button>
+                </form>
+                <a class="closeNews" href="javascript:;">No, thanks</a>
+                <p>By entering, you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a></p>
+            </div>
+            <div id="NewsSuccess" class="hide">
+                <h3>Thank you for subscribing!</h3>
+                <p>You will now receive our newsletter with exclusive beauty tips, new product launches, and special offers.</p>
+            </div>
+        </div>
+    </section>
+
+
+    {{--  --}}
     {{-- @section('scripts')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
         <script>
@@ -195,6 +202,53 @@
                         spaceBetween: 50,
                     },
                 },
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const newsletterPopup = document.getElementById('newsletterPopup');
+            const form = document.getElementById('newsletter-form');
+            const subscribeDiv = document.getElementById('subscription');
+            const successDiv = document.getElementById('NewsSuccess');
+            const closeButtons = document.querySelectorAll('.closeNews');
+            const popup = document.getElementById("newsletterPopup");
+
+            // Check if the user has already subscribed
+            if (!localStorage.getItem('subscribed')) {
+                setTimeout(() => {
+                    newsletterPopup.classList.remove('hide');
+                }, 2000);
+            }
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Simulate form submission
+                fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                }).then(response => {
+                    if (response.ok) {
+                        successDiv.classList.remove('hide');
+                        subscribeDiv.classList.add('hide');
+                        localStorage.setItem('subscribed', 'true'); // Store subscription status
+                        setTimeout(() => {
+                            popup.classList.add('hide');
+                        }, 3000); // Hide popup after 3 seconds
+                    } else {
+                        alert('Subscription failed. Please try again.');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+            closeButtons.forEach(closeButton => {
+                closeButton.addEventListener('click', function() {
+                    popup.classList.add('hide');
+                });
             });
         });
     </script>

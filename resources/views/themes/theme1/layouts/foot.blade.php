@@ -6,7 +6,7 @@
 <script src="{{asset('theme1-assets/js/jquery.jgrowl.min.js')}}"></script>
 <script src="{{asset('theme1-assets/js/jquery.magnific-popup.min.js')}}"></script>
 {{-- <script src="{{asset('assets/js/app.js')}}"></script> // import jquery and axios --}}
-<script src="{{asset('assets/js/axios.js')}}"></script> 
+<script src="{{asset('assets/js/axios.js')}}"></script>
 
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -17,40 +17,6 @@
 <script src="https://kit.fontawesome.com/24eabd5129.js" crossorigin="anonymous"></script>
 
 
-
-
-
-
-
-
-
-
-{{-- <script>
-   const newsletterPopup = document.getElementById('newsletterPopup');
-    const form = document.getElementById('newsletter-form');
-    const subscribeDiv = document.getElementById('subscription');
-    const successDiv = document.getElementById('NewsSuccess');
-
-    setTimeout(() => {
-        newsletterPopup.classList.remove('hide');
-    }, 2000);
-
-    form.addEventListener('submit', function(event) {
-
-        successDiv.classList.remove('hide');
-        subscribeDiv.classList.add('hide');
-    });
-
-    const closeButtons = document.querySelectorAll('.closeNews'); // Select all elements with class "closeNews"
-    const popup = document.getElementById("newsletterPopup");
-
-    closeButtons.forEach(closeButton => {
-        closeButton.addEventListener('click', function() {
-            popup.classList.add('hide'); // Add class "hide" to the popup element
-        });
-    });
-
-</script> --}}
 
 
 {{-- login --}}
@@ -161,8 +127,8 @@
         const url = button.getAttribute('data-cart-url');
 
         // Set up the Axios request headers, including the CSRF token
-        const data = 
-        { 
+        const data =
+        {
             variantId : $('#variant-select').val() ?? variantId
             , quantity : $('#quantity').val() ?? 1
             , _token : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
