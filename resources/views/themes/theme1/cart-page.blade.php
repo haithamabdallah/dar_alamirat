@@ -86,7 +86,7 @@
                                                 @foreach ($cart->product->variants as $variant)
                                                     <option value="{{ $variant->id }}"
                                                         {{ $cart->variant_id == $variant->id ? 'selected' : 'null' }}>
-                                                        {{ $variant->variant_name }}
+                                                        Name  : ( {{ $variant->variantName }} ) #####  SKU : <span > ( {{ $variant->sku }} ) </span>
                                                     </option>
                                                 @endforeach
                                             </select>
