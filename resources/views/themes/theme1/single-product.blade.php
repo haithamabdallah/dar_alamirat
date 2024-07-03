@@ -92,8 +92,11 @@
                             <div class="product_tabs">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs " id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Product Options</button>
+                                    </li>
                                     <li class="nav-item flex-fill" role="presentation">
-                                        <a class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                                        <a class="nav-link" id="description-tab" data-bs-toggle="tab"
                                                 data-bs-target="#description" type="button" role="tab" aria-controls="description"
                                                 aria-selected="true">{{ __("Description") }}</a>
                                     </li>
@@ -111,11 +114,22 @@
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab"
-                                         tabindex="0">{!! $product->description !!}</div>
-                                    <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0"> {{ $product->instructions }}
+                                    <div class="tab-pane active" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">
+                                        <form id="variant-form">
+                                            @foreach ($product->variants as $index => $variant)
+                                                <div class="variant-option">
+                                                    <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
+                                                    <label for="variant-{{ $variant->id }}">
+                                                        <img src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
+                                                        <span>{{ $variant->variantName }}</span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </form>
                                     </div>
-                                    {{-- <div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">specifications</div>
+                                    <div class="tab-pane" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{!! $product->description !!}</div>
+                                    <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0"> {{ $product->instructions }}</div>
+                                    {{--
                                 <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
                                 </div>
                             </div>
@@ -123,17 +137,7 @@
                         </div>
                         <!-- ./TABS -->
 
-                        <form id="variant-form">
-                            @foreach ($product->variants as $index => $variant)
-                                <div class="variant-option">
-                                    <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
-                                    <label for="variant-{{ $variant->id }}">
-                                        <img src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
-                                        <span>{{ $variant->variantName }}</span>
-                                    </label>
-                                </div>
-                            @endforeach
-                        </form>
+
 
                         <!-- SKU -->
                         <div class="wrap">
