@@ -171,7 +171,14 @@
                                             <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                         </div>
                                         <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        <div class="after-dis" style="display: none">
+                                            <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        </div>
                                     @else
+                                        <div class="before-dis" style="display: none">
+                                            <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                        </div>
+                                        <span class="no-dis" id="total-price" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         <div class="after-dis">
                                             <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         </div>
@@ -210,10 +217,12 @@
                     <aside>
                         <div class="sticky-top">
 
-                            @if( $product->discount_type == 'flat'  )
+                            @if( $product->discount_type == 'flat'  && $product->discount_value > 0)
                                 <span class="has-discount">- {{ $product->discount_value }} {{ $currency }}</span>
-                            @elseif($product->discount_type == 'percent')
+                            @elseif($product->discount_type == 'percent' && $product->discount_value > 0)
                                 <span class="has-discount">- {{ $product->discount_value }}%</span>
+                            @else
+                                <span class="has-discount" style="display: none">- {{ $product->discount_value }}%</span>
                             @endif
 
                             <div class="p-slider">
