@@ -31,8 +31,8 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const basePriceElement = document.querySelector('.before-dis span') || {innerText: "0"};
-            //const basePriceElement = document.querySelector('.before-dis span#base-price');
+            // const basePriceElement = document.querySelector('.before-dis span') || {innerText: "0"};
+            const basePriceElement = document.querySelector('.before-dis span#base-price');
             const totalPriceElement = document.getElementById('total-price');
             const quantityInput = document.getElementById('quantity');
             const increaseQuantityButton = document.getElementById('increase-quantity');
@@ -41,6 +41,7 @@
 
             const variantPrices = {!! ($product->variant_prices) !!};
 
+            console.log(variantPrices)
             function getSelectedVariantId() {
                 const selectedRadio = document.querySelector('input[name="variant"]:checked');
                 return parseInt(selectedRadio.value);
@@ -52,15 +53,24 @@
                 return variantPrice;
             }
 
+            function calculateVariantOriginalPrice() {
+                const variantId = getSelectedVariantId();
+                const variantPrice = variantPrices[variantId]?.price;
+                return variantPrice;
+            }
+
             function calculateTotalPrice() {
                 const variantPrice = calculateVariantPrice();
+                const variantOriginalPrice = calculateVariantOriginalPrice();
                 if (variantPrice === undefined || isNaN(variantPrice)) {
                     console.error("Variant price is not defined or is NaN.");
                     return;
                 }
                 const quantity = parseInt(quantityInput.value);
                 const totalPrice = (variantPrice * quantity);
+                const totalOriginalPrice = (variantOriginalPrice * quantity);
                 totalPriceElement.innerText = `${totalPrice.toFixed(2)} {{ $currency }}`;
+                basePriceElement.innerText = `${totalOriginalPrice.toFixed(2)} {{ $currency }}`;
             }
 
             increaseQuantityButton.addEventListener('click', function() {

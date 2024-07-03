@@ -70,7 +70,7 @@ class Product extends Model
     public function getVariantPricesAttribute()
     {
         return $this->variants->map(function ($variant) {
-            return $variant->only(['price_with_discount','id']);
+            return $variant->only(['price','price_with_discount','id']);
         })->keyBy('id')->toJson();
     }
 
