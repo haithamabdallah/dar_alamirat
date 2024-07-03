@@ -92,6 +92,8 @@
 
                 if (selectedValue) {
                     const selectedP = document.querySelector(`.code_number[data-variant-id='${selectedValue}']`);
+                    $('.swiper-slide[data-variant-id]').hide();
+                    $(`.swiper-slide[data-variant-id=${selectedValue}]`).show();
                     if (selectedP) {
                         selectedP.classList.remove('hidden');
                     }

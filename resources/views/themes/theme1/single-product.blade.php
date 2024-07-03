@@ -235,17 +235,19 @@
                                                 </li>
                                             @endforeach
                                         @endif
-                                        @if (count($product->variants->first()->images) > 0)
-                                            @foreach ($product->variants->first()->images as $image)
-                                                <li class="swiper-slide">
-                                                    <a href="{{ $image->image }}"
-                                                        title="{{ $product->slug . $image->id }}">
-                                                        <img src="{{ $image->image }}"
-                                                            alt="{{ $product->slug . $image->id }}">
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        @endif
+                                        @foreach ($product->variants as $variant)
+                                            @if (count($variant->images) > 0)
+                                                @foreach ($variant->images as $index => $image)
+                                                    <li class="swiper-slide" {{-- {!! $index != 0  ? 'style="display:none;"' :  '' !!} --}} data-variant-id="{{ $variant->id }}" >
+                                                        <a href="{{ $image->image }}"
+                                                            title="{{ $product->slug . $image->id }}">
+                                                            <img src="{{ $image->image }}"
+                                                                alt="{{ $product->slug . $image->id }}">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
                                     </div>
                                     <div class="p-prev"><i class="fa-solid fa-chevron-left"></i></div>
                                     <div class="p-next"><i class="fa-solid fa-chevron-right"></i></div>
@@ -262,13 +264,15 @@
                                                 </li>
                                             @endforeach
                                         @endif
-                                        @if (count($product->variants->first()->images) > 0)
-                                            @foreach ($product->variants->first()->images as $image)
-                                                <li class="swiper-slide">
-                                                    <img src="{{ $image->image }}" />
-                                                </li>
-                                            @endforeach
-                                        @endif
+                                        @foreach ($product->variants as $variant)
+                                            @if (count($variant->images) > 0)
+                                                @foreach ($variant->images as $index => $image)
+                                                    <li class="swiper-slide" {!! $index != 0  ? 'style="display:none;"' :  '' !!} data-variant-id="{{ $variant->id }}" >
+                                                        <img src="{{ $image->image }}" />
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
