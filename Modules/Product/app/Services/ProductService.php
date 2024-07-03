@@ -47,10 +47,12 @@ class ProductService {
                     'sku' => $variantData['sku']
                 ]);
 
-                foreach ($variantData['images'] as $index => $image) 
-                {
-                    $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
-                    $variant->images()->create(['image' => $imagePath]);
+                if ($variantData['images'] != false && count($variantData['images']) > 0) {
+                    foreach ($variantData['images'] as $index => $image) 
+                    {
+                        $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
+                        $variant->images()->create(['image' => $imagePath]);
+                    }
                 }
 
                 // Create inventory record
@@ -80,7 +82,6 @@ class ProductService {
         return [
             'title.*' => 'required|string|max:255',
             'description.*' => 'sometimes',
-            'instructions.*' => 'sometimes',
             'instructions.*' => 'sometimes',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
@@ -135,10 +136,12 @@ class ProductService {
                         'sku' => $variantData['sku']
                     ]);
 
-                    foreach ($variantData['images'] as $index => $image) 
-                    {
-                        $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
-                        $variant->images()->create(['image' => $imagePath]);
+                    if ( isset($variantData['images']) && $variantData['images'] != false && count($variantData['images']) > 0) {
+                        foreach ($variantData['images'] as $index => $image) 
+                        {
+                            $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
+                            $variant->images()->create(['image' => $imagePath]);
+                        }
                     }
 
                     // Create inventory for the new variant
@@ -161,11 +164,12 @@ class ProductService {
                     'price' => $variantData['price'],
                     'sku' => $variantData['sku']
                 ]);
-
-                foreach ($variantData['images'] as $index => $image) 
-                {
-                    $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
-                    $variant->images()->create(['image' => $imagePath]);
+                if ( isset($variantData['images']) && $variantData['images'] != false && count($variantData['images']) > 0) {
+                    foreach ($variantData['images'] as $index => $image) 
+                    {
+                        $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
+                        $variant->images()->create(['image' => $imagePath]);
+                    }
                 }
 
                 // Get the associated inventory for the variant

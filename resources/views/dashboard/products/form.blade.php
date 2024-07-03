@@ -429,11 +429,11 @@
                             <div class="m-5" style="position: relative ">
                                     <img src="{{ $image->file }}" alt="product image" width="100px" height="100px">
                                     <span class="bg-danger p-1 rounded" style="position: absolute; top: 10px; right: 10px;"> 
-                                        {{-- <form action="{{ route('product-images.delete', $image->id) }}" method="post" style="display: none;" id="product-delete-form-{{ $image->id }}">
+                                        <form action="{{ route('product-images.delete', $image->id) }}" method="post" style="display: none;" id="product-delete-form-{{ $image->id }}">
                                             @csrf
                                             @method('delete')
                                         </form>
-                                        <span onclick="if(confirm('Are you sure?')) document.getElementById('product-delete-form-{{ $image->id }}').submit()">X</span> --}}
+                                        <span onclick="if(confirm('Are you sure?')) document.getElementById('product-delete-form-{{ $image->id }}').submit()">X</span>
                                     </span>
                                 </div>
                             @endforeach
@@ -447,11 +447,11 @@
                                     <div class="m-5" style="position: relative ">
                                         <img src="{{ $image->image }}" alt="variant image" width="100px" height="100px">
                                         <span class="bg-danger p-1 rounded" style="position: absolute; top: 10px; right: 10px;"> 
-                                            {{-- <form action="{{ route('variant-images.delete', $image->id) }}" method="post" style="display: none;" id="variant-delete-form-{{ $image->id }}">
+                                            <form action="{{ route('variant-images.delete', $image->id) }}" method="post" style="display: none;" id="variant-delete-form-{{ $image->id }}">
                                                 @csrf
                                                 @method('Delete')
                                             </form>
-                                            <span onclick="if(confirm('Are you sure?')) document.getElementById('variant-delete-form-{{ $image->id }}').submit()">X</span> --}}
+                                            <span onclick="if(confirm('Are you sure?')) document.getElementById('variant-delete-form-{{ $image->id }}').submit()">X</span>
                                         </span>
                                     </div>
                                 @endforeach

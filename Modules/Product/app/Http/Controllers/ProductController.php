@@ -79,7 +79,7 @@ class ProductController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e->getMessage());
+            dd($e);
         }
 
     }
@@ -128,7 +128,7 @@ class ProductController extends Controller
             return redirect()->route('product.index')->with('success', 'Product updated successfully');
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e->getMessage());
+            dd($e);
         }
     }
 
