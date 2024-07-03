@@ -16,7 +16,7 @@ class Cart extends Model
      */
     // protected $fillable = ['user_id' , 'product_id'];
     protected $guarded = ['id'];
-    protected $with = ['product'];
+    protected $with = ['product.variants'];
 
 
     public function user()

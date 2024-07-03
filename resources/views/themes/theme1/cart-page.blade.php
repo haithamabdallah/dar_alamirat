@@ -73,7 +73,22 @@
                                                 <span id="price-{{ $index }}"> {{ $cart->product->price }} </span> {{ $currency }}
                                             </div>
                                             <!-- ./total price -->
+                                            {{-- {{$product->variants}} --}}
+                                            <form id="variant-form">
+                                                @foreach ($cart->product?->variants as $index => $variant)
+                                                    <div class="variant-option">
+                                                        <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
+                                                        <label for="variant-{{ $variant->id }}">
+                                                            @if ($variant->images->count() > 0)
+                                                                <img src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
+                                                            @endif
+                                                            <span>{{ $variant->variantName }}</span>
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </form>
                                         </div>
+                                    </div>
 
                                         <!-- data -->
 
