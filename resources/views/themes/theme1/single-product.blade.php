@@ -92,8 +92,8 @@
                             <div class="product_tabs">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs " id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Product Options</button>
+                                    <li class="nav-item flex-fill" role="specifications">
+                                        <a class="nav-link active" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Product Options</a>
                                     </li>
                                     <li class="nav-item flex-fill" role="presentation">
                                         <a class="nav-link" id="description-tab" data-bs-toggle="tab"

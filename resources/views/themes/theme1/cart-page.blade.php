@@ -1,4 +1,51 @@
 @extends('themes.theme1.layouts.app')
+
+@section('customcss')
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        #variant-form {
+            display: flex;
+            grid-gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .variant-option input {
+            display: none;
+        }
+        .variant-option label {
+            display: flex;
+            flex-direction: column;
+            grid-gap: 5px;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .variant-option label:hover {
+            border-color: #5E6FB4;
+        }
+
+        .variant-option input:checked + label {
+            border: 1px solid #5E6FB4;
+            color: #5E6FB4;
+        }
+
+        .variant-option label img {
+            max-width: 50px; /* Adjust image size as needed */
+            max-height: 50px; /* Adjust image size as needed */
+            vertical-align: middle;
+            margin-right: 10px; /* Adjust spacing between image and text */
+        }
+    </style>
+@endsection
+
 @section('content')
     @if (!empty($carts) && count($carts) > 0)
         <section class="user_cart">
@@ -10,7 +57,6 @@
                         <!-- main -->
                         <main>
                             @foreach ($carts as $index => $cart)
-                                <!-- Items In cart -->
                                 <div class="items_in_cart">
                                     <div class="d-none" id="cart-id-{{ $index }}" data-id="{{ $cart->id }}"></div>
 
@@ -73,7 +119,10 @@
                                                 <span id="price-{{ $index }}"> {{ $cart->product->price }} </span> {{ $currency }}
                                             </div>
                                             <!-- ./total price -->
-                                            {{-- {{$product->variants}} --}}
+                                        </div>
+
+                                        <div class="select-option">
+                                            <h3>Please select one of the options <span>*</span></h3>
                                             <form id="variant-form">
                                                 @foreach ($cart->product?->variants as $index => $variant)
                                                     <div class="variant-option">
@@ -90,34 +139,9 @@
                                         </div>
                                     </div>
 
-                                        <!-- data -->
-
-                                        <!-- variants -->
-{{--                                        <div class="variants">--}}
-{{--                                            <label class="title" for="Variant">Choose Product</label>--}}
-{{--                                            <select id="variant-{{ $index }}">--}}
-{{--                                                @foreach ($cart->product->variants as $variant)--}}
-{{--                                                    <option value="{{ $variant->id }}"--}}
-{{--                                                        {{ $cart->variant_id == $variant->id ? 'selected' : 'null' }}>--}}
-{{--                                                            {{ __("Name") }} : ( {{ $variant->variantName }} ) #####  {{ __("Variant SKU") }} : <span > ( {{ $variant->sku }} ) </span>--}}
-{{--                                                    </option>--}}
-{{--                                                @endforeach--}}
-{{--                                            </select>--}}
-{{--                                            @foreach ($cart->product->variants as $variant)--}}
-{{--                                                --}}{{-- <div class="d-none" id="inventory-quantity-{{ $variant->id }}"--}}
-{{--                                                    data-quantity="{{ $variant->inventory->quantity }}"></div>--}}
-{{--                                                    --}}
-{{--                                                <div class="d-none" id="inventory-quantity-{{ $variant->id }}"--}}
-{{--                                                    data-quantity="{{ $variant->inventory_quantity }}"></div>--}}
-{{--                                            @endforeach--}}
-{{--                                        </div>--}}
-                                        <!-- variants -->
-
                                     </div>
                                     <!-- ./item -->
                             @endforeach
-                    </div>
-                    <!-- ./Items in Cart -->
                     </main>
                     <!-- .main -->
 
