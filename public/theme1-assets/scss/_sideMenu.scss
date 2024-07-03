@@ -1,16 +1,6 @@
 
 
-:dir(ltr) {
-    .offcanvas-header {
-        .btn-close {
-            margin: initial;
-            margin-left: auto;
-        }
-    }
-    .offcanvas-start {
-        transform: translateX(-100%);
-    }
-}
+
 .nav,
 .nav__sub {
   margin-top: 0;
@@ -62,4 +52,16 @@
     visibility: visible;
     transform: translateX(0%);
   }
+}
+
+:dir(ltr) {
+    .offcanvas-header {
+        .btn-close {
+            margin: initial;
+            margin-left: auto;
+        }
+    }
+    .offcanvas-start {
+        transform: translateX(-100%);
+    }
 }

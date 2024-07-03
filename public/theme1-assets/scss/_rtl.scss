@@ -30,6 +30,22 @@
         left: 15px;
     }
 
+    .nav__link {
+        i {
+            transform: rotateY(180deg);
+        }
+    }
+    .newsletter {
+        .input-group {
+            flex-direction: row-reverse;
+        }
+    }
+    .breadcrumbs li:before {
+        left: inherit;
+        right: -23px;
+        transform: rotateY(0deg);
+    }
+
 }
 
 @media (max-width: 575.98px) {
