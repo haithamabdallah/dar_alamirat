@@ -7,41 +7,42 @@
             display: none;
         }
 
-        .variant-option {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        #variant-form {
+            display: flex;
+            grid-gap: 10px;
+            margin-bottom: 40px;
         }
 
         .variant-option input {
             display: none;
         }
+        .variant-option label {
+            display: flex;
+            flex-direction: column;
+            grid-gap: 5px;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-        .variant-option:hover {
-            border-color: #888;
+        .variant-option label:hover {
+            border-color: #5E6FB4;
         }
 
         .variant-option input:checked + label {
-            border-color: #007BFF;
-            background-color: #007BFF;
-            color: white;
+            border: 1px solid #5E6FB4;
+            color: #5E6FB4;
         }
 
-        .product-price {
-            margin-top: 20px;
-        }
-
-        .before-dis {
-            text-decoration: line-through;
-            color: #999;
-        }
-
-        .after-dis {
-            font-weight: bold;
+        .variant-option label img {
+            max-width: 50px; /* Adjust image size as needed */
+            max-height: 50px; /* Adjust image size as needed */
+            vertical-align: middle;
+            margin-right: 10px; /* Adjust spacing between image and text */
         }
     </style>
 @endsection
@@ -122,6 +123,18 @@
                         </div>
                         <!-- ./TABS -->
 
+                        <form id="variant-form">
+                            @foreach ($product->variants as $index => $variant)
+                                <div class="variant-option">
+                                    <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
+                                    <label for="variant-{{ $variant->id }}">
+                                        <img src="{{ $variant->image_url }}" alt="{{ $variant->variantName }}"> <!-- Replace with your actual image URL -->
+                                        <span>{{ $variant->variantName }}</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </form>
+
                         <!-- SKU -->
                         <div class="wrap">
                             <div class="sku_number">
@@ -162,26 +175,6 @@
                                 </div>
                                 <!-- ./price -->
 
-                                {{--<div class="item-price">
-                                    @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
-                                        <h4 class="before-dis">
-                                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
-                                        </h4>
-                                        <h4 class="after-dis">
-                                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price_with_discount, 2) }}</strong>
-                                            @if( $product->discount_type == 'flat'  )
-                                                <span class="discount">- {{ $product->discount_value }} {{ $currency }}</span>
-                                            @elseif($product->discount_type == 'percent')
-                                                <span class="discount">- {{ $product->discount_value }}%</span>
-                                            @endif
-                                        </h4>
-                                    @else
-                                        <h4 class="after-dis">
-                                            <strong><span>{{ $currency }}</span> {{ number_format($product->variants->first()->price, 2) }}</strong>
-                                        </h4>
-                                    @endif
-                                </div>--}}
-
                                 <!-- add to cart button -->
                                 <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
                                     <span class="button-title">{{ __("Add to Cart") }}</span>
@@ -190,22 +183,17 @@
                                 <!-- ./add to cart button -->
                             </div>
                             <div class="small_product">
-                                <h1>hello</h1>
+                                <div class="p-img">
+                                    <img src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
+                                </div>
+                                <div class="p-info">
+                                    <span class="category">Category Name</span>
+                                    <h3>{{ $product->title }}</h3>
+                                </div>
                             </div>
                         </div>
                         <!-- Sticky Card -->
 
-                        <form id="variant-form">
-                            @foreach ($product->variants as $index => $variant)
-                                <div class="variant-option">
-                                    <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
-                                    <label for="variant-{{ $variant->id }}">
-                                        <img src="{{ $variant->image_url }}" alt="{{ $variant->variantName }}"> <!-- Replace with your actual image URL -->
-                                        <span>{{ $variant->variantName }}</span>
-                                    </label>
-                                </div>
-                            @endforeach
-                        </form>
 
 
                     <!-- alert -->

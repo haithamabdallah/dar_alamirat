@@ -32,6 +32,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const basePriceElement = document.querySelector('.before-dis span') || {innerText: "0"};
+            //const basePriceElement = document.querySelector('.before-dis span#base-price');
             const totalPriceElement = document.getElementById('total-price');
             const quantityInput = document.getElementById('quantity');
             const increaseQuantityButton = document.getElementById('increase-quantity');
