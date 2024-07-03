@@ -74,11 +74,14 @@ class ProductController extends Controller
             }
 
             DB::commit();
+        
+            return redirect()->route('product.index')->with('success', 'Product created successfully!');
+
         } catch (\Exception $e) {
             DB::rollback();
+            dd($e->getMessage());
         }
 
-        return redirect()->route('product.index')->with('success', 'Product created successfully!');
     }
 
     /**
@@ -121,11 +124,12 @@ class ProductController extends Controller
             }
 
             DB::commit();
+
+            return redirect()->route('product.index')->with('success', 'Product updated successfully');
         } catch (\Exception $e) {
             DB::rollback();
+            dd($e->getMessage());
         }
-
-        return redirect()->route('product.index')->with('success', 'Product updated successfully');
     }
 
     private function generateSKU($variantData, $productId)

@@ -30,6 +30,8 @@ class VariantImage extends Model
     // {
     //     //return VariantImageFactory::new();
     // }
+    
+    # overrides 
 
     public function delete()
     {

@@ -35,6 +35,9 @@ class ProductMedia extends Model
         return $this->belongsTo(Product::class);
     }
 
+
+    # Overrides 
+
     public function delete()
     {
         if ($this->file && Storage::exists($this->file)) 

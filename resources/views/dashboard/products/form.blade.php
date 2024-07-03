@@ -271,7 +271,7 @@
                             {{-- <div id="dropzone">
                                 <input type="file" name="images[]" id="dropzon" multiple>
                             </div> --}}
-                            <div id="dropzone">
+                            {{-- <div id="dropzone">
                                 <div action="/upload" class="dropzone needsclick" id="my-awesome-upload">
                                     <div class="dz-message needsclick">
                                         Drop files <b>here</b> or <b>click</b> to upload.<br />
@@ -281,7 +281,7 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="card border-0 mb-4">
@@ -422,6 +422,42 @@
                             </div>
                         </div>
                     </div>
+                    @if ( $product->media->count() > 0 )
+                        <div class="card border-0 mb-4  d-flex align-items-center p-3" style="flex-direction: row; flex-wrap:wrap; gap:2rem">
+                            <div class="">Pruduct Images </div>
+                            @foreach ($product->media as $image)
+                            <div class="m-5" style="position: relative ">
+                                    <img src="{{ $image->file }}" alt="product image" width="100px" height="100px">
+                                    <span class="bg-danger p-1 rounded" style="position: absolute; top: 10px; right: 10px;"> 
+                                        {{-- <form action="{{ route('product-images.delete', $image->id) }}" method="post" style="display: none;" id="product-delete-form-{{ $image->id }}">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                        <span onclick="if(confirm('Are you sure?')) document.getElementById('product-delete-form-{{ $image->id }}').submit()">X</span> --}}
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                    @foreach ($product->variants as $variant)
+                        @if ( $variant->images->count() > 0 )
+                            <div class="card border-0 mb-4 d-flex align-items-center  p-3" style="flex-direction: row; flex-wrap:wrap; gap:2rem">
+                                <div class="">Variant Name : {{ $variant->variantName }}</div>
+                                @foreach ($variant->images as $image)
+                                    <div class="m-5" style="position: relative ">
+                                        <img src="{{ $image->image }}" alt="variant image" width="100px" height="100px">
+                                        <span class="bg-danger p-1 rounded" style="position: absolute; top: 10px; right: 10px;"> 
+                                            {{-- <form action="{{ route('variant-images.delete', $image->id) }}" method="post" style="display: none;" id="variant-delete-form-{{ $image->id }}">
+                                                @csrf
+                                                @method('Delete')
+                                            </form>
+                                            <span onclick="if(confirm('Are you sure?')) document.getElementById('variant-delete-form-{{ $image->id }}').submit()">X</span> --}}
+                                        </span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
 
                 <!--begin::Actions-->

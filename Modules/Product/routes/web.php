@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\ImageController;
 use Modules\Product\Http\Controllers\ProductController;
 
 /*
@@ -15,6 +16,10 @@ use Modules\Product\Http\Controllers\ProductController;
 */
 
 Route::group(['middleware' => 'admin'], function () {
+    
+    Route::delete('/product-images/{productMedia}' , [ImageController::class , 'deleteProductImage'])->name('product-images.delete');
+    Route::delete('/variant-images/{variantImage}' , [ImageController::class , 'deleteVariantImage'])->name('variant-images.delete');
+    
     Route::resource('product', ProductController::class)->names('product');
     Route::post('toggleChoice', [ProductController::class , 'toggleChoice'])->name('product.toggleChoice');
 });
