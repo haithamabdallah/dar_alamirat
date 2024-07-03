@@ -91,6 +91,22 @@
         .sticky-top {
             top: 120px;
         }
+        .has-discount {
+            position: absolute;
+            top: .75rem;
+            left: .75rem;
+            z-index: 1;
+            border-radius: 6px;
+            padding: 2px 10px;
+            --tw-bg-opacity: 1;
+            background-color: rgba(239, 68, 68, 1);
+            --tw-text-opacity: 1;
+            color: rgba(255, 255, 255, var(--tw-text-opacity));
+            font-size: 12px;
+            color: $white;
+            line-height: 26px;
+            font-weight: 400;
+        }
     }
 
     .product_description {

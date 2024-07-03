@@ -30,30 +30,36 @@
         });
     </script>
     <script>
-
         document.addEventListener('DOMContentLoaded', function() {
-            const basePriceElement = document.getElementById('base-price');
+            const basePriceElement = document.querySelector('.before-dis span') || {innerText: "0"};
             const totalPriceElement = document.getElementById('total-price');
             const quantityInput = document.getElementById('quantity');
             const increaseQuantityButton = document.getElementById('increase-quantity');
             const decreaseQuantityButton = document.getElementById('decrease-quantity');
-            const variantSelect = document.getElementById('variant-select');
+            const variantRadios = document.querySelectorAll('input[name="variant"]');
 
-            const basePrice = parseInt(basePriceElement.innerText);
-            const variantPrices = {!! $product->variant_prices !!};
+            const variantPrices = {!! ($product->variant_prices) !!};
 
+            function getSelectedVariantId() {
+                const selectedRadio = document.querySelector('input[name="variant"]:checked');
+                return parseInt(selectedRadio.value);
+            }
 
             function calculateVariantPrice() {
-                const variantId = parseInt(variantSelect.value);
-                const variantPrice = variantPrices[variantId]['price_with_discount'];
+                const variantId = getSelectedVariantId();
+                const variantPrice = variantPrices[variantId]?.price_with_discount;
                 return variantPrice;
             }
 
             function calculateTotalPrice() {
-                const variantPrice =  calculateVariantPrice();
+                const variantPrice = calculateVariantPrice();
+                if (variantPrice === undefined || isNaN(variantPrice)) {
+                    console.error("Variant price is not defined or is NaN.");
+                    return;
+                }
                 const quantity = parseInt(quantityInput.value);
-                const totalPrice = (variantPrice * quantity) ;
-                totalPriceElement.innerText = totalPrice.toFixed(2);
+                const totalPrice = (variantPrice * quantity);
+                totalPriceElement.innerText = `${totalPrice.toFixed(2)} {{ $currency }}`;
             }
 
             increaseQuantityButton.addEventListener('click', function() {
@@ -70,14 +76,29 @@
                 }
             });
 
-            variantSelect.addEventListener('change', function() {
-                const variantPrice =  calculateVariantPrice();
-                basePriceElement.innerText = variantPrice.toFixed(2);
-                calculateTotalPrice();
+            variantRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    calculateTotalPrice();
+                    showVariantInfo();
+                });
             });
-            
+
+            function showVariantInfo() {
+                const pTags = document.querySelectorAll('.code_number');
+                pTags.forEach(p => p.classList.add('hidden'));
+
+                const selectedValue = getSelectedVariantId();
+
+                if (selectedValue) {
+                    const selectedP = document.querySelector(`.code_number[data-variant-id='${selectedValue}']`);
+                    if (selectedP) {
+                        selectedP.classList.remove('hidden');
+                    }
+                }
+            }
+
+            // Initial call to set prices and show the correct p tag
             calculateTotalPrice();
+            showVariantInfo();
         });
-
-
     </script>

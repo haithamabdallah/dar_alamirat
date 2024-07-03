@@ -3,11 +3,45 @@
 @section('customcss')
     <link rel="stylesheet" href="{{asset('theme1-assets/css/magnific-popup.css')}}">
     <style>
-        .price , #base-price , #total-price {
-            font-size: 24px !important;
+        .hidden {
+            display: none;
         }
-        .price  {
-            color: green;
+
+        .variant-option {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .variant-option input {
+            display: none;
+        }
+
+        .variant-option:hover {
+            border-color: #888;
+        }
+
+        .variant-option input:checked + label {
+            border-color: #007BFF;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .product-price {
+            margin-top: 20px;
+        }
+
+        .before-dis {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .after-dis {
+            font-weight: bold;
         }
     </style>
 @endsection
@@ -88,6 +122,20 @@
                         </div>
                         <!-- ./TABS -->
 
+                        <!-- SKU -->
+                        <div class="wrap">
+                            <div class="sku_number">
+                                <div class="title">
+                                    <i class="sicon-barcode text-primary text-base"></i>
+                                    <p>Sku</p>
+                                </div>
+                                @foreach ($product->variants as $variant)
+                                    <p class="code_number hidden" data-variant-id="{{ $variant->id }}">{{ $variant->sku }}</p>
+                                @endforeach
+                            </div>
+                        </div>
+                        <!-- SKU -->
+
                         <!-- Sticky Card -->
                         <div class="sticky_card">
                             <div class="product_Properties">
@@ -103,17 +151,14 @@
                                 <div class="product-price">
                                     @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
                                         <div class="before-dis">
-                                            <span>{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
-                                            {{-- <p class="vat">VAT included</p>     --}}
+                                            <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                         </div>
-
                                         <span class="after-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                     @else
                                         <div class="after-dis">
-                                            <span > {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                            <span id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         </div>
                                     @endif
-
                                 </div>
                                 <!-- ./price -->
 
@@ -150,73 +195,22 @@
                         </div>
                         <!-- Sticky Card -->
 
-                        <!-- row -->
-                        @foreach ($product->variants as $variant)
-                        <div class="wrap">
-                            <div class="sku_number">
-                                <div class="title">
-                                    <i class="sicon-barcode text-primary text-base"></i>
-                                    <p>Sku</p>
+                        <form id="variant-form">
+                            @foreach ($product->variants as $index => $variant)
+                                <div class="variant-option">
+                                    <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
+                                    <label for="variant-{{ $variant->id }}">
+                                        <img src="{{ $variant->image_url }}" alt="{{ $variant->variantName }}"> <!-- Replace with your actual image URL -->
+                                        <span>{{ $variant->variantName }}</span>
+                                    </label>
                                 </div>
-                                <p class="code_number">{{ $variant->sku }}</p>
-                            </div>
-                        </div>
-                        <!-- ./row -->
-                    @endforeach
-
-
-
-
-
-
-                    <div class="variants">
-                        <h4>{{ __("Variants") }}</h4>
-                        <select id="variant-select" class="form-control">
-                            @foreach ($product->variants as $variant)
-                                <option value="{{$variant->id}}">  {{ $variant->variantName }} </option>
                             @endforeach
-                        </select>
-                    </div>
+                        </form>
 
-
-
-
-                    <!-- item -->
-                    <div class="price">Price: <span id="base-price"> {{ $product->variants->first()->price_with_discount }}</span> {{ $currency }} </div>
-
-
-                    <div>
-
-                    </div>
-                    <!-- ./item -->
 
                     <!-- alert -->
                     <div class="alert alert-danger" role="alert">{{ __("This item cannot be returned or replaced") }}</div>
                     <!-- ./alert -->
-                        <!-- button cart -->
-
-                        {{--
-                        <button class="tocart add-to-cart button--submit" data-title="Add to Cart" onclick="addToCart(this)" data-cart-url="{{route('cart.add', $product->id)}}">
-                            <span class="button-title"></span>
-                            <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
-
-                            <span class="button-icon icon-wait" data-icon="tocart" style="display: none;">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <path
-                                        d="M19,8L15,12H18A6,6 0 0,1 12,18C11,18 10.03,17.75 9.2,17.3L7.74,18.76C8.97,19.54 10.43,20 12,20A8,8 0 0,0 20,12H23M6,12A6,6 0 0,1 12,6C13,6 13.97,6.25 14.8,6.7L16.26,5.24C15.03,4.46 13.57,4 12,4A8,8 0 0,0 4,12H1L5,16L9,12">
-                                    </path>
-                                </svg>
-                            </span>
-
-                            <span class="button-icon icon-success" style="display: none;" data-icon="tocart">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path>
-                                </svg>
-                            </span>
-
-                        </button>
-                        --}}
-                        <!-- ./button cart -->
 
                     </main>
                     <!-- ./product Details -->
@@ -224,6 +218,13 @@
                     <!-- product Images -->
                     <aside>
                         <div class="sticky-top">
+
+                            @if( $product->discount_type == 'flat'  )
+                                <span class="has-discount">- {{ $product->discount_value }} {{ $currency }}</span>
+                            @elseif($product->discount_type == 'percent')
+                                <span class="has-discount">- {{ $product->discount_value }}%</span>
+                            @endif
+
                             <div class="p-slider">
                                 <div class="swiper p-full-image zoom-gallery">
                                     <div class="swiper-wrapper">
