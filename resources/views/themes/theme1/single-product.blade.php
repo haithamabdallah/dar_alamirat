@@ -166,10 +166,10 @@
                                         <div class="before-dis">
                                             <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                         </div>
-                                        <span class="after-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                     @else
                                         <div class="after-dis">
-                                            <span id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                            <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         </div>
                                     @endif
                                 </div>
@@ -184,10 +184,10 @@
                             </div>
                             <div class="small_product">
                                 <div class="p-img">
-                                    <img src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
+                                    <img class="object-cover" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                 </div>
                                 <div class="p-info">
-                                    <span class="category">Category Name</span>
+                                    <a href="#" class="category">Category Name</a>
                                     <h3>{{ $product->title }}</h3>
                                 </div>
                             </div>

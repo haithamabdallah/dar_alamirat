@@ -135,7 +135,15 @@
                 text-decoration: line-through;
             }
         }
-        #total-price {
+        .after-dis {
+            .with-dis {
+                font-size: 20px;
+                line-height: 28px;
+                font-weight: 700;
+                color: #231f1e;
+            }
+        }
+        .no-dis {
             color: #f87171;
             font-size: 20px;
             line-height: 28px;
@@ -374,6 +382,10 @@
         .p-img {
             width: 60px;
             height: 60px;
+            img {
+                width: 60px;
+                height: 60px;
+            }
         }
         .p-info {
             .category {
@@ -381,6 +393,9 @@
                 font-weight: 400;
                 line-height: 20px;
                 color: #6b7280;
+                &:hover {
+                    text-decoration: underline;
+                }
             }
             h3 {
                 font-size: 20px;
