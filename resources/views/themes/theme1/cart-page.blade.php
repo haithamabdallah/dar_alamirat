@@ -49,10 +49,9 @@
                                                 </a>
 
                                                 <h2>
-                                                    <a
-                                                        href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
-                                                    <div class="variant-price">{{ __("Variant Price") }}:  <span
-                                                            id="variant-price-{{ $index }}">{{ $cart->product->price }}</span>
+                                                    <a href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
+                                                    <div class="variant-price">
+                                                        <span id="variant-price-{{ $index }}">{{ $cart->product->price }}</span>
                                                         {{ $currency }}
                                                     </div>
                                                 </h2>
@@ -62,7 +61,7 @@
                                             <!-- quantity -->
                                             <div class="quantity-control">
                                                 <button id="decrement-{{ $index }}">-</button>
-                                                <input type="number" id="quantity-{{ $index }}"
+                                                <input class="quantity" type="number" id="quantity-{{ $index }}"
                                                     value="{{ intval($cart->quantity) }}" min="1" readonly>
 
                                                 <button id="increment-{{ $index }}">+</button>
@@ -71,8 +70,7 @@
 
                                             <!-- total price -->
                                             <div class="price">{{ __("Total Price") }}:
-                                                <span id="price-{{ $index }}"> {{ $cart->product->price }}
-                                                </span>
+                                                <span id="price-{{ $index }}"> {{ $cart->product->price }} </span> {{ $currency }}
                                             </div>
                                             <!-- ./total price -->
                                         </div>
@@ -80,24 +78,24 @@
                                         <!-- data -->
 
                                         <!-- variants -->
-                                        <div class="variants">
-                                            <label class="title" for="Variant">Choose Product</label>
-                                            <select id="variant-{{ $index }}">
-                                                @foreach ($cart->product->variants as $variant)
-                                                    <option value="{{ $variant->id }}"
-                                                        {{ $cart->variant_id == $variant->id ? 'selected' : 'null' }}>
-                                                            {{ __("Name") }} : ( {{ $variant->variantName }} ) #####  {{ __("Variant SKU") }} : <span > ( {{ $variant->sku }} ) </span>
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @foreach ($cart->product->variants as $variant)
-                                                {{-- <div class="d-none" id="inventory-quantity-{{ $variant->id }}"
-                                                    data-quantity="{{ $variant->inventory->quantity }}"></div>
-                                                    --}}
-                                                <div class="d-none" id="inventory-quantity-{{ $variant->id }}"
-                                                    data-quantity="{{ $variant->inventory_quantity }}"></div>
-                                            @endforeach
-                                        </div>
+{{--                                        <div class="variants">--}}
+{{--                                            <label class="title" for="Variant">Choose Product</label>--}}
+{{--                                            <select id="variant-{{ $index }}">--}}
+{{--                                                @foreach ($cart->product->variants as $variant)--}}
+{{--                                                    <option value="{{ $variant->id }}"--}}
+{{--                                                        {{ $cart->variant_id == $variant->id ? 'selected' : 'null' }}>--}}
+{{--                                                            {{ __("Name") }} : ( {{ $variant->variantName }} ) #####  {{ __("Variant SKU") }} : <span > ( {{ $variant->sku }} ) </span>--}}
+{{--                                                    </option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
+{{--                                            @foreach ($cart->product->variants as $variant)--}}
+{{--                                                --}}{{-- <div class="d-none" id="inventory-quantity-{{ $variant->id }}"--}}
+{{--                                                    data-quantity="{{ $variant->inventory->quantity }}"></div>--}}
+{{--                                                    --}}
+{{--                                                <div class="d-none" id="inventory-quantity-{{ $variant->id }}"--}}
+{{--                                                    data-quantity="{{ $variant->inventory_quantity }}"></div>--}}
+{{--                                            @endforeach--}}
+{{--                                        </div>--}}
                                         <!-- variants -->
 
                                     </div>
@@ -139,7 +137,7 @@
 
                                 <p id="final-total"><b>{{ __("Final Total") }}:</b><span id="final-total-price" ></span></p>
 
-                                <div class="coupons">
+                                {{--<div class="coupons">
                                     <label for="apply_coupons">{{ __("Have Coupon") }} {{ __("?") }}</label>
                                     <div class="apply">
                                         <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
@@ -148,15 +146,15 @@
                                 </div>
 
                                 <p id="coupon-details-div" style="display: none"> <span class="text-success"> {{ __("Successful Coupon") }} </span> <br> <span id="coupon-details" > </span> </p>
-                                <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>
+                                <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>--}}
 
 
                                 {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}
 
-                                <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
+                                {{--<form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
                                     @csrf
                                     <input type="hidden" name="final_total" id="final-total-input" value="">
-                                </form>
+                                </form>--}}
                                 <button class="place_order" id="final-total-btn">{{ __("Submit Order") }}</button>
                             </div>
                             <!-- summary -->
