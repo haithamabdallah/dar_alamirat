@@ -128,7 +128,7 @@
                                 <div class="variant-option">
                                     <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
                                     <label for="variant-{{ $variant->id }}">
-                                        <img src="{{ $variant->image_url }}" alt="{{ $variant->variantName }}"> <!-- Replace with your actual image URL -->
+                                        {{--<img src="{{ $variant->image_url }}" alt="{{ $variant->variantName }}">--}} <!-- Replace with your actual image URL -->
                                         <span>{{ $variant->variantName }}</span>
                                     </label>
                                 </div>
@@ -182,6 +182,7 @@
                                 </button>
                                 <!-- ./add to cart button -->
                             </div>
+
                             <div class="small_product">
                                 <div class="p-img">
                                     <img class="object-cover" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
@@ -193,8 +194,6 @@
                             </div>
                         </div>
                         <!-- Sticky Card -->
-
-
 
                     <!-- alert -->
                     <div class="alert alert-danger" role="alert">{{ __("This item cannot be returned or replaced") }}</div>
