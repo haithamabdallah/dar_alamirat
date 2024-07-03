@@ -4,8 +4,8 @@
     var carts = {};
 
     function getPricePerUnit(index) {
-        let productId = $(`#product-id-${index}`).data('id');
-        return prices[productId]['priceWithDiscount'];
+        let variantId = $(`input[name=variant].variant-${index}:checked`).val();
+        return parseFloat(prices[variantId]['priceWithDiscount']);
     }
 
     function updateTotalPrice(index) {
@@ -29,6 +29,12 @@
         $(`#increment-${index}`).on('click', function() {
             let currentQuantity = parseInt($(`#quantity-${index}`).val());
             $(`#quantity-${index}`).val(currentQuantity + 1);
+            updateTotalPrice(index);
+            updateOrderSummary(index);
+            checkInventoryQuantity(index);
+        });
+
+        $(`input[name=variant].variant-${index}`).on('click', function() {
             updateTotalPrice(index);
             updateOrderSummary(index);
             checkInventoryQuantity(index);
@@ -82,6 +88,7 @@
         }
 
         carts[cartId] = {
+            variant_id :  $('input[type=radio][name="variant"]:checked').val(),
             product_id: $('#product-id-' + index).data('id'),
             quantity: parseInt(quantity),
         };

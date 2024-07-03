@@ -228,6 +228,19 @@
                             <div class="p-slider">
                                 <div class="swiper p-full-image zoom-gallery">
                                     <div class="swiper-wrapper">
+                                        @foreach ($product->variants as $variant)
+                                            @if (count($variant->images) > 0)
+                                                @foreach ($variant->images as $index => $image)
+                                                    <li class="swiper-slide" {{-- {!! $index != 0  ? 'style="display:none;"' :  '' !!} --}} data-variant-id="{{ $variant->id }}" >
+                                                        <a href="{{ $image->image }}"
+                                                            title="{{ $product->slug . $image->id }}">
+                                                            <img src="{{ $image->image }}"
+                                                                alt="{{ $product->slug . $image->id }}">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
                                         <li class="swiper-slide">
                                             <a href="{{ $product->thumbnail }}" title="{{ $product->slug }}">
                                                 <img src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
@@ -244,25 +257,22 @@
                                                 </li>
                                             @endforeach
                                         @endif
-                                        @foreach ($product->variants as $variant)
-                                            @if (count($variant->images) > 0)
-                                                @foreach ($variant->images as $index => $image)
-                                                    <li class="swiper-slide" {{-- {!! $index != 0  ? 'style="display:none;"' :  '' !!} --}} data-variant-id="{{ $variant->id }}" >
-                                                        <a href="{{ $image->image }}"
-                                                            title="{{ $product->slug . $image->id }}">
-                                                            <img src="{{ $image->image }}"
-                                                                alt="{{ $product->slug . $image->id }}">
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            @endif
-                                        @endforeach
+
                                     </div>
                                     <div class="p-prev"><i class="fa-solid fa-chevron-left"></i></div>
                                     <div class="p-next"><i class="fa-solid fa-chevron-right"></i></div>
                                 </div>
                                 <div thumbsSlider="" class="swiper p-thumb">
                                     <div class="swiper-wrapper">
+                                        @foreach ($product->variants as $variant)
+                                            @if (count($variant->images) > 0)
+                                                @foreach ($variant->images as $index => $image)
+                                                    <li class="swiper-slide" {!! $index != 0  ? 'style="display:none;"' :  '' !!} data-variant-id="{{ $variant->id }}" >
+                                                        <img src="{{ $image->image }}" />
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
                                         <li class="swiper-slide">
                                             <img src="{{ $product->thumbnail }}" />
                                         </li>
@@ -273,15 +283,7 @@
                                                 </li>
                                             @endforeach
                                         @endif
-                                        @foreach ($product->variants as $variant)
-                                            @if (count($variant->images) > 0)
-                                                @foreach ($variant->images as $index => $image)
-                                                    <li class="swiper-slide" {!! $index != 0  ? 'style="display:none;"' :  '' !!} data-variant-id="{{ $variant->id }}" >
-                                                        <img src="{{ $image->image }}" />
-                                                    </li>
-                                                @endforeach
-                                            @endif
-                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>

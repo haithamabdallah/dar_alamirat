@@ -129,7 +129,7 @@
         // Set up the Axios request headers, including the CSRF token
         const data =
         {
-            variantId : $('#variant-select').val() ?? variantId
+            variantId : $('#variant-select').val() ?? $('input[type=radio][name="variant"]:checked').val() ?? variantId
             , quantity : $('#quantity').val() ?? 1
             , _token : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         };

@@ -124,9 +124,12 @@
                                         <div class="select-option">
                                             <h3>Please select one of the options <span>*</span></h3>
                                             <form id="variant-form">
-                                                @foreach ($cart->product?->variants as $index => $variant)
+                                                @foreach ($cart->product?->variants as  $variant)
                                                     <div class="variant-option">
-                                                        <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
+                                                        <input type="radio" id="variant-{{ $variant->id }}" class="variant-{{ $index }}" name="variant" value="{{ $variant->id }}" 
+                                                        @if ($cart->variant_id && $cart->variant_id === $variant->id) checked 
+                                                        @endif
+                                                        >
                                                         <label for="variant-{{ $variant->id }}">
                                                             @if ($variant->images->count() > 0)
                                                                 <img src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
@@ -190,10 +193,10 @@
 
                                 {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}
 
-                                {{--<form action="{{ route('order.checkout') }}" method="POST" id="final-total-form">
+                                <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form" style="display: none">
                                     @csrf
                                     <input type="hidden" name="final_total" id="final-total-input" value="">
-                                </form>--}}
+                                </form>
                                 <button class="place_order" id="final-total-btn">{{ __("Submit Order") }}</button>
                             </div>
                             <!-- summary -->
