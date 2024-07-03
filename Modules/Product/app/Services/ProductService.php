@@ -47,7 +47,7 @@ class ProductService {
                     'sku' => $variantData['sku']
                 ]);
 
-                if ($variantData['images'] != false && count($variantData['images']) > 0) {
+                if ( isset($variantData['images']) && $variantData['images'] != false && count($variantData['images']) > 0) {
                     foreach ($variantData['images'] as $index => $image) 
                     {
                         $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
@@ -153,43 +153,45 @@ class ProductService {
                 }
             }
         }
-        foreach ($request->variants as $index => $variantData) {
-            // Check if the variant is enabled before updating
-            // if (isset($variantData['enabled']) && $variantData['enabled'] === 'on') {
-                // Get the variant by its ID
-                $variant = Variant::findOrFail($variantData['id']);
+        if ( $request->has('variants') && $request->variants != false && count($request->variants) > 0) {
+            foreach ($request->variants as $index => $variantData) {
+                // Check if the variant is enabled before updating
+                // if (isset($variantData['enabled']) && $variantData['enabled'] === 'on') {
+                    // Get the variant by its ID
+                    $variant = Variant::findOrFail($variantData['id']);
 
-                // Update the variant with the new price
-                $variant->update([
-                    'price' => $variantData['price'],
-                    'sku' => $variantData['sku']
-                ]);
-                if ( isset($variantData['images']) && $variantData['images'] != false && count($variantData['images']) > 0) {
-                    foreach ($variantData['images'] as $index => $image) 
-                    {
-                        $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
-                        $variant->images()->create(['image' => $imagePath]);
+                    // Update the variant with the new price
+                    $variant->update([
+                        'price' => $variantData['price'],
+                        'sku' => $variantData['sku']
+                    ]);
+                    if ( isset($variantData['images']) && $variantData['images'] != false && count($variantData['images']) > 0) {
+                        foreach ($variantData['images'] as $index => $image) 
+                        {
+                            $imagePath = $image->store("products/{$product->id}/variants/{$variant->id}/images", 'public');
+                            $variant->images()->create(['image' => $imagePath]);
+                        }
+                    }
+
+                    // Get the associated inventory for the variant
+                    $inventory = Inventory::where('variant_id', $variant->id)->first();
+
+                    if ($inventory) {
+                        // Update the quantity in the inventory
+                        $inventory->update([
+                            'quantity' => $variantData['quantity']
+                        ]);
+                    } else {
+                        // If there is no inventory, create a new one
+                        Inventory::create([
+                            'product_id' => $product->id,
+                            'variant_id' => $variant->id,
+                            'quantity' => $variantData['quantity']
+                        ]);
+                    // }
                     }
                 }
-
-                // Get the associated inventory for the variant
-                $inventory = Inventory::where('variant_id', $variant->id)->first();
-
-                if ($inventory) {
-                    // Update the quantity in the inventory
-                    $inventory->update([
-                        'quantity' => $variantData['quantity']
-                    ]);
-                } else {
-                    // If there is no inventory, create a new one
-                    Inventory::create([
-                        'product_id' => $product->id,
-                        'variant_id' => $variant->id,
-                        'quantity' => $variantData['quantity']
-                    ]);
-                // }
             }
-        }
 
     }
 

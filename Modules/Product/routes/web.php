@@ -17,8 +17,12 @@ use Modules\Product\Http\Controllers\ProductController;
 
 Route::group(['middleware' => 'admin'], function () {
     
-    Route::delete('/product-images/{productMedia}' , [ImageController::class , 'deleteProductImage'])->name('product-images.delete');
-    Route::delete('/variant-images/{variantImage}' , [ImageController::class , 'deleteVariantImage'])->name('variant-images.delete');
+    Route::get('/main-images/{productMedia}' , [ImageController::class , 'deleteProductImage'])->name('product-images.delete');
+    Route::get('/variant-images/{variantImage}' , [ImageController::class , 'deleteVariantImage'])->name('variant-images.delete');
+
+});
+
+Route::group(['middleware' => 'admin'], function () {
     
     Route::resource('product', ProductController::class)->names('product');
     Route::post('toggleChoice', [ProductController::class , 'toggleChoice'])->name('product.toggleChoice');
