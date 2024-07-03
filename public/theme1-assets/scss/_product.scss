@@ -408,6 +408,28 @@
     }
 }
 
+:dir(rtl) {
+    .sticky_card {
+        .small_product {
+            margin-right: auto;
+            margin-left: 0;
+        }
+    }
+    .product_page .quantity-controls button:first-child {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .product_page .quantity-controls button:last-child {
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+
 // `sm` applies to x-small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
     .product_page {
