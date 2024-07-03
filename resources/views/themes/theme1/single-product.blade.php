@@ -128,7 +128,7 @@
                                         </form>
                                     </div>
                                     <div class="tab-pane" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{!! $product->description !!}</div>
-                                    <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0"> {{ $product->instructions }}</div>
+                                    <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0"> {!! $product->instructions !!}</div>
                                     {{--
                                 <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
                                 </div>
