@@ -23,8 +23,12 @@ class CouponController extends Controller
 
             if ($coupon) {
 
-                if ($coupon->user_usage_count > $coupon->limit_per_user || $coupon->usage_count > $coupon->usage_limit) {
-                    return response()->json(['status' => 'error', 'msg' => 'Limit reached.']);
+                if ($coupon->user_usage_count > $coupon->limit_per_user  ) {
+                    return response()->json(['status' => 'error', 'msg' => "Limit per user is $coupon->limit_per_user & it's reached."]);
+                } else if ( $coupon->usage_count > $coupon->usage_limit ) {
+                    return response()->json(['status' => 'error', 'msg' => 'General usage limit is reached.']);
+                } else if ( $coupon->status != true ) {
+                    return response()->json(['status' => 'error', 'msg' => 'Coupon is not active now.']);
                 }
 
                 $todayDate = date('Y-m-d');

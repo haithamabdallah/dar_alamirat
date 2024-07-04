@@ -179,7 +179,7 @@
 
                                 <p id="final-total"><b>{{ __("Final Total") }}:</b><span id="final-total-price" ></span></p>
 
-                                {{--<div class="coupons">
+                                <div class="coupons">
                                     <label for="apply_coupons">{{ __("Have Coupon") }} {{ __("?") }}</label>
                                     <div class="apply">
                                         <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
@@ -188,7 +188,7 @@
                                 </div>
 
                                 <p id="coupon-details-div" style="display: none"> <span class="text-success"> {{ __("Successful Coupon") }} </span> <br> <span id="coupon-details" > </span> </p>
-                                <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>--}}
+                                <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>
 
 
                                 {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}

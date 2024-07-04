@@ -89,7 +89,7 @@ class OrderService
             $order->coupon_id = $validatedData['coupon_id'];
             $order->save();
 
-            $carts = auth()->user()->carts->load('product');
+            $carts = auth()->user()->carts->loadMissing('product');
 
             // $sumOfDiscountedProducts = 0;
             // $sumOfUndiscountedProducts = 0;
@@ -115,32 +115,55 @@ class OrderService
                 $orderProduct->save();
             }
 
-            $finalPrice = 0;
+            // $finalPrice = 0;
+
+            $sumOfProductWithoutDiscount = 0;
+            $sumOfProductWithDiscount = 0;
 
             foreach ($carts as $cart) {
-                $finalPrice += $cart->price * $cart->quantity;
+                if ( isset($cart->product->discount_value) && $cart->product->discount_value > 0) {
+                    $sumOfProductWithDiscount += $cart->price * $cart->quantity;
+                } else {
+                    $sumOfProductWithoutDiscount += $cart->price * $cart->quantity;
+                }
             }
 
-            $finalPrice = round($finalPrice, 2);
+            $sumOfProductWithDiscount = round($sumOfProductWithDiscount, 2);
+            $sumOfProductWithoutDiscount = round($sumOfProductWithoutDiscount, 2);
+            $purchasePrice = $sumOfProductWithDiscount + $sumOfProductWithoutDiscount;
+            
             if ($order->coupon_id != null) {
+
                 $coupon = Coupon::where('id', $order->coupon_id)->firstOrFail();
 
-                if ($coupon->discount_type == 'percent') {
-                    $discount_value = round( $finalPrice * $coupon->discount_value / 100 , 2) ; 
-                } else {
-                    $discount_value = $coupon->discount_value;
+                if ( 
+                    $coupon->usage_count <= $coupon->usage_limit 
+                && $coupon->status == true 
+                && $coupon->user_usage_count <= $coupon->limit_per_user 
+                && $coupon->start_date <= date('Y-m-d') 
+                && $coupon->end_date >= date('Y-m-d') 
+                && $coupon->min_purchase_limit <= $purchasePrice
+                ) {
+                    if ($coupon->discount_type == 'percent') {
+                        $discount_value = round( $sumOfProductWithoutDiscount * $coupon->discount_value / 100 , 2) ; 
+                    } else {
+                        $discount_value = $coupon->discount_value;
+                    }
+                    $sumOfProductWithoutDiscount = $sumOfProductWithoutDiscount - $discount_value ;
+                    $sumOfProductWithoutDiscount = round($sumOfProductWithoutDiscount, 2);
+
+                    $coupon->users()->attach($order->user_id);
+
+                    $coupon->usage_count += 1;
+                    $coupon->save();
                 }
-                $finalPrice = $finalPrice - $discount_value ;
-                $finalPrice = round($finalPrice, 2);
-
-                $coupon->users()->attach($order->user_id);
-
-                $coupon->usage_count += 1;
-                $coupon->save();
             }
 
             $shipping = Shipping::where('id', $order->shipping_id)->first();
             $vat = Setting::where('type', 'general')?->first()?->value['vat'] ?? 0;
+
+            $finalPrice = $sumOfProductWithoutDiscount + $sumOfProductWithDiscount;
+            $finalPrice = round($finalPrice, 2);
 
             $finalPrice = $finalPrice + ($finalPrice * $vat / 100);
             $finalPrice = round($finalPrice, 2);
@@ -150,8 +173,6 @@ class OrderService
             $order->final_price = $finalPrice;
             $order->save();
 
-            DB::commit();
-
             // delete cart data
             $carts->each(function ($cart) {
                 $cart->delete();
@@ -160,6 +181,8 @@ class OrderService
             if (session()->has('coupon')) {
                 session()->forget('coupon');
             }
+
+            DB::commit();
 
             return $order;
         } catch (\Exception $e) {
