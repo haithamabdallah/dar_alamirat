@@ -28,44 +28,23 @@
                 <ul class="breadcrumbs">
                     <li>
                         <a href="{{ route('index') }}">
-                            <span>{{ __("Home") }}</span>
+                            <span>{{ __('Home') }}</span>
                         </a>
                     </li>
-                    @php
-                        $categoryId = request('filter.category_id') ?? null
-                    @endphp    
-                        @if ( $categoryId == $category->id || $categoryId == false)
-                            @if (isset($category?->parent?->parent)  )
-                                <li>
-                                    <span>{{ $category?->parent?->parent->name }}</span>
-                                </li>
-                            @endif
-                            @if (isset($category?->parent))
-                                <li>
-                                    <span>{{ $category?->parent->name }}</span>
-                                </li>
-                            @endif
-                            <li>
-                                <span>{{ $category->name }}</span>
-                            </li>
-                        @elseif ( $categoryId == $category?->parent?->id )
-                            @if (isset($category?->parent?->parent)  )
-                                <li>
-                                    <span>{{ $category?->parent?->parent->name }}</span>
-                                </li>
-                            @endif
-                            @if (isset($category?->parent))
-                                <li>
-                                    <span>{{ $category?->parent->name }}</span>
-                                </li>
-                            @endif
-                        @elseif ( $categoryId == $category?->parent?->parent?->id ) 
-                            @if (isset($category?->parent?->parent)  )
-                                <li>
-                                    <span>{{ $category?->parent?->parent->name }}</span>
-                                </li>
-                            @endif
-                        @endif
+                    @if (isset($category?->parent?->parent))
+                        <li>
+                            <span>{{ $category?->parent?->parent->name }}</span>
+                        </li>
+                    @endif
+                    @if (isset($category?->parent))
+                        <li>
+                            <span>{{ $category?->parent->name }}</span>
+                        </li>
+                    @endif
+                    <li>
+                        <span>{{ $category->name }}</span>
+                    </li>
+  
                 </ul>
                 <!-- ./content -->
             </div>
@@ -88,165 +67,48 @@
                                     <button class="accordion-button s-filters-widget-title" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#colCategory" aria-expanded="true"
                                         aria-controls="colCategory">
-                                        {{ __("Categories") }}
+                                        {{ __('Categories') }}
                                     </button>
                                 </h2>
                                 <div id="colCategory" class="accordion-collapse collapse show"
                                     aria-labelledby="headCategory" data-bs-parent="#accCategories">
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
-                                            <form class="filter-form" id="category-filter-form" method="GET"
-                                                action="{{ route('category.products', $category->id) }}">
+                                            <div class="filter-form" id="category-filter-form">
                                                 @if (isset($category?->parent))
                                                     @if (isset($category?->parent->parent))
-                                                        <label class="s-filters-label"
-                                                            for="category_id-option-{{ $category?->parent->parent->id }}">
-                                                            <input id="category_id-option-{{ $category?->parent->parent->id }}"
-                                                                type="radio" name="filter[category_id]"
-                                                                value="{{ $category?->parent->parent->id }}"
-                                                                {{ request('filter.category_id') == $category?->parent->parent->id  || (request('filter.category_id') == false && $category->id == $category?->parent->parent->id )? 'checked' : '' }}>
-                                                            <span class="s-filters-option-name">
-                                                                {{ $category?->parent->parent->name }}
-                                                            </span>
-                                                        </label>
+                                                        <div class="my-3">
+                                                            <a href="{{ route('category.products', $category?->parent?->parent->id) }}">
+                                                                <input type="radio" onclick="event.preventDefault()">
+                                                                {{ $category?->parent?->parent->name }}
+                                                            </a>
+                                                        </div>
                                                     @endif
-                                                    <label class="s-filters-label"
-                                                        for="category_id-option-{{ $category?->parent->id }}">
-                                                        <input id="category_id-option-{{ $category?->parent->id }}"
-                                                            type="radio" name="filter[category_id]"
-                                                            value="{{ $category?->parent->id }}"
-                                                            {{ request('filter.category_id') == $category?->parent->id  || ( request('filter.category_id') == false && $category->id == $category?->parent->id) ?  'checked' : '' }}>
-                                                        <span class="s-filters-option-name">
+                                                    <div class="my-3">
+                                                        <a href="{{ route('category.products', $category?->parent->id) }}">
+                                                            <input type="radio" onclick="event.preventDefault()">
                                                             {{ $category?->parent->name }}
-                                                        </span>
-                                                    </label>
+                                                        </a>
+                                                    </div>
                                                     @foreach ($category?->parent?->childes as $childCategory)
-                                                    <label class="s-filters-label"
-                                                        for="category_id-option-{{ $childCategory->id }}">
-                                                        <input id="category_id-option-{{ $childCategory->id }}"
-                                                            type="radio" name="filter[category_id]"
-                                                            value="{{ $childCategory->id }}"
-                                                            {{ request('filter.category_id') == $childCategory->id  || ( request('filter.category_id') == false && $category->id ==  $childCategory->id)  ? 'checked' : '' }}>
-                                                        <span class="s-filters-option-name">
-                                                            {{ $childCategory->name }}
-                                                        </span>
-                                                    </label>
+                                                        <div class="my-3">
+                                                            <a href="{{ route('category.products', $childCategory->id) }}">
+                                                                <input type="radio" {!! $category->id == $childCategory->id ? 'checked' : '' !!} onclick="event.preventDefault()">
+                                                                {{ $childCategory->name }}
+                                                            </a>
+                                                        </div>
                                                     @endforeach
-
                                                 @else
                                                     @foreach (defaultCategory() as $parentCategory)
-                                                        <label class="s-filters-label"
-                                                            for="category_id-option-{{ $parentCategory->id }}">
-                                                            <input id="category_id-option-{{ $parentCategory->id }}"
-                                                                type="radio" name="filter[category_id]"
-                                                                value="{{ $parentCategory->id }}"
-                                                                {{ request('filter.category_id') == $parentCategory->id ||  ( request('filter.category_id') == false && $category->id == $parentCategory->id) ? 'checked' : '' }}>
-                                                            <span class="s-filters-option-name">
+                                                        <div class="my-3">
+                                                            <a href="{{ route('category.products', $parentCategory->id) }}">
+                                                                <input type="radio" {!! $category->id == $parentCategory->id ? 'checked' : '' !!} onclick="event.preventDefault()">
                                                                 {{ $parentCategory->name }}
-                                                            </span>
-                                                        </label>
-                                                        {{-- @foreach ($parentCategory?->childes as $parentCategory2)
-                                                        <label class="s-filters-label"
-                                                            style="margin-left:0.5rem ; margin-right:0.5rem ; "
-                                                            for="category_id-option-{{ $parentCategory2->id }}">
-                                                            <input id="category_id-option-{{ $parentCategory2->id }}"
-                                                                type="radio" name="filter[category_id]"
-                                                                value="{{ $parentCategory2->id }}"
-                                                                {{ request('filter.category_id') == $parentCategory2->id ? 'checked' : '' }}>
-                                                            <span class="s-filters-option-name">
-                                                                {{ $parentCategory2->name }}
-                                                            </span>
-                                                        </label>
-                                                        @foreach ($parentCategory2?->childes as $parentCategory3)
-                                                            <label class="s-filters-label"
-                                                                style="margin-left:1rem ; margin-right:1rem ; "
-                                                                for="category_id-option-{{ $parentCategory3->id }}">
-                                                                <input id="category_id-option-{{ $parentCategory3->id }}"
-                                                                    type="radio" name="filter[category_id]"
-                                                                    value="{{ $parentCategory3->id }}"
-                                                                    {{ request('filter.category_id') == $parentCategory3->id ? 'checked' : '' }}>
-                                                                <span class="s-filters-option-name">
-                                                                    {{ $parentCategory3->name }}
-                                                                </span>
-                                                            </label>
-                                                            @foreach ($parentCategory3?->childes as $parentCategory4)
-                                                                <label class="s-filters-label"
-                                                                    style="margin-left:1.5rem ; margin-right:1.5rem ; "
-                                                                    for="category_id-option-{{ $parentCategory4->id }}">
-                                                                    <input
-                                                                        id="category_id-option-{{ $parentCategory4->id }}"
-                                                                        type="radio" name="filter[category_id]"
-                                                                        value="{{ $parentCategory4->id }}"
-                                                                        {{ request('filter.category_id') == $parentCategory4->id ? 'checked' : '' }}>
-                                                                    <span class="s-filters-option-name">
-                                                                        {{ $parentCategory4->name }}
-                                                                    </span>
-                                                                </label>
-                                                                @foreach ($parentCategory4?->childes as $parentCategory5)
-                                                                    <label class="s-filters-label"
-                                                                        style="margin-left:2rem ; margin-right:2rem ; "
-                                                                        for="category_id-option-{{ $parentCategory5->id }}">
-                                                                        <input
-                                                                            id="category_id-option-{{ $parentCategory5->id }}"
-                                                                            type="radio" name="filter[category_id]"
-                                                                            value="{{ $parentCategory5->id }}"
-                                                                            {{ request('filter.category_id') == $parentCategory5->id ? 'checked' : '' }}>
-                                                                        <span class="s-filters-option-name">
-                                                                            {{ $parentCategory5->name }}
-                                                                        </span>
-                                                                    </label>
-                                                                    @foreach ($parentCategory5?->childes as $parentCategory6)
-                                                                        <label class="s-filters-label"
-                                                                            style="margin-left:3.5rem ; margin-right:3.5rem ; "
-                                                                            for="category_id-option-{{ $parentCategory6->id }}">
-                                                                            <input
-                                                                                id="category_id-option-{{ $parentCategory6->id }}"
-                                                                                type="radio" name="filter[category_id]"
-                                                                                value="{{ $parentCategory6->id }}"
-                                                                                {{ request('filter.category_id') == $parentCategory6->id ? 'checked' : '' }}>
-                                                                            <span class="s-filters-option-name">
-                                                                                {{ $parentCategory6->name }}
-                                                                            </span>
-                                                                        </label>
-                                                                        @foreach ($parentCategory6?->childes as $parentCategory7)
-                                                                            <label class="s-filters-label"
-                                                                                style="margin-left:3rem ; margin-right:3rem ; "
-                                                                                for="category_id-option-{{ $parentCategory7->id }}">
-                                                                                <input
-                                                                                    id="category_id-option-{{ $parentCategory7->id }}"
-                                                                                    type="radio"
-                                                                                    name="filter[category_id]"
-                                                                                    value="{{ $parentCategory7->id }}"
-                                                                                    {{ request('filter.category_id') == $parentCategory7->id ? 'checked' : '' }}>
-                                                                                <span class="s-filters-option-name">
-                                                                                    {{ $parentCategory7->name }}
-                                                                                </span>
-                                                                            </label>
-                                                                            @foreach ($parentCategory7?->childes as $parentCategory8)
-                                                                                <label class="s-filters-label"
-                                                                                    style="margin-left:3.5rem ; margin-right:3.5rem ; "
-                                                                                    for="category_id-option-{{ $parentCategory8->id }}">
-                                                                                    <input
-                                                                                        id="category_id-option-{{ $parentCategory8->id }}"
-                                                                                        type="radio"
-                                                                                        name="filter[category_id]"
-                                                                                        value="{{ $parentCategory8->id }}"
-                                                                                        {{ request('filter.category_id') == $parentCategory8->id ? 'checked' : '' }}>
-                                                                                    <span class="s-filters-option-name">
-                                                                                        {{ $parentCategory8->name }}
-                                                                                    </span>
-                                                                                </label>
-                                                                            @endforeach
-                                                                        @endforeach
-                                                                    @endforeach
-                                                                @endforeach
-                                                            @endforeach
-                                                        @endforeach
-                                                    @endforeach --}}
+                                                            </a>
+                                                        </div>
                                                     @endforeach
                                                 @endif
-
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -259,7 +121,7 @@
                                     <button class="accordion-button s-filters-widget-title" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#colBrands" aria-expanded="false"
                                         aria-controls="colBrands">
-                                        {{ __("Brands") }}
+                                        {{ __('Brands') }}
                                     </button>
                                 </h2>
                                 <div id="colBrands" class="accordion-collapse collapse show" aria-labelledby="headBrands"
@@ -268,7 +130,8 @@
                                         <div class="s-filters-widget-values">
                                             <form class="filter-form" id="brand-filter-form" method="GET"
                                                 action="{{ route('category.products', $category->id) }}">
-                                                <input type="hidden" name="filter[category_id]" value="{{ $category->id }}">
+                                                <input type="hidden" name="filter[category_id]"
+                                                    value="{{ $category->id }}">
 
                                                 {{-- @foreach (filterBrands() as $brand) --}}
                                                 @foreach ($categoryBrands as $brand)
@@ -287,286 +150,13 @@
                             </div>
                         </div>
 
-                        <div class="accordion" style="display: none" id="accRating">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headRating">
-                                    <button class="accordion-button s-filters-widget-title" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#colRating" aria-expanded="false"
-                                        aria-controls="collapseThree">
-                                        {{ __("Rating") }}
-                                    </button>
-                                </h2>
-                                <div id="colRating" class="accordion-collapse collapse show" aria-labelledby="headRating"
-                                    data-bs-parent="#accRating">
-                                    <div class="accordion-body">
-                                        <div class="s-filters-widget-values"><label class="s-filters-label"
-                                                for="rating-option-0"><input id="rating-option-0" name="rating"
-                                                    type="radio" class="s-filters-radio">
-                                                <salla-rating-stars class="hydrated">
-                                                    <div class="s-rating-stars-wrapper"> <span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span></div>
-                                                </salla-rating-stars>
-                                            </label><label class="s-filters-label" for="rating-option-1"><input
-                                                    id="rating-option-1" name="rating" type="radio"
-                                                    class="s-filters-radio">
-                                                <salla-rating-stars class="hydrated">
-                                                    <div class="s-rating-stars-wrapper"> <span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span></div>
-                                                </salla-rating-stars>
-                                            </label><label class="s-filters-label" for="rating-option-2"><input
-                                                    id="rating-option-2" name="rating" type="radio"
-                                                    class="s-filters-radio">
-                                                <salla-rating-stars class="hydrated">
-                                                    <div class="s-rating-stars-wrapper"> <span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span></div>
-                                                </salla-rating-stars>
-                                            </label><label class="s-filters-label" for="rating-option-3"><input
-                                                    id="rating-option-3" name="rating" type="radio"
-                                                    class="s-filters-radio">
-                                                <salla-rating-stars class="hydrated">
-                                                    <div class="s-rating-stars-wrapper"> <span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span></div>
-                                                </salla-rating-stars>
-                                            </label><label class="s-filters-label" for="rating-option-4"><input
-                                                    id="rating-option-4" name="rating" type="radio"
-                                                    class="s-filters-radio">
-                                                <salla-rating-stars class="hydrated">
-                                                    <div class="s-rating-stars-wrapper"> <span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small s-rating-stars-selected"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span><span
-                                                            class="s-rating-stars-btn-star s-rating-stars-small"><!-- Generated by IcoMoon.io -->
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                width="30" height="32" viewBox="0 0 30 32">
-                                                                <title>star2</title>
-                                                                <path
-                                                                    d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z">
-                                                                </path>
-                                                            </svg>
-                                                        </span></div>
-                                                </salla-rating-stars>
-                                            </label></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="accordion" id="accPrice">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headPrice">
                                     <button class="accordion-button s-filters-widget-title" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#colPrice" aria-expanded="false"
                                         aria-controls="colPrice">
-                                        {{ __("Price") }}
+                                        {{ __('Price') }}
                                     </button>
                                 </h2>
                                 <div id="colPrice" class="accordion-collapse collapse show" aria-labelledby="headPrice"
@@ -575,47 +165,50 @@
                                         <div class="s-filters-widget-values">
                                             <form class="filter-form" id="price-filter-form" method="GET"
                                                 action="{{ route('category.products', $category->id) }}">
-                                                <input type="hidden" name="filter[category_id]" value="{{ $category->id }}">
+                                                <input type="hidden" name="filter[category_id]"
+                                                    value="{{ $category->id }}">
                                                 <label class="s-filters-label" for="price-0">
                                                     <input id="price-0" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value="<100"
-                                                        {{ request('filter.price') == '<100' ? 'checked' : '' }}>  {{ __("less than") }}
+                                                        {{ request('filter.price') == '<100' ? 'checked' : '' }}>
+                                                    {{ __('less than') }}
                                                     100 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-1">
                                                     <input id="price-1" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value="100-200"
                                                         {{ request('filter.price') == '100-200' ? 'checked' : '' }}> 100
-                                                    {{ $currency }} {{ __("to") }} 200 {{ $currency }}
+                                                    {{ $currency }} {{ __('to') }} 200 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-2">
                                                     <input id="price-2" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value="200-300"
                                                         {{ request('filter.price') == '200-300' ? 'checked' : '' }}> 200
-                                                    {{ $currency }} {{ __("to") }} 300 {{ $currency }}
+                                                    {{ $currency }} {{ __('to') }} 300 {{ $currency }}
                                                 </label>
                                                 <label class="s-filters-label" for="price-3">
                                                     <input id="price-3" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value=">300"
-                                                        {{ request('filter.price') == '>300' ? 'checked' : '' }}>  {{ __("more than") }}
+                                                        {{ request('filter.price') == '>300' ? 'checked' : '' }}>
+                                                    {{ __('more than') }}
                                                     300 {{ $currency }}
                                                 </label>
                                                 <div class="flex justify-center items-center">
                                                     <div class="relative max-w-xl w-full">
                                                         <div class="s-price-range-inputs">
                                                             <div class="s-price-range-relative">
-                                                                <div class="s-price-range-currency"> {{ $currency }}
-                                                                </div>
-                                                                <input type="number" maxlength="5" placeholder="from"
+                                                                {{-- <div class="s-price-range-currency"> {{ $currency }}
+                                                                </div> --}}
+                                                                <input type="number" maxlength="5" placeholder="{{ __('from') }}"
                                                                     class="s-price-range-number-input"
                                                                     name="filter[price_min]"
                                                                     value="{{ request('filter.price_min') }}">
                                                             </div>
                                                             <div class="s-price-range-gray-text"> - </div>
                                                             <div class="s-price-range-relative">
-                                                                <div class="s-price-range-currency"> {{ $currency }}
-                                                                </div>
-                                                                <input type="number" maxlength="5" placeholder="to"
+                                                                {{-- <div class="s-price-range-currency"> {{ $currency }}
+                                                                </div> --}}
+                                                                <input type="number" maxlength="5" placeholder="{{ __('to') }}"
                                                                     class="s-price-range-number-input"
                                                                     name="filter[price_max]"
                                                                     value="{{ request('filter.price_max') }}">
@@ -623,6 +216,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <button class="btn btn-primary my-2" type="submit" style="width: 100% !important; background-color: #5e6fb4">{{ __("Search") }}</button>
                                             </form>
                                         </div>
                                     </div>
@@ -642,7 +236,7 @@
                         <div class="d-flex justify-content-center">
                             @if ($products->lastPage() != $products->currentPage())
                                 <button id="load-more" class="s-infinite-scroll-btn s-button-btn s-button-primary">
-                                    Load More
+                                     {{ __('Load More') }}
                                 </button>
                             @endif
                         </div>
@@ -790,12 +384,12 @@
                     });
                 });
 
-                numberInputs.forEach(input => {
-                    input.addEventListener('change', function() {
-                        preserveFilters(form);
-                        form.submit();
-                    });
-                });
+                // numberInputs.forEach(input => {
+                //     input.addEventListener('change', function() {
+                //         preserveFilters(form);
+                //         form.submit();
+                //     });
+                // });
             });
         });
     </script>
