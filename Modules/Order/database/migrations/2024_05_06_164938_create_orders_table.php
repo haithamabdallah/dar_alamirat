@@ -31,6 +31,13 @@ return new class extends Migration
             $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null');
             $table->foreign('user_address_id')->references('id')->on('user_addresses')->onDelete('set null');
         });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->after('coupon_id', function (Blueprint $table) {
+                $table->string('vat')->nullable();
+                $table->decimal('shipping_price',6,2)->nullable();
+            });
+        });
     }
 
     /**
