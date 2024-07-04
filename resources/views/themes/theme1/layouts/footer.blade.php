@@ -10,14 +10,15 @@
                         @csrf
                         <h2> {{ __("Subscribe to Our Newsletter") }}</h2>
                         <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Enter your email" name="email">
+                            <input type="email" class="form-control" placeholder="{{ __('Email') }}" name="email">
                             <span class="input-group-btn">
                                 <button class="btn" type="submit"> {{ __("Subscribe Now") }}</button>
                             </span>
                         </div>
                         @error('email')
                         <p class="text-danger h5 py-5">{{ $message }}</p>
-                    @enderror
+                        @enderror
+                    </form>
                 </div>
             </section>
             <!-- content -->
