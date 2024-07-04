@@ -59,6 +59,7 @@
                                 <th>VAT</th>
                                 <th>Shipping Price</th>
                                 <th>Final Price</th>
+                                <th>Currency</th>
                                 <th>Payment status</th>
                                 <th>Fulfillment status</th>
                                 <th>Delivery method</th>
@@ -78,9 +79,10 @@
                                 <td>{{ $order->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $order->created_at->format('h:i A') }}</td>
                                 <td>{{ $order->user->full_name }}</td>
-                                <td>{{ $order->vat }}</td>
-                                <td>{{ $order->Shipping_price }}</td>
-                                <td>{{  $order->final_price }} {{ $currency }}</td>
+                                <td>{{ $order->vat ?? '---'}}</td>
+                                <td>{{ $order->Shipping_price ?? '---' }}</td>
+                                <td>{{  $order->final_price }} </td>
+                                <td>{{ $currency }}</td>
                                 <td><span class="badge border border-success text-success px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> {{ $order->payment_status }} </span></td>
                                 <td><span class="badge border border-success text-success px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> {{ $order->status }} </span></td>
 

@@ -172,7 +172,7 @@ class OrderService
             $finalPrice = round($finalPrice, 2);
 
             $order->vat = "$vatValue ($vat %)";
-            $order->shipping->price = $shipping->price;
+            $order->shipping_price = $shipping->price;
             $order->final_price = $finalPrice;
             $order->save();
 

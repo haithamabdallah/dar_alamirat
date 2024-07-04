@@ -1,10 +1,11 @@
 <?php
 
-use Modules\Order\Enums\OrderStatus;
+// use Modules\Order\Enums\OrderStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Order\Enums\PaymentStatus;
+// use Modules\Order\Enums\PaymentStatus;
+// use Modules\Order\Models\Order;
 
 return new class extends Migration
 {
