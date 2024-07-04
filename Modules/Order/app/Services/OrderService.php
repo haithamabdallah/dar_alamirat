@@ -165,11 +165,14 @@ class OrderService
             $finalPrice = $sumOfProductWithoutDiscount + $sumOfProductWithDiscount;
             $finalPrice = round($finalPrice, 2);
 
-            $finalPrice = $finalPrice + ($finalPrice * $vat / 100);
+            $vatValue = $finalPrice * $vat / 100;
+            $finalPrice = $finalPrice + $vatValue;
             $finalPrice = round($finalPrice, 2);
             $finalPrice = $finalPrice + $shipping->price;
             $finalPrice = round($finalPrice, 2);
 
+            $order->vat = "$vatValue ($vat %)";
+            $order->shipping->price = $shipping->price;
             $order->final_price = $finalPrice;
             $order->save();
 
