@@ -31,19 +31,41 @@
                             <span>{{ __("Home") }}</span>
                         </a>
                     </li>
-                    @if (isset($category?->parent?->parent))
-                        <li>
-                            <span>{{ $category?->parent?->parent->name }}</span>
-                        </li>
-                    @endif
-                    @if (isset($category?->parent))
-                        <li>
-                            <span>{{ $category?->parent->name }}</span>
-                        </li>
-                    @endif
-                    <li>
-                        <span>{{ $category->name }}</span>
-                    </li>
+                    @php
+                        $categoryId = request('filter.category_id') ?? null
+                    @endphp    
+                        @if ( $categoryId == $category->id || $categoryId == false)
+                            @if (isset($category?->parent?->parent)  )
+                                <li>
+                                    <span>{{ $category?->parent?->parent->name }}</span>
+                                </li>
+                            @endif
+                            @if (isset($category?->parent))
+                                <li>
+                                    <span>{{ $category?->parent->name }}</span>
+                                </li>
+                            @endif
+                            <li>
+                                <span>{{ $category->name }}</span>
+                            </li>
+                        @elseif ( $categoryId == $category?->parent?->id )
+                            @if (isset($category?->parent?->parent)  )
+                                <li>
+                                    <span>{{ $category?->parent?->parent->name }}</span>
+                                </li>
+                            @endif
+                            @if (isset($category?->parent))
+                                <li>
+                                    <span>{{ $category?->parent->name }}</span>
+                                </li>
+                            @endif
+                        @elseif ( $categoryId == $category?->parent?->parent?->id ) 
+                            @if (isset($category?->parent?->parent)  )
+                                <li>
+                                    <span>{{ $category?->parent?->parent->name }}</span>
+                                </li>
+                            @endif
+                        @endif
                 </ul>
                 <!-- ./content -->
             </div>
@@ -82,7 +104,7 @@
                                                             <input id="category_id-option-{{ $category?->parent->parent->id }}"
                                                                 type="radio" name="filter[category_id]"
                                                                 value="{{ $category?->parent->parent->id }}"
-                                                                {{ request('filter.category_id') == $category?->parent->parent->id ? 'checked' : '' }}>
+                                                                {{ request('filter.category_id') == $category?->parent->parent->id  || (request('filter.category_id') == false && $category->id == $category?->parent->parent->id )? 'checked' : '' }}>
                                                             <span class="s-filters-option-name">
                                                                 {{ $category?->parent->parent->name }}
                                                             </span>
@@ -93,7 +115,7 @@
                                                         <input id="category_id-option-{{ $category?->parent->id }}"
                                                             type="radio" name="filter[category_id]"
                                                             value="{{ $category?->parent->id }}"
-                                                            {{ request('filter.category_id') == $category?->parent->id ? 'checked' : '' }}>
+                                                            {{ request('filter.category_id') == $category?->parent->id  || ( request('filter.category_id') == false && $category->id == $category?->parent->id) ?  'checked' : '' }}>
                                                         <span class="s-filters-option-name">
                                                             {{ $category?->parent->name }}
                                                         </span>
@@ -104,7 +126,7 @@
                                                         <input id="category_id-option-{{ $childCategory->id }}"
                                                             type="radio" name="filter[category_id]"
                                                             value="{{ $childCategory->id }}"
-                                                            {{ request('filter.category_id') == $childCategory->id ? 'checked' : '' }}>
+                                                            {{ request('filter.category_id') == $childCategory->id  || ( request('filter.category_id') == false && $category->id ==  $childCategory->id)  ? 'checked' : '' }}>
                                                         <span class="s-filters-option-name">
                                                             {{ $childCategory->name }}
                                                         </span>
@@ -118,7 +140,7 @@
                                                             <input id="category_id-option-{{ $parentCategory->id }}"
                                                                 type="radio" name="filter[category_id]"
                                                                 value="{{ $parentCategory->id }}"
-                                                                {{ request('filter.category_id') == $parentCategory->id ? 'checked' : '' }}>
+                                                                {{ request('filter.category_id') == $parentCategory->id ||  ( request('filter.category_id') == false && $category->id == $parentCategory->id) ? 'checked' : '' }}>
                                                             <span class="s-filters-option-name">
                                                                 {{ $parentCategory->name }}
                                                             </span>
@@ -246,6 +268,8 @@
                                         <div class="s-filters-widget-values">
                                             <form class="filter-form" id="brand-filter-form" method="GET"
                                                 action="{{ route('category.products', $category->id) }}">
+                                                <input type="hidden" name="filter[category_id]" value="{{ $category->id }}">
+
                                                 {{-- @foreach (filterBrands() as $brand) --}}
                                                 @foreach ($categoryBrands as $brand)
                                                     <label class="s-filters-label"
@@ -551,6 +575,7 @@
                                         <div class="s-filters-widget-values">
                                             <form class="filter-form" id="price-filter-form" method="GET"
                                                 action="{{ route('category.products', $category->id) }}">
+                                                <input type="hidden" name="filter[category_id]" value="{{ $category->id }}">
                                                 <label class="s-filters-label" for="price-0">
                                                     <input id="price-0" name="filter[price]" type="radio"
                                                         class="s-filters-radio" value="<100"
