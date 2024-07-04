@@ -7,7 +7,7 @@
         </div>
         <div id="subscription">
             <h3>{{ __("Sign Up For") }}</h3>
-            <h1>25% {{ __("OFF") }}</h1>
+            <h1> {{ __("DISCOUNTS") }}</h1>
             <p>{{ __("Subscribe to our newsletter for exclusive beauty tips, new product launches, and special offers.") }}</p>
             <form id="newsletter-form" action="{{ route('subscribe') }}" method="POST">
                 @csrf
