@@ -158,7 +158,7 @@
                         @forelse ($orders as $order)
                             <div><a href="{{ route('order.my.details', $order->id) }}"> {{ __("Order Detials Page") }}</a></div>
                             <div class="bg-white p-4 my-4 shadow rounded">
-                                <div>  {{ __("Order Number") }}: <span>{{ $order->number }}</span> </div>
+                                <div>  {{ __("Order Number") }}: <span>{{ $order->order_number }}</span> </div>
                                 <div>  {{ __("Order Status") }}: <span>{{ $order->status }}</span> </div>
                                 <div>  {{ __("Final Price") }}: <span>{{ $order->final_price }}</span> </div>
                                 <div> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div>
