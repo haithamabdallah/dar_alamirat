@@ -1,3 +1,7 @@
+{{-- @php
+    dd($productsYouMayLike); // 10 products randomly that user may like 
+@endphp --}}
+
 @extends('themes.theme1.layouts.app')
 
 @section('customcss')
