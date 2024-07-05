@@ -1,5 +1,5 @@
 {{-- @php
-    dd($productsYouMayLike); // 10 products randomly that user may like 
+    dd($productsYouMayLike); // 10 products randomly that user may like
 @endphp --}}
 
 @extends('themes.theme1.layouts.app')
@@ -142,6 +142,28 @@
                             <!-- ./Full Descriptions -->
                         </div>
                         <!-- ./TABS -->
+
+                        <!-- price -->
+                        <div class="product-price in-mobile">
+                            @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
+                                <div class="before-dis">
+                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                </div>
+                                <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <div class="after-dis" style="display: none">
+                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                </div>
+                            @else
+                                <div class="before-dis" style="display: none">
+                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                </div>
+                                <span class="no-dis" id="total-price" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <div class="after-dis">
+                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                </div>
+                            @endif
+                        </div>
+                        <!-- ./price -->
 
 
 
@@ -301,14 +323,96 @@
             </div>
             <!-- ./row -->
 
-
         </div>
         <!-- ./container -->
     </section>
     <!-- ./Product Page -->
+
+    <section class="s-block">
+        <div class="pixel-container">
+            <div class="wrap">
+                <!-- swiper #01 -->
+                <div class="section-categories">
+                    <div class="swiper mySwiper">
+
+                        <div class="section-head">
+                            <div class="s-block-title">
+                                <h2>Section Name</h2>
+                            </div>
+
+                            <div class="category-nav">
+
+                                <div class="navigation">
+                                    <button class="cat-prev">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <button class="cat-next">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 @endsection
 
 @push('scripts')
     @include('themes.theme1.single-product-scripts')
+
+    <script>
+        document.querySelectorAll(".mySwiper").forEach(function(s) {
+            let next = s.querySelector(".cat-next");
+            let prev = s.querySelector(".cat-prev");
+
+            new Swiper(s, {
+                navigation: {
+                    nextEl: next,
+                    prevEl: prev
+                },
+                slidesPerView: 4,
+                spaceBetween: 20,
+                slidesPerGroup: 1,
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    425: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 50,
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                },
+            });
+        });
+    </script>
 @endpush
 

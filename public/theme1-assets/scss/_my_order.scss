@@ -1,0 +1,98 @@
+
+.single_order {
+
+    margin: 20px 0;
+    &.my_orders_items {
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            .status {
+                border-radius: 5px;
+                padding: 5px 8px;
+                color: $white;
+                &.done {
+                    background: #682c91;
+                }
+                &.shipped {
+                    background: #0a58ca;
+                }
+                &.delivered {
+                    background: #0b9f5b;
+                }
+                &.pending {
+                    background: #9f7f0b;
+                }
+            }
+        }
+        .all-price {
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            color: $accentColor;
+        }
+        .order-address {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .entries {
+            .itemInfo {
+                h2 {
+                    max-width: 400px;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+:dir(rtl) {
+
+}
+
+// `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+    .single_order.my_orders_items .order-header {
+        flex-direction: column;
+        grid-gap: 15px;
+        align-items: flex-start;
+    }
+    .single_order.my_orders_items .order-footer {
+        flex-direction: column;
+        grid-gap: 15px;
+        align-items: flex-start;
+    }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (min-width: 767.98px) {}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (min-width: 991.98px) {}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (min-width: 1199.98px) {}
+
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {}

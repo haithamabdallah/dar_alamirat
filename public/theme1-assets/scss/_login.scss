@@ -179,6 +179,12 @@
   }
 }
 
+:dir(rtl) {
+    .otp-field {
+        direction: ltr;
+        flex-direction: row;
+    }
+}
 
 // `sm` applies to x-small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {}
