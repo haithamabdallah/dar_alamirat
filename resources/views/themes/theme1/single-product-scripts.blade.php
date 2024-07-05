@@ -32,30 +32,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // const basePriceElement = document.querySelector('.before-dis span') || {innerText: "0"};
-            const basePriceElement = document.querySelector('.before-dis span#base-price');
-            const totalPriceElement = document.getElementById('total-price');
             const quantityInput = document.getElementById('quantity');
             const increaseQuantityButton = document.getElementById('increase-quantity');
             const decreaseQuantityButton = document.getElementById('decrease-quantity');
             const variantRadios = document.querySelectorAll('input[name="variant"]');
 
-            const variantPrices = {!! ($product->variant_prices) !!};
-
-            console.log(variantPrices)
             function getSelectedVariantId() {
-                const selectedRadio = document.querySelector('input[name="variant"]:checked');
+                const selectedRadio = document.querySelector('input[type=radio][name=variant]:checked');
                 return parseInt(selectedRadio.value);
             }
 
+            var variantPrices = {!! $productVariantPrices !!};
+            
             function calculateVariantPrice() {
                 const variantId = getSelectedVariantId();
-                const variantPrice = variantPrices[variantId]?.price_with_discount;
+                var variantPrice = variantPrices[variantId]['price_with_discount'];
                 return variantPrice;
             }
 
             function calculateVariantOriginalPrice() {
                 const variantId = getSelectedVariantId();
-                const variantPrice = variantPrices[variantId]?.price;
+                const variantPrice = variantPrices[variantId]['price'];
                 return variantPrice;
             }
 
@@ -69,8 +66,16 @@
                 const quantity = parseInt(quantityInput.value);
                 const totalPrice = (variantPrice * quantity);
                 const totalOriginalPrice = (variantOriginalPrice * quantity);
-                totalPriceElement.innerText = `${totalPrice.toFixed(2)} {{ $currency }}`;
-                basePriceElement.innerText = `${totalOriginalPrice.toFixed(2)} {{ $currency }}`;
+                // const totalPriceElement = document.getElementById('total-price');
+                // totalPriceElement.innerText = `${totalPrice.toFixed(2)} {{ $currency }}`;
+                $('.total-price').each(function(index) {
+                    $(this).text(totalPrice.toFixed(2));
+                })
+                // const basePriceElement = document.querySelector('.before-dis span.base-price');
+                // basePriceElement.innerText = `${totalOriginalPrice.toFixed(2)} {{ $currency }}`;
+                $('.before-dis span.base-price').each(function(index) {
+                    $(this).text(totalOriginalPrice.toFixed(2));
+                })
             }
 
             increaseQuantityButton.addEventListener('click', function() {

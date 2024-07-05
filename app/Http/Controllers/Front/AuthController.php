@@ -76,6 +76,10 @@ class AuthController extends Controller
     {
         Auth::logout();
 
+        request()->session()->invalidate();
+ 
+        request()->session()->regenerateToken();
+
         return redirect()->route('index')->with('success', 'You have been logged out.');
     }
 

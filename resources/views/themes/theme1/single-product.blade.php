@@ -1,5 +1,6 @@
 {{-- @php
-    dd($productsYouMayLike); // 10 products randomly that user may like
+    // dd($productsYouMayLike); // 10 products randomly that user may like
+    dd($productVariantPrices); 
 @endphp --}}
 
 @extends('themes.theme1.layouts.app')
@@ -145,21 +146,21 @@
 
                         <!-- price -->
                         <div class="product-price in-mobile">
-                            @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
+                            @if($product->discount_value > 0)
                                 <div class="before-dis">
-                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                    <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                 </div>
-                                <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <span class="no-dis total-price" id=""> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 <div class="after-dis" style="display: none">
-                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                    <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 </div>
                             @else
                                 <div class="before-dis" style="display: none">
-                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                    <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                 </div>
-                                <span class="no-dis" id="total-price" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <span class="no-dis total-price" id="" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 <div class="after-dis">
-                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                    <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 </div>
                             @endif
                         </div>
@@ -196,26 +197,26 @@
                                 <div class="product-price">
                                     @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
                                         <div class="before-dis">
-                                            <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                            <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                         </div>
-                                        <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        <span class="no-dis total-price" id=""> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         <div class="after-dis" style="display: none">
-                                            <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                            <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         </div>
                                     @else
                                         <div class="before-dis" style="display: none">
-                                            <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                            <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                         </div>
-                                        <span class="no-dis" id="total-price" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        <span class="no-dis total-price" id="" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         <div class="after-dis">
-                                            <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                            <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         </div>
                                     @endif
                                 </div>
                                 <!-- ./price -->
 
                                 <!-- add to cart button -->
-                                <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
+                                <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{ auth()->check() ?  route('cart.add', $product->id) : route('guest.cart.add', $product->id) }}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
                                     <span class="button-title">{{ __("Add to Cart") }}</span>
                                     <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
                                 </button>
@@ -227,7 +228,7 @@
                                     <img class="object-cover" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                 </div>
                                 <div class="p-info">
-                                    <a href="#" class="category">Category Name</a>
+                                    <a href="#" class="category">{{ $product->category->name  }}</a>
                                     <h3>{{ $product->title }}</h3>
                                 </div>
                             </div>
@@ -354,11 +355,14 @@
                         </div>
 
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
-                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
-                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
-                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
-                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+
+                            <!-- product item -->
+                            @foreach ($productsYouMayLike as $product)
+                                <div class="swiper-slide">
+                                    @include('themes.theme1.partials.item' , ['product' => $product])
+                                </div>
+                            @endforeach
+                            <!-- product item -->
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>

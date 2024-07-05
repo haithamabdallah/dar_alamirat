@@ -1,11 +1,15 @@
 <script>
-    let prices = {!! $prices !!};
+    var prices = {!! $prices !!};
+    // prices = JSON.parse(prices);
 
     var carts = {};
+    var guestCarts ={};
 
     function getPricePerUnit(index) {
         let variantId = $(`input[name=variant].variant-${index}:checked`).val();
-        return parseFloat(prices[variantId]['priceWithDiscount']);
+        let pricePerUnit = parseFloat(prices[variantId]['priceWithDiscount']);
+
+        return pricePerUnit;
     }
 
     function updateTotalPrice(index) {
@@ -87,11 +91,21 @@
             itemTotalPriceElement.innerHTML = `<b>Item Total:</b> ${itemTotalPrice} {!! $currency !!} `;
         }
 
-        carts[cartId] = {
-            variant_id :  $('input[type=radio][name="variant"]:checked').val(),
-            product_id: $('#product-id-' + index).data('id'),
-            quantity: parseInt(quantity),
-        };
+        @auth
+            carts[cartId] = {
+                variant_id :  $('input[type=radio][name="variant"].variant-' + index + ':checked').val(),
+                product_id: $('#product-id-' + index).data('id'),
+                quantity: parseInt(quantity),
+            };
+        @endauth
+
+        @guest
+            guestCarts[index] = {
+                variant_id :  $('input[type=radio][name="variant"].variant-' + index + ':checked').val(),
+                product_id: $('#product-id-' + index).data('id'),
+                quantity: parseInt(quantity),
+            };
+        @endguest
 
         updateFinalPrice();
     }
@@ -110,7 +124,33 @@
             'carts': carts
         }).then((response) => {
             if (response.data.status === 'success') {
+                console.log(response.data);
                 $('#final-total-form').submit();
+            } else {
+                console.log(response.data);
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    })
+
+    $('#save-cart-options').on('click', () => {
+        axios.patch('{{ route('guest.cart.update') }}', {
+            @auth
+                'carts': carts
+            @endauth
+            @guest
+                'carts': guestCarts
+            @endguest
+        }).then((response) => {
+            if (response.data.status === 'success') {
+                console.log(response.data);
+                $('#save-cart-options').hide();
+                $('#cart-options-saved').show();
+                setTimeout(() => {
+                    $('#cart-options-saved').hide();
+                    $('#save-cart-options').show();
+                }, 2000);
             } else {
                 console.log(response.data);
             }
