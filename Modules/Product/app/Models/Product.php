@@ -40,7 +40,7 @@ class Product extends Model
 
     public $translatable = ['title', 'description', 'instructions'];
 
-    public $appends = ['price' , 'variant_prices' ];
+    public $appends = ['price' /* , 'variant_prices' */ ];
     // public $appends = ['product_price' , 'currency'];
 
 
@@ -67,12 +67,12 @@ class Product extends Model
             return asset('assets/images/image.png');
         }
     }
-    public function getVariantPricesAttribute()
-    {
-        return $this->variants->map(function ($variant) {
-            return $variant->only(['price','price_with_discount','id']);
-        })->keyBy('id')->toJson();
-    }
+    // public function getVariantPricesAttribute()
+    // {
+    //     return $this->variants->map(function ($variant) {
+    //         return $variant->only(['price','price_with_discount','id']);
+    //     })->keyBy('id')->toJson();
+    // }
 
 
     /**

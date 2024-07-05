@@ -1,5 +1,6 @@
 {{-- @php
-    dd($productsYouMayLike); // 10 products randomly that user may like
+    // dd($productsYouMayLike); // 10 products randomly that user may like
+    dd($productVariantPrices); 
 @endphp --}}
 
 @extends('themes.theme1.layouts.app')
@@ -145,21 +146,21 @@
 
                         <!-- price -->
                         <div class="product-price in-mobile">
-                            @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
+                            @if($product->discount_value > 0)
                                 <div class="before-dis">
-                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                    <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                 </div>
-                                <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <span class="no-dis total-price" id=""> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 <div class="after-dis" style="display: none">
-                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                    <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 </div>
                             @else
                                 <div class="before-dis" style="display: none">
-                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                    <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                 </div>
-                                <span class="no-dis" id="total-price" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <span class="no-dis total-price" id="" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 <div class="after-dis">
-                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                    <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                 </div>
                             @endif
                         </div>
@@ -196,19 +197,19 @@
                                 <div class="product-price">
                                     @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
                                         <div class="before-dis">
-                                            <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                            <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                         </div>
-                                        <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        <span class="no-dis total-price" id=""> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         <div class="after-dis" style="display: none">
-                                            <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                            <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         </div>
                                     @else
                                         <div class="before-dis" style="display: none">
-                                            <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                            <span class="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
                                         </div>
-                                        <span class="no-dis" id="total-price" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                        <span class="no-dis total-price" id="" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         <div class="after-dis">
-                                            <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                            <span class="with-dis total-price" id="">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
                                         </div>
                                     @endif
                                 </div>
@@ -227,7 +228,7 @@
                                     <img class="object-cover" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                 </div>
                                 <div class="p-info">
-                                    <a href="#" class="category">Category Name</a>
+                                    <a href="#" class="category">{{__("Category Name")}}</a>
                                     <h3>{{ $product->title }}</h3>
                                 </div>
                             </div>
@@ -353,13 +354,13 @@
                         </div>
                         <div class="swiper-wrapper">
 
-                        @foreach ($productsYouMayLike->products as $product)
                             <!-- product item -->
-                                <div class="swiper-slide">
-                                    @include('themes.theme1.partials.item')
-                                </div>
-                                <!-- product item -->
-                            @endforeach
+                            <div class="swiper-slide">
+                                @foreach ($productsYouMayLike as $product)
+                                    @include('themes.theme1.partials.item' , ['product' => $product])
+                                @endforeach
+                            </div>
+                            <!-- product item -->
                         </div>
 
                     </div>
