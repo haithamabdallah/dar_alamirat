@@ -210,6 +210,17 @@ class CartController extends Controller
 
             (new CartService())->updateCart($validated);
             
+            if (isset($error)) {
+                return response()->json([
+                    'message' => $error,
+                    'status' => 'error'
+                ]);
+            }
+
+            return response()->json([
+                'message' => 'Updated Successfully.',
+                'status' => 'success'
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -217,17 +228,6 @@ class CartController extends Controller
             ]);
         }
 
-        if (isset($error)) {
-            return response()->json([
-                'message' => $error,
-                'status' => 'error'
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Updated Successfully.',
-            'status' => 'success'
-        ]);
     }
 
     public function updateGuestCart(Request $request)

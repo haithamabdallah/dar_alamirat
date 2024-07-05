@@ -76,24 +76,30 @@ class CartService
   public function updateCart($validated)
   {
 
-    foreach ($validated['carts'] as $id => $requestCart) {
+    $prices = Variant::lazy()->map(function ($variant) {
+      return $variant->only(['priceWithDiscount', 'id']);
+  })->keyBy('id')->toArray();
+
+  foreach ($validated['carts'] as $id => $requestCart) {
 
       $inventoryQuantity = Inventory::where('variant_id', $requestCart['variant_id'])?->first()?->quantity;
-      $cart = Cart::find($id);
+
+      $cart = Cart::find($id);  
 
       if ($requestCart['quantity'] <= $inventoryQuantity) {
         $cart->quantity = $requestCart['quantity'];
-        $cart->price = $requestCart['price'];
+        $cart->price = $prices[$requestCart['variant_id']]['priceWithDiscount'];
         $cart->variant_id = $requestCart['variant_id'];
         $cart->product_id = $requestCart['product_id'];
         $cart->save();
 
       } else {
-        
+
         $error = 'Product did not update. It may be out of stock';
         return $error;
       }
     }
+
   }
 
   public function updateGuestCart($validated)
