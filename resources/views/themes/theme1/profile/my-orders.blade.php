@@ -155,7 +155,7 @@
                     </aside>
                     <main>
                         <h1>{{ __("My Orders") }}</h1>
-                        @forelse ($orders as $order)
+                        {{--@forelse ($orders as $order)
                             <div><a href="{{ route('order.my.details', $order->id) }}"> {{ __("Order Detials Page") }}</a></div>
                             <div class="bg-white p-4 my-4 shadow rounded">
                                 <div>  {{ __("Order Number") }}: <span>{{ $order->order_number }}</span> </div>
@@ -210,51 +210,101 @@
                                 <p>{{ __("No Orders Founded") }}</p>
                             </div>
                             <!-- If Empty Page -->
-                        @endforelse
+                        @endforelse--}}
 
                         <!-- my order lists -->
-                        {{-- <div class="my_orders_items">
+                        @forelse ($orders as $order)
+                         <div class="single_order my_orders_items">
 
-                        <!-- item -->
-                        <div class="alert item_cart alert-dismissible fade show" role="alert">
-                            <!-- data -->
-                            <div class="entries">
+                            <!-- item -->
+                            <div class="alert item_cart alert-dismissible fade show" role="alert">
 
-                                <a class="removeItem" href="javascript:;" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
-
-                                <!-- img and title -->
-                                <div class="itemInfo">
-                                    <a href="#">
-                                        <img class="w-full object-contain" src="images/products/01.png" alt="">
-                                    </a>
-
-                                    <h2>
-                                        <a href="#">PharmStay - Complete Hydrogel Collagen Eye Patch</a>
-                                        <div class="variant-price">Variant Price: <span id="variant-price">10.99</span></div>
-                                    </h2>
+                                <div class="order-header">
+                                    <div>  {{ __("Order Number") }}: <span>{{ $order->order_number }}</span> </div>
+                                    <div>  {{ __("Created At") }}: <span> {{ $order->created_at->format('Y-m-d h:i A') }} </span> </div>
                                 </div>
-                                <!-- img and title -->
 
-                                <!-- total price -->
-                                <div class="price">Total Price: <span id="price">10.99</span></div>
-                                <!-- ./total price -->
+
+
+                            @foreach ($order->orderDetails as $orderDetails)
+                                <!-- data -->
+                                <div class="entries">
+
+                                    {{--<a class="removeItem" href="javascript:;" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>--}}
+
+
+                                    <!-- img and title -->
+                                    <div class="itemInfo">
+                                        <a href="{{ route('product', $orderDetails->product->id) }}">
+                                            <img class="w-full object-contain" src="{{ $orderDetails->product->thumbnail }} " alt="">
+                                        </a>
+
+                                        <h2>
+                                            <a href="{{ route('product', $orderDetails->product->id) }}">{{ $orderDetails->product->title }} ( {{ $orderDetails->variant->variant_name }} )</a>
+                                            <div class="variant-price">{{ __("Variant") }}: <span id="variant-price">{{ $orderDetails->variant->variant_name }}</span></div>
+                                            <div class="variant-price">  {{ __("Unit Price") }}: <span>{{ $orderDetails->price }}</span> </div>
+                                            <div class="variant-price">  {{ __("Quantity") }}: <span>{{ $orderDetails->quantity }}</span> </div>
+                                            <div class="variant-price"> {{ __("Variant SKU") }}: <span>
+                                            {{ $orderDetails->variant->sku }} </span> </div>
+                                        </h2>
+                                    </div>
+                                    <!-- img and title -->
+
+                                    <!-- total price -->
+                                    <div class="price">{{ __("Total Price") }}: <span id="price">{{ $orderDetails->price * $orderDetails->quantity }}</span></div>
+                                    <!-- ./total price -->
+
+
+
+
+                                </div>
+                                <!-- data -->
+                                    <div class="all-price">  {{ __("Final Price") }}: <span>{{ $order->final_price }}</span> </div>
+                            @endforeach
+
+                                @if ($order?->coupon)
+                                    <div> {{ __("Applied Coupon") }} :
+                                        <ul>
+                                            <li>{{ __("Code") }} : {{ $order->coupon->code }}</li>
+                                            <li>{{ __("Type") }} : {{ $order->coupon->discount_type }}</li>
+                                            <li>{{ __("Value") }} : {{ $order->coupon->discount_value }}</li>
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                @php
+                                    $address = $order->userAddress;
+                                @endphp
+                                <div> {{ __("Order Address") }} :
+                                    <ul class="order-address">
+                                        <li> {{ __("Governorate") }} : {{ $address->governorate }}</li>
+                                        <li> {{ __("City") }} : {{ $address->city }}</li>
+                                        <li> {{ __("Street") }} : {{ $address->street }}</li>
+                                        <li> {{ __("House Number") }} : {{ $address->house_number }}</li>
+                                    </ul>
+                                </div>
+
+                                <div class="order-footer">
+                                    <div class="status pending">  {{ __("Order Status") }}: <span>{{ $order->status }}</span> </div>
+                                    <div class="status pending"> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div>
+                                    <div class="status done">  {{ __("Order Payment Method") }}: <span> {{ __("Cash On Delivery") }}</span> </div>
+                                </div>
+
+
 
                             </div>
-                            <!-- data -->
-
-                            <!-- variants -->
-                            <div class="variants my_orders">
-                                <label class="title" for="Variant">Quantity : <span>1</span></label>
-                                <label class="title" for="Variant">Choose Product : <span>100ml - Blue</span></label>
-                                <label class="status delivered" for="Variant"> delivered</label>
-                            </div>
-                            <!-- variants -->
+                            <!-- ./item -->
 
                         </div>
-                        <!-- ./item -->
-
-                    </div> --}}
                         <!-- ./my order lists -->
+                        @empty
+                        <!-- If Empty Page -->
+                            <div class="no-content-placeholder">
+                                <i class="sicon-packed-box icon"></i>
+                                <p>{{ __("No Orders Founded") }}</p>
+                            </div>
+                            <!-- If Empty Page -->
+                        @endforelse
 
                     </main>
                 </div>

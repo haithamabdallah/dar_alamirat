@@ -435,13 +435,66 @@
     .product_page {
         grid-template-columns: 1fr;
     }
+    .sticky_card {
+        .product_Properties {
+            flex-direction: column;
+            grid-gap: 20px;
+            width: 100%;
+            .quantity-controls {
+                width: 100%;
+                input {
+                    width: inherit;
+                }
+            }
+            .product-price {
+                display: none;
+            }
+        }
+        .small_product {
+            display: none;
+        }
+    }
+    .in-mobile {
+        display: flex;
+        padding-bottom: 30px;
+    }
+    #variant-form {
+        flex-wrap: wrap;
+    }
 }
 
 // `md` applies to small devices (landscape phones, less than 768px)
 @media (min-width: 767.98px) {
     .product_page {
         grid-template-columns: 1fr;
+        .product-price {
+            &.in-mobile {
+                display: none;
+            }
+        }
     }
+
+    .sticky_card {
+        .product_Properties {
+            flex-direction: row;
+            grid-gap: 20px;
+            width: 100%;
+            .quantity-controls {
+                width: 50%;
+                input {
+                    width: 100px;
+                }
+            }
+            .product-price {
+                display: flex;
+                width: 50%;
+            }
+        }
+        .small_product {
+            display: none;
+        }
+    }
+
 }
 
 // `lg` applies to medium devices (tablets, less than 992px)
@@ -449,12 +502,43 @@
     .product_page {
         grid-template-columns: 1fr 1fr;
     }
+    .product-price {
+        &.in-mobile {
+            display: none;
+        }
+    }
+    .sticky_card {
+        .product_Properties {
+            display: flex;
+            align-items: center;
+            grid-gap: 20px;
+            width: auto;
+            flex-wrap: wrap;
+            .quantity-controls {
+                width: auto;
+                input {
+                    width: 100px;
+                }
+            }
+            .product-price {
+                display: flex;
+                width: auto;
+            }
+        }
+        .small_product {
+            display: flex;
+            margin-left: auto;
+        }
+    }
 }
 
 // `xl` applies to large devices (desktops, less than 1200px)
 @media (min-width: 1199.98px) {
     .product_page {
         grid-template-columns: 1fr 1fr;
+    }
+    .in-mobile {
+        display: none;
     }
 }
 

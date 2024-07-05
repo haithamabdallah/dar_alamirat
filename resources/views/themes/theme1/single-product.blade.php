@@ -1,5 +1,5 @@
 {{-- @php
-    dd($productsYouMayLike); // 10 products randomly that user may like 
+    dd($productsYouMayLike); // 10 products randomly that user may like
 @endphp --}}
 
 @extends('themes.theme1.layouts.app')
@@ -142,6 +142,28 @@
                             <!-- ./Full Descriptions -->
                         </div>
                         <!-- ./TABS -->
+
+                        <!-- price -->
+                        <div class="product-price in-mobile">
+                            @if($product->discount_value > 0 && $product->variants->first()->price_with_discount)
+                                <div class="before-dis">
+                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                </div>
+                                <span class="no-dis" id="total-price"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <div class="after-dis" style="display: none">
+                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                </div>
+                            @else
+                                <div class="before-dis" style="display: none">
+                                    <span id="base-price">{{ number_format($product->variants->first()->price, 2) }} {{ $currency }}</span>
+                                </div>
+                                <span class="no-dis" id="total-price" style="display: none"> {{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                <div class="after-dis">
+                                    <span class="with-dis" id="total-price">{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                                </div>
+                            @endif
+                        </div>
+                        <!-- ./price -->
 
 
 
