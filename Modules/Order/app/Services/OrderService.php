@@ -78,6 +78,12 @@ class OrderService
         // $priceOfProduct = $this->getPriceOfProduct($validatedData['product_id']);
 
         try {
+
+            
+            $prices = Variant::lazy()->map(function ($variant) {
+                return $variant->only(['priceWithDiscount', 'id']);
+            })->keyBy('id')->toArray();
+            
             DB::beginTransaction();
             $orderNumber = Str::uuid();
             //     dd($orderNumber);
@@ -96,6 +102,8 @@ class OrderService
 
             foreach ($carts as $cart) {
                 $quantityOfProduct = $this->getQuantityOfProduct($cart->product_id);
+
+                $cart->price =  $prices[$cart->variant_id]['priceWithDiscount'];
 
                 $orderProduct = new OrderProduct();
                 $orderProduct->order_id = $order->id;

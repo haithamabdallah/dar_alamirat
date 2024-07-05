@@ -1,3 +1,9 @@
+@php
+    // dd(session()->get('carts'));
+    // dd($carts);
+    // dd($prices);
+@endphp
+
 @extends('themes.theme1.layouts.app')
 
 @section('customcss')
@@ -58,7 +64,9 @@
                         <main>
                             @foreach ($carts as $index => $cart)
                                 <div class="items_in_cart">
-                                    <div class="d-none" id="cart-id-{{ $index }}" data-id="{{ $cart->id }}"></div>
+                                    @if ( auth()->check() )
+                                        <div class="d-none" id="cart-id-{{ $index }}" data-id="{{ $cart->id }}"></div>
+                                    @endif
 
                                     <!-- item -->
                                     <div class="alert item_cart alert-dismissible fade show" role="alert">
@@ -68,7 +76,7 @@
                                             {{-- <a class="removeItem" href="javascript:;" data-bs-dismiss="alert"
                                             aria-label="Close"><i class="fa-solid fa-xmark"></i></a> --}}
 
-                                            <form action="{{ route('cart.destroy', $cart->id) }}" method="POST"
+                                            <form action="{{ auth()->check() ? route('cart.destroy', $cart->id) : route('guest.cart.destroy', $cart->product_id) }}" method="POST"
                                                 id="delete-form-{{ $index }}" data-index="{{ $index }}">
                                                 @csrf
                                                 @method('DELETE')
@@ -127,7 +135,7 @@
                                                 @foreach ($cart->product?->variants as  $variant)
                                                     <div class="variant-option">
                                                         <input type="radio" id="variant-{{ $variant->id }}" class="variant-{{ $index }}" name="variant" value="{{ $variant->id }}" 
-                                                        @if ($cart->variant_id && $cart->variant_id === $variant->id) checked 
+                                                        @if ($cart->variant_id && $cart->variant_id == $variant->id) checked 
                                                         @endif
                                                         >
                                                         <label for="variant-{{ $variant->id }}">
@@ -178,26 +186,38 @@
                                 @endforeach
 
                                 <p id="final-total"><b>{{ __("Final Total") }}:</b><span id="final-total-price" ></span></p>
-
-                                <div class="coupons">
-                                    <label for="apply_coupons">{{ __("Have Coupon") }} {{ __("?") }}</label>
-                                    <div class="apply">
-                                        <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
-                                        <button onclick="applyCoupon()">{{ __("Apply") }}</button>
+                                @auth
+                                    <div class="coupons">
+                                        <label for="apply_coupons">{{ __("Have Coupon") }} {{ __("?") }}</label>
+                                        <div class="apply">
+                                            <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
+                                            <button onclick="applyCoupon()">{{ __("Apply") }}</button>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <p id="coupon-details-div" style="display: none"> <span class="text-success"> {{ __("Successful Coupon") }} </span> <br> <span id="coupon-details" > </span> </p>
-                                <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>
+                                    <p id="coupon-details-div" style="display: none"> <span class="text-success"> {{ __("Successful Coupon") }} </span> <br> <span id="coupon-details" > </span> </p>
+                                    <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>
 
 
-                                {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}
+                                    {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}
 
-                                <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form" style="display: none">
-                                    @csrf
-                                    <input type="hidden" name="final_total" id="final-total-input" value="">
-                                </form>
-                                <button class="place_order" id="final-total-btn">{{ __("Submit Order") }}</button>
+                                    <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form" style="display: none">
+                                        @csrf
+                                        <input type="hidden" name="final_total" id="final-total-input" value="">
+                                    </form>
+                                    <button class="place_order" id="final-total-btn">{{ __("Submit Order") }}</button>
+                                @endauth
+
+                                @guest
+                                    <div class="text-center  p-2 rounded" style="color: #5e6fb4; font-weight: bold" >
+                                        {{ __("Please login to use coupons and to checkout.") }}
+                                    </div>
+                                    <button type="button" class="text-center text-white p-2 rounded" style="background-color: #5e6fb4; font-weight: bold ; width:100% !important" 
+                                    id="save-cart-options">{{ __("Save Cart Options") }}</button>
+                                    <button type="button" class="text-center text-white bg-success p-2 rounded" style="display: none; font-weight: bold ; width:100% !important" 
+                                        id="cart-options-saved">{{ __("Saved") }}</button>
+
+                                @endguest
                             </div>
                             <!-- summary -->
                         </div>

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-use App\Models\IndexPriority;
 use App\Services\CarService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use App\Models\IndexPriority;
+use App\Services\CartService;
 use Modules\Brand\Models\Brand;
+use Illuminate\Support\Facades\App;
+use Modules\Product\Models\Product;
+use App\Http\Controllers\Controller;
 use Modules\Category\Models\Category;
 use Modules\Product\app\Services\ProductService;
-use Modules\Product\Models\Product;
 
 class HomeController extends Controller
 {
@@ -38,6 +39,8 @@ class HomeController extends Controller
 //        $brands     = cache()->remember('brands', 60 * 60, function () {
 //            return Brand::active()->limit(12)->inRandomOrder()->get();
 //        });
+
+        ( new CartService() )->mergeGuestCartsAndAuthCarts();
 
         $priorityables = IndexPriority::where('status' , 1)->orderBy('priority' , 'ASC')->get();
 

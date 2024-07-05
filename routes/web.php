@@ -53,35 +53,35 @@ use App\Http\Controllers\Front\Profile\ProfileController;
 
 /************************************ reports ****************************/
 
-Route::get('/test', function () {
-    return view('test');
-})->name('test');
+// Route::get('/test', function () {
+//     return view('test');
+// })->name('test');
 
-Route::get('/reports', function () {
-    return view('dashboard.reports.reports');
-})->name('report.index');
-
-
-Route::get('/reports/create', function () {
-    return view('dashboard.reports.create_report');
-})->name('report.create');
+// Route::get('/reports', function () {
+//     return view('dashboard.reports.reports');
+// })->name('report.index');
 
 
-Route::get('/reports/edit', function () {
-    return view('dashboard.reports.edit_report');
-})->name('report.edit');
+// Route::get('/reports/create', function () {
+//     return view('dashboard.reports.create_report');
+// })->name('report.create');
 
-Route::get('/cart-empty', function () {
-    return view('themes.theme1.cart-empty');
-})->name('cart-empty');
 
-Route::get('/offers', function () {
-    return view('themes.theme1.offers');
-})->name('offers');
+// Route::get('/reports/edit', function () {
+//     return view('dashboard.reports.edit_report');
+// })->name('report.edit');
 
-Route::get('/brands', function () {
-    return view('themes.theme1.brands');
-})->name('brands');
+// Route::get('/cart-empty', function () {
+//     return view('themes.theme1.cart-empty');
+// })->name('cart-empty');
+
+// Route::get('/offers', function () {
+//     return view('themes.theme1.offers');
+// })->name('offers');
+
+// Route::get('/brands', function () {
+//     return view('themes.theme1.brands');
+// })->name('brands');
 
 
 /************************************ Front Routs ****************************/
@@ -121,20 +121,29 @@ Route::middleware('auth:admin')->group(function () {
         Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
     });
 });
+Route::group(['prefix' => 'guest' , 'as' => 'guest.'], function () {
+    Route::post('/cart/add/{product}', [CartController::class, 'addToGuestCart'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'showGuestCart'])->name('cart.index');
+    Route::patch('/cart/update', [CartController::class, 'updateGuestCart'])->name('cart.update');
+    Route::delete('/cart/{cart:id}', [CartController::class, 'destroyGuestCart'])->name('cart.destroy');
+});
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
     Route::post('/favorites/{product}', [FavoriteController::class, 'toggleFavorite'])->name('toggle.favorites');
     // Cart
-    Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
     // Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
 
     // Route::withoutMiddleware('auth')->group(function () {
     // });
-    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    // Route::get('/cart/merge', [CartController::class, 'merge'])->name('cart.merge');
+
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
 
     Route::get('/my-orders', [OrderController::class, 'myOrdersPage'])->name('order.my');
     Route::get('/my-orders/{order:id}', [OrderController::class, 'myOrderDetailsPage'])->name('order.my.details');

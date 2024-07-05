@@ -136,6 +136,7 @@
 
         axios.post(url, data)
             .then(function (response) {
+                console.log(response)
                 const icon = response.data.status === 'danger' || response.data.status === 'error' ? 'warning' : 'success';
                 // console.log(response)
                 if (response.data.status === 'success') {
@@ -149,11 +150,11 @@
                 });
             })
             .catch(function (error) {
-                console.log(error.response.data)
+                console.log(error.response)
                 Swal.fire({
                     title: error.response.data.message == 'Unauthenticated.' ? ' {{ __("Unauthenticated") }}.  ' : '{{ __("Error") }}!',
                     text: error.response.data.message == 'Unauthenticated.' ? ' {{ __("you need to login first") }}  ' : error.response.data.message ,
-                    icon: error.response.data.message == 'Unauthenticated.' ? ' "warning"  ' : ' "error"  ',
+                    icon: error.response.data.message == 'Unauthenticated.' ? "warning"  : "error" ,
                     confirmButtonText: 'OK'
                 });
             });

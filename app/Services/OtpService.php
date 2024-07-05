@@ -7,6 +7,7 @@ use App\Models\Otp;
 use App\Models\User;
 use App\Mail\OtpMail;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +51,7 @@ class OtpService
         }
     }
 
-    public function verifyOtp(array $validatedData): JsonResponse
+    public function verifyOtp( array $validatedData): JsonResponse
     {
         try {
             $otp = implode('', $validatedData['otp']);
@@ -68,6 +69,10 @@ class OtpService
 
                 // Log in the user
                 Auth::login($user);
+
+                request()->session()->regenerate();
+
+                ( new CartService() )->mergeGuestCartsAndAuthCarts();
 
                 // Return JSON response indicating successful login
                 return response()->json([

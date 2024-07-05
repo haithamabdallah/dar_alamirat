@@ -193,7 +193,7 @@
                                 <!-- ./price -->
 
                                 <!-- add to cart button -->
-                                <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{route('cart.add', $product->id)}}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
+                                <button class="tocart add-to-cart button--submit" data-title="Add to Cart" data-variant-id="{{ $product->variants->first()->id }}" data-cart-url="{{ auth()->check() ?  route('cart.add', $product->id) : route('guest.cart.add', $product->id) }}" onclick="addToCart(this , {{ $product->variants->first()->id }})">
                                     <span class="button-title">{{ __("Add to Cart") }}</span>
                                     <i class="sicon-shopping button-icon icon-tocart" data-icon="tocart"></i>
                                 </button>
