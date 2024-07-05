@@ -95,11 +95,10 @@
 
       .after-dis {
         text-decoration: none;
-        color: $accentColorLight;
           transition: .35s all;
-          h3 {
+          span {
               color: #f87171;
-              font-size: 20px;
+              font-size: 16px;
               line-height: 28px;
               font-weight: 700;
               transition: .35s all;
@@ -108,6 +107,14 @@
               transition: .35s all;
           }
       }
+        h4 {
+            span {
+                font-size: 16px;
+                line-height: 28px;
+                color: #1f2937;
+                font-weight: 400;
+            }
+        }
     }
 
     .item-dec {

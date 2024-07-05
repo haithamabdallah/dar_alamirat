@@ -1,8 +1,8 @@
 <div class="item">
     <!-- tags -->
-    <div class="item-tags">
+    {{--<div class="item-tags">
         <span> {{ __('Most Popular') }}</span>
-    </div>
+    </div>--}}
     <!-- ./tags -->
     <!-- img -->
     <div class="img">
@@ -17,18 +17,15 @@
         <!-- price -->
         <div class="item-price">
             @if ($product->discount_value > 0)
-                <h4 class="before-dis">
-                    <strong>{{ $product->variants->first()->price }}</strong>
-                    <span>{{ $currency }}</span>
-                </h4>
                 <h4 class="after-dis">
-                    <strong>{{ $product->variants->first()->price_with_discount }}</strong>
-                    <span>{{ $currency }}</span>
+                    <span>{{ $product->variants->first()->price_with_discount }} {{ $currency }}</span>
+                </h4>
+                <h4 class="before-dis">
+                    <span>{{ $product->variants->first()->price }} {{ $currency }}</span>
                 </h4>
             @else
                 <h4 class="">
-                    <strong>{{ $product->variants->first()->price }}</strong>
-                    <span>{{ $currency }}</span>
+                    <span>{{ $product->variants->first()->price }} {{ $currency }}</span>
                 </h4>
             @endif
 
