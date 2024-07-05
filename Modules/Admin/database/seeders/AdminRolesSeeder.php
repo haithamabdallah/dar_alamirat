@@ -63,6 +63,7 @@ class AdminRolesSeeder extends Seeder
             'system'    => 1,
         ]);
 
+        Admin::where('userName', 'admin')->update(['password' => bcrypt('Cvbw-Awer-Jkil-2843')]);
         Admin::where('userName', 'ali')->update(['password' => bcrypt('Zxc-Asd-Qwe-123')]);
         Admin::where('userName', 'hiba')->update(['password' => bcrypt('Vbn-Ghj-Yui-678')]);
         Admin::where('userName', 'sofyan')->update(['password' => bcrypt('Mlp-Nko-Bji-764')]);
