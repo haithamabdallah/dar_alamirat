@@ -13,8 +13,8 @@ class ProductController extends Controller
     {
         $product=Product::find($id);
         $product->load(['brand']);
-        // $productsYouMayLike = Product::where('id','!=',$product->id)->get()->shuffle()->take(10);
-        $productsYouMayLike = Product::where('id','!=',$product->id)->get()->random(10);
+        $productsYouMayLike = Product::where('id','!=',$product->id)->get()->shuffle()->take(10);
+        // $productsYouMayLike = Product::where('id','!=',$product->id)->get()->random(10);
         return view('themes.theme1.single-product',compact('product' , 'productsYouMayLike'));
     }
 }
