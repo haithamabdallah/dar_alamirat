@@ -75,12 +75,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Newsletter Popup Logic
             const newsletterPopup = document.getElementById('newsletterPopup');
-            const form = document.getElementById('newsletter-form');
-            const subscribeDiv = document.getElementById('subscription');
-            const successDiv = document.getElementById('NewsSuccess');
-            const closeButtons = document.querySelectorAll('.closeNews');
-            const popup = document.getElementById("newsletterPopup");
+            const newsletterForm = document.getElementById('newsletter-form');
+            const subscriptionDiv = document.getElementById('subscription');
+            const newsSuccessDiv = document.getElementById('NewsSuccess');
+            const newsletterCloseButtons = newsletterPopup.querySelectorAll('.closeNews');
 
             // Check if the user has already subscribed
             if (!localStorage.getItem('subscribed')) {
@@ -89,20 +89,20 @@
                 }, 2000);
             }
 
-            form.addEventListener('submit', function(event) {
+            newsletterForm.addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent the default form submission
 
                 // Simulate form submission
-                fetch(form.action, {
-                    method: form.method,
-                    body: new FormData(form),
+                fetch(newsletterForm.action, {
+                    method: newsletterForm.method,
+                    body: new FormData(newsletterForm),
                 }).then(response => {
                     if (response.ok) {
-                        successDiv.classList.remove('hide');
-                        subscribeDiv.classList.add('hide');
+                        newsSuccessDiv.classList.remove('hide');
+                        subscriptionDiv.classList.add('hide');
                         localStorage.setItem('subscribed', 'true'); // Store subscription status
                         setTimeout(() => {
-                            popup.classList.add('hide');
+                            newsletterPopup.classList.add('hide');
                         }, 3000); // Hide popup after 3 seconds
                     } else {
                         alert('Subscription failed. Please try again.');
@@ -112,18 +112,15 @@
                 });
             });
 
-            closeButtons.forEach(closeButton => {
+            newsletterCloseButtons.forEach(closeButton => {
                 closeButton.addEventListener('click', function() {
-                    popup.classList.add('hide');
+                    newsletterPopup.classList.add('hide');
                 });
             });
-        });
-    </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+            // Cookies Popup Logic
             const cookiesPopup = document.getElementById('cookiesPopup');
-            const closeButtons = document.querySelectorAll('.closeNews');
+            const cookiesCloseButtons = cookiesPopup.querySelectorAll('.closeNews');
 
             // Check if the user has already made a cookies choice
             if (!localStorage.getItem('cookiesChoice')) {
@@ -132,7 +129,7 @@
                 }, 4000);
             }
 
-            closeButtons.forEach(closeButton => {
+            cookiesCloseButtons.forEach(closeButton => {
                 closeButton.addEventListener('click', function() {
                     const isAccept = this.classList.contains('accept-btn');
                     const isReject = this.classList.contains('reject-btn');
