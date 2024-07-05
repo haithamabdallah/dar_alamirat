@@ -228,7 +228,7 @@
                                     <img class="object-cover" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                 </div>
                                 <div class="p-info">
-                                    <a href="#" class="category">{{__("Category Name")}}</a>
+                                    <a href="#" class="category">{{ $product->category->name  }}</a>
                                     <h3>{{ $product->title }}</h3>
                                 </div>
                             </div>
@@ -334,10 +334,11 @@
             <div class="wrap">
                 <!-- swiper #01 -->
                 <div class="section-categories">
-                    <div class="swiper category">
+                    <div class="swiper mySwiper">
+
                         <div class="section-head">
                             <div class="s-block-title">
-                                <h2>Section name</h2>
+                                <h2>Section Name</h2>
                             </div>
 
                             <div class="category-nav">
@@ -352,17 +353,18 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="swiper-wrapper">
 
                             <!-- product item -->
-                            <div class="swiper-slide">
-                                @foreach ($productsYouMayLike as $product)
+                            @foreach ($productsYouMayLike as $product)
+                                <div class="swiper-slide">
                                     @include('themes.theme1.partials.item' , ['product' => $product])
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                             <!-- product item -->
                         </div>
-
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
@@ -373,5 +375,48 @@
 
 @push('scripts')
     @include('themes.theme1.single-product-scripts')
+
+    <script>
+        document.querySelectorAll(".mySwiper").forEach(function(s) {
+            let next = s.querySelector(".cat-next");
+            let prev = s.querySelector(".cat-prev");
+
+            new Swiper(s, {
+                navigation: {
+                    nextEl: next,
+                    prevEl: prev
+                },
+                slidesPerView: 4,
+                spaceBetween: 20,
+                slidesPerGroup: 1,
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    425: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 50,
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                },
+            });
+        });
+    </script>
 @endpush
 
