@@ -3,10 +3,12 @@
     // prices = JSON.parse(prices);
 
     var carts = {};
+    var guestCarts ={};
 
     function getPricePerUnit(index) {
         let variantId = $(`input[name=variant].variant-${index}:checked`).val();
         let pricePerUnit = parseFloat(prices[variantId]['priceWithDiscount']);
+
         return pricePerUnit;
     }
 
@@ -98,7 +100,7 @@
         @endauth
 
         @guest
-            carts[index] = {
+            guestCarts[index] = {
                 variant_id :  $('input[type=radio][name="variant"].variant-' + index + ':checked').val(),
                 product_id: $('#product-id-' + index).data('id'),
                 quantity: parseInt(quantity),
@@ -122,6 +124,7 @@
             'carts': carts
         }).then((response) => {
             if (response.data.status === 'success') {
+                console.log(response.data);
                 $('#final-total-form').submit();
             } else {
                 console.log(response.data);
@@ -133,7 +136,12 @@
 
     $('#save-cart-options').on('click', () => {
         axios.patch('{{ route('guest.cart.update') }}', {
-            'carts': carts
+            @auth
+                'carts': carts
+            @endauth
+            @guest
+                'carts': guestCarts
+            @endguest
         }).then((response) => {
             if (response.data.status === 'success') {
                 console.log(response.data);

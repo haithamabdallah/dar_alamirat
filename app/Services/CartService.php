@@ -78,7 +78,7 @@ class CartService
 
     foreach ($validated['carts'] as $id => $requestCart) {
 
-      $inventoryQuantity = Inventory::where('variant_id', $requestCart['variant_id'])->first()->quantity;
+      $inventoryQuantity = Inventory::where('variant_id', $requestCart['variant_id'])?->first()?->quantity;
       $cart = Cart::find($id);
 
       if ($requestCart['quantity'] <= $inventoryQuantity) {
@@ -87,7 +87,9 @@ class CartService
         $cart->variant_id = $requestCart['variant_id'];
         $cart->product_id = $requestCart['product_id'];
         $cart->save();
+
       } else {
+        
         $error = 'Product did not update. It may be out of stock';
         return $error;
       }

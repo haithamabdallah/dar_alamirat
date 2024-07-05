@@ -209,6 +209,7 @@ class CartController extends Controller
         try {
 
             (new CartService())->updateCart($validated);
+            
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
