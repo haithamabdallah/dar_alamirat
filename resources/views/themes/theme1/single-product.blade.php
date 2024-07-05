@@ -333,10 +333,11 @@
             <div class="wrap">
                 <!-- swiper #01 -->
                 <div class="section-categories">
-                    <div class="swiper category">
+                    <div class="swiper mySwiper">
+
                         <div class="section-head">
                             <div class="s-block-title">
-                                <h2>Section name</h2>
+                                <h2>Section Name</h2>
                             </div>
 
                             <div class="category-nav">
@@ -351,17 +352,15 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="swiper-wrapper">
-
-                        @foreach ($productsYouMayLike->products as $product)
-                            <!-- product item -->
-                                <div class="swiper-slide">
-                                    @include('themes.theme1.partials.item')
-                                </div>
-                                <!-- product item -->
-                            @endforeach
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
+                            <div class="swiper-slide">@include('themes.theme1.partials.item')</div>
                         </div>
-
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
@@ -372,5 +371,48 @@
 
 @push('scripts')
     @include('themes.theme1.single-product-scripts')
+
+    <script>
+        document.querySelectorAll(".mySwiper").forEach(function(s) {
+            let next = s.querySelector(".cat-next");
+            let prev = s.querySelector(".cat-prev");
+
+            new Swiper(s, {
+                navigation: {
+                    nextEl: next,
+                    prevEl: prev
+                },
+                slidesPerView: 4,
+                spaceBetween: 20,
+                slidesPerGroup: 1,
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    425: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 50,
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                },
+            });
+        });
+    </script>
 @endpush
 
