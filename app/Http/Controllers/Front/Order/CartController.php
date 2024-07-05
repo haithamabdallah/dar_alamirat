@@ -32,7 +32,7 @@ class CartController extends Controller
                 return $variant->only(['priceWithDiscount', 'id']);
             })->pluck('priceWithDiscount', 'id')->toArray();
 
-            $price = $prices[$variantId]['priceWithDiscount'];
+            $price = $prices[$variantId];
 
             // Check if the product is already in the cart
 
