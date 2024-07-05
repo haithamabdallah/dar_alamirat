@@ -323,11 +323,51 @@
             </div>
             <!-- ./row -->
 
-
         </div>
         <!-- ./container -->
     </section>
     <!-- ./Product Page -->
+
+    <section class="s-block">
+        <div class="pixel-container">
+            <div class="wrap">
+                <!-- swiper #01 -->
+                <div class="section-categories">
+                    <div class="swiper category">
+                        <div class="section-head">
+                            <div class="s-block-title">
+                                <h2>Section name</h2>
+                            </div>
+
+                            <div class="category-nav">
+
+                                <div class="navigation">
+                                    <button class="cat-prev">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <button class="cat-next">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-wrapper">
+
+                        @foreach ($productsYouMayLike->products as $product)
+                            <!-- product item -->
+                                <div class="swiper-slide">
+                                    @include('themes.theme1.partials.item')
+                                </div>
+                                <!-- product item -->
+                            @endforeach
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 @endsection
 
 @push('scripts')
