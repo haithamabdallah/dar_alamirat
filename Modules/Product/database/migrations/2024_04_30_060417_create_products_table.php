@@ -27,6 +27,10 @@ return new class extends Migration
             $table->boolean('choice')->default(0);
             $table->timestamps();
         });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->boolean('is_returnable')->default(1);
+        });
     }
 
     /**
