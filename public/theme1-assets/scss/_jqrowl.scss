@@ -1,18 +1,16 @@
-.active>.page-link, .page-link.active {
-    background: $accentColor;
+.jGrowl {
+    .jGrowl-notification {
+        background: transparent;
+        &.success {
+            background: #22c55d !important;
+        }
+
+        &.danger {
+            background: #f87171 !important;
+        }
+    }
 }
-.page-link {
-    color: $accentColor;
-    height: 34px;
-}
-.page-item:last-child .page-link {
- border-top-left-radius: 0;
- border-bottom-left-radius: 0;
-}
-.page-item:first-child .page-link {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
+
 :dir(rtl) {
 
 }
