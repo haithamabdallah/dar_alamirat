@@ -6,7 +6,7 @@ path => /my-orders/1
   dd($order);
 @endphp
 --}}
-@php
+{{--@php
     dd($order);
 @endphp
 
@@ -56,4 +56,4 @@ path => /my-orders/1
             </div>
         @endforeach
     </div>
-</main>
+</main>--}}
