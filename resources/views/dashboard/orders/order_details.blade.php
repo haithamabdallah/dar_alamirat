@@ -104,6 +104,29 @@
                                 <td>Tax</td>
                                 <td class="text-end">{{  }}</td>
                             </tr> --}}
+                            <tr>
+                                <td class="pb-2" colspan="2"><b>Coupon</b></td>
+                                @if ( $order?->coupon )
+                                    <td class="text-end pb-2 text-decoration-underline"><b>{{ $order->coupon->discount_value }}
+                                        {{ $order->coupon->discount_type == 'fixed' ? $currency : '%' }} </b></td>
+                                @else
+                                        <td class="text-end pb-2 text-decoration-underline"><b> No Coupon </b></td>
+                                @endif
+                            </tr>
+                            @php
+                                $vat = $settings->keyBy('type')['general']->value['vat']; 
+                            @endphp
+                            @if ( $vat > 0 )
+                            <tr>
+                                <td class="pb-2" colspan="2"><b>VAT</b></td>
+                                <td class="text-end pb-2 text-decoration-underline"><b> {{ $order->vat }} </b></td>
+                            </tr>
+                            @endif
+                                <tr>
+                                    <td class="pb-2" colspan="2"><b>Shipping</b></td>
+                                    <td class="text-end pb-2 text-decoration-underline"><b>{{ $order->shipping_price }}
+                                            {{ $currency }}</b></td>
+                                </tr>
                                 <tr>
                                     <td class="pb-2" colspan="2"><b>Total</b></td>
                                     <td class="text-end pb-2 text-decoration-underline"><b>{{ $order->final_price }}

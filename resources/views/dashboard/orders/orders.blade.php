@@ -80,7 +80,7 @@
                                 <td>{{ $order->created_at->format('h:i A') }}</td>
                                 <td>{{ $order->user->full_name }}</td>
                                 <td>{{ $order->vat ?? '---'}}</td>
-                                <td>{{ $order->Shipping_price  ?? '---' }} ( {{ $order->shippingMethod->name }} ) </td>
+                                <td>{{ $order->shipping_price  ?? '---' }} ( {{ $order->shippingMethod->name }} ) </td>
                                 <td>{{  $order->final_price }} </td>
                                 {{-- <td>{{ $currency }}</td> --}}
                                 <td><span class="badge border border-{{ $paymentStatuses[$order->payment_status]['color'] }} text-{{ $paymentStatuses[$order->payment_status]['color'] }} px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> {{ $paymentStatuses[$order->payment_status][app()->currentLocale()] ?? $order->payment_status }} </span></td>
