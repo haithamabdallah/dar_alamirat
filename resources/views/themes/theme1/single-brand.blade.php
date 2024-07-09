@@ -41,14 +41,35 @@
                         <div class="d-flex justify-content-center">
                             <nav>
                                 <ul class="pagination">
-                                    <li class="page-item disabled" aria-disabled="true" aria-label="« السابق"><span
-                                            class="page-link" aria-hidden="true">‹</span></li>
-                                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#" rel="next"
-                                            aria-label="التالي »">›</a></li>
+                                        
+                                    @if ( $products->currentPage() == 1 )
+                                        <li class="page-item disabled" aria-disabled="true" aria-label="« السابق"><span
+                                                class="page-link" aria-hidden="true"> 
+                                                ‹
+                                            </span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="#" rel="previous"
+                                            aria-label="« السابق"> ‹ </a></li>
+                                    @endif
+
+                                    @foreach (range($products->currentPage(), $products->lastPage()) as $pageNum)
+                                        @if ( $pageNum == $products->currentPage() )
+                                            <li class="page-item active" aria-current="page"><span class="page-link">{{ $pageNum }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item"><a class="page-link" href="{{ $products->url($pageNum) }}">{{ $pageNum }}</a></li>
+                                        @endif
+                                    @endforeach
+
+                                    @if ( $products->currentPage() == $products->lastPage() )
+                                        <li class="page-item disabled" aria-disabled="true" aria-label="التالي »"><span
+                                                class="page-link" aria-hidden="true"> 
+                                                ›
+                                            </span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="{{ $products->nextPageUrl() }}" rel="next"
+                                            aria-label="التالي »"> › </a></li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -64,10 +85,10 @@
                                 <main>
                                     <div class="main-content">
                                         <div class="no-content-placeholder">
-                                            <i class="sicon-shopping-bag icon"></i>
-                                            <p>{{ __('No Products') }}</p>
-                                            <a href="{{ route('index') }}"
-                                                class="btn btn--outline-primary">{{ __('Home Page') }}</a>
+                                            {{-- <i class="sicon-shopping-bag icon"></i> --}}
+                                            <p style="font-size: 3rem">{{ __('No Products') }}</p>
+                                            {{-- <a href="{{ route('index') }}"
+                                                class="btn btn--outline-primary">{{ __('Home Page') }}</a> --}}
                                         </div>
                                     </div>
                                 </main>
