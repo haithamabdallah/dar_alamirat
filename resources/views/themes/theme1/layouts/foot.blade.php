@@ -145,7 +145,6 @@
                         response.data.message,
                         {
                             header: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
-                            sticky: true,
                             theme:  'success',
                         });
                 } else {
@@ -153,7 +152,6 @@
                         response.data.message,
                         {
                             header: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
-                            sticky: true,
                             theme:  'danger',
                         });
                 }
