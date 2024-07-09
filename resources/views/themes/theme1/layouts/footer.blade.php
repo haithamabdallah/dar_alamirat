@@ -8,15 +8,15 @@
                 <div class="content">
                     <form action="{{ route('subscribe') }}" method="POST">
                         @csrf
-                        <h2> {{ __("Subscribe to Our Newsletter") }}</h2>
+                        <h2> {{ __('Subscribe to Our Newsletter') }}</h2>
                         <div class="input-group">
                             <input type="email" class="form-control" placeholder="{{ __('Email') }}" name="email">
                             <span class="input-group-btn">
-                                <button class="btn" type="submit"> {{ __("Subscribe Now") }}</button>
+                                <button class="btn" type="submit"> {{ __('Subscribe Now') }}</button>
                             </span>
                         </div>
                         @error('email')
-                        <p class="text-danger h5 py-5">{{ $message }}</p>
+                            <p class="text-danger h5 py-5">{{ $message }}</p>
                         @enderror
                     </form>
                 </div>
@@ -76,18 +76,18 @@
                 <!-- item -->
                 @auth
                     <div class="f-item">
-                        <h3>{{ __("My Account") }}</h3>
+                        <h3>{{ __('My Account') }}</h3>
                         <ul>
                             <li>
                                 <a href="notification.php">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>{{ __("Notifications") }}</span>
+                                    <span>{{ __('Notifications') }}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('order.my') }}">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>{{ __("Orders") }}</span>
+                                    <span>{{ __('Orders') }}</span>
                                 </a>
                             </li>
                             {{-- <li>
@@ -99,13 +99,13 @@
                             <li>
                                 <a href="{{ route('user.favorites') }}">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>{{ __("Wishlist") }}</span>
+                                    <span>{{ __('Wishlist') }}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('user.profile', auth()->user()->id) }}">
                                     <i class="fa-solid fa-angles-right"></i>
-                                    <span>{{ __("My Account") }}</span>
+                                    <span>{{ __('My Account') }}</span>
                                 </a>
                             </li>
                             <li>
@@ -114,33 +114,37 @@
                                         @csrf
                                         <button type="submit" style="background: none; border: none; cursor: pointer;">
                                             <i class="fa-solid fa-angles-right"></i>
-                                            <span>{{ __("Logout") }}</span>
+                                            <span>{{ __('Logout') }}</span>
                                         </button>
                                     </form>
                                 </a>
                             </li>
                         </ul>
                     </div>
-            @endauth
-            <!-- ./item -->
-                <!-- item -->
-                <div class="f-item">
-                    <h3> {{ __("Important Links") }} </h3>
-                    @foreach ($pages as $page)
-                        <ul>
-                            <li>
-                                <a href="{{ route('page.show', $page->id) }}">
-                                    <i class="fa-solid fa-angles-right"></i>
-                                    <span>{{ $page->name }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    @endforeach
-                </div>
+                @endauth
                 <!-- ./item -->
+                @if ($pages->count() > 0)
+
+                    <!-- item -->
+                    <div class="f-item">
+                        <h3> {{ __('Important Links') }} </h3>
+                        @foreach ($pages as $page)
+                            <ul>
+                                <li>
+                                    <a href="{{ route('page.show', $page->id) }}">
+                                        <i class="fa-solid fa-angles-right"></i>
+                                        <span>{{ $page->name }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        @endforeach
+                    </div>
+                    <!-- ./item -->
+                @endif
+
                 <!-- item -->
                 <div class="f-item">
-                    <h3> {{ __("Contact Us") }} </h3>
+                    <h3> {{ __('Contact Us') }} </h3>
                     <ul class="social-icons">
                         @foreach ($settings->where('type', 'general') as $setting)
                             @if (isset($setting->value['whats_app']))

@@ -19,4 +19,9 @@ class Page extends Model
 
     public $translatable = ['name', 'content'];
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
 }

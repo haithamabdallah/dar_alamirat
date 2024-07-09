@@ -29,8 +29,8 @@ class AppServiceProvider extends ServiceProvider
             return auth('admin')->user()->can($permission);
         });
         View::composer('*', function ($view) {
-            $settings =Setting::all();
-            $pages=Page::all();
+            $settings = Setting::all();
+            $pages= Page::active()->get();
             $currency =     Setting::where('type' , 'general')->first()->value['currency'] ?? "LYD";
 
             $view->with( 
