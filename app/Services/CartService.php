@@ -24,7 +24,10 @@ class CartService
           $cart->user_id = auth()->user()->id;
           $cartArray = collect($cart)->toArray();
 
-          $dbCart = Cart::where('user_id', auth()->user()->id)->where('product_id', $cart->product_id)?->first();
+          $dbCart = Cart::where('user_id', auth()->user()->id)
+                    ->where('product_id', $cart->product_id)
+                    ->where('variant_id', $cart->variant_id)
+                    ?->first();
 
           if ($dbCart) {
             $dbCart->update($cartArray);
@@ -87,6 +90,7 @@ class CartService
       $cart = Cart::find($id);  
 
       if ($requestCart['quantity'] <= $inventoryQuantity) {
+
         $cart->quantity = $requestCart['quantity'];
         $cart->price = $prices[$requestCart['variant_id']]['priceWithDiscount'];
         $cart->variant_id = $requestCart['variant_id'];
@@ -95,7 +99,7 @@ class CartService
 
       } else {
 
-        $error = 'Product did not update. It may be out of stock';
+        $error = __("Only available quantity is ") . $inventoryQuantity;
         return $error;
       }
     }
@@ -121,10 +125,10 @@ class CartService
         $reqCart = collect($reqCart);
         $sessionCart = collect($sessionCart);
 
-        if ($sessionCart['product_id'] == $reqCart['product_id']) {
-          $sessionCart['quantity'] = $reqCart['quantity'];
-          $sessionCart['variant_id'] = $reqCart['variant_id'];
+        if ($sessionCart['product_id'] == $reqCart['product_id'] && $sessionCart['variant_id'] == $reqCart['variant_id']) {
           $newSessionCarts[] = $sessionCart;
+          $newSessionCarts[] = $sessionCart;
+          $sessionCart['quantity'] = $reqCart['quantity'];
         }
       }
     }

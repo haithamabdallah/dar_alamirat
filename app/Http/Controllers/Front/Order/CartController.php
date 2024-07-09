@@ -44,13 +44,11 @@ class CartController extends Controller
                 $carts = [];
             }
 
-
             foreach ($carts as $key => $cart) {
-
                 // If the product is already in the cart, return a message
-                if ($cart->product_id == $productId) {
+                if ($cart->product_id == $productId && $cart->variant_id == $variantId) {
                     return response()->json([
-                        'message' => 'Product already added to cart',
+                        'message' => __('Product already is in the cart with the same variant'),
                         'status' => 'danger'
                     ]);
                 }
@@ -74,13 +72,13 @@ class CartController extends Controller
                 Session::put('carts', $carts);
 
                 return response()->json([
-                    'message' => 'Product added to cart successfully',
+                    'message' => __('Product added to cart successfully'),
                     'cartCount' => $cartsCount,
                     'status' => 'success'
                 ]);
             } else {
                 return response()->json([
-                    'message' => "Product did not add to cart. Only $inventoryQuantity items are available.",
+                    'message' => __("Only available quantity is ") . $inventoryQuantity,
                     'status' => 'danger'
                 ]);
             }
@@ -150,13 +148,12 @@ class CartController extends Controller
         $userId = auth()->user()->id;
 
         // Check if the product is already in the cart
-        $existingCart = Cart::where(['user_id' => $userId, 'product_id' => $productId])->first();
+        $existingCart = Cart::where(['user_id' => $userId, 'product_id' => $productId, 'variant_id' => $variantId])->first();
 
         // If the product is already in the cart, return a message
         if ($existingCart) {
-
             return response()->json([
-                'message' => 'Product already added to cart',
+                'message' => __('Product already is in the cart with the same variant'),
                 'status' => 'danger'
             ]);
         }
@@ -171,14 +168,15 @@ class CartController extends Controller
                 'price' => $price,
                 'user_id' => $userId,
             ]);
+
             return response()->json([
-                'message' => 'Product added to cart successfully',
+                'message' => __('Product added to cart successfully'),
                 'cartCount' => Cart::where('user_id', auth()->user()->id)->count(),
                 'status' => 'success'
             ]);
         } else {
             return response()->json([
-                'message' => 'Product did not add to cart. It may be out of stock',
+                'message' => __("Only available quantity is ") . $inventoryQuantity,
                 'status' => 'danger'
             ]);
         }
@@ -186,7 +184,6 @@ class CartController extends Controller
 
     public function showCart()
     {
-
         (new CartService())->mergeGuestCartsAndAuthCarts();
 
         $carts = auth()->user()->carts;
@@ -209,7 +206,7 @@ class CartController extends Controller
         try {
 
             (new CartService())->updateCart($validated);
-            
+
             if (isset($error)) {
                 return response()->json([
                     'message' => $error,
@@ -227,7 +224,6 @@ class CartController extends Controller
                 'status' => 'error'
             ]);
         }
-
     }
 
     public function updateGuestCart(Request $request)
@@ -260,13 +256,13 @@ class CartController extends Controller
         return redirect()->back()->with('success', __('Deleted Successfully.'));
     }
 
-    public function destroyGuestCart(string $productId)
+    public function destroyGuestCart(string $productId , string $index)
     {
         $carts = session()->get('carts');
         $carts = json_decode($carts);
         $carts = collect($carts);
-        $newCarts = $carts->filter(function ($cart) use ($productId) {
-            return $cart->product_id != $productId;
+        $newCarts = $carts->filter(function ($cart , $key) use ($productId , $index) {
+            return $key != $index;
         });
         Session::put('cartsCount', count($newCarts));
         $newCarts = json_encode($newCarts);

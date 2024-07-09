@@ -76,7 +76,7 @@
                                             {{-- <a class="removeItem" href="javascript:;" data-bs-dismiss="alert"
                                             aria-label="Close"><i class="fa-solid fa-xmark"></i></a> --}}
 
-                                            <form action="{{ auth()->check() ? route('cart.destroy', $cart->id) : route('guest.cart.destroy', $cart->product_id) }}" method="POST"
+                                            <form action="{{ auth()->check() ? route('cart.destroy', $cart->id) : route('guest.cart.destroy', [ 'productId' => $cart->product_id , 'index' => $index]) }}" method="POST"
                                                 id="delete-form-{{ $index }}" data-index="{{ $index }}">
                                                 @csrf
                                                 @method('DELETE')
@@ -129,16 +129,16 @@
                                             <!-- ./total price -->
                                         </div>
 
-                                        <div class="select-option">
-                                            <h3>Please select one of the options <span>*</span></h3>
+                                        <div class="select-option" {!! $cart->product?->variants()->count() > 1 ? '' : 'style="display: none"' !!}>
+                                            <h3> {{ __('Please select one of the options') }}<span>*</span></h3>
                                             <form id="variant-form">
-                                                @foreach ($cart->product?->variants as  $variant)
+                                                @foreach ($cart->product?->variants as  $variantIndex => $variant)
                                                     <div class="variant-option">
-                                                        <input type="radio" id="variant-{{ $variant->id }}" class="variant-{{ $index }}" name="variant" value="{{ $variant->id }}" 
-                                                        @if ($cart->variant_id && $cart->variant_id == $variant->id) checked 
-                                                        @endif
-                                                        >
-                                                        <label for="variant-{{ $variant->id }}">
+                                                        <input type="radio" id="variant-{{ $index }}-{{ $variantIndex }}" class="variant-{{ $index }}" name="variant-{{ $index }}" value="{{ $variant->id }}" 
+                                                            @if ($cart->variant_id && $cart->variant_id == $variant->id) checked 
+                                                            @endif
+                                                            >
+                                                        <label for="variant-{{ $index }}-{{ $variantIndex }}">
                                                             @if ($variant->images->count() > 0)
                                                                 <img src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
                                                             @endif

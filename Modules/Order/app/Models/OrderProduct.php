@@ -16,7 +16,8 @@ class OrderProduct extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['order_id','product_id', 'variant_id', 'quantity', 'price'];
+    // protected $fillable = ['order_id','product_id', 'variant_id', 'quantity', 'price'];
+    protected $guarded = ['id'];
 
     public function order()
     {

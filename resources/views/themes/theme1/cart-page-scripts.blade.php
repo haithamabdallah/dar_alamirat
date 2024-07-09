@@ -6,7 +6,7 @@
     var guestCarts ={};
 
     function getPricePerUnit(index) {
-        let variantId = $(`input[name=variant].variant-${index}:checked`).val();
+        let variantId = $(`input[name='variant-${index}'].variant-${index}:checked`).val();
         let pricePerUnit = parseFloat(prices[variantId]['priceWithDiscount']);
 
         return pricePerUnit;
@@ -38,11 +38,13 @@
             checkInventoryQuantity(index);
         });
 
-        $(`input[name=variant].variant-${index}`).on('click', function() {
-            updateTotalPrice(index);
-            updateOrderSummary(index);
-            checkInventoryQuantity(index);
-        });
+        $(`input[name='variant-${index}'].variant-${index}`).each(function(variantIndex) {
+            $(this).on('click', function() {
+                updateTotalPrice(index);
+                updateOrderSummary(index);
+                checkInventoryQuantity(index);
+            });
+        })
 
         // Call update functions
         updateTotalPrice(index);
@@ -93,7 +95,7 @@
 
         @auth
             carts[cartId] = {
-                variant_id :  $('input[type=radio][name="variant"].variant-' + index + ':checked').val(),
+                variant_id :  $(`input[type=radio][name=variant-${index}].variant-${index}:checked`).val(),
                 product_id: $('#product-id-' + index).data('id'),
                 quantity: parseInt(quantity),
             };
@@ -101,7 +103,7 @@
 
         @guest
             guestCarts[index] = {
-                variant_id :  $('input[type=radio][name="variant"].variant-' + index + ':checked').val(),
+                variant_id :  $(`input[type=radio][name=variant-${index}].variant-${index}:checked`).val(),
                 product_id: $('#product-id-' + index).data('id'),
                 quantity: parseInt(quantity),
             };

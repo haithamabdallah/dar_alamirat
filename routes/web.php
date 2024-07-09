@@ -125,7 +125,7 @@ Route::group(['prefix' => 'guest' , 'as' => 'guest.'], function () {
     Route::post('/cart/add/{product}', [CartController::class, 'addToGuestCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'showGuestCart'])->name('cart.index');
     Route::patch('/cart/update', [CartController::class, 'updateGuestCart'])->name('cart.update');
-    Route::delete('/cart/{cart:id}', [CartController::class, 'destroyGuestCart'])->name('cart.destroy');
+    Route::delete('/cart/{productId}/{index}', [CartController::class, 'destroyGuestCart'])->name('cart.destroy');
 });
 
 Route::middleware('auth')->group(function () {

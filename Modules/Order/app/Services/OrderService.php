@@ -99,11 +99,11 @@ class OrderService
 
             // $sumOfDiscountedProducts = 0;
             // $sumOfUndiscountedProducts = 0;
-
+            // dd($carts->pluck('variant_id'));
             foreach ($carts as $cart) {
                 $quantityOfProduct = $this->getQuantityOfProduct($cart->product_id);
 
-                $cart->price =  $prices[$cart->variant_id]['priceWithDiscount'];
+                $variantPrice =  $prices[$cart->variant_id]['priceWithDiscount'];
 
                 $orderProduct = new OrderProduct();
                 $orderProduct->order_id = $order->id;
@@ -119,7 +119,7 @@ class OrderService
                     // Update inventory quantity
                     $this->updateInventoryQuantity($cart->product_id, $cart->quantity);
                 }
-                $orderProduct->price = $cart->price;
+                $orderProduct->price = $variantPrice;
                 $orderProduct->save();
             }
 
@@ -129,10 +129,11 @@ class OrderService
             $sumOfProductWithDiscount = 0;
 
             foreach ($carts as $cart) {
+                $variantPrice =  $prices[$cart->variant_id]['priceWithDiscount'];
                 if ( isset($cart->product->discount_value) && $cart->product->discount_value > 0) {
-                    $sumOfProductWithDiscount += $cart->price * $cart->quantity;
+                    $sumOfProductWithDiscount += $variantPrice * $cart->quantity;
                 } else {
-                    $sumOfProductWithoutDiscount += $cart->price * $cart->quantity;
+                    $sumOfProductWithoutDiscount += $variantPrice * $cart->quantity;
                 }
             }
 
