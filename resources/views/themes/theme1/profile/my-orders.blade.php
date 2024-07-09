@@ -254,17 +254,12 @@
                                     <div class="price">{{ __("Total Price") }}: <span id="price">{{ $orderDetails->price * $orderDetails->quantity }}</span></div>
                                     <!-- ./total price -->
 
-
-
-
                                 </div>
-                                <!-- data -->
-                                    <div class="all-price">  {{ __("Final Price") }}: <span>{{ $order->final_price }}</span> </div>
-                            @endforeach
+                                @endforeach
 
                                 @if ($order?->coupon)
-                                    <div> {{ __("Applied Coupon") }} :
-                                        <ul>
+                                    <div class="py-3"> {{ __("Applied Coupon") }} :
+                                        <ul class="order-address">
                                             <li>{{ __("Code") }} : {{ $order->coupon->code }}</li>
                                             <li>{{ __("Type") }} : {{ $order->coupon->discount_type }}</li>
                                             <li>{{ __("Value") }} : {{ $order->coupon->discount_value }}</li>
@@ -272,15 +267,27 @@
                                     </div>
                                 @endif
 
+                                <hr>
+
                                 @php
                                     $address = $order->userAddress;
                                 @endphp
-                                <div> {{ __("Order Address") }} :
+                                <div class="py-3"> {{ __("Order Address") }} :
                                     <ul class="order-address">
                                         <li> {{ __("Governorate") }} : {{ $address->governorate }}</li>
                                         <li> {{ __("City") }} : {{ $address->city }}</li>
                                         <li> {{ __("Street") }} : {{ $address->street }}</li>
                                         <li> {{ __("House Number") }} : {{ $address->house_number }}</li>
+                                    </ul>
+                                </div>
+
+                                <hr>
+
+                                <div class="py-3"> {{ __("Price") }} :
+                                    <ul class="order-address">
+                                        <li> {{ __("VAT") }} : <span>{{ $order->vat }}</span></li>
+                                        <li> {{ __("Shipping") }} : <span> {{ $order->shipping_price  }} {{ $currency }} ( {{ $order->shippingMethod->name }} ) </span></li>
+                                        <li style="color: #5e6fb4 ; font-weight: bold"> {{ __("Final Price") }} : <span>{{ $order->final_price }}</span></li>
                                     </ul>
                                 </div>
 
@@ -290,11 +297,11 @@
                                     <div class="status done">  {{ __("Order Payment Method") }}: <span> {{ __("Cash On Delivery") }}</span> </div>
                                 </div>
 
-
+                                {{-- <div class="">  {{ __("Final Price") }}: <span>{{ $order->final_price }}</span> </div> --}}
 
                             </div>
                             <!-- ./item -->
-
+                            {{--  we need pagination here  --}}
                         </div>
                         <!-- ./my order lists -->
                         @empty
