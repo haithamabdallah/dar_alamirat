@@ -14,12 +14,9 @@
         max-width: 480px;
         margin: 15px auto;
         text-align: center;
+        border-radius: 10px;
     ">
-    <div style="
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;">
+    <div style="display: block;">
         <p>Your OTP code is:</p>
         <p style="
                                     background: #0a6ebd;
@@ -28,7 +25,10 @@
                                     text-align: center;
                                     border-radius: 10px;
                                     padding: 10px 30px;
-                                    text-decoration: none;">{{ $otp }}</p>
+                                    text-decoration: none;
+                                    max-width: 200px;
+                                    margin: 0 auto;
+                                    letter-spacing: 10px;">{{ $otp }}</p>
     </div>
 
 </div>

@@ -17,15 +17,14 @@
         max-width: 480px;
         margin: 15px auto;
         text-align: center;
+        border-radius: 10px;
     ">
     <p>This email sent to you to confirm your subscription.</p>
     <p>To confirm your subscription, please click on the link below.</p>
 
     <div style="
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;">
+                display: block;
+                margin: 25px 0;">
         <a href="{{ $url }}" style="
                                     background: #0a6ebd;
                                     color: #fff; font-size: 16px;
