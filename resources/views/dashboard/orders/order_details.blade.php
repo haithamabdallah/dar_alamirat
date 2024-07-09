@@ -108,7 +108,7 @@
                                 <td class="pb-2" colspan="2"><b>Coupon</b></td>
                                 @if ( $order?->coupon )
                                     <td class="text-end pb-2 text-decoration-underline"><b>{{ $order->coupon->discount_value }}
-                                        {{ $order->coupon->discount_type == 'fixed' ? $currency : '%' }} </b></td>
+                                        {{ $order->coupon->discount_type == 'flat' ? $currency : '%' }} </b></td>
                                 @else
                                         <td class="text-end pb-2 text-decoration-underline"><b> No Coupon </b></td>
                                 @endif

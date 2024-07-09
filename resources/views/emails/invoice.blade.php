@@ -6,17 +6,14 @@ path => /my-orders/1
   dd($order);
 @endphp
 --}}
-{{--@php
-    dd($order);
-@endphp
 
 <main>
     <h1>{{ __("Order") }}</h1>
     <div class="bg-white p-4 my-4 shadow rounded">
-        <div> {{ __("Order Status") }} : <span>{{ $order->status }}</span> </div>
+        {{-- <div> {{ __("Order Status") }} : <span>{{ $order->status }}</span> </div>
+        <div> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div> --}}
         <div> {{ __("Final Price") }} : <span>{{ $order->final_price }}</span> </div>
-        <div> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div>
-        <div> {{ __("Order Payment Method") }} : <span> Cash On Delivery</span> </div>
+        <div> {{ __("Order Payment Method") }} : <span> {{ __("Cash On Delivery") }} </span> </div>
         @php
             $address = $order->userAddress;
         @endphp
@@ -38,22 +35,26 @@ path => /my-orders/1
             </div>
         @endif
     <!-- order products -->
-        @foreach ($order->orderDetails as $orderDetials)
+        @foreach ($order->orderDetails as $orderDetails)
 
-            <div> {{ __("Product Name") }} : <a href="{{ route('product', $orderDetials->product->id) }}"
+            <a href="{{ asset($orderDetails->product->thumbnail) }}" target="_blank" >
+                <img src="{{ $message->embed( asset($orderDetails->product->thumbnail) ) }}" class="mw-100 mh-100" />
+            </a>
+
+            <div> {{ __("Product Name") }} : <a href="{{ route('product', $orderDetails->product->id) }}"
                                                 target="_blank">
-                                    <span>{{ $orderDetials->product->title }} (
-                                        {{ $orderDetials->variant->variant_name }} )</span>
+                                    <span>{{ $orderDetails->product->title }} (
+                                        {{ $orderDetails->variant->variant_name }} )</span>
                 </a> </div>
-            <div> {{ __("Variant") }} : <span> {{ $orderDetials->variant->variant_name }}
+            <div> {{ __("Variant") }} : <span> {{ $orderDetails->variant->variant_name }}
                                 </span> </div>
             <div> {{ __("Variant SKU") }}: <span>
-                                    {{ $orderDetials->variant->sku }} </span> </div>
-            <div> {{ __("Unit Price") }} : <span>{{ $orderDetials->price }}</span> </div>
-            <div>{{ __("Quantity") }} : <span>{{ $orderDetials->quantity }}</span> </div>
+                                    {{ $orderDetails->variant->sku }} </span> </div>
+            <div> {{ __("Unit Price") }} : <span>{{ $orderDetails->price }}</span> </div>
+            <div>{{ __("Quantity") }} : <span>{{ $orderDetails->quantity }}</span> </div>
             <div> {{ __("Total Price") }} :
-                <span>{{ $orderDetials->price * $orderDetials->quantity }}</span>
+                <span>{{ $orderDetails->price * $orderDetails->quantity }}</span>
             </div>
         @endforeach
     </div>
-</main>--}}
+</main>
