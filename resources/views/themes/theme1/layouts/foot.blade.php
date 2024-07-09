@@ -141,13 +141,22 @@
                 // console.log(response)
                 if (response.data.status === 'success') {
                     $('#cart-summary-count').text(response.data.cartCount);
+                    $.jGrowl(
+                        response.data.message,
+                        {
+                            header: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
+                            sticky: true,
+                            theme:  'success',
+                        });
+                } else {
+                    $.jGrowl(
+                        response.data.message,
+                        {
+                            header: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
+                            sticky: true,
+                            theme:  'danger',
+                        });
                 }
-                Swal.fire({
-                    title: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
-                    text: response.data.message,
-                    icon: icon,
-                    confirmButtonText: 'OK'
-                });
             })
             .catch(function (error) {
                 console.log(error.response)

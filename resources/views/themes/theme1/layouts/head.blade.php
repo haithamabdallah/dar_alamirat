@@ -19,10 +19,10 @@
     <link rel="stylesheet" href="{{asset('theme1-assets/css/jquery.jgrowl.min.css')}}">
     <link rel="stylesheet" href="{{asset('theme1-assets/css/sweetalert2.min.css')}}">
     <!-- custom style -->
-    <link rel="stylesheet" href="{{asset('theme1-assets/css/style.min.v2.css')}}">
     <link rel="stylesheet" href="{{asset('theme1-assets/css/jquery.jgrowl.min.css')}}" />
     <link rel="stylesheet" href="{{asset('theme1-assets/css/sweetalert2.min.css')}}">
     <link rel="stylesheet" href="{{asset('theme1-assets/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{asset('theme1-assets/css/style.min.v3.css')}}">
 
     <link rel="stylesheet" href="{{asset('theme1-assets/css/icons.css')}}">
     <!-- libs -->
