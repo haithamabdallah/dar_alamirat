@@ -226,14 +226,14 @@
             <!-- ./item -->
 
             <!-- item -->
-            <div class="menu-item">
+            {{-- <div class="menu-item">
                 <a href="{{ route('client.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <div class="menu-text">Clients</div>
                 </a>
-            </div>
+            </div> --}}
             <!-- ./item -->
 
             <!-- item -->

@@ -91,6 +91,12 @@
                         </div>
                         <!-- ./product info -->
 
+                        <!-- alert -->
+                        @if (!$product->is_returnable)
+                            <div class="alert alert-danger" role="alert">{{ __("This item cannot be returned or replaced") }}</div>
+                        @endif
+                        <!-- ./alert -->
+
                         <!-- TABS -->
                         <div class="wrap">
                             <!-- Full Descriptions -->
@@ -98,7 +104,7 @@
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs " id="myTab" role="tablist">
                                     <li class="nav-item flex-fill" role="specifications">
-                                        <a class="nav-link active" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Product Options</a>
+                                        <a class="nav-link active" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">{{ __('Product Options') }}</a>
                                     </li>
                                     <li class="nav-item flex-fill" role="presentation">
                                         <a class="nav-link" id="description-tab" data-bs-toggle="tab"
@@ -173,7 +179,7 @@
                             <div class="sku_number">
                                 <div class="title">
                                     <i class="sicon-barcode text-primary text-base"></i>
-                                    <p>Sku</p>
+                                    <p>{{ __("SKU") }}</p>
                                 </div>
                                 @foreach ($product->variants as $variant)
                                     <p class="code_number hidden" data-variant-id="{{ $variant->id }}">{{ $variant->sku }}</p>
@@ -235,9 +241,7 @@
                         </div>
                         <!-- Sticky Card -->
 
-                    <!-- alert -->
-                    <div class="alert alert-danger" role="alert">{{ __("This item cannot be returned or replaced") }}</div>
-                    <!-- ./alert -->
+
 
                     </main>
                     <!-- ./product Details -->
@@ -338,7 +342,7 @@
 
                         <div class="section-head">
                             <div class="s-block-title">
-                                <h2>Section Name</h2>
+                                <h2>{{ __("You May Also Like") }}</h2>
                             </div>
 
                             <div class="category-nav">
@@ -389,6 +393,7 @@
                 slidesPerView: 4,
                 spaceBetween: 20,
                 slidesPerGroup: 1,
+                autoplay: true , 
                 breakpoints: {
                     320: {
                         slidesPerView: 1,

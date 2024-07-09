@@ -18,4 +18,14 @@ enum OrderStatus
             self::CANCELLED,
         ];
     }
+
+    public static function getAll(): array
+    {
+        return [
+            self::PENDING => [ 'ar' => 'قيد الانتظار', 'en' => 'Pending' , 'color' => 'warning'],
+            self::PROCESSING => [ 'ar' => 'جاري المعالجة', 'en' => 'Processing' , 'color' => 'primary'],
+            self::COMPLETED => [ 'ar' => 'مكتمل', 'en' => 'Completed' , 'color' => 'success'],
+            self::CANCELLED => [ 'ar' => 'ملغي', 'en' => 'Cancelled' , 'color' => 'danger'],
+        ];
+    }
 }

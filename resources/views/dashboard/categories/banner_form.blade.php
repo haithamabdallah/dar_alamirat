@@ -115,9 +115,9 @@
         <!-- BEGIN page-header -->
         <h1 class="page-header">
             @if($method == 'PUT')
-                {{__('dashboard.category.edit')}}
+                {{__('dashboard.banner.edit')}}
             @else
-                {{__('dashboard.category.add')}}
+                {{__('dashboard.banner.add')}}
             @endif
         </h1>
         <!-- END page-header -->
@@ -242,8 +242,11 @@
                                         <div class="custom-file-upload">
                                             <label for="formFile" class="upload-area">
                                                 <div class="icon-upload form-control"> <span class="p-1"> Upload Banner Image </span></div>
-                                                <input class="file-input" name="image" type="file" accept=".png, .jpg, .jpeg ,.svg ,.webp" />
+                                                <input class="file-input" name="image" type="file" accept=".png, .jpg, .jpeg ,.svg ,.webp" onchange="preview()"/>
                                             </label>
+                                        </div>
+                                        <div class="preview-area">
+                                            <img id="frame" src="" style="display: none ; margin: 1rem auto" width="100px" height="100px"/> 
                                         </div>
                                         @error('icon')
                                         <span class="text-danger" role="alert">
@@ -320,6 +323,8 @@
             })
 
         })
+
+        function preview() { frame.src=URL.createObjectURL(event.target.files[0]); $("#frame").show() }
 
         function previewImage() {
             var file = document.getElementById('formFile').files[0];

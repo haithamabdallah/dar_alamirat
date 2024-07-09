@@ -17,7 +17,7 @@ class CategoryService {
 
     public function getPaginatedData(array $data = [],int $count = 20 )
     {
-        return  Category::where('type','default')->orderByRaw('ISNULL(priority), priority ASC')->paginate($count);
+        return  Category::where('type','default')->latest()->paginate($count);
     }
 
     public function getAllcategoriesForSelectElement()

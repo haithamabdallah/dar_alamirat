@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('meta')
     <meta charset="utf-8" />
-    <title> {{__('dashboard.categories')}} </title>
+    <title> {{__('dashboard.banners')}} </title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -25,7 +25,7 @@
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{__('dashboard.home')}}</a></li>
                     <li class="breadcrumb-item"><a href="{{route('banner.index')}}">{{__('dashboard.banners')}}</a></li>
                 </ul>
-                <h1 class="page-header mb-0">{{__('dashboard.categories')}}</h1>
+                <h1 class="page-header mb-0">{{__('dashboard.banners')}}</h1>
             </div>
             <div class="ms-auto">
                 <a href="{{ route('banner.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>{{__('dashboard.banner.add')}}</a>
@@ -96,7 +96,7 @@
                                         <form id="deleteForm{{$banner->id}}" action="{{ route('banner.destroy', $banner->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <a class="btn delete-btn btn-danger" data-id="{{$banner->id}}"><i class="fa-solid fa-trash-can"></i> {{__('dashboard.banner.delete')}}</a>
+                                            <a class="btn delete-btn btn-danger" data-id="{{$banner->id}}"><i class="fa-solid fa-trash-can"></i> Delete </a>
                                         </form>
                                         @endadminCan
                                     </td>

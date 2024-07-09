@@ -14,17 +14,17 @@ class BannerService {
 
     public function getAllData()
     {
-        return Banner::orderByRaw('ISNULL(priority), priority ASC')->get();
+        return Banner::latest()->get();
     }
 
     public function getPaginatedData(array $data = [],int $paginate = 20 )
     {
-        return  Banner::orderByRaw('ISNULL(priority), priority ASC')->paginate($paginate);
+        return  Banner::latest()->paginate($paginate);
     }
 
     public function getBannersData(array $data = [],int $paginate = 20 )
     {
-        return  Banner::where('type','banner')->orderByRaw('ISNULL(priority), priority ASC')->paginate($paginate);
+        return  Banner::where('type','banner')->latest()->paginate($paginate);
     }
 
     public function storeData(array $data)

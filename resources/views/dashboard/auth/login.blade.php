@@ -57,9 +57,14 @@
                         <label for="emailAddress" class="d-flex align-items-center text-gray-600 fs-13px">{{__('dashboard.forms.user_name')}}</label>
                     </div>
                     @error('userName')
-                    <span class="text-danger" role="alert">
+                    <div class="text-danger" role="alert">
                         <strong>{{ $message }}</strong>
-                    </span>
+                    </div>
+                    @enderror
+                    @error('error')
+                    <div class="text-danger my-3" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
                     @enderror
 
                     <div class="form-floating mb-20px">

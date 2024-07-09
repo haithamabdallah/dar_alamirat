@@ -37,7 +37,7 @@ class OrderController extends Controller
 
     public function myOrdersPage()
     {
-        $orders = Order::where('user_id',auth()->user()->id)->with(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod'])->latest()->orderByDesc('id')->paginate(10);
+        $orders = Order::where('user_id',auth()->user()->id)->with(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod'])->latest()->paginate(10);
         return view('themes.theme1.profile.my-orders' , compact('orders'));
     }
     
@@ -72,10 +72,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['products','user','shippingMethod'])->paginate(10);
+        $orders = Order::with(['products','user','shippingMethod'])->latest()->paginate(10);
+        $orderStatuses = OrderStatus::getAll();
+        $paymentStatuses = PaymentStatus::getAll();
 
 
-        return view('dashboard.orders.orders',compact('orders'));
+        return view('dashboard.orders.orders',compact('orders' , 'paymentStatuses' , 'orderStatuses'));
     }
 
     /**

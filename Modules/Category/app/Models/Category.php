@@ -47,7 +47,7 @@ class Category extends Model
 
     public function childes()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id')->active();
     }
 
     /**

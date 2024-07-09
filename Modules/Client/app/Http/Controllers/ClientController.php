@@ -16,7 +16,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = User::paginate(5);
+        $clients = User::latest()->paginate(5);
         return view('dashboard.clients.clients', compact('clients'));
     }
 

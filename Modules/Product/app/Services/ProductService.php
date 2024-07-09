@@ -14,18 +14,18 @@ class ProductService {
 
     public function getAllData()
     {
-        return Product::orderByRaw('ISNULL(priority), priority ASC')->get();
+        return Product::latest()->get();
     }
 
     public function getPaginatedData(int $paginate = 10 )
     {
 
-        return  Product::paginate($paginate);
+        return  Product::latest()->paginate($paginate);
     }
 
     public function getFilteredData(array $data ,int $paginate = 15, $order = 'ASC')
     {
-        return  Product::filter($data)->active()->orderBy('priority',$order)->paginate($paginate);
+        return  Product::filter($data)->active()->latest()->paginate($paginate);
     }
 
 

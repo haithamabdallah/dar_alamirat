@@ -1,3 +1,5 @@
+<script src="{{asset('assets/js/jquery-3.6.4.min.js')}}"></script> 
+<script src="{{asset('assets/js/axios.js')}}"></script> 
 
 <!-- ================== BEGIN core-js ================== -->
 <script src="{{ asset('admin-panel/assets/js/vendor.min.js') }}"></script>
@@ -30,8 +32,7 @@
 <script src="{{asset('admin-panel/assets/js/demo/render.highlight.js')}}"></script>
 <script src="{{asset('admin-panel/assets/plugins/select2/dist/js/select2.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{{asset('assets/js/app.js')}}"></script> {{-- // import jquery and axios --}}
-<script src="{{asset('assets/js/axios.js')}}"></script> 
+{{-- <script src="{{asset('assets/js/app.js')}}"></script> // import jquery and axios --}}
 
 
 <!-- ================== END page-js ================== -->

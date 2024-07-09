@@ -44,7 +44,7 @@
                     <li>
                         <span>{{ $category->name }}</span>
                     </li>
-  
+
                 </ul>
                 <!-- ./content -->
             </div>
@@ -78,7 +78,8 @@
                                                 @if (isset($category?->parent))
                                                     @if (isset($category?->parent->parent))
                                                         <div class="my-3">
-                                                            <a href="{{ route('category.products', $category?->parent?->parent->id) }}">
+                                                            <a
+                                                                href="{{ route('category.products', $category?->parent?->parent->id) }}">
                                                                 <input type="radio" onclick="event.preventDefault()">
                                                                 {{ $category?->parent?->parent->name }}
                                                             </a>
@@ -93,7 +94,8 @@
                                                     @foreach ($category?->parent?->childes as $childCategory)
                                                         <div class="my-3">
                                                             <a href="{{ route('category.products', $childCategory->id) }}">
-                                                                <input type="radio" {!! $category->id == $childCategory->id ? 'checked' : '' !!} onclick="event.preventDefault()">
+                                                                <input type="radio" {!! $category->id == $childCategory->id ? 'checked' : '' !!}
+                                                                    onclick="event.preventDefault()">
                                                                 {{ $childCategory->name }}
                                                             </a>
                                                         </div>
@@ -101,8 +103,10 @@
                                                 @else
                                                     @foreach (defaultCategory() as $parentCategory)
                                                         <div class="my-3">
-                                                            <a href="{{ route('category.products', $parentCategory->id) }}">
-                                                                <input type="radio" {!! $category->id == $parentCategory->id ? 'checked' : '' !!} onclick="event.preventDefault()">
+                                                            <a
+                                                                href="{{ route('category.products', $parentCategory->id) }}">
+                                                                <input type="radio" {!! $category->id == $parentCategory->id ? 'checked' : '' !!}
+                                                                    onclick="event.preventDefault()">
                                                                 {{ $parentCategory->name }}
                                                             </a>
                                                         </div>
@@ -199,7 +203,8 @@
                                                             <div class="s-price-range-relative">
                                                                 {{-- <div class="s-price-range-currency"> {{ $currency }}
                                                                 </div> --}}
-                                                                <input type="number" maxlength="5" placeholder="{{ __('from') }}"
+                                                                <input type="number" maxlength="5"
+                                                                    placeholder="{{ __('from') }}"
                                                                     class="s-price-range-number-input"
                                                                     name="filter[price_min]"
                                                                     value="{{ request('filter.price_min') }}">
@@ -208,7 +213,8 @@
                                                             <div class="s-price-range-relative">
                                                                 {{-- <div class="s-price-range-currency"> {{ $currency }}
                                                                 </div> --}}
-                                                                <input type="number" maxlength="5" placeholder="{{ __('to') }}"
+                                                                <input type="number" maxlength="5"
+                                                                    placeholder="{{ __('to') }}"
                                                                     class="s-price-range-number-input"
                                                                     name="filter[price_max]"
                                                                     value="{{ request('filter.price_max') }}">
@@ -216,7 +222,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-primary my-2" type="submit" style="width: 100% !important; background-color: #5e6fb4">{{ __("Search") }}</button>
+                                                <button class="btn btn-primary my-2" type="submit"
+                                                    style="width: 100% !important; background-color: #5e6fb4">{{ __('Search') }}</button>
                                             </form>
                                         </div>
                                     </div>
@@ -225,21 +232,48 @@
                         </div>
                     </aside>
                     <main>
-                        <div class="main products-container" id="product-container"
-                            data-url="{{ route('category.products', $category->id) }}">
-                            @foreach ($products as $product)
-                                <!-- product item -->
-                                @include('themes.theme1.partials.item')
-                                <!-- product item -->
-                            @endforeach
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            @if ($products->lastPage() != $products->currentPage())
-                                <button id="load-more" class="s-infinite-scroll-btn s-button-btn s-button-primary">
-                                     {{ __('Load More') }}
-                                </button>
-                            @endif
-                        </div>
+                        @if ($products->count() < 1)
+                            <div class="main products-container" id="product-container"
+                                data-url="{{ route('category.products', $category->id) }}">
+                                @foreach ($products as $product)
+                                    <!-- product item -->
+                                    @include('themes.theme1.partials.item')
+                                    <!-- product item -->
+                                @endforeach
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                {{-- we need pagination here  --}}
+                                @if ($products->lastPage() != $products->currentPage())
+                                    <button id="load-more" class="s-infinite-scroll-btn s-button-btn s-button-primary">
+                                        {{ __('Load More') }}
+                                    </button>
+                                @endif
+                            </div>
+                        @else
+                            <!-- no content -->
+                            <section id="full-layout">
+                                <div class="pixel-container">
+                                    <!-- row -->
+                                    <div class="wrap">
+                                        <!-- content -->
+                                        <main>
+                                            <div class="main-content">
+                                                <div class="no-content-placeholder">
+                                                    <i class="sicon-shopping-bag icon"></i>
+                                                    <p>{{ __('No Products') }}</p>
+                                                    <a href="{{ route('index') }}"
+                                                        class="btn btn--outline-primary">{{ __('Home Page') }}</a>
+                                                </div>
+                                            </div>
+                                        </main>
+
+                                        <!-- .content -->
+                                    </div>
+                                    <!-- ./row -->
+                                </div>
+                            </section>
+                            <!-- no content -->
+                        @endif
                     </main>
                 </div>
             </div>
@@ -266,16 +300,17 @@
                             let productsContainer = document.querySelector('.products-container');
                             data.products.forEach(product => {
                                 console.log(product.variants[0].price_with_discount)
+                                //     <!-- tags -->
+                                // <div class="item-tags">
+                                //     <span>most popular</span>
+                                // </div>
+                                // <!-- ./tags -->
                                 let productHtml = `
                         <div class="item">
-                            <!-- tags -->
-                            <div class="item-tags">
-                                <span>most popular</span>
-                            </div>
-                            <!-- ./tags -->
+
                             <!-- img -->
                             <div class="img">
-                                <a href="{{ route('cart-empty') }}">
+                                <a href="{{ route('product', ${product . id}) }}">
                                     <img class="w-full object-contain" src="${product.thumbnail}" alt="Product Image">
                                 </a>
                             </div>
@@ -297,7 +332,7 @@
 
                                 <!-- description -->
                                 <div class="item-dec">
-                                    <a href="{{ route('cart-empty') }}">
+                                    <a href="{{ route('product', ${product . id}) }}">
                                         <span>${product.title['en']}</span>
                                     </a>
                                 </div>
