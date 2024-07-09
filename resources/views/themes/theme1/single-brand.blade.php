@@ -35,10 +35,23 @@
                         <div class="brand_products">
                             @foreach ($brand->products as $product)
                                 @include('themes.theme1.partials.item')
-                                {{-- <div class="no-content">{{ __("No products found for this brand.") }}</div> --}}
                             @endforeach
                         </div>
                         <!-- ./brand product items -->
+                        <div class="d-flex justify-content-center">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item disabled" aria-disabled="true" aria-label="« السابق"><span
+                                            class="page-link" aria-hidden="true">‹</span></li>
+                                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#" rel="next"
+                                            aria-label="التالي »">›</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     </section>
                     <!-- ./header -->
                 @else
