@@ -153,7 +153,11 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Product deleted successfully!');
     }
 
-    public function toggleChoice(Request $request)
+    public function toggleReturnable(Request $request)
     {
+        $product = Product::findOrFail($request->product_id);
+        $product->is_returnable = $request->is_returnable != 'false' ? 1 : 0;
+        $product->save();
+        return response()->json(['success' => true]);
     }
 }

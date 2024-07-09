@@ -25,5 +25,6 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'admin'], function () {
     
     Route::resource('product', ProductController::class)->names('product');
+    Route::post('toggle-returnable', [ProductController::class , 'toggleReturnable'])->name('product.toggle-returnable');
     Route::post('toggleChoice', [ProductController::class , 'toggleChoice'])->name('product.toggleChoice');
 });
