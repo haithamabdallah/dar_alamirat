@@ -143,7 +143,7 @@
                     $('#cart-summary-count').text(response.data.cartCount);
                 }
                 Swal.fire({
-                    title: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
+                    title: response.data.status === 'danger' || response.data.status === 'error' ? 'Error'  : 'Success' ,
                     text: response.data.message,
                     icon: icon,
                     confirmButtonText: 'OK'
@@ -151,12 +151,14 @@
             })
             .catch(function (error) {
                 console.log(error.response)
+                if (error.response ) {
                 Swal.fire({
-                    title: error.response.data.message == 'Unauthenticated.' ? ' {{ __("Unauthenticated") }}.  ' : '{{ __("Error") }}!',
-                    text: error.response.data.message == 'Unauthenticated.' ? ' {{ __("you need to login first") }}  ' : error.response.data.message ,
-                    icon: error.response.data.message == 'Unauthenticated.' ? "warning"  : "error" ,
-                    confirmButtonText: 'OK'
-                });
+                        title:  "Error",
+                        text:  error.response.data.message ,
+                        icon: "error" ,
+                        confirmButtonText: 'OK'
+                    });
+                }
             });
     }
 </script>
