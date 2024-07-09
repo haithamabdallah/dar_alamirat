@@ -22,7 +22,7 @@ class CouponRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'code' => 'required|string|max:30',
+            'code' => 'required|string|max:30|unique:coupons,code',
             'note' => 'nullable|string|max:255',
             'start_date' => 'required|date|date_format:Y-m-d',
             'end_date' => 'required|date|date_format:Y-m-d',
