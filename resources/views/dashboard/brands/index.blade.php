@@ -79,7 +79,8 @@
                                     <td>{{$brand->name}}</td>
                                     {{--<td>{{$brand->status}}</td>--}}
                                     <td>
-                                        <input type="checkbox" class="switch-status" checked />
+                                        {{-- <input type="checkbox" class="switch-status" {!! ($brand->status) ? 'checked' : '' !!} /> --}}
+                                        <input type="checkbox" class="switch-status" data-url="{{ route('brand.status' , $brand->id) }}" @if($brand->status) checked @endif/>
                                     </td>
                                     <td>{{$brand->created_at->format('Y-m-d')}}</td>
                                     <td nowrap="">

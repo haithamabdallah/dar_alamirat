@@ -2,6 +2,8 @@
 
 namespace Modules\Brand\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Modules\Brand\Models\Brand;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -9,7 +11,6 @@ use Modules\Brand\app\Services\BrandService;
 use Modules\Brand\app\ViewModels\BrandViewModel;
 use Modules\Brand\Http\Requests\StoreBrandRequest;
 use Modules\Brand\Http\Requests\UpdateBrandRequest;
-use Modules\Brand\Models\Brand;
 
 class BrandController extends Controller
 {
@@ -119,5 +120,13 @@ class BrandController extends Controller
         $brand->delete();
         Session()->flash('success', 'Brand Deleted Successfully');
         return redirect()->back();
+    }
+
+    public function changeStatus(Request $request, Brand $brand)
+    {
+        $brand->status = !$brand->status;
+        $brand->save();
+        // $category->update(['status' => $request->status]);
+        return response()->json(['message' => 'Status Changed Successfully'], 200);
     }
 }

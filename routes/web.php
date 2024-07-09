@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Dashboard\CouponController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
@@ -9,10 +8,12 @@ use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\FavoriteController;
 use Modules\Order\Http\Controllers\OrderController;
+use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Front\Order\CartController;
 use App\Http\Controllers\Front\SubscriberController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Front\Profile\ProfileController;
+use Modules\Brand\Http\Controllers\BrandController as BrandControllerBE;
 
 /************************************ clients ****************************/
 
@@ -97,6 +98,7 @@ Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOt
 Route::prefix('brands')->group(function () {
     Route::get('allBrands', [BrandController::class, 'index'])->name('brands.index');
     Route::get('brands/{brand}', [BrandController::class, 'showBrand'])->name('brand');
+    Route::post('status/{brand}', [BrandControllerBE::class , 'changeStatus'])->name('brand.status');
 });
 
 Route::prefix('products')->group(function () {
