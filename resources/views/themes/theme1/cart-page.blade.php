@@ -15,7 +15,7 @@
         #variant-form {
             display: flex;
             grid-gap: 10px;
-            margin-bottom: 40px;
+
         }
 
         .variant-option input {
@@ -134,8 +134,8 @@
                                             <form id="variant-form">
                                                 @foreach ($cart->product?->variants as  $variant)
                                                     <div class="variant-option">
-                                                        <input type="radio" id="variant-{{ $variant->id }}" class="variant-{{ $index }}" name="variant" value="{{ $variant->id }}" 
-                                                        @if ($cart->variant_id && $cart->variant_id == $variant->id) checked 
+                                                        <input type="radio" id="variant-{{ $variant->id }}" class="variant-{{ $index }}" name="variant" value="{{ $variant->id }}"
+                                                        @if ($cart->variant_id && $cart->variant_id == $variant->id) checked
                                                         @endif
                                                         >
                                                         <label for="variant-{{ $variant->id }}">
@@ -212,9 +212,9 @@
                                     <div class="text-center  p-2 rounded" style="color: #5e6fb4; font-weight: bold" >
                                         {{ __("Please login to use coupons and to checkout.") }}
                                     </div>
-                                    <button type="button" class="text-center text-white p-2 rounded" style="background-color: #5e6fb4; font-weight: bold ; width:100% !important" 
+                                    <button type="button" class="text-center text-white p-2 rounded" style="background-color: #5e6fb4; font-weight: bold ; width:100% !important"
                                     id="save-cart-options">{{ __("Save Cart Options") }}</button>
-                                    <button type="button" class="text-center text-white bg-success p-2 rounded" style="display: none; font-weight: bold ; width:100% !important" 
+                                    <button type="button" class="text-center text-white bg-success p-2 rounded" style="display: none; font-weight: bold ; width:100% !important"
                                         id="cart-options-saved">{{ __("Saved") }}</button>
 
                                 @endguest

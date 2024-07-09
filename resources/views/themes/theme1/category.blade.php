@@ -44,7 +44,7 @@
                     <li>
                         <span>{{ $category->name }}</span>
                     </li>
-  
+
                 </ul>
                 <!-- ./content -->
             </div>
@@ -234,11 +234,16 @@
                             @endforeach
                         </div>
                         <div class="d-flex justify-content-center">
-                            @if ($products->lastPage() != $products->currentPage())
-                                <button id="load-more" class="s-infinite-scroll-btn s-button-btn s-button-primary">
-                                     {{ __('Load More') }}
-                                </button>
-                            @endif
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item disabled" aria-disabled="true" aria-label="« السابق"><span class="page-link" aria-hidden="true">‹</span></li>
+                                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#" rel="next" aria-label="التالي »">›</a></li>
+                                </ul>
+                            </nav>
                         </div>
                     </main>
                 </div>
@@ -275,7 +280,7 @@
                             <!-- ./tags -->
                             <!-- img -->
                             <div class="img">
-                                <a href="{{ route('cart-empty') }}">
+                                <a href="">
                                     <img class="w-full object-contain" src="${product.thumbnail}" alt="Product Image">
                                 </a>
                             </div>
@@ -297,7 +302,7 @@
 
                                 <!-- description -->
                                 <div class="item-dec">
-                                    <a href="{{ route('cart-empty') }}">
+                                    <a href="">
                                         <span>${product.title['en']}</span>
                                     </a>
                                 </div>
