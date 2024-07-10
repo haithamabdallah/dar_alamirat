@@ -33,9 +33,9 @@
         <div class="pixel-container">
             <div class="wrap">
                 <div class="content-page">
-                    <main>
+                    <main class="products-container" style="width: 70vw !important ; margin: 0 auto" >
                         @if ($products->count() > 0)
-                            <div >
+                            <div class="main products-container">
                                 @foreach ($products as $product)
                                     <!-- product item -->
                                     @include('themes.theme1.partials.item')
