@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $settings = Setting::all();
             $pages= Page::active()->get();
-            $currency =     Setting::where('type' , 'general')->first()->value['currency'] ?? "LYD";
+            $currency =     Setting::where('type' , 'general')->first()->value['currency-'.app()->getLocale()] ?? "LYD";
 
             $view->with( 
                 compact('settings', 'currency' ,'pages')

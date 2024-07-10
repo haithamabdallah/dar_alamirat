@@ -190,17 +190,19 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-15px">
-                                <label class="form-label col-form-label col-md-3">Currency</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('currency') is-invalid @enderror" name="currency"
-                                        type="text" placeholder="currency"
-                                        value="{{ isset($setting->value['currency']) ? $setting->value['currency'] : '' }}" />
-                                    @error('currency')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                            @foreach (config('language') as $key => $lang)
+                                <div class="row mb-15px">
+                                    <label class="form-label col-form-label col-md-3">Currency {{ $lang }}</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control @error('currency-{{$key}}') is-invalid @enderror" name="currency-{{$key}}"
+                                            type="text" placeholder="Currency {{ $lang }}"
+                                            value="{{ isset($setting->value["currency-$key"]) ? $setting->value["currency-$key"] : '' }}" />
+                                        @error('currency-{{$key}}')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
 
                             <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Vat</label>
