@@ -15,6 +15,13 @@ use Modules\Product\Models\Variant;
 
 class CartController extends Controller
 {
+    public function __construct
+    (
+        public CartService $cartService
+    )
+    {
+        
+    }
     public function cartCount()
     {
         $cartCount = Cart::where('user_id', auth()->user()->id)->count();
@@ -71,9 +78,12 @@ class CartController extends Controller
                 $carts = json_encode($carts);
                 Session::put('carts', $carts);
 
+                $cartTotal = $this->cartService->CalculateGuestCartTotal();
+
                 return response()->json([
                     'message' => __('Product added to cart successfully'),
                     'cartCount' => $cartsCount,
+                    'cartTotal' => $cartTotal,
                     'status' => 'success'
                 ]);
             } else {
@@ -169,9 +179,12 @@ class CartController extends Controller
                 'user_id' => $userId,
             ]);
 
+            $cartTotal = $this->cartService->CalculateAuthCartTotal();
+
             return response()->json([
                 'message' => __('Product added to cart successfully'),
                 'cartCount' => Cart::where('user_id', auth()->user()->id)->count(),
+                'cartTotal' => $cartTotal,
                 'status' => 'success'
             ]);
         } else {
@@ -207,6 +220,8 @@ class CartController extends Controller
 
             (new CartService())->updateCart($validated);
 
+            $cartTotal = $this->cartService->CalculateAuthCartTotal();
+
             if (isset($error)) {
                 return response()->json([
                     'message' => $error,
@@ -216,6 +231,7 @@ class CartController extends Controller
 
             return response()->json([
                 'message' => 'Updated Successfully.',
+                'cartTotal' => $cartTotal,
                 'status' => 'success'
             ]);
         } catch (\Exception $e) {
@@ -238,8 +254,11 @@ class CartController extends Controller
 
             (new CartService())->updateGuestCart($validated);
 
+            $cartTotal = $this->cartService->CalculateGuestCartTotal();
+
             return response()->json([
                 'message' => 'Updated Successfully.',
+                'cartTotal' => $cartTotal,
                 'status' => 'success'
             ]);
         } catch (\Exception $e) {
@@ -253,6 +272,8 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         $cart->delete();
+        $cartTotal = $this->cartService->CalculateAuthCartTotal();
+
         return redirect()->back()->with('success', __('Deleted Successfully.'));
     }
 
@@ -267,6 +288,9 @@ class CartController extends Controller
         Session::put('cartsCount', count($newCarts));
         $newCarts = json_encode($newCarts);
         session()->put('carts', $newCarts);
+
+        $cartTotal = $this->cartService->CalculateGuestCartTotal();
+
         return redirect()->back()->with('success', __('Deleted Successfully.'));
     }
 }

@@ -126,9 +126,8 @@ class CartService
         $sessionCart = collect($sessionCart);
 
         if ($sessionCart['product_id'] == $reqCart['product_id'] && $sessionCart['variant_id'] == $reqCart['variant_id']) {
-          $newSessionCarts[] = $sessionCart;
-          $newSessionCarts[] = $sessionCart;
           $sessionCart['quantity'] = $reqCart['quantity'];
+          $newSessionCarts[] = $sessionCart;
         }
       }
     }
@@ -137,5 +136,41 @@ class CartService
     $newSessionCarts = json_encode($newSessionCarts);
     session()->forget('carts');
     session()->put('carts', $newSessionCarts);
+  }
+
+  public function CalculateGuestCartTotal()
+  {
+    $total = 0;
+    if (session()->has('carts') && session()->get('cartsCount') > 0) {
+      $carts = session()->get('carts');
+      $carts = json_decode($carts);
+      $carts = collect($carts);
+      if ($carts->count() > 0) {
+        $total = $carts->sum(function ($cart) {
+          return $cart->price * $cart->quantity;
+        });
+      }
+    }
+    session()->put('cartTotal', $total);
+    return $total;
+  }
+
+  public function CalculateAuthCartTotal()
+  {
+    $total = 0;
+    if (auth()->check()) {
+      
+      $carts = auth()->user()->carts;
+
+      if ($carts->count() > 0) {
+        $total = $carts->sum(function ($cart) {
+          return $cart->price * $cart->quantity;
+        });
+      }
+    }
+
+    session()->put('cartTotal', $total);
+
+    return $total;
   }
 }

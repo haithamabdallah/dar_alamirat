@@ -35,7 +35,7 @@
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <form id="search-form" action="{{ route('products.search') }}" method="GET">
-                            <input class="s-search-input" type="text" placeholder="Search" name="query" id="product-search-input" onkeydown="if(event.key === 'Enter'){ this.form.submit(); return false; }">
+                            <input class="s-search-input" type="text" placeholder="{{ __('Search') }}" name="query" id="product-search-input" onkeydown="if(event.key === 'Enter'){ this.form.submit(); return false; }">
                         </form>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             <span class="s-cart-summary-count" id="cart-summary-count" >{{ auth()->check() ? auth()->user()->carts->count() : (session('cartsCount') ?? 0) }}</span>
                             <span class="d-flex flex-column">
                                 <p>{{ __("Cart") }}</p>
-                                {{-- <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span> --}}
+                                <span class="cart-amount" id="cart-summary-total" >{{ session('cartTotal') ? session('cartTotal') : 0}} {{ $currency }}</span>
                             </span>
                         </a>
                     </li>
@@ -120,10 +120,10 @@
                         <a href="{{ auth()->check() ?  route('cart.index') : route('guest.cart.index') }}" class="d-flex align-items-center">
                             <i class="icon sicon-shopping-bag"></i>
 
-                            <span class="s-cart-summary-count">{{ auth()->check() ? auth()->user()->carts->count() : (session('cartsCount') ?? 0) }}</span>
+                            <span class="s-cart-summary-count" id="cart-summary-count-mob">{{ auth()->check() ? auth()->user()->carts->count() : (session('cartsCount') ?? 0) }}</span>
                             <span class="d-flex flex-column">
                                 <p>{{ __("Cart") }}</p>
-                                {{-- <span class="cart-amount">{{auth()->check() ? cartTotalPrice() : 0}} {{ $currency }}</span> --}}
+                                <span class="cart-amount" id="cart-summary-total-mob" >{{ session('cartTotal') ? session('cartTotal') : 0}} {{ $currency }}</span>
                             </span>
                         </a>
                     </li>

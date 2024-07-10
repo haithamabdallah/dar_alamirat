@@ -141,6 +141,10 @@
                 // console.log(response)
                 if (response.data.status === 'success') {
                     $('#cart-summary-count').text(response.data.cartCount);
+                    $('#cart-summary-total').text(response.data.cartTotal + ' {!! $currency !!}');
+                    $('#cart-summary-count-mob').text(response.data.cartCount);
+                    $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
+                    
                     $.jGrowl(
                         response.data.message,
                         {

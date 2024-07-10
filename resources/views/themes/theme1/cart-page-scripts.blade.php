@@ -127,6 +127,8 @@
         }).then((response) => {
             if (response.data.status === 'success') {
                 console.log(response.data);
+                $('#cart-summary-total').text(response.data.cartTotal + ' {!! $currency !!}');
+                $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
                 $('#final-total-form').submit();
             } else {
                 console.log(response.data);
@@ -146,6 +148,10 @@
             @endguest
         }).then((response) => {
             if (response.data.status === 'success') {
+                if ( response.data.cartTotal  ) {
+                    $('#cart-summary-total').text(response.data.cartTotal  + ' {!! $currency !!}');
+                    $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
+                }
                 console.log(response.data);
                 $('#save-cart-options').hide();
                 $('#cart-options-saved').show();
