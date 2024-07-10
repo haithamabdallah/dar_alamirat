@@ -73,6 +73,24 @@ class SettingsController extends Controller
 
     public function saveSocialMedia(Request $request)
     {
+        // dd($request->all());
+
+        $socialMedia = [
+            'facebook',
+            'twitter',
+            'instagram',
+            'youtube',
+            'whatsapp',
+            'tiktok',
+            'snapchat',
+        ];
+
+        foreach ($socialMedia as $social) {
+            $status[$social] = (isset($request['status'][$social]) && $request['status'][$social] == true ? 1 : 0);
+        }
+
+        $request['status'] = $status;
+        
         $validatedData = $request->validate([
             'facebook' => 'nullable|url:http,https',
             'twitter' => 'nullable|url:http,https',
@@ -81,6 +99,8 @@ class SettingsController extends Controller
             'whatsapp' => 'nullable|url:http,https',
             'tiktok' => 'nullable|url:http,https',
             'snapchat' => 'nullable|url:http,https',
+            'status' => 'required|array',
+            'status.*' => 'required|in:0,1',
         ]);
 
         // Retrieve or create the social media setting entry
@@ -94,8 +114,6 @@ class SettingsController extends Controller
 
         // Update the setting entry with the merged values
         $setting->save();
-
-
 
         return redirect()->route('socialMedia.index')->with('success', 'Social saved successfully');
     }

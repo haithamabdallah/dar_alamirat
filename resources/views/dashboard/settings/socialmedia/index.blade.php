@@ -56,6 +56,9 @@
                                     <div class="input-group-text"><i class="fa-brands fa-facebook-f"></i></div>
                                     <input type="text" name="facebook" class="form-control" placeholder="facebook"
                                         value="{{ isset($setting->value['facebook']) ? $setting->value['facebook'] : '' }}">
+                                    <input type="checkbox" class="m-2" name="status[facebook]" 
+                                    {!! isset($setting->value['status']['facebook']) && $setting->value['status']['facebook'] == true  ? 'checked' : ''  !!} value="1">
+
                                 </div>
                             </div>
                             @error('facebook')
@@ -67,6 +70,8 @@
                                     <div class="input-group-text"><span class="fab fa-twitter"></span></div>
                                     <input type="text" name="twitter" class="form-control" placeholder="twitter"
                                         value="{{ isset($setting->value['twitter']) ? $setting->value['twitter'] : '' }}">
+                                    <input type="checkbox" class="m-2" name="status[twitter]" 
+                                    {!! isset($setting->value['status']['twitter']) && $setting->value['status']['twitter'] == true  ? 'checked' : ''  !!} value="1">
                                 </div>
                             </div>
                             @error('twitter')
@@ -78,6 +83,9 @@
                                     <div class="input-group-text"><i class="fa-brands fa-instagram"></i></div>
                                     <input type="text" name="instagram" class="form-control" placeholder="instagram"
                                         value="{{ isset($setting->value['instagram']) ? $setting->value['instagram'] : '' }}">
+                                    <input type="checkbox" class="m-2" name="status[instagram]" 
+                                    {!! isset($setting->value['status']['instagram']) && $setting->value['status']['instagram'] == true  ? 'checked' : ''  !!} value="1">
+
                                 </div>
                             </div>
                             @error('instagram')
@@ -89,6 +97,9 @@
                                     <div class="input-group-text"><i class="fa-brands fa-youtube"></i></div>
                                     <input type="text" name="youtube" class="form-control" placeholder="youtube"
                                         value="{{ isset($setting->value['youtube']) ? $setting->value['youtube'] : '' }}">
+                                    <input type="checkbox" class="m-2" name="status[youtube]" 
+                                    {!! isset($setting->value['status']['youtube']) && $setting->value['status']['youtube'] == true  ? 'checked' : ''  !!} value="1">
+
                                 </div>
                             </div>
                             @error('youtube')
@@ -101,6 +112,9 @@
                                     <input type="text" name="whatsapp" class="form-control"
                                         placeholder="https://wa.me/+123456789"
                                         value="{{ isset($setting->value['whatsapp']) ? $setting->value['whatsapp'] : '' }}">
+                                    <input type="checkbox" class="m-2" name="status[whatsapp]" 
+                                    {!! isset($setting->value['status']['whatsapp']) && $setting->value['status']['whatsapp'] == true  ? 'checked' : ''  !!} value="1">
+
                                 </div>
                             </div>
                             @error('whatsapp')
@@ -112,6 +126,9 @@
                                     <div class="input-group-text"><i class="fa-brands fa-tiktok"></i></div>
                                     <input type="text" name="tiktok" class="form-control" placeholder="tiktok"
                                         value="{{ isset($setting->value['tiktok']) ? $setting->value['tiktok'] : '' }}">
+                                    <input type="checkbox" class="m-2" name="status[tiktok]" 
+                                    {!! isset($setting->value['status']['tiktok']) && $setting->value['status']['tiktok'] == true  ? 'checked' : ''  !!} value="1">
+
                                 </div>
                             </div>
                             @error('tiktok')
@@ -123,6 +140,9 @@
                                     <div class="input-group-text"><i class="fa-brands fa-snapchat"></i></div>
                                     <input type="text" name="snapchat" class="form-control" placeholder="snapchat"
                                         value="{{ isset($setting->value['snapchat']) ? $setting->value['snapchat'] : '' }}">
+                                    <input type="checkbox" class="m-2" name="status[snapchat]" 
+                                    {!! isset($setting->value['status']['snapchat']) && $setting->value['status']['snapchat'] == true  ? 'checked' : ''  !!} value="1">
+
                                 </div>
                             </div>
                             @error('snapchat')

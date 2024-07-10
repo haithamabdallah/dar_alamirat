@@ -56,11 +56,14 @@
                                 ];
                             @endphp
                             @foreach ($setting->value as $platform => $url)
-                                @if (array_key_exists($platform, $socialMediaPlatforms) && !empty($url))
+                                @if (!array_key_exists($platform, $socialMediaPlatforms))
+                                    @continue
+                                @endif
+                                @if (array_key_exists($platform, $socialMediaPlatforms) && !empty($url) 
+                                    && isset($setting->value['status'][$platform]) && $setting->value['status'][$platform] == true )
                                     <li>
                                         <a href="{{ $url }}">
                                             <i class="{{ $socialMediaPlatforms[$platform] }}"></i>
-
                                         </a>
                                     </li>
                                 @endif
