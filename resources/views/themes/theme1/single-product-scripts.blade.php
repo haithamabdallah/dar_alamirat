@@ -69,12 +69,12 @@
                 // const totalPriceElement = document.getElementById('total-price');
                 // totalPriceElement.innerText = `${totalPrice.toFixed(2)} {{ $currency }}`;
                 $('.total-price').each(function(index) {
-                    $(this).text(totalPrice.toFixed(2));
+                    $(this).text(totalPrice.toFixed(2) + ' {!! $currency !!}');
                 })
                 // const basePriceElement = document.querySelector('.before-dis span.base-price');
                 // basePriceElement.innerText = `${totalOriginalPrice.toFixed(2)} {{ $currency }}`;
                 $('.before-dis span.base-price').each(function(index) {
-                    $(this).text(totalOriginalPrice.toFixed(2));
+                    $(this).text(totalOriginalPrice.toFixed(2) + ' {!! $currency !!}');
                 })
             }
 
