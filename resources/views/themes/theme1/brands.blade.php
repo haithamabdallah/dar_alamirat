@@ -1,5 +1,28 @@
 @extends('themes.theme1.layouts.app')
 
+{{-- @section('crumbs')
+    <!-- breadcrumbs container-->
+    <div class="pixel-container">
+        <!-- row -->
+        <div class="wrap">
+            <!-- content -->
+            <ul class="breadcrumbs">
+                <li>
+                    <a href="{{route('index')}}">
+                        <span>{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>{{ __("Brands") }}</span>
+                </li>
+            </ul>
+            <!-- ./content -->
+        </div>
+        <!-- ./row -->
+    </div>
+    <!-- ./breadcrumbs container-->
+@endsection --}}
+
 @section('content')
 
     <!-- brands Nav -->
@@ -12,6 +35,12 @@
         @endfor
     </nav>
     <!-- ./Brands Nav -->
+
+    {{-- <br>
+    <br>
+    <br>    
+    <br>    
+    <h1 class="pixel-container my-5 text-center"> {{ __("Brands") }} </h1> --}}
 
     <!-- brands items -->
     <div class="pixel-container">
