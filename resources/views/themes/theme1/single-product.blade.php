@@ -103,11 +103,11 @@
                             <div class="product_tabs">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs " id="myTab" role="tablist">
-                                    <li class="nav-item flex-fill" role="specifications">
-                                        <a class="nav-link active" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">{{ __('Product Options') }}</a>
+                                    <li class="nav-item flex-fill" role="specifications" @if ( $product->variants->count() == 1 ) style="display: none" @endif>
+                                        <a class="nav-link {{  $product->variants->count() > 1 ? 'active' : '' }}" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">{{ __('Product Options') }}</a>
                                     </li>
                                     <li class="nav-item flex-fill" role="presentation">
-                                        <a class="nav-link" id="description-tab" data-bs-toggle="tab"
+                                        <a class="nav-link {{  $product->variants->count() == 1 ? 'active' : '' }}" id="description-tab" data-bs-toggle="tab"
                                                 data-bs-target="#description" type="button" role="tab" aria-controls="description"
                                                 aria-selected="true">{{ __("Description") }}</a>
                                     </li>
@@ -125,7 +125,8 @@
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0">
+                                    <div class="tab-pane {{  $product->variants->count() > 1 ? 'active' : '' }}" id="specifications" role="tabpanel" aria-labelledby="specifications-tab" tabindex="0"
+                                        @if ( $product->variants->count() == 1 ) style="display: none" @endif >
                                         <form id="variant-form">
                                             @foreach ($product->variants as $index => $variant)
                                                 <div class="variant-option">
@@ -140,7 +141,7 @@
                                             @endforeach
                                         </form>
                                     </div>
-                                    <div class="tab-pane" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{!! $product->description !!}</div>
+                                    <div class="tab-pane {{  $product->variants->count() == 1 ? 'active' : '' }}" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0">{!! $product->description !!}</div>
                                     <div class="tab-pane" id="use" role="tabpanel" aria-labelledby="use-tab" tabindex="0"> {!! $product->instructions !!}</div>
                                     {{--
                                 <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">reviews</div> --}}
@@ -178,7 +179,7 @@
                         <div class="wrap">
                             <div class="sku_number">
                                 <div class="title">
-                                    <i class="sicon-barcode text-primary text-base"></i>
+                                    {{-- <i class="sicon-barcode text-primary text-base"></i> --}}
                                     <p>{{ __("SKU") }}</p>
                                 </div>
                                 @foreach ($product->variants as $variant)
