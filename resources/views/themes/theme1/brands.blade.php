@@ -1,6 +1,6 @@
 @extends('themes.theme1.layouts.app')
 
-{{-- @section('crumbs')
+@section('crumbs')
     <!-- breadcrumbs container-->
     <div class="pixel-container">
         <!-- row -->
@@ -21,12 +21,12 @@
         <!-- ./row -->
     </div>
     <!-- ./breadcrumbs container-->
-@endsection --}}
+@endsection
 
 @section('content')
 
     <!-- brands Nav -->
-    <nav id="brands-nav">
+    <nav id="brands-nav" style="overflow-y: scroll ; max-height: 300px">
         @for ($letter = 'A'; $letter <= 'Z'; $letter++)
             <a href="#section-{{$letter}}" class="" data-id="{{$letter}}">{{$letter}}</a>
             @if($letter == 'Z')
@@ -36,11 +36,7 @@
     </nav>
     <!-- ./Brands Nav -->
 
-    {{-- <br>
-    <br>
-    <br>    
-    <br>    
-    <h1 class="pixel-container my-5 text-center"> {{ __("Brands") }} </h1> --}}
+    <h1 class="pixel-container text-center" style="margin-top :10rem"> {{ __("Brands") }} </h1>
 
     <!-- brands items -->
     <div class="pixel-container">
