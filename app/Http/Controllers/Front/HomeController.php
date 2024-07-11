@@ -111,7 +111,12 @@ class HomeController extends Controller
         $query = $request->input('query');
 
         if (!isset($request->filter)){
-            $products = Product::where('title->' . app()->getLocale(), 'LIKE', '%' . $query . '%')->filter($request->all())->active()->latest()->paginate(20);
+            $products = Product::
+            where('title->' . 'en', 'LIKE', '%' . $query . '%')
+            ->orWhere('title->' . 'ar', 'LIKE', '%' . $query . '%')
+            ->orWhere('description->' . 'en', 'LIKE', '%' . $query . '%')
+            ->orWhere('description->' . 'ar', 'LIKE', '%' . $query . '%')
+            ->filter($request->all())->active()->latest()->paginate(20);
         } else{
             // Access the filters from the request
             $categoryId = $request->input('filter.category_id');
