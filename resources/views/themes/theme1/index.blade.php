@@ -13,7 +13,7 @@
         $bannerSettings = $settings->where('type', 'general')->first();
     @endphp
 
-
+    {{-- {!! $sliders !!} --}}
     @include('themes.theme1.index-layouts.home.full-banner')
 
     @include('themes.theme1.index-layouts.home.categories-and-banners')

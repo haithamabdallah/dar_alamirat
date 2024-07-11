@@ -1,4 +1,5 @@
-<!-- BEGIN #sidebar -->
+<!-- BEGIN #
+    idebar -->
 <div id="sidebar" class="app-sidebar">
     <!-- BEGIN scrollbar -->
     <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
@@ -245,6 +246,18 @@
                     <div class="menu-text">Reports</div>
                 </a>
             </div> --}}
+            <!-- ./item -->
+
+            <!-- item -->
+            <div class="menu-item">
+                {{-- <a href="{{ route('dashboard.slider.index') }}" class="menu-link"> --}}
+                <a href="{{ route('dashboard.slider.index') }}" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-regular fa-newspaper"></i>
+                    </div>
+                    <div class="menu-text">Sliders</div>
+                </a>
+            </div>
             <!-- ./item -->
 
             <!-- item -->

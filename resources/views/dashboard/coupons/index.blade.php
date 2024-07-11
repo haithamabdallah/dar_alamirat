@@ -12,7 +12,7 @@
             <div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{__('dashboard.home')}}</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('brand.index')}}">{{__('dashboard.coupons')}}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard.coupons.index')}}">{{__('dashboard.coupons')}}</a></li>
                 </ul>
                 <h1 class="page-header mb-0">{{__('dashboard.coupons')}}</h1>
             </div>

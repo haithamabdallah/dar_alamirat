@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\MainSliderController;
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/', [DashboardController::class , 'index' ])->name('index');
@@ -16,6 +17,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::match(['put' , 'patch'] , '/{coupon}', [CouponController::class , 'update' ])->name('update');
         Route::resource('/' , CouponController::class)->except('edit', 'update');
         Route::post('/toggle-status', [CouponController::class , 'toggleStatus' ])->name('toggle-status');
+    });
+    
+    Route::group([ 'middleware' => 'admin' , 'prefix' => 'sliders' , 'as' => 'slider.'], function () {
+        Route::post('/toggle-status', [MainSliderController::class , 'toggleStatus' ])->name('toggle-status');
+        Route::resource('/' , MainSliderController::class)->parameters([
+            '' => 'mainSlider'
+        ]);
     });
 });
 

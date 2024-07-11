@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\MainSlider;
 use App\Models\Setting;
 use Modules\Page\Models\Page;
 use Modules\Settings\Models\Social;
@@ -32,9 +33,10 @@ class AppServiceProvider extends ServiceProvider
             $settings = Setting::all();
             $pages= Page::active()->get();
             $currency =     Setting::where('type' , 'general')->first()->value['currency-'.app()->getLocale()] ?? "LYD";
-
+            $sliders = MainSlider::active()->latest()->get();
+            
             $view->with( 
-                compact('settings', 'currency' ,'pages')
+                compact('settings', 'currency' ,'pages','sliders')
             );
         });
     }
