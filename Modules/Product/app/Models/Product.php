@@ -147,4 +147,15 @@ class Product extends Model
     // {
     //     return     Setting::where('type' , 'general')->first()->value['currency'];
     // }
+
+    # Overrides 
+
+    public function delete()
+    {
+        if ($this->thumbnail && Storage::exists($this->thumbnail)) 
+        {
+            Storage::delete($this->thumbnail);
+        }
+        parent::delete();
+    }
 }
