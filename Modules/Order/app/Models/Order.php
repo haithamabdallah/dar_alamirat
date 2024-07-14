@@ -57,10 +57,10 @@ public function userAddress()
 //     // Format UUID with dashes
 //     return substr($value, 0, 8) . '-' . substr($value, 8, 4) . '-' . substr($value, 12, 4) . '-' . substr($value, 16, 4) . '-' . substr($value, 20);
 // }
-public function getOrderNumberAttribute($value)
-{
-    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split($value, 4));
-}
+// public function getOrderNumberAttribute($value)
+// {
+//     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split($value, 4));
+// }
 
 
 }

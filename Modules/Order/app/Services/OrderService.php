@@ -27,8 +27,14 @@ class OrderService
 
         try {
             DB::beginTransaction();
-            $orderNumber = Str::uuid();
-            //     dd($orderNumber);
+            // $orderNumber = Str::uuid();
+            // $orderNumber = Str::random(12);
+            $part1 = rand(1000, 9999);
+            $part2 = rand(1000, 9999);
+            $part3 = rand(1000, 9999);
+            $part4 = rand(1000, 9999);
+            $orderNumber = $part1 . '-' . $part2 . '-' . $part3 . '-' . $part4;
+            // dd($orderNumber);
             $order = new Order();
             $order->order_number = $orderNumber;
             $order->user_id = $validatedData['user_id'];
@@ -85,8 +91,13 @@ class OrderService
             })->keyBy('id')->toArray();
             
             DB::beginTransaction();
-            $orderNumber = Str::uuid();
-            //     dd($orderNumber);
+            // $orderNumber = Str::uuid();
+            $part1 = rand(1000, 9999);
+            $part2 = rand(1000, 9999);
+            $part3 = rand(1000, 9999);
+            $part4 = rand(1000, 9999);
+            $orderNumber = $part1 . '-' . $part2 . '-' . $part3 . '-' . $part4;
+            // dd($orderNumber);
             $order = new Order();
             $order->order_number = $orderNumber;
             $order->user_id = auth()->id();
