@@ -151,6 +151,9 @@ class CartService
         });
       }
     }
+    
+    $total = round($total, 2);
+
     session()->put('cartTotal', $total);
     return $total;
   }
@@ -168,6 +171,8 @@ class CartService
         });
       }
     }
+
+    $total = round($total, 2);
 
     session()->put('cartTotal', $total);
 

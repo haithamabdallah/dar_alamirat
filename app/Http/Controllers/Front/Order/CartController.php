@@ -15,12 +15,9 @@ use Modules\Product\Models\Variant;
 
 class CartController extends Controller
 {
-    public function __construct
-    (
+    public function __construct(
         public CartService $cartService
-    )
-    {
-        
+    ) {
     }
     public function cartCount()
     {
@@ -51,47 +48,130 @@ class CartController extends Controller
                 $carts = [];
             }
 
+            $inventoryQuantity = Inventory::where('variant_id', $variantId)->first()->quantity;
+
             foreach ($carts as $key => $cart) {
+
                 // If the product is already in the cart, return a message
                 if ($cart->product_id == $productId && $cart->variant_id == $variantId) {
-                    return response()->json([
-                        'message' => __('Product already is in the cart with the same variant'),
-                        'status' => 'danger'
-                    ]);
+                    $isInCart = true;
                 }
             }
 
-            $inventoryQuantity = Inventory::where('variant_id', $variantId)->first()->quantity;
 
-            if ($quantity <= $inventoryQuantity) {
+            if (isset($isInCart) && $isInCart) {
+                if ($quantity <= $inventoryQuantity) {
 
-                $carts[] = [
-                    'product_id' => $productId,
-                    'variant_id' => $variantId,
-                    'quantity' => $quantity,
-                    'price' => $price,
-                ];
+                    $cart->quantity += $quantity;
+                } else {
 
-                $cartsCount = count($carts);
-                Session::put('cartsCount', $cartsCount);
-
-                $carts = json_encode($carts);
-                Session::put('carts', $carts);
-
-                $cartTotal = $this->cartService->CalculateGuestCartTotal();
-
-                return response()->json([
-                    'message' => __('Product added to cart successfully'),
-                    'cartCount' => $cartsCount,
-                    'cartTotal' => $cartTotal,
-                    'status' => 'success'
-                ]);
+                    $error = __('Only available quantity is ') . $inventoryQuantity;
+                }
             } else {
+                if ($quantity <= $inventoryQuantity) {
+
+                    $carts[] = [
+                        'product_id' => $productId,
+                        'variant_id' => $variantId,
+                        'quantity' => $quantity,
+                        'price' => $price,
+                    ];
+                } else {
+                    $error = __('Only available quantity is ') . $inventoryQuantity;
+                }
+            }
+
+            if (isset($error)) {
                 return response()->json([
-                    'message' => __("Only available quantity is ") . $inventoryQuantity,
+                    'message' => $error,
                     'status' => 'danger'
                 ]);
             }
+
+            $cartsCount = count($carts);
+            Session::put('cartsCount', $cartsCount);
+
+            $carts = json_encode($carts);
+            Session::put('carts', $carts);
+
+            $cartTotal = $this->cartService->CalculateGuestCartTotal();
+
+            return response()->json([
+                'message' => __('Product added to cart successfully'),
+                'cartCount' => $cartsCount,
+                'cartTotal' => $cartTotal,
+                'status' => 'success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status' => 'danger'
+            ]);
+        }
+    }
+
+    public function addToCart($productId)
+    {
+        try {
+            $quantity = request('quantity');
+            $variantId = request('variantId');
+
+            $prices = Variant::lazy()->map(function ($variant) {
+                return $variant->only(['priceWithDiscount', 'id']);
+            })->pluck('priceWithDiscount', 'id')->toArray();
+
+            $price = $prices[$variantId];
+
+            $userId = auth()->user()->id;
+
+            // Check if the product is already in the cart
+            $existingCart = Cart::where(['user_id' => $userId, 'product_id' => $productId, 'variant_id' => $variantId])->first();
+
+            $inventoryQuantity = Inventory::where('variant_id', $variantId)->first()->quantity;
+
+            // If the product is already in the cart, return a message
+            if ($existingCart) {
+
+                // ************************************************************
+                if ($quantity <= $inventoryQuantity) {
+                    $existingCart->quantity += $quantity;
+                    $existingCart->save();
+                } else {
+
+                    $error = __('Only available quantity is ') . $inventoryQuantity;
+                }
+            } else {
+
+                if ($quantity <= $inventoryQuantity) {
+
+                    $cart = Cart::create([
+                        'product_id' => $productId,
+                        'variant_id' => $variantId,
+                        'quantity' => $quantity,
+                        'price' => $price,
+                        'user_id' => $userId,
+                    ]);
+                } else {
+
+                    $error = __('Only available quantity is ') . $inventoryQuantity;
+                }
+            }
+
+            if (isset($error)) {
+                return response()->json([
+                    'message' => $error,
+                    'status' => 'danger'
+                ]);
+            }
+
+            $cartTotal = $this->cartService->CalculateAuthCartTotal();
+
+            return response()->json([
+                'message' => __('Product added to cart successfully'),
+                'cartCount' => Cart::where('user_id', auth()->user()->id)->count(),
+                'cartTotal' => $cartTotal,
+                'status' => 'success'
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -132,67 +212,6 @@ class CartController extends Controller
         })->keyBy('id');
 
         return view('themes.' . getAppTheme() . '.cart-page', compact('carts', 'prices'));
-    }
-
-    // public function merge() // merge guest cart with logged in user cart
-    // {
-    //     try {
-    //         ( new CartService() )->mergeGuestCartsAndAuthCarts();
-    //     } catch (\Exception $e) {
-    //         dd($e);
-    //     }
-    //     return redirect()->route('index');
-    // }
-
-    public function addToCart($productId)
-    {
-        $quantity = request('quantity');
-        $variantId = request('variantId');
-
-        $prices = Variant::lazy()->map(function ($variant) {
-            return $variant->only(['priceWithDiscount', 'id']);
-        })->pluck('priceWithDiscount', 'id')->toArray();
-
-        $price = $prices[$variantId];
-
-        $userId = auth()->user()->id;
-
-        // Check if the product is already in the cart
-        $existingCart = Cart::where(['user_id' => $userId, 'product_id' => $productId, 'variant_id' => $variantId])->first();
-
-        // If the product is already in the cart, return a message
-        if ($existingCart) {
-            return response()->json([
-                'message' => __('Product already is in the cart with the same variant'),
-                'status' => 'danger'
-            ]);
-        }
-
-        $inventoryQuantity = Inventory::where('variant_id', $variantId)->first()->quantity;
-
-        if ($quantity <= $inventoryQuantity) {
-            $cart = Cart::create([
-                'product_id' => $productId,
-                'variant_id' => $variantId,
-                'quantity' => $quantity,
-                'price' => $price,
-                'user_id' => $userId,
-            ]);
-
-            $cartTotal = $this->cartService->CalculateAuthCartTotal();
-
-            return response()->json([
-                'message' => __('Product added to cart successfully'),
-                'cartCount' => Cart::where('user_id', auth()->user()->id)->count(),
-                'cartTotal' => $cartTotal,
-                'status' => 'success'
-            ]);
-        } else {
-            return response()->json([
-                'message' => __("Only available quantity is ") . $inventoryQuantity,
-                'status' => 'danger'
-            ]);
-        }
     }
 
     public function showCart()
@@ -277,12 +296,12 @@ class CartController extends Controller
         return redirect()->back()->with('success', __('Deleted Successfully.'));
     }
 
-    public function destroyGuestCart(string $productId , string $index)
+    public function destroyGuestCart(string $productId, string $index)
     {
         $carts = session()->get('carts');
         $carts = json_decode($carts);
         $carts = collect($carts);
-        $newCarts = $carts->filter(function ($cart , $key) use ($productId , $index) {
+        $newCarts = $carts->filter(function ($cart, $key) use ($productId, $index) {
             return $key != $index;
         });
         Session::put('cartsCount', count($newCarts));
