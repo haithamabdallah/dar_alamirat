@@ -205,6 +205,14 @@ class OrderService
                 session()->forget('coupon');
             }
 
+            if (session()->has('cartsCount')) {
+                session()->forget('cartsCount');
+            }
+
+            if (session()->has('cartTotal')) {
+                session()->forget('cartTotal');
+            }
+
             DB::commit();
 
             return $order;
