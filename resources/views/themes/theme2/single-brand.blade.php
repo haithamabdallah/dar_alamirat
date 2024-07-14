@@ -1,4 +1,4 @@
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme2.layouts.app')
 
 @section('content')
     <!-- single brand -->
@@ -34,7 +34,7 @@
                         <!-- brand product items -->
                         <div class="brand_products">
                             @foreach ($brand->products as $product)
-                                @include('themes.theme1.partials.item')
+                                @include('themes.theme2.partials.item')
                             @endforeach
                         </div>
                         <!-- ./brand product items -->

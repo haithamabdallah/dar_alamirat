@@ -1,4 +1,4 @@
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme3.layouts.app')
 
 @section('crumbs')
     <!-- breadcrumbs -->
@@ -38,7 +38,7 @@
                             <div class="main products-container">
                                 @foreach ($products as $product)
                                     <!-- product item -->
-                                    @include('themes.theme1.partials.item')
+                                    @include('themes.theme3.partials.item')
                                     <!-- product item -->
                                 @endforeach
                             </div>

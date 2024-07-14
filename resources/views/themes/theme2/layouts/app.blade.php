@@ -14,26 +14,26 @@
         <title> {{ __("Dar Alamirat") }}</title>
     @endsection
 
-    @include('themes.theme1.layouts.head')
+    @include('themes.theme2.layouts.head')
 
     
 <body>
-@include('themes.theme1.layouts.note')
+@include('themes.theme2.layouts.note')
 
-@include('themes.theme1.layouts.topbar')
+@include('themes.theme2.layouts.topbar')
 
-@include('themes.theme1.layouts.header')
+@include('themes.theme2.layouts.header')
 
-@include('themes.theme1.layouts.sidemenu')
+@include('themes.theme2.layouts.sidemenu')
 
 @yield('crumbs')
 
 @yield('content')
 
 
-@include('themes.theme1.layouts.footer')
+@include('themes.theme2.layouts.footer')
 
-@include('themes.theme1.layouts.foot')
+@include('themes.theme2.layouts.foot')
 
 </body>
 </html>

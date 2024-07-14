@@ -3,7 +3,7 @@
     dd($productVariantPrices); 
 @endphp --}}
 
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme3.layouts.app')
 
 @section('customcss')
     <link rel="stylesheet" href="{{asset('theme1-assets/css/magnific-popup.css')}}">
@@ -364,7 +364,7 @@
                             <!-- product item -->
                             @foreach ($productsYouMayLike as $product)
                                 <div class="swiper-slide">
-                                    @include('themes.theme1.partials.item' , ['product' => $product])
+                                    @include('themes.theme3.partials.item' , ['product' => $product])
                                 </div>
                             @endforeach
                             <!-- product item -->
@@ -379,7 +379,7 @@
 @endsection
 
 @push('scripts')
-    @include('themes.theme1.single-product-scripts')
+    @include('themes.theme3.single-product-scripts')
 
     <script>
         document.querySelectorAll(".mySwiper").forEach(function(s) {

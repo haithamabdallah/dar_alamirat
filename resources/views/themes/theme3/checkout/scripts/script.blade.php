@@ -364,5 +364,5 @@
     });
 </script>
 
-@include('themes.theme1.shared-scripts.apply-coupon')
+@include('themes.theme3.shared-scripts.apply-coupon')
 

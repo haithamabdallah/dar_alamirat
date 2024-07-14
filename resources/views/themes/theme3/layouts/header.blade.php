@@ -83,8 +83,8 @@
     </div>
 </header>
 
-    @include('themes.theme1.partials.modals.email')
-    @include('themes.theme1.partials.modals.otp')
+    @include('themes.theme3.partials.modals.email')
+    @include('themes.theme3.partials.modals.otp')
 
 
 <header id="mobileHeader">

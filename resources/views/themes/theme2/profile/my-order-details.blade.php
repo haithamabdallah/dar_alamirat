@@ -2,7 +2,7 @@
     dd($order);
 @endphp --}}
 
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme2.layouts.app')
 
 @section('customcss')
 @endsection

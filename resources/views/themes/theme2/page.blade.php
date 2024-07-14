@@ -1,4 +1,4 @@
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme2.layouts.app')
 @section('content')
 <section id="full-layout" class="article-pages">
     <div class="pixel-container">

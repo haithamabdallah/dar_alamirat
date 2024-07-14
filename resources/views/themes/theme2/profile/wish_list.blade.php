@@ -1,4 +1,4 @@
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme2.layouts.app')
 
 @section('customcss')
     <link rel="stylesheet" href="{{ asset('theme1-assets/css/intlTelInput.min.css') }}">
@@ -47,12 +47,12 @@
         <div class="pixel-container">
             <div class="wrap">
                 <div class="user-layout">
-                    @include('themes.theme1.profile.profile_aside')
+                    @include('themes.theme2.profile.profile_aside')
                     <main>
                         <h1>{{ __("Wishlist") }}</h1>
                         <div class="whishlist_items">
                             @foreach($favorites as $product)
-                                @include('themes.theme1.partials.item')
+                                @include('themes.theme2.partials.item')
                             @endforeach
                         </div>
                     </main>

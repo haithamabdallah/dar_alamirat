@@ -25,9 +25,9 @@
         <!-- container -->
         <div class="container">
 
-            @include('themes.theme1.checkout.partials.header')
+            @include('themes.theme2.checkout.partials.header')
 
-            @include('themes.theme1.checkout.partials.order-summary')
+            @include('themes.theme2.checkout.partials.order-summary')
 
             <!-- Payment -->
             <div class="accordion" id="checkoutAccordion">
@@ -51,9 +51,9 @@
                                 <span> {{ __("Add New Address") }}  </span>
                             </button>
 
-                            @include('themes.theme1.checkout.partials.new-address')
+                            @include('themes.theme2.checkout.partials.new-address')
 
-                            @include('themes.theme1.checkout.partials.edit-address')
+                            @include('themes.theme2.checkout.partials.edit-address')
 
                             <button class="btn-save" onclick="confirmAddress()"> {{ __("Confirm Address") }}  </button>
                         </div>
@@ -61,7 +61,7 @@
                 </div>
                 <!-- Step 2: Shipping Method -->
 
-                @include('themes.theme1.checkout.partials.shipping')
+                @include('themes.theme2.checkout.partials.shipping')
 
                 <!-- Step 3: Payment Method -->
                 <div class="accordion-item">
@@ -73,7 +73,7 @@
                         <button class="btn btn-sm btn-link edit-button" style="display:none;"
                             onclick="editStage(3)"> {{ __("Edit") }}  </button>
                     </h2>
-                    @include('themes.theme1.checkout.partials.payment')
+                    @include('themes.theme2.checkout.partials.payment')
                 </div>
             </div>
             <!-- ./Payment -->
@@ -88,7 +88,7 @@
     <script src="theme1-assets/js/bootstrap.bundle.min.js"></script>
     {{-- <script src="theme1-assets/js/checkout.js"></script> --}}
 
-    @include('themes.theme1.checkout.scripts.script ')
+    @include('themes.theme2.checkout.scripts.script ')
 
 </body>
 

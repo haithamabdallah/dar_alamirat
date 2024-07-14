@@ -109,7 +109,7 @@
                                     </div>
                                     <!-- product item -->
 
-{{--                                    <div class="swiper-slide">@include("themes.theme1.blocks.items.item-01")</div>--}}
+{{--                                    <div class="swiper-slide">@include("themes.theme3.blocks.items.item-01")</div>--}}
                                 @endforeach
                             @endif
 

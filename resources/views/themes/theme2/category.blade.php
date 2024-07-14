@@ -2,7 +2,7 @@
     // dd( $products );
 @endphp
 
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme2.layouts.app')
 
 @section('customcss')
     <style>
@@ -241,7 +241,7 @@
                                 data-url="{{ route('category.products', $category->id) }}">
                                 @foreach ($products as $product)
                                     <!-- product item -->
-                                    @include('themes.theme1.partials.item')
+                                    @include('themes.theme2.partials.item')
                                     <!-- product item -->
                                 @endforeach
                             </div>
@@ -310,5 +310,5 @@
 @endsection
 
 @section('scripts')
-    @include('themes.theme1.category-scripts')
+    @include('themes.theme2.category-scripts')
 @endsection

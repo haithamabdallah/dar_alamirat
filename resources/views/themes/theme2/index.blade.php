@@ -1,7 +1,7 @@
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme2.layouts.app')
 
 @section('content')
-    {{--    @include('themes.theme1.index-layouts.categoryTabs') --}}
+    {{--    @include('themes.theme2.index-layouts.categoryTabs') --}}
 
     @if (Session::has('success_message'))
         <div class="alert alert-success">
@@ -14,17 +14,17 @@
     @endphp
 
     {{-- {!! $sliders !!} --}}
-    @include('themes.theme1.index-layouts.home.full-banner')
+    @include('themes.theme2.index-layouts.home.full-banner')
 
-    @include('themes.theme1.index-layouts.home.categories-and-banners')
+    @include('themes.theme2.index-layouts.home.categories-and-banners')
 
-    @include('themes.theme1.index-layouts.home.brands')
+    @include('themes.theme2.index-layouts.home.brands')
 
-    @include('themes.theme1.index-layouts.home.features')
+    @include('themes.theme2.index-layouts.home.features')
 
-    @include('themes.theme1.partials.newsletters')
+    @include('themes.theme2.partials.newsletters')
 
-    @include('themes.theme1.partials.cookies')
+    @include('themes.theme2.partials.cookies')
 
 
 @endsection

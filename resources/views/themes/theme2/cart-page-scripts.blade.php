@@ -180,4 +180,4 @@
 
 </script>
 
-@include('themes.theme1.shared-scripts.apply-coupon')
+@include('themes.theme2.shared-scripts.apply-coupon')

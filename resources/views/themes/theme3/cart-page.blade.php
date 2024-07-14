@@ -4,7 +4,7 @@
     // dd($prices);
 @endphp
 
-@extends('themes.theme1.layouts.app')
+@extends('themes.theme3.layouts.app')
 
 @section('customcss')
     <style>
@@ -258,5 +258,5 @@
 @endsection
 
 @section('scripts')
-    @include('themes.theme1.cart-page-scripts')
+    @include('themes.theme3.cart-page-scripts')
 @endsection

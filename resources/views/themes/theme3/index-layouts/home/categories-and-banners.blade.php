@@ -55,7 +55,7 @@
                             @foreach ($category->products as $product)
                                 <!-- product item -->
                                     <div class="swiper-slide">
-                                        @include('themes.theme1.partials.item')
+                                        @include('themes.theme3.partials.item')
                                     </div>
                                     <!-- product item -->
                                 @endforeach

@@ -24,15 +24,15 @@
                 <div class="swiper salon">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            @include('themes.theme1.blocks.items.item-01')
+                            @include('themes.theme3.blocks.items.item-01')
                         </div>
-                        <div class="swiper-slide">@include('themes.theme1.blocks.items.item-02')</div>
-                        <div class="swiper-slide">@include('themes.theme1.blocks.items.item-03')</div>
-                        <div class="swiper-slide">@include('themes.theme1.blocks.items.item-04')</div>
-                        <div class="swiper-slide">@include('themes.theme1.blocks.items.item-05')</div>
-                        <div class="swiper-slide">@include('themes.theme1.blocks.items.item-06')</div>
-                        <div class="swiper-slide">@include('themes.theme1.blocks.items.item-07')</div>
-                        <div class="swiper-slide">@include('themes.theme1.blocks.items.item-08')</div>
+                        <div class="swiper-slide">@include('themes.theme3.blocks.items.item-02')</div>
+                        <div class="swiper-slide">@include('themes.theme3.blocks.items.item-03')</div>
+                        <div class="swiper-slide">@include('themes.theme3.blocks.items.item-04')</div>
+                        <div class="swiper-slide">@include('themes.theme3.blocks.items.item-05')</div>
+                        <div class="swiper-slide">@include('themes.theme3.blocks.items.item-06')</div>
+                        <div class="swiper-slide">@include('themes.theme3.blocks.items.item-07')</div>
+                        <div class="swiper-slide">@include('themes.theme3.blocks.items.item-08')</div>
                     </div>
 
                 </div>
