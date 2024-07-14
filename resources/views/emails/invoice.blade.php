@@ -12,6 +12,9 @@ path => /my-orders/1
     <div class="bg-white p-4 my-4 shadow rounded">
         {{-- <div> {{ __("Order Status") }} : <span>{{ $order->status }}</span> </div>
         <div> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div> --}}
+        <div> {{ __("Order Number") }} : <span>{{ $order->order_number }}</span> </div>
+        <div> {{ __("Date") }} : <span>{{ $order->created_at->format('Y-m-d') }}</span> </div>
+        <div> {{ __("Time") }} : <span>{{ $order->created_at->format('h:i A') }}</span> </div>
         <div> {{ __("Final Price") }} : <span>{{ $order->final_price }}</span> </div>
         <div> {{ __("Order Payment Method") }} : <span> {{ __("Cash On Delivery") }} </span> </div>
         @php
