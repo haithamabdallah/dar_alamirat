@@ -36,7 +36,7 @@
                 <button type="button" onclick="applyCoupon()"> {{ __("Apply") }}</button>
             </form>
         </div>
-        <p id="coupon-details-div" style="display: none"> <span class="text-success">  {{ __("Successful Coupon") }} </span> <br>
+        <p id="coupon-details-div" style="display: none"> <span class="text-success">  {{ __("Valid Coupon") }} </span> <br>
             <span id="coupon-details"> </span> </p>
         <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>
 

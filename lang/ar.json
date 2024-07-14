@@ -239,7 +239,7 @@
     "Have Coupon": "تمتلك كوبون",
     "?": "؟",
     "Apply": "تطبيق",
-    "Successful Coupon": "كوبون صالح",
+    "Valid Coupon": "كوبون صالح",
     "Invalid Coupn": "كوبون خاطئ",
     "Invoice Details": "تفاصيل الفاتورة",
     "Cash on Delivery": "الدفع عند الاستلام",
@@ -363,7 +363,9 @@
     "Search For": "نتيجة بحث ",
     "All Products": "جميع المنتجات",
     "Done Successfully": "تم بنجاح",
-    "": "",
+    "Date and Time": "التاريخ والوقت",
+    "Date": "التاريخ",
+    "Time": "الوقت",
     "": "",
     "": ""
 }
