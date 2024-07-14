@@ -159,3 +159,12 @@ if(!function_exists('cartTotalPrice'))
         return $totalPrice;
     }
 }
+
+if(!function_exists('getAppTheme'))
+{
+    function getAppTheme()
+    {
+        $theme = Setting::where('type' , 'general')->first()->value['theme'] ?? 'theme1';
+        return $theme;
+    }
+}

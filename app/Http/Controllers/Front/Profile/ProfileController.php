@@ -14,7 +14,7 @@ class ProfileController extends Controller
     {
         // Return the user profile view with the user model passed to it
 
-        return view('themes.theme1.profile.my-account',compact('user'));
+        return view('themes.' . getAppTheme() . '.profile.my-account',compact('user'));
     }
 
     public function updateProfile(ProfileRequest $request, User $user)

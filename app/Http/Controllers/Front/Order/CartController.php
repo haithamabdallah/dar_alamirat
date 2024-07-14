@@ -131,7 +131,7 @@ class CartController extends Controller
             return $variant->only(['priceWithDiscount', 'id']);
         })->keyBy('id');
 
-        return view('themes.theme1.cart-page', compact('carts', 'prices'));
+        return view('themes.' . getAppTheme() . '.cart-page', compact('carts', 'prices'));
     }
 
     // public function merge() // merge guest cart with logged in user cart
@@ -205,7 +205,7 @@ class CartController extends Controller
             return $variant->only(['priceWithDiscount', 'id']);
         })->keyBy('id')->toJson();
 
-        return view('themes.theme1.cart-page', compact('carts', 'prices'));
+        return view('themes.' . getAppTheme() . '.cart-page', compact('carts', 'prices'));
     }
 
     public function updateCart(Request $request)

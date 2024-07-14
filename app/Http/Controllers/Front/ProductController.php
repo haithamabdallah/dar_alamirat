@@ -18,6 +18,6 @@ class ProductController extends Controller
                     return $variant->only(['price','price_with_discount','id']);
         })->keyBy('id')->toJson();
         // $productsYouMayLike = Product::where('id','!=',$product->id)->get()->random(10);
-        return view('themes.theme1.single-product',compact('product' , 'productsYouMayLike' , 'productVariantPrices'));
+        return view('themes.' . getAppTheme() . '.single-product',compact('product' , 'productsYouMayLike' , 'productVariantPrices'));
     }
 }

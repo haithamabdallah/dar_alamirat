@@ -32,13 +32,13 @@ class OrderController extends Controller
     public function myOrderDetailsPage(Order $order)
     {
         $order->load(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod']);
-        return view('themes.theme1.profile.my-order-details' , compact('order'));
+        return view('themes.' . getAppTheme() . '.profile.my-order-details' , compact('order'));
     }
 
     public function myOrdersPage()
     {
         $orders = Order::where('user_id',auth()->user()->id)->with(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod'])->latest()->paginate(10);
-        return view('themes.theme1.profile.my-orders' , compact('orders'));
+        return view('themes.' . getAppTheme() . '.profile.my-orders' , compact('orders'));
     }
     
 
@@ -50,7 +50,7 @@ class OrderController extends Controller
         
         $shippings = Shipping::active()->get();
 
-        return view('themes.theme1.checkout.checkout' , compact('cartTotal' , 'addresses' , 'shippings'));
+        return view('themes.' . getAppTheme() . '.checkout.checkout' , compact('cartTotal' , 'addresses' , 'shippings'));
     }
 
     public function checkout(Request $request)

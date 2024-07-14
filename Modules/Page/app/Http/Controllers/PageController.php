@@ -54,7 +54,7 @@ class PageController extends Controller
     public function show($id)
     {
         $page = Page::find($id);
-        return view('themes.theme1.page', compact('page'));
+        return view('themes.' . getAppTheme() . '.page', compact('page'));
     }
 
     /**

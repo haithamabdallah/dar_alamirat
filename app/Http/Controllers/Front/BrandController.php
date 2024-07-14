@@ -12,13 +12,13 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::with('products')->active()->orderBy('name', 'asc')->get();
-        return view('themes.theme1.brands',compact('brands'));
+        return view('themes.' . getAppTheme() . '.brands',compact('brands'));
     }
 
     public function showBrand($id)
     {
         $brand= Brand::find($id);
         $products = $brand->products()->latest()->paginate(10);
-        return view('themes.theme1.single-brand',compact('brand', 'products'));
+        return view('themes.' . getAppTheme() . '.single-brand',compact('brand', 'products'));
     }
 }

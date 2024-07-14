@@ -22,6 +22,7 @@ class SettingsController extends Controller
             'website_name' => 'nullable',
             'website_description' => 'nullable',
             'website_address' => 'nullable',
+            'theme' => 'required|in:theme1,theme2,theme3',
             'tel' => 'nullable',
             'whats_app' => 'nullable',
             'currency-en' => 'required',

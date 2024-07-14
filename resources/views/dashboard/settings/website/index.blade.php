@@ -102,6 +102,19 @@
                         <form action="{{ route('site') }}" id="siteInfo" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-15px">
+                                <label class="form-label col-form-label col-md-3">Website Theme</label>
+                                <div class="col-sm-9">
+                                    <select name="theme" id="theme" class="form-control @error('theme') is-invalid @enderror">
+                                        @foreach (['theme1' => 'Theme 1', 'theme2' => 'Theme 2', 'theme3' => 'Theme 3' ] as $key => $value)
+                                            <option value="{{ $key }}" {!! isset($setting->value['theme']) && $setting->value['theme'] == $key ? 'selected' : '' !!}> {{ $value }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('theme')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">Website Logo</label>
                                 <div class="col-sm-9">
                                     <p>minimum image size : 100px X 100px</p>

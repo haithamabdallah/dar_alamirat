@@ -10,7 +10,7 @@ class FavoriteController extends Controller
     public function index()
     {
         $favorites = auth()->user()->favoriteProducts;
-        return view('themes.theme1.profile.wish_list', compact('favorites'));
+        return view('themes.' . getAppTheme() . '.profile.wish_list', compact('favorites'));
     }
 
     public function toggleFavorite(Product $product)

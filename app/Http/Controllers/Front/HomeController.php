@@ -46,7 +46,7 @@ class HomeController extends Controller
 
         $brands = Brand::active()->limit(12)->inRandomOrder()->get();
 
-        return view('themes.theme1.index' , compact('brands' , 'priorityables'));
+        return view('themes.' . getAppTheme() . '.index' , compact('brands' , 'priorityables'));
     }
 
 
@@ -103,7 +103,7 @@ class HomeController extends Controller
         $brandIds = $products->pluck('brand_id')->unique();
         $categoryBrands = Brand::active()->whereIn('id', $brandIds)->get();
 
-        return view('themes.theme1.category', compact('category', 'products' , 'categoryBrands'));
+        return view('themes.' . getAppTheme() . '.category', compact('category', 'products' , 'categoryBrands'));
     }
 
     public function search(Request $request)
@@ -153,6 +153,6 @@ class HomeController extends Controller
                     });
                 })->latest()->paginate(20);
         }
-        return view('themes.theme1.search', compact('products', 'query'));
+        return view('themes.' . getAppTheme() . '.search', compact('products', 'query'));
     }
 }

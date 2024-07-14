@@ -73,15 +73,15 @@ use Modules\Brand\Http\Controllers\BrandController as BrandControllerBE;
 // })->name('report.edit');
 
 // Route::get('/cart-empty', function () {
-//     return view('themes.theme1.cart-empty');
+//     return view('themes.' . getAppTheme() . '.cart-empty');
 // })->name('cart-empty');
 
 // Route::get('/offers', function () {
-//     return view('themes.theme1.offers');
+//     return view('themes.' . getAppTheme() . '.offers');
 // })->name('offers');
 
 // Route::get('/brands', function () {
-//     return view('themes.theme1.brands');
+//     return view('themes.' . getAppTheme() . '.brands');
 // })->name('brands');
 
 
