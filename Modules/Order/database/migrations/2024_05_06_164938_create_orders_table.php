@@ -39,6 +39,10 @@ return new class extends Migration
                 $table->decimal('shipping_price',6,2)->nullable();
             });
         });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('order_number')->nullable()->change();
+        });
     }
 
     /**
