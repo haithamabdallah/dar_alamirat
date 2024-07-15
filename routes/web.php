@@ -1,5 +1,8 @@
 <?php
 
+use App\Mail\InvoiceMail;
+use Modules\Order\Models\Order;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\HomeController;
@@ -55,7 +58,10 @@ use Modules\Brand\Http\Controllers\BrandController as BrandControllerBE;
 /************************************ reports ****************************/
 
 // Route::get('/test', function () {
-//     return view('test');
+//     // return view('test');
+//     $order = Order::latest()->first();
+//     Mail::to($order->user->email)->send(new InvoiceMail($order));
+//     return redirect()->route('index');
 // })->name('test');
 
 // Route::get('/reports', function () {
