@@ -116,7 +116,8 @@ class HomeController extends Controller
             ->orWhere('title->' . 'ar', 'LIKE', '%' . $query . '%')
             ->orWhere('description->' . 'en', 'LIKE', '%' . $query . '%')
             ->orWhere('description->' . 'ar', 'LIKE', '%' . $query . '%')
-            ->filter($request->all())->active()->latest()->paginate(20);
+            // ->filter($request->all())
+            ->active()->latest()->paginate(20);
         } else{
             // Access the filters from the request
             $categoryId = $request->input('filter.category_id');
@@ -154,5 +155,42 @@ class HomeController extends Controller
                 })->latest()->paginate(20);
         }
         return view('themes.' . getAppTheme() . '.search', compact('products', 'query'));
+    }
+
+    public function searchAjax(Request $request)
+    {
+        try {
+            $search = $request->search;
+            
+            // return response()->json( $request->all() );
+            if ( $search == true ){
+
+                $products = Product::
+                where('title->' . 'en', 'LIKE', '%' . $search . '%')
+                ->orWhere('title->' . 'ar', 'LIKE', '%' . $search . '%')
+                ->orWhere('description->' . 'en', 'LIKE', '%' . $search . '%')
+                ->orWhere('description->' . 'ar', 'LIKE', '%' . $search . '%')
+                ->withOnly([])
+                ->active()->latest()->take(20)->get();
+                // ->filter($request->all())
+
+                // return response()->json( $search );
+                $status = 'success' ; 
+                
+                return response()->json( 
+                    compact( 'status' , 'products')
+                 );
+            } else {
+                return response()->json( [
+                    'status' => false
+                ] );
+            }
+            
+        }catch (\Exception $e) {
+
+            return response()->json([
+                $e
+            ]);
+        }
     }
 }

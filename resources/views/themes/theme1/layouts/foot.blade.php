@@ -228,6 +228,34 @@
     });
 </script>
 
+<script>
+    $(document).ready(function(){
+        let typingTimer;
+        let query;
+        $('.s-search-input').each(function(){
+            $(this).on('keyup', function() {
+                //    alert(1);
+                // const query = $(this).val().toLowerCase().trim();
+                query = $(this).val();
+                clearTimeout( typingTimer );
+                typingTimer = setTimeout( () => getProducts(query) , 2000)
+            })
+        });
+        
+        let getProducts = (query) => {
+            axios.post('{{ route('products.searching') }}', {
+                search : query
+            }).then(response => {
+                // will return status false if search is empty
+                console.log(response.data);
+            }).catch(error => {
+                console.log(error);
+            })
+        }
+    })
+
+</script>
+
 
 @yield('scripts')
 

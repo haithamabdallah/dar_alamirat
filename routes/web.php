@@ -90,6 +90,7 @@ Route::get('/lang/{lang}', [HomeController::class, 'changeLanguage'])->name('cha
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/category-products/{category}', [HomeController::class, 'categoryProducts'])->name('category.products');
 Route::get('/search-products', [HomeController::class, 'search'])->name('products.search');
+Route::post('/searching-products', [HomeController::class, 'searchAjax'])->name('products.searching');
 
 Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('sendOtp');
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOtp');
