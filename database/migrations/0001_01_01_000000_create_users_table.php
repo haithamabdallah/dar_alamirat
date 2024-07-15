@@ -25,6 +25,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::table('users', function (Blueprint $table) {
+            $table->after('last_name', function($table) {
+                $table->string('avatar')->nullable();
+            });
+        });
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
