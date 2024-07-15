@@ -22,7 +22,6 @@ class CouponRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'code' => 'required|string|max:30|unique:coupons,code',
             'note' => 'nullable|string|max:255',
             'start_date' => 'required|date|date_format:Y-m-d',
             'end_date' => 'required|date|date_format:Y-m-d',
@@ -31,11 +30,12 @@ class CouponRequest extends FormRequest
             'usage_limit' => 'required|numeric|min:1',
         ];
     
-        if (request()->has('discount_type') && request()->has('discount_value')) {
+        if ( request()->method() != 'PUT') {
+            $rules['code'] = 'required|string|max:30|unique:coupons,code';
             $rules['discount_type'] = 'required|string|in:flat,percent|max:30';
             $rules['discount_value'] = 'required|numeric|min:0';
         };
-        
+
         return $rules;
     }
 }

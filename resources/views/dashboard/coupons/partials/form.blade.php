@@ -2,14 +2,18 @@
     <link href="{{ asset('admin-panel/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet" />
 @endsection
 
+@php
+$isEdit = request()->route()->named('dashboard.coupons.edit') ? true : false ;
+@endphp
+
 <div class="">
     <!-- item -->
     <div class="row mb-15px">
         <label class="form-label col-form-label col-md-3">Code <small>(Ex.
                 SPRING-2022)</small></label>
         <div class="col-md-9">
-            <input class="form-control" type="text" name="code" placeholder="SPRING-2022"
-                value="{{ $coupon->code ?? old('code') }}" required />
+            <input class="form-control" type="text" placeholder="SPRING-2022"  @disabled($isEdit) {!! !$isEdit ? 'name="code"' : "" !!}
+                value="{{ $coupon->code ?? old('code') }}" />
             @error('code')
                 <span class="text-danger" role="alert">
                     <strong>{{ $message }}</strong>
@@ -19,7 +23,6 @@
     </div>
     <!-- ./item -->
 
-    @if (! request()->route()->named('dashboard.coupons.edit') )
 
         <div class="">
             <!-- ./item -->
@@ -30,7 +33,7 @@
             <div class="row mb-15px">
                 <label class="form-label col-form-label col-md-3">Discount type</label>
                 <div class="col-md-9">
-                    <select class=" form-control" name="discount_type" required>
+                    <select class=" form-control" @disabled($isEdit) {!! !$isEdit ? 'name="discount_type"' : "" !!} required>
                         <option disabled>Select Discount type</option>
                         @foreach (['flat' => 'Flat', 'percent' => 'Percent'] as $key => $value)
                             <option {{ $discount_type == $key ? 'selected' : '' }} value="{{ $key }}">
@@ -50,7 +53,7 @@
             <div class="row mb-15px">
                 <label class="form-label col-form-label col-md-3">Discount Value</label>
                 <div class="col-md-9">
-                    <input type="number" name="discount_value" class="form-control"
+                    <input type="number" class="form-control"  @disabled($isEdit) {!! !$isEdit ? 'name="discount_value"' : "" !!}
                         placeholder="Insert the discount value" min="0" required
                         value="{{ $coupon->discount_value ?? old('discount_value') }}" />
                     @error('discount_value')
@@ -62,7 +65,6 @@
             </div>
             <!-- item -->
         </div>
-    @endif
 
     <!-- item -->
     <div class="row mb-15px">
