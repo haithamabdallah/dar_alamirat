@@ -26,7 +26,8 @@ class ProfileRequest extends FormRequest
             //
             'first_name' => 'string',
             'last_name' => 'string',
-            'birthday' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
+            // 'birthday' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
+            'birthday' => ['required', 'date', 'before_or_equal:' . now()->format('Y-m-d')],
             'gender' => 'required|in:male,female',
             'email' => 'required|email|unique:users,email,' . $userId,
             'phone_number'=>'string'
