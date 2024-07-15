@@ -7,11 +7,11 @@ path => /my-orders/1
 @endphp
 --}}
 
-<main>
+{{--<main>
     <h1>{{ __("Order") }}</h1>
     <div class="bg-white p-4 my-4 shadow rounded">
-        {{-- <div> {{ __("Order Status") }} : <span>{{ $order->status }}</span> </div>
-        <div> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div> --}}
+        --}}{{-- <div> {{ __("Order Status") }} : <span>{{ $order->status }}</span> </div>
+        <div> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div> --}}{{--
         <div> {{ __("Order Number") }} : <span>{{ $order->order_number }}</span> </div>
         <div> {{ __("Date") }} : <span>{{ $order->created_at->format('Y-m-d') }}</span> </div>
         <div> {{ __("Time") }} : <span>{{ $order->created_at->format('h:i A') }}</span> </div>
@@ -60,4 +60,71 @@ path => /my-orders/1
             </div>
         @endforeach
     </div>
-</main>
+</main>--}}
+
+<div style="max-width: 600px; margin: 0 auto; overflow: hidden; ">
+    <div style="padding: 20px; display: block; overflow: hidden; margin-bottom: 10px;">
+        <img src="https://dar_alamirat.test/storage/products/28/thumbnail/PvoLHgU1NjTDXvkFHDT95n1jT6OrBOV9dkguU7CQ.jpg" alt="" style="width: 80px; height: 80px; display: inline-block; float:left; padding-right: 20px; border-right: 1px solid #707070;">
+        <div style="display: inline-block; float:left; margin-left: 20px;">
+            <h6 style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 5px;">daar alamirat Store</h6>
+            <p style="font-size: 12px; font-weight: normal; line-height: 12px; color: #707070;max-width: 160px;">100 City Centre Drive Mississauga, ON, CA L5B 2C9</p>
+        </div>
+    </div>
+
+    <div style="display: block; text-align: center">
+        <h3 style="max-width:200px; margin: 20px auto;text-transform: uppercase; font-size: 20px; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 15px; color: #000;">Dear Customer,</h3>
+        <h4 style="color: #0b9f5b; font-size: 18px; text-transform: uppercase;font-weight: bold;">Thanks You</h4>
+        <p style="font-size: 12px; text-transform: uppercase; color: #2d2d2d;">FOR YOUR RECENT Daaralamirat PURCHASE.</p>
+
+        <div style="min-width:200px;max-width:400px;margin: 20px auto;font-size: 16px; font-weight: bold; border: 1px solid #707070; color: #707070; padding: 10px 20px; display: block; text-transform: uppercase;">{{ __("Order Number") }}: {{ $order->order_number }}</div>
+
+    </div>
+
+    <p style="margin: 30px 0;font-size: 12px; font-weight: normal; line-height: 14px; color: #707070; text-align: center;">We strive to make our products meet your expectations and welcome any feedback you may have to meet this goal. Should you have any questions or require assistance, please do not hesitate to contact us by visiting www.daaralamirat.com/contact.</p>
+
+    <table style="font-size: 16px;line-height: 16px; width: 100%; float: left; border-collapse: collapse; color: #000;">
+        @foreach ($order->orderDetails as $orderDetails)
+        <tr style="border: 1px solid #707070;">
+            <td style="width: 10%"><img src="{{ $message->embed( asset($orderDetails->product->thumbnail) ) }}" alt="" style="width: 50px;height: 50px;padding: 5px;"></td>
+            <td style="width: 65%;padding: 5px;"><a href="{{ route('product', $orderDetails->product->id) }}">{{ $orderDetails->product->title }} (
+                    {{ $orderDetails->variant->variant_name }} )</a></td>
+            <td style="width: 5%;border: 1px solid #707070; text-align: center">{{ $orderDetails->quantity }}</td>
+            <td style="width: 15%; text-align: right; padding: 5px;border: 1px solid #707070;">$120.00</td>
+        </tr>
+        @endforeach
+
+        @if ($order?->coupon)
+        <tr style="text-align: right">
+            <td colspan="2"></td>
+            <td style="padding: 10px;">{{ __("Applied Coupon") }}:</td>
+            <td style="padding: 10px;">{{ $order->coupon->discount_value }}</td>
+        </tr>
+        @endif
+        <tr style="text-align: right">
+            <td colspan="2"></td>
+            <td style="padding: 10px;">{{ __("Final Price") }}:</td>
+            <td style="padding: 10px;">{{ $order->final_price }}</td>
+        </tr>
+    </table>
+
+    <table style="margin: 30px 0; width: 100%; color: #000;">
+        <tr>
+            <td>{{ __("Order Payment Method") }}:</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #707070;">
+            <td>{{ __("Cash On Delivery") }}</td>
+        </tr>
+    </table>
+    @php
+        $address = $order->userAddress;
+    @endphp
+    <table style="margin: 30px 0; width: 100%; color: #000;">
+        <tr>
+            <td>{{ __("Order Address") }}:</td>
+        </tr>
+        <tr>
+            <td>{{ __("Governorate") }} : {{ $address->governorate }},{{ __("City") }}: {{ $address->city }},{{ __("Street") }} : {{ $address->street }},{{ __("House Number") }} : {{ $address->house_number }}</td>
+        </tr>
+    </table>
+
+</div>
