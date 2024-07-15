@@ -45,12 +45,12 @@
                 slidesPerGroup: 1,
                 breakpoints: {
                     320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
+                        slidesPerView: 2,
+                        spaceBetween: 10,
                     },
                     425: {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
+                        slidesPerView: 2.5,
+                        spaceBetween: 10,
                     },
                     640: {
                         slidesPerView: 1,
@@ -58,15 +58,15 @@
                     },
                     768: {
                         slidesPerView: 2,
-                        spaceBetween: 40,
+                        spaceBetween: 20,
                     },
                     1024: {
                         slidesPerView: 3,
-                        spaceBetween: 50,
+                        spaceBetween: 20,
                     },
                     1200: {
                         slidesPerView: 4,
-                        spaceBetween: 50,
+                        spaceBetween: 20,
                     },
                 },
             });
