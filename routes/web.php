@@ -153,6 +153,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
     Route::delete('/cart/{cart:id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+    Route::post('/update-avatar', [ProfileController::class, 'updateAvatar'])->name('user.update-avatar');
 
     Route::get('/my-orders', [OrderController::class, 'myOrdersPage'])->name('order.my');
     Route::get('/my-orders/{order:id}', [OrderController::class, 'myOrderDetailsPage'])->name('order.my.details');

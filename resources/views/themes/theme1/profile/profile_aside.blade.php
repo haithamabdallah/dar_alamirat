@@ -4,13 +4,22 @@
             <li>
                 <div class="avatar-upload">
                     <div class="avatar-edit">
-                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                        <label for="imageUpload"></label>
+                        <form action="{{ route('user.update-avatar') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type='file' id="imageUpload" name="avatar" accept=".png, .jpg, .jpeg" onchange="this.form.submit()" />
+                            <label for="imageUpload"></label>
+                        </form>
                     </div>
                     <div class="avatar-preview">
-                        <div id="imagePreview" style="background-image: url('{{ asset('theme1-assets/images/avatar_male.webp') }}');">
+                        {{-- <div id="imagePreview" style="background-image: url('{{ asset('theme1-assets/images/avatar_male.webp') }}');"> --}}
+                        <div id="imagePreview" style="background-image: url('{{ asset( '/storage/' . Auth::user()->avatar ?? 'theme1-assets/images/avatar_male.webp' ) }}');">
                         </div>
                     </div>
+                    @error('avatar')
+                    <div class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                 </div>
             </li>
             {{--<li>
