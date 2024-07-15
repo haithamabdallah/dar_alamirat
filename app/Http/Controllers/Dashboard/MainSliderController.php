@@ -14,8 +14,8 @@ class MainSliderController extends Controller
      */
     public function index()
     {
-        $sliders = MainSlider::latest()->paginate(20);
-        return view('dashboard.main-sliders.index' , compact('sliders'));
+        $mainSliders = MainSlider::latest()->paginate(20);
+        return view('dashboard.main-sliders.index' , compact('mainSliders'));
     }
 
     /**

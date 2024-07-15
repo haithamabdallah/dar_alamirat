@@ -1,3 +1,8 @@
+@php
+    $sliders = $mainSliders;
+    // dd($sliders->currentPage());
+@endphp
+
 @extends('dashboard.layouts.app')
 
 @section('customcss')
@@ -119,16 +124,9 @@
                     </div>
                     <!-- ./table -->
 
-                   <!-- pagination -->
-                   <div class="d-md-flex align-items-center">
-                    <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                        Showing {{ $sliders->firstItem() }} to {{ $sliders->lastItem() }} of {{ $sliders->total() }} entries
-                    </div>
-                    <ul class="pagination mb-0 justify-content-center">
-                        {{ $sliders->links('pagination::bootstrap-4') }}
-                    </ul>
-                   </div>
-                <!-- ./pagination -->
+                      <!-- pagination -->
+                      @include('shared.dashboard.pagination' , ['paginated' => $sliders])
+                      <!-- ./pagination -->
                 </div>
                 <!-- ./tab pane -->
             </div>

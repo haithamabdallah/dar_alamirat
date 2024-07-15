@@ -119,14 +119,7 @@
                     <!-- ./table -->
 
                     <!-- pagination -->
-                    <div class="d-md-flex align-items-center">
-                        <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                            Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries
-                        </div>
-                        <ul class="pagination mb-0 justify-content-center">
-                            {{ $categories->links('pagination::bootstrap-4') }}
-                        </ul>
-                    </div>
+                    @include('shared.dashboard.pagination' , ['paginated' => $categories])
                     <!-- ./pagination -->
 
                 </div>

@@ -99,16 +99,9 @@
                     </div>
                     <!-- ./table -->
 
-                   <!-- pagination -->
-                   <div class="d-md-flex align-items-center">
-                    <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                        Showing {{ $coupons->firstItem() }} to {{ $coupons->lastItem() }} of {{ $coupons->total() }} entries
-                    </div>
-                    <ul class="pagination mb-0 justify-content-center">
-                        {{ $coupons->links('pagination::bootstrap-4') }}
-                    </ul>
-                   </div>
-                <!-- ./pagination -->
+                    <!-- pagination -->
+                       @include('shared.dashboard.pagination' , ['paginated' => $coupons])
+                    <!-- ./pagination -->
                 </div>
                 <!-- ./tab pane -->
             </div>

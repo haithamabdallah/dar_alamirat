@@ -100,31 +100,9 @@
                             </tbody>
                         </table>
 
-                        <!-- pagination -->
-                        <div class="d-md-flex align-items-center">
-                            <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                                Showing {{ $admins->firstItem() }} to {{ $admins->lastItem() }} of {{ $admins->total() }} entries
-                            </div>
-                            <ul class="pagination mb-0 justify-content-center">
-                                @if ($admins->previousPageUrl())
-                                    <li class="page-item"><a class="page-link" href="{{ $admins->previousPageUrl() }}">Previous</a></li>
-                                @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
-                                @endif
-
-                                @for ($i = 1; $i <= $admins->lastPage(); $i++)
-                                    <li class="page-item {{ $admins->currentPage() == $i ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $admins->url($i) }}">{{ $i }}</a>
-                                    </li>
-                                @endfor
-
-                                @if ($admins->nextPageUrl())
-                                    <li class="page-item"><a class="page-link" href="{{ $admins->nextPageUrl() }}">Next</a></li>
-                                @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
-                                @endif
-                            </ul>
-                        </div>
+                    <!-- pagination -->
+                        @include('shared.dashboard.pagination' , ['paginated' => $orders])
+                    <!-- ./pagination -->
 
 
                     </div>
