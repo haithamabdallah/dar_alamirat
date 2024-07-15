@@ -18,12 +18,12 @@
                             <ul class="breadcrumbs">
                                 <li>
                                     <a href="{{ route('index') }}">
-                                        <span>{{ __("Home") }}</span>
+                                        <span>{{ __('Home') }}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:;">
-                                        <span>{{ __("My Account") }}</span>
+                                        <span>{{ __('My Account') }}</span>
                                     </a>
                                 </li>
 
@@ -84,7 +84,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>{{ __("Orders") }}</span>
+                                        <span>{{ __('Orders') }}</span>
                                     </a>
                                 </li>
                                 {{-- <li>
@@ -111,7 +111,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>{{ __("Wishlist") }}</span>
+                                        <span>{{ __('Wishlist') }}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -126,7 +126,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>{{ __("My Account") }}</span>
+                                        <span>{{ __('My Account') }}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -146,7 +146,7 @@
                                                 </path>
                                             </svg>
                                         </i>
-                                        <span>{{ __("Logout") }}</span>
+                                        <span>{{ __('Logout') }}</span>
                                     </a>
 
                                 </li>
@@ -154,8 +154,8 @@
                         </div>
                     </aside>
                     <main>
-                        <h1>{{ __("My Orders") }}</h1>
-                        {{--@forelse ($orders as $order)
+                        <h1>{{ __('My Orders') }}</h1>
+                        {{-- @forelse ($orders as $order)
                             <div><a href="{{ route('order.my.details', $order->id) }}"> {{ __("Order Detials Page") }}</a></div>
                             <div class="bg-white p-4 my-4 shadow rounded">
                                 <div>  {{ __("Order Number") }}: <span>{{ $order->order_number }}</span> </div>
@@ -210,142 +210,161 @@
                                 <p>{{ __("No Orders Founded") }}</p>
                             </div>
                             <!-- If Empty Page -->
-                        @endforelse--}}
+                        @endforelse --}}
 
                         <!-- my order lists -->
                         @forelse ($orders as $order)
-                         <div class="single_order my_orders_items">
+                            <div class="single_order my_orders_items">
 
-                            <!-- item -->
-                            <div class="alert item_cart alert-dismissible fade show" role="alert">
+                                <!-- item -->
+                                <div class="alert item_cart alert-dismissible fade show" role="alert">
 
-                                <div class="order-header">
-                                    <div>  {{ __("Order Number") }}: <span>{{ $order->order_number }}</span> </div>
-                                    <div>  {{ __("Created At") }}: <span> {{ $order->created_at->format('Y-m-d h:i A') }} </span> </div>
-                                </div>
-
-
-
-                            @foreach ($order->orderDetails as $orderDetails)
-                                <!-- data -->
-                                <div class="entries">
-
-                                    {{--<a class="removeItem" href="javascript:;" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>--}}
-
-
-                                    <!-- img and title -->
-                                    <div class="itemInfo">
-                                        <a href="{{ route('product', $orderDetails->product->id) }}">
-                                            <img class="w-full object-contain" src="{{ $orderDetails->product->thumbnail }} " alt="">
-                                        </a>
-
-                                        <h2>
-                                            <a href="{{ route('product', $orderDetails->product->id) }}">{{ $orderDetails->product->title }} ( {{ $orderDetails->variant->variant_name }} )</a>
-                                            <div class="variant-price">{{ __("Variant") }}: <span id="variant-price">{{ $orderDetails->variant->variant_name }}</span></div>
-                                            <div class="variant-price">  {{ __("Unit Price") }}: <span>{{ $orderDetails->price }}</span> </div>
-                                            <div class="variant-price">  {{ __("Quantity") }}: <span>{{ $orderDetails->quantity }}</span> </div>
-                                            <div class="variant-price"> {{ __("Variant SKU") }}: <span>
-                                            {{ $orderDetails->variant->sku }} </span> </div>
-                                        </h2>
+                                    <div class="order-header">
+                                        <div> {{ __('Order Number') }}: <span>{{ $order->order_number }}</span> </div>
+                                        <div> {{ __('Created At') }}: <span>
+                                                {{ $order->created_at->format('Y-m-d h:i A') }} </span> </div>
                                     </div>
-                                    <!-- img and title -->
 
-                                    <!-- total price -->
-                                    <div class="price">{{ __("Total Price") }}: <span id="price">{{ $orderDetails->price * $orderDetails->quantity }}</span></div>
-                                    <!-- ./total price -->
+                                    @foreach ($order->orderDetails as $orderDetails)
+                                        <!-- data -->
+                                        <div class="entries">
 
-                                </div>
-                                @endforeach
+                                            {{-- <a class="removeItem" href="javascript:;" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></a> --}}
 
-                                @if ($order?->coupon)
-                                    <div class="py-3"> {{ __("Applied Coupon") }} :
+                                            <!-- img and title -->
+                                            <div class="itemInfo">
+                                                <a href="{{ route('product', $orderDetails->product->id) }}">
+                                                    <img class="w-full object-contain"
+                                                        src="{{ $orderDetails->product->thumbnail }} " alt="">
+                                                </a>
+
+                                                <h2>
+                                                    <a href="{{ route('product', $orderDetails->product->id) }}">{{ $orderDetails->product->title }}
+                                                        ( {{ $orderDetails->variant->variant_name }} )</a>
+                                                    <div class="variant-price">{{ __('Variant') }}: <span
+                                                            id="variant-price">{{ $orderDetails->variant->variant_name }}</span>
+                                                    </div>
+                                                    <div class="variant-price"> {{ __('Unit Price') }}:
+                                                        <span>{{ $orderDetails->price }}</span> </div>
+                                                    <div class="variant-price"> {{ __('Quantity') }}:
+                                                        <span>{{ $orderDetails->quantity }}</span> </div>
+                                                    <div class="variant-price"> {{ __('Variant SKU') }}: <span>
+                                                            {{ $orderDetails->variant->sku }} </span> </div>
+                                                </h2>
+                                            </div>
+                                            <!-- img and title -->
+
+                                            <!-- total price -->
+                                            <div class="price">{{ __('Total Price') }}: <span
+                                                    id="price">{{ $orderDetails->price * $orderDetails->quantity }}</span>
+                                            </div>
+                                            <!-- ./total price -->
+
+                                        </div>
+                                    @endforeach
+
+                                    @if ($order?->coupon)
+                                        <div class="py-3"> {{ __('Applied Coupon') }} :
+                                            <ul class="order-address">
+                                                <li>{{ __('Code') }} : {{ $order->coupon->code }}</li>
+                                                <li>{{ __('Type') }} : {{ $order->coupon->discount_type }}</li>
+                                                <li>{{ __('Value') }} : {{ $order->coupon->discount_value }}</li>
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <hr>
+
+                                    @php
+                                        $address = $order->userAddress;
+                                    @endphp
+                                    <div class="py-3"> {{ __('Order Address') }} :
                                         <ul class="order-address">
-                                            <li>{{ __("Code") }} : {{ $order->coupon->code }}</li>
-                                            <li>{{ __("Type") }} : {{ $order->coupon->discount_type }}</li>
-                                            <li>{{ __("Value") }} : {{ $order->coupon->discount_value }}</li>
+                                            <li> {{ __('Governorate') }} : {{ $address->governorate }}</li>
+                                            <li> {{ __('City') }} : {{ $address->city }}</li>
+                                            <li> {{ __('Street') }} : {{ $address->street }}</li>
+                                            <li> {{ __('House Number') }} : {{ $address->house_number }}</li>
                                         </ul>
                                     </div>
-                                @endif
 
-                                <hr>
+                                    <hr>
 
-                                @php
-                                    $address = $order->userAddress;
-                                @endphp
-                                <div class="py-3"> {{ __("Order Address") }} :
-                                    <ul class="order-address">
-                                        <li> {{ __("Governorate") }} : {{ $address->governorate }}</li>
-                                        <li> {{ __("City") }} : {{ $address->city }}</li>
-                                        <li> {{ __("Street") }} : {{ $address->street }}</li>
-                                        <li> {{ __("House Number") }} : {{ $address->house_number }}</li>
-                                    </ul>
+                                    <div class="py-3"> {{ __('Price') }} :
+                                        <ul class="order-address">
+                                            <li> {{ __('VAT') }} : <span>{{ $order->vat }}</span></li>
+                                            <li> {{ __('Shipping') }} : <span> {{ $order->shipping_price }}
+                                                    {{ $currency }} ( {{ $order->shippingMethod->name }} ) </span>
+                                            </li>
+                                            <li style="color: #5e6fb4 ; font-weight: bold"> {{ __('Final Price') }} :
+                                                <span>{{ $order->final_price }}</span></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="order-footer">
+                                        <div class="status pending"> {{ __('Order Status') }}:
+                                            <span>{{ $order->status }}</span> </div>
+                                        <div class="status pending"> {{ __('Order Payment Status') }} :
+                                            <span>{{ $order->payment_status }}</span> </div>
+                                        <div class="status done"> {{ __('Order Payment Method') }}: <span>
+                                                {{ __('Cash On Delivery') }}</span> </div>
+                                    </div>
+
+                                    {{-- <div class="">  {{ __("Final Price") }}: <span>{{ $order->final_price }}</span> </div> --}}
+
                                 </div>
-
-                                <hr>
-
-                                <div class="py-3"> {{ __("Price") }} :
-                                    <ul class="order-address">
-                                        <li> {{ __("VAT") }} : <span>{{ $order->vat }}</span></li>
-                                        <li> {{ __("Shipping") }} : <span> {{ $order->shipping_price  }} {{ $currency }} ( {{ $order->shippingMethod->name }} ) </span></li>
-                                        <li style="color: #5e6fb4 ; font-weight: bold"> {{ __("Final Price") }} : <span>{{ $order->final_price }}</span></li>
-                                    </ul>
-                                </div>
-
-                                <div class="order-footer">
-                                    <div class="status pending">  {{ __("Order Status") }}: <span>{{ $order->status }}</span> </div>
-                                    <div class="status pending"> {{ __("Order Payment Status") }} : <span>{{ $order->payment_status }}</span> </div>
-                                    <div class="status done">  {{ __("Order Payment Method") }}: <span> {{ __("Cash On Delivery") }}</span> </div>
-                                </div>
-
-                                {{-- <div class="">  {{ __("Final Price") }}: <span>{{ $order->final_price }}</span> </div> --}}
-
+                                <!-- ./item -->
+                                {{--  we need pagination here  --}}
                             </div>
-                            <!-- ./item -->
-                            {{--  we need pagination here  --}}
-                        </div>
-                        <!-- ./my order lists -->
+                            <!-- ./my order lists -->
 
-                            <div class="d-flex justify-content-center">
-                                <nav>
-                                    <ul class="pagination">
-                                        
-                                        @if ( $orders->currentPage() == 1 )
-                                            <li class="page-item disabled" aria-disabled="true" aria-label="« السابق"><span
-                                                    class="page-link" aria-hidden="true"> 
-                                                    ‹
-                                                </span></li>
-                                        @else
-                                            <li class="page-item"><a class="page-link" href="#" rel="previous"
-                                                aria-label="« السابق"> ‹ </a></li>
-                                        @endif
+                            @if ($orders->lastPage() > 1)
+                                <div class="d-flex justify-content-center">
+                                    <nav>
+                                        <ul class="pagination">
 
-                                        @foreach (range($orders->currentPage(), $orders->lastPage()) as $pageNum)
-                                            @if ( $pageNum == $orders->currentPage() )
-                                                <li class="page-item active" aria-current="page"><span class="page-link">{{ $pageNum }}</span>
-                                                </li>
+                                            @if ($orders->currentPage() == 1)
+                                                <li class="page-item disabled" aria-disabled="true" aria-label="« السابق">
+                                                    <span class="page-link" aria-hidden="true">
+                                                        ‹
+                                                    </span></li>
                                             @else
-                                                <li class="page-item"><a class="page-link" href="{{ $orders->url($pageNum) }}">{{ $pageNum }}</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="{{ $orders->previousPageUrl() }}" rel="previous"
+                                                        aria-label="« السابق"> ‹ </a></li>
                                             @endif
-                                        @endforeach
 
-                                        @if ( $orders->currentPage() == $orders->lastPage() )
-                                            <li class="page-item disabled" aria-disabled="true" aria-label="التالي »"><span
-                                                    class="page-link" aria-hidden="true"> 
-                                                    ›
-                                                </span></li>
-                                        @else
-                                            <li class="page-item"><a class="page-link" href="{{ $orders->nextPageUrl() }}" rel="next"
-                                                aria-label="التالي »"> › </a></li>
-                                        @endif
-                                    </ul>
-                                </nav>
-                            </div>
+                                            @foreach (range(1, $orders->lastPage()) as $pageNum)
+                                                @if ($pageNum == $orders->currentPage())
+                                                    <li class="page-item active" aria-current="page"><span
+                                                            class="page-link">{{ $pageNum }}</span>
+                                                    </li>
+                                                @else
+                                                    <li class="page-item"><a class="page-link"
+                                                            href="{{ $orders->url($pageNum) }}">{{ $pageNum }}</a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+
+                                            @if ($orders->currentPage() == $orders->lastPage())
+                                                <li class="page-item disabled" aria-disabled="true" aria-label="التالي »">
+                                                    <span class="page-link" aria-hidden="true">
+                                                        ›
+                                                    </span></li>
+                                            @else
+                                                <li class="page-item"><a class="page-link"
+                                                        href="{{ $orders->nextPageUrl() }}" rel="next"
+                                                        aria-label="التالي »"> › </a></li>
+                                            @endif
+                                        </ul>
+                                    </nav>
+                                </div>
+                            @endif
 
                         @empty
-                        <!-- If Empty Page -->
+                            <!-- If Empty Page -->
                             <div class="no-content-placeholder">
                                 <i class="sicon-packed-box icon"></i>
-                                <p>{{ __("No Orders Founded") }}</p>
+                                <p>{{ __('No Orders Founded') }}</p>
                             </div>
                             <!-- If Empty Page -->
                         @endforelse
