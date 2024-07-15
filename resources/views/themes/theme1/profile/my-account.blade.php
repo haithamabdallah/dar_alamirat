@@ -65,7 +65,7 @@
                                 <label for="first-name">{{ __("First Name") }}</label>
                                 <input type="text" name="first_name" id="first-name"  required class="form-input" value="{{ old('first_name', $user->first_name) }}">
                                 @error('first_name')
-                                    <div class="text-red-500">{{ $message }}</div>
+                                    <div class="link-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -73,7 +73,7 @@
                                 <label for="last-name">{{ __("Last Name") }}</label>
                                 <input type="text" name="last_name" id="last-name" required class="form-input" value="{{ old('last_name', $user->last_name) }}">
                                 @error('last_name')
-                                    <div class="text-red-500">{{ $message }}</div>
+                                    <div class="link-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -81,7 +81,7 @@
                                 <label for="birthday">{{ __("Birth Date") }}</label>
                                 <input class="flatpickr flatpickr-input s-datetime-picker-input" type="text" name="birthday" placeholder="Select Date.." readonly="readonly" value="{{ old('birthday', $user->birthday) }}">
                                 @error('birthday')
-                                    <div class="text-red-500">{{ $message }}</div>
+                                    <div class="link-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -93,7 +93,7 @@
                                     <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>Female</option>
                                 </select>
                                 @error('gender')
-                                    <div class="text-red-500">{{ $message }}</div>
+                                    <div class="link-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -101,7 +101,7 @@
                                 <label for="email">{{ __("Email Address") }}</label>
                                 <input type="email" name="email" id="email" class="form-input" required placeholder="Email Address" value="{{ old('email', $user->email) }}">
                                 @error('email')
-                                    <div class="text-red-500">{{ $message }}</div>
+                                    <div class="link-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -109,7 +109,7 @@
                                 <label for="phone">{{ __("Mobile Number") }}</label>
                                 <input id="phone" type="tel" name="phone_number" class="s-tel-input-control" value="{{ old('phone_number', $user->phone_number) }}">
                                 @error('phone_number')
-                                    <div class="text-red-500">{{ $message }}</div>
+                                    <div class="link-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>

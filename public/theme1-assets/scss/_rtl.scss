@@ -46,6 +46,11 @@
         transform: rotateY(0deg);
     }
 
+    .user-page-layout .user-layout aside .user-sidebar ul li a svg {
+        margin-right: 0;
+        margin-left: 0.75rem;
+    }
+
 }
 
 @media (max-width: 575.98px) {
