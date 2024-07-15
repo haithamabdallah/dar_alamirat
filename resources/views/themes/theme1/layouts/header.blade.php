@@ -2,11 +2,11 @@
 <header id="header">
 
     @if (Session::has('success'))
-    <div class="bg-success text-white p-2" id="flashSuccess" 
+    <div class="bg-success text-white p-2" id="flashSuccess"
     style="position: fixed; top: 10vh; left: 5vw; width: fit-content; z-index: 9999; opacity: 0.8">{{ Session::get('success') }} <button class="text-white p-1" style="border: white solid 1px" onclick="document.getElementById('flashSuccess').style.display = 'none'">X</button></div>
     @endif
     @if (Session::has('error'))
-    <div class="bg-danger text-white p-2" id="flashError" 
+    <div class="bg-danger text-white p-2" id="flashError"
     style="position: fixed; top: 10vh; left: 5vw; width: fit-content; z-index: 9999; opacity: 0.8">{{ Session::get('error') }} <button class="text-white p-1" style="border: white solid 1px" onclick="document.getElementById('flashError').style.display = 'none'">X</button></div>
     @endif
     <div class="pixel-container">
@@ -36,6 +36,8 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <form id="search-form" action="{{ route('products.search') }}" method="GET">
                             <input class="s-search-input" type="text" placeholder="{{ __('Search') }}" name="query" id="product-search-input" onkeydown="if(event.key === 'Enter'){ this.form.submit(); return false; }">
+                            <div id="loading" class="hidden"></div>
+                            <ul id="resultsList"></ul>
                         </form>
                     </div>
                 </div>

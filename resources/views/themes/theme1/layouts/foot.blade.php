@@ -144,7 +144,7 @@
                     $('#cart-summary-total').text(response.data.cartTotal + ' {!! $currency !!}');
                     $('#cart-summary-count-mob').text(response.data.cartCount);
                     $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
-                    
+
                     $.jGrowl(
                         response.data.message,
                         {
@@ -175,6 +175,58 @@
 </script>
 
 {{-- Login --}}
+
+<script>
+    const data = [
+        "Apple",
+        "Banana",
+        "Cherry",
+        "Date",
+        "Elderberry",
+        "Fig",
+        "Grape",
+        "Honeydew"
+    ];
+
+    const searchBar = document.getElementById('product-search-input');
+    const resultsList = document.getElementById('resultsList');
+    const loadingIndicator = document.getElementById('loading');
+
+    const performSearch = (query) => {
+        resultsList.innerHTML = '';
+        loadingIndicator.classList.remove('hidden');
+
+        setTimeout(() => {
+            if (query.length > 0) {
+                const filteredResults = data.filter(item => {
+                    const words = query.split(' ');
+                    return words.every(word => item.toLowerCase().includes(word));
+                });
+                filteredResults.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = item;
+                    resultsList.appendChild(listItem);
+                });
+            }
+            loadingIndicator.classList.add('hidden');
+        }, 500);  // Simulate a delay
+    };
+
+    searchBar.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        if (query.length === 0) {
+            resultsList.innerHTML = '';
+            loadingIndicator.classList.add('hidden');
+        }
+    });
+
+    searchBar.addEventListener('keydown', function(event) {
+        if (event.key === ' ') {
+            const query = this.value.toLowerCase().trim();
+            performSearch(query);
+        }
+    });
+</script>
 
 
 @yield('scripts')
