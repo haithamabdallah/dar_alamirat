@@ -40,6 +40,7 @@
                     nextEl: next,
                     prevEl: prev
                 },
+                autoplay: true,
                 slidesPerView: 4,
                 spaceBetween: 20,
                 slidesPerGroup: 1,

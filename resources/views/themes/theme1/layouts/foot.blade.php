@@ -177,85 +177,93 @@
 {{-- Login --}}
 
 <script>
-    const data = [
-        "Apple",
-        "Banana",
-        "Cherry",
-        "Date",
-        "Elderberry",
-        "Fig",
-        "Grape",
-        "Honeydew"
-    ];
-
-    const searchBar = document.getElementById('product-search-input');
-    const resultsList = document.getElementById('resultsList');
-    const loadingIndicator = document.getElementById('loading');
-
-    const performSearch = (query) => {
-        resultsList.innerHTML = '';
-        loadingIndicator.classList.remove('hidden');
-
-        setTimeout(() => {
-            if (query.length > 0) {
-                const filteredResults = data.filter(item => {
-                    const words = query.split(' ');
-                    return words.every(word => item.toLowerCase().includes(word));
-                });
-                filteredResults.forEach(item => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = item;
-                    resultsList.appendChild(listItem);
-                });
-            }
-            loadingIndicator.classList.add('hidden');
-        }, 500);  // Simulate a delay
-    };
-
-    searchBar.addEventListener('input', function() {
-        const query = this.value.toLowerCase().trim();
-        if (query.length === 0) {
-            resultsList.innerHTML = '';
-            loadingIndicator.classList.add('hidden');
-        }
-    });
-
-    searchBar.addEventListener('keydown', function(event) {
-        if (event.key === ' ') {
-            const query = this.value.toLowerCase().trim();
-            performSearch(query);
-        }
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
+    $(document).ready(function() {
+        const $searchBar = $('.s-search-input');
+        const $resultsList = $('#resultsList');
+        const $loadingIndicator = $('#loading');
+        const $closeBtn = $('.close-btn').addClass('hidden');
+        const debounceTime = 500;
         let typingTimer;
-        let query;
-        $('.s-search-input').each(function(){
-            $(this).on('keyup', function() {
-                //    alert(1);
-                // const query = $(this).val().toLowerCase().trim();
-                query = $(this).val();
-                clearTimeout( typingTimer );
-                typingTimer = setTimeout( () => getProducts(query) , 2000)
-            })
+
+        const getProducts = (query, language) => {
+            $loadingIndicator.removeClass('hidden');
+            axios.post('{{ route('products.searching') }}', { search: query, lang: language })
+                .then(response => {
+                    //console.log('API response:', response.data);
+                    displayResults(response.data.products, language);
+                    $loadingIndicator.addClass('hidden');
+                    if (response.data.products.length > 0) {
+                        $closeBtn.removeClass('hidden');
+                    } else {
+                        $closeBtn.addClass('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('API error:', error);
+                    $resultsList.empty().append('<li>Error loading results</li>');
+                    $loadingIndicator.addClass('hidden');
+                    $closeBtn.addClass('hidden');
+                });
+        };
+
+        const displayResults = (products, language) => {
+            $resultsList.empty();
+            if (products.length > 0) {
+                products.forEach(product => {
+                    const listItem = $('<li></li>');
+                    const itemDiv = $('<div class="item"></div>');
+
+                    const imgDiv = $('<div class="img"></div>');
+                    const img = $('<img>').attr('src', product.thumbnail).attr('alt', product.title[language]); // Adjust with actual data fields
+                    imgDiv.append(img);
+
+                    const dataDiv = $('<div class="data"></div>');
+                    const titleLink = $('<a></a>').attr('href', `{{ route('product', '') }}/${product.id}`).text(product.title[language]);
+                    const title = $('<h4></h4>').append(titleLink);
+                    const price = $('<p></p>').text(product.price);
+                    dataDiv.append(title, price);
+
+                    itemDiv.append(imgDiv, dataDiv);
+                    listItem.append(itemDiv);
+
+                    $resultsList.append(listItem);
+                });
+                $closeBtn.removeClass('hidden');
+            } else {
+                $resultsList.append('<li>No results found</li>');
+                $closeBtn.addClass('hidden');
+            }
+        };
+
+        const isArabic = (text) => {
+            const arabicRegex = /[\u0600-\u06FF]/;
+            return arabicRegex.test(text);
+        };
+
+        $searchBar.on('input', function() {
+            const query = $(this).val().trim();
+            const language = isArabic(query) ? 'ar' : 'en';
+            clearTimeout(typingTimer);
+            if (query.length > 0) {
+                typingTimer = setTimeout(() => {
+                    getProducts(query, language);
+                }, debounceTime);
+            } else {
+                $resultsList.empty();
+                $loadingIndicator.addClass('hidden');
+                $closeBtn.addClass('hidden'); // Hide the close button when input is empty
+            }
         });
-        
-        let getProducts = (query) => {
-            axios.post('{{ route('products.searching') }}', {
-                search : query
-            }).then(response => {
-                // will return status false if search is empty
-                console.log(response.data);
-            }).catch(error => {
-                console.log(error);
-            })
-        }
-    })
+
+        $closeBtn.on('click', function() {
+            $searchBar.val(''); // Clear the input field
+            $resultsList.empty(); // Clear the results list
+            $loadingIndicator.addClass('hidden'); // Hide the loading indicator
+            $closeBtn.addClass('hidden'); // Hide the close button again
+        });
+    });
 
 </script>
-
 
 @yield('scripts')
 

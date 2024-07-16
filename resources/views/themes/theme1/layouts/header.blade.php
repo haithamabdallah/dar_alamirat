@@ -36,9 +36,10 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <form id="search-form" action="{{ route('products.search') }}" method="GET">
                             <input class="s-search-input" type="text" placeholder="{{ __('Search') }}" name="query" id="product-search-input" onkeydown="if(event.key === 'Enter'){ this.form.submit(); return false; }">
-                            <div id="loading" class="hidden"></div>
-                            <ul id="resultsList"></ul>
                         </form>
+                        <div class="close-btn">&times;</div>
+                        <div id="loading" class="hidden"></div>
+                        <ul id="resultsList"></ul>
                     </div>
                 </div>
 
@@ -87,7 +88,6 @@
 
     @include('themes.theme1.partials.modals.email')
     @include('themes.theme1.partials.modals.otp')
-
 
 <header id="mobileHeader">
     <div class="pixel-container">
