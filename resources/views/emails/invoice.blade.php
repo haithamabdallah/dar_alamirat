@@ -80,7 +80,8 @@ path => /my-orders/1
 
     </div>
 
-    <p style="margin: 30px 0;font-size: 12px; font-weight: normal; line-height: 14px; color: #707070; text-align: center;">We strive to make our products meet your expectations and welcome any feedback you may have to meet this goal. Should you have any questions or require assistance, please do not hesitate to contact us by visiting {{ config('app.url') }}/contact.</p>
+    <p style="margin: 30px 0;font-size: 12px; font-weight: normal; line-height: 14px; color: #707070; text-align: center;">We strive to make our products meet your expectations and welcome any feedback you may have to meet this goal. Should you have any questions or require assistance, please do not hesitate to contact us by visiting <br>
+        <a href="{{ config('app.url') }}" target="_blank" style="text-decoration: none; color: #000"> {{ config('app.url') }} </a> </p>
 
     <table style="font-size: 16px;line-height: 16px; width: 100%; float: left; border-collapse: collapse; color: #000;">
         @foreach ($order->orderDetails as $orderDetails)
