@@ -66,8 +66,8 @@ path => /my-orders/1
     <div style="padding: 20px; display: block; overflow: hidden; margin-bottom: 10px;">
         <img src="{{ $message->embed( asset( '/storage/' . $settings->where( 'type', 'general' )->first()->value['logo_path'] ) ) }}"  alt="" style="width: 80px; height: 80px; display: inline-block; float:left; padding-right: 20px; border-right: 1px solid #707070;">
         <div style="display: inline-block; float:left; margin-left: 20px;">
-            <h6 style="font-size: 18px; font-weight: bold; color: #000;margin: 0; margin-bottom: 5px; text-transform: capitalize;">daar alamirat Store</h6>
-            <p style="font-size: 12px; font-weight: normal; line-height: 12px; color: #707070;max-width: 160px;">100 City Centre Drive Mississauga, ON, CA L5B 2C9</p>
+            <h6 style="font-size: 18px; font-weight: bold; color: #000;margin: 0; margin-bottom: 5px; text-transform: capitalize;">{{ $settings->where( 'type', 'general' )->first()->value['website_name'] }}</h6>
+            <p style="font-size: 12px; font-weight: normal; line-height: 12px; color: #707070;max-width: 160px;">{{ $settings->where( 'type', 'general' )->first()->value['website_address'] }}</p>
         </div>
     </div>
 
@@ -76,11 +76,11 @@ path => /my-orders/1
         <h4 style="color: #0b9f5b; font-size: 18px; text-transform: uppercase;font-weight: bold;">Thanks You</h4>
         <p style="font-size: 12px; text-transform: uppercase; color: #2d2d2d;">FOR YOUR RECENT Daaralamirat PURCHASE.</p>
 
-        <div style="min-width:200px;max-width:400px;margin: 20px auto;font-size: 16px; font-weight: bold; border: 1px solid #707070; color: #707070; padding: 10px 20px; display: block; text-transform: uppercase;">{{ __("Order Number") }}: {{ $order->order_number }}</div>
+        <div style="min-width:200px;max-width:400px;margin: 20px auto;font-size: 16px; font-weight: bold; border: 1px solid #707070; color: #707070; padding: 10px 20px; display: block; text-transform: uppercase;">Order Number: {{ $order->order_number }}</div>
 
     </div>
 
-    <p style="margin: 30px 0;font-size: 12px; font-weight: normal; line-height: 14px; color: #707070; text-align: center;">We strive to make our products meet your expectations and welcome any feedback you may have to meet this goal. Should you have any questions or require assistance, please do not hesitate to contact us by visiting www.daaralamirat.com/contact.</p>
+    <p style="margin: 30px 0;font-size: 12px; font-weight: normal; line-height: 14px; color: #707070; text-align: center;">We strive to make our products meet your expectations and welcome any feedback you may have to meet this goal. Should you have any questions or require assistance, please do not hesitate to contact us by visiting {{ config('app.url') }}/contact.</p>
 
     <table style="font-size: 16px;line-height: 16px; width: 100%; float: left; border-collapse: collapse; color: #000;">
         @foreach ($order->orderDetails as $orderDetails)
@@ -89,30 +89,42 @@ path => /my-orders/1
             <td style="width: 65%;padding: 5px;"><a href="{{ route('product', $orderDetails->product->id) }}">{{ $orderDetails->product->title }} (
                     {{ $orderDetails->variant->variant_name }} )</a></td>
             <td style="width: 5%;border: 1px solid #707070; text-align: center">{{ $orderDetails->quantity }}</td>
-            <td style="width: 15%; text-align: right; padding: 5px;border: 1px solid #707070;">$120.00</td>
+            <td style="width: 15%; text-align: right; padding: 5px;border: 1px solid #707070;">{{ $orderDetails->price }}</td>
         </tr>
         @endforeach
 
         @if ($order?->coupon)
         <tr style="text-align: right">
             <td colspan="2"></td>
-            <td style="padding: 10px;">{{ __("Applied Coupon") }}:</td>
-            <td style="padding: 10px;">{{ $order->coupon->discount_value }}</td>
+            <td style="padding: 10px;">Applied Coupon:</td>
+            <td style="padding: 10px;">{{  $order->coupon->discount_type == 'percent' ?  $order->coupon->discount_value . ' %' : $order->coupon->discount_value  }}</td>
         </tr>
+        @endif
+        @if ( $settings->keyBy('type')['general']->value['vat'] > 0 )
+            <tr style="text-align: right">
+                <td colspan="2"></td>
+                <td style="padding: 10px;">Vat:</td>
+                <td style="padding: 10px;">{{ $order->vat }}</td>
+            </tr>
         @endif
         <tr style="text-align: right">
             <td colspan="2"></td>
-            <td style="padding: 10px;">{{ __("Final Price") }}:</td>
+            <td style="padding: 10px;">Shipping Price:</td>
+            <td style="padding: 10px;">{{ $order->shipping_price }}</td>
+        </tr>
+        <tr style="text-align: right">
+            <td colspan="2"></td>
+            <td style="padding: 10px;">Final Price:</td>
             <td style="padding: 10px;">{{ $order->final_price }}</td>
         </tr>
     </table>
 
     <table style="margin: 30px 0; width: 100%; color: #000;">
         <tr>
-            <td>{{ __("Order Payment Method") }}:</td>
+            <td>Order Payment Method:</td>
         </tr>
         <tr style="border-bottom: 1px solid #707070;">
-            <td>{{ __("Cash On Delivery") }}</td>
+            <td style="text-indent: 1rem">Cash On Delivery</td>
         </tr>
     </table>
     @php
@@ -120,10 +132,16 @@ path => /my-orders/1
     @endphp
     <table style="margin: 30px 0; width: 100%; color: #000;">
         <tr>
-            <td>{{ __("Order Address") }}:</td>
+            <td>Order Address:</td>
         </tr>
         <tr>
-            <td>{{ __("Governorate") }} : {{ $address->governorate }},{{ __("City") }}: {{ $address->city }},{{ __("Street") }} : {{ $address->street }},{{ __("House Number") }} : {{ $address->house_number }}</td>
+            <td style="padding: auto 1rem"> 
+                <p style="text-indent: 1rem">Governorate : {{ $address->governorate }},</p> 
+                <p style="text-indent: 1rem">City: {{ $address->city }}, </p> 
+                <p style="text-indent: 1rem">Street : {{ $address->street }}, </p> 
+                <p style="text-indent: 1rem">House Number : {{ $address->house_number }} </p> 
+                <p style="text-indent: 1rem">Phone : {{ $address->phone1 }}, {{ $address->phone2 }} </p>
+            </td>
         </tr>
     </table>
 
