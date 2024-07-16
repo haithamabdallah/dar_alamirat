@@ -105,7 +105,7 @@
                                 <label class="form-label col-form-label col-md-3">Website Theme</label>
                                 <div class="col-sm-9">
                                     <select name="theme" id="theme" class="form-control @error('theme') is-invalid @enderror">
-                                        @foreach (['theme1' => 'Theme 1', 'theme2' => 'Theme 2', 'theme3' => 'Theme 3' ] as $key => $value)
+                                        @foreach (['theme1' => 'Theme 1' /* , 'theme2' => 'Theme 2', 'theme3' => 'Theme 3' */ ] as $key => $value)
                                             <option value="{{ $key }}" {!! isset($setting->value['theme']) && $setting->value['theme'] == $key ? 'selected' : '' !!}> {{ $value }} </option>
                                         @endforeach
                                     </select>
