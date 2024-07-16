@@ -2,6 +2,10 @@
 
 @section('customcss')
     <link href="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin-panel/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin-panel/assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin-panel/assets/plugins/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css') }}" rel="stylesheet" />
+
 @endsection
 
 @section('content')
@@ -90,9 +94,6 @@
                                             <a href="{{ route('product', $product->id) }}"
                                                 class="text-dark text-decoration-none">{{ $product->title }}</a>
                                         </td>
-                                        {{-- <td>
-                                        <input type="checkbox" class="switch-status" data-url="{{ route('product.toggleChoice' , $product->id) }}" @if ($product->choice) checked @endif/>
-                                    </td> --}}
                                         <td>
                                             <ul>
                                                 @foreach ($product->variants as $index => $variant)
@@ -102,20 +103,6 @@
                                                 @endforeach
                                             </ul>
                                         </td>
-                                        {{-- <td>
-                                        <ul>
-                                        @foreach ($product->variants as $index => $variant)
-                                            <li>{{$index  + 1  }} - {{$variant->price_with_discount}}</li>
-                                        @endforeach
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul>
-                                        @foreach ($product->variants as $index => $variant)
-                                            <li>{{$index  + 1  }} - {{$variant->sku}}</li>
-                                        @endforeach
-                                        </ul>
-                                    </td> --}}
                                         <td class="align-middle">{{ $product->inventory->sum('quantity') }} in stock for
                                             {{ $product->variants->count() }} variants</td>
                                         <td class="align-middle">{{ $product->category->name }}</td>
@@ -154,8 +141,271 @@
                     </div>
                     <!-- END table -->
 
+                    <div class="row">
+                        <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
+                            <thead>
+                            <tr>
+                                <th class="pt-0 pb-2" width="1%"></th>
+                                <th class="pt-0 pb-2" width="1%">Image</th>
+                                <th class="pt-0 pb-2" width="20%">Title</th>
+                                <th class="pt-0 pb-2" width="20%">Variants ( index - name - price - sku )</th>
+                                <th class="pt-0 pb-2" width="15%">Quantity</th>
+                                <th class="pt-0 pb-2" width="10%">Category</th>
+                                <th class="pt-0 pb-2" width="10">Brand</th>
+                                <th class="pt-0 pb-2" width="5%">Returnable ?</th>
+                                <th class="pt-0 pb-2" width="5%">Edit</th>
+                                <th class="pt-0 pb-2" width="5%">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1545464</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>12324234</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1777</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1456232</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>156456546</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1234234</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>123234</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>123123</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>1345345</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>131231</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>14545645</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>2342341</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>20</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                                <td>22</td>
+                                <td>1</td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
                     <!-- pagination -->
-                    @include('shared.dashboard.pagination' , ['paginated' => $products])
+                    {{--@include('shared.dashboard.pagination' , ['paginated' => $products])--}}
                     <!-- ./pagination -->
                 </div>
                 <!-- ./tap panel -->
@@ -168,6 +418,23 @@
 @endsection
 
 @section('scripts')
+
+    <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
+    <script src="{{ asset('admin-panel/assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-keytable-bs5/js/keyTable.bootstrap5.min.js') }}"></script>
+
+    <script>
+        $('#data-table-keytable').DataTable({
+            autoWidth: true,
+            keys: true,
+            responsive: true
+        });
+    </script>
+
     <script>
         function searchProductName() {
             // Declare variables
@@ -191,8 +458,6 @@
             }
         }
     </script>
-
-    <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
 
     <script>
         $('#data-table-default').DataTable({
