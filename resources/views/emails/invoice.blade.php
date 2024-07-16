@@ -66,7 +66,7 @@ path => /my-orders/1
     <div style="padding: 20px; display: block; overflow: hidden; margin-bottom: 10px;">
         <img src="{{ $message->embed( asset( '/storage/' . $settings->where( 'type', 'general' )->first()->value['logo_path'] ) ) }}"  alt="" style="width: 80px; height: 80px; display: inline-block; float:left; padding-right: 20px; border-right: 1px solid #707070;">
         <div style="display: inline-block; float:left; margin-left: 20px;">
-            <h6 style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 5px;">daar alamirat Store</h6>
+            <h6 style="font-size: 16px; font-weight: bold; color: #000;margin: 0; margin-bottom: 5px;">daar alamirat Store</h6>
             <p style="font-size: 12px; font-weight: normal; line-height: 12px; color: #707070;max-width: 160px;">100 City Centre Drive Mississauga, ON, CA L5B 2C9</p>
         </div>
     </div>
