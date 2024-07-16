@@ -31,30 +31,30 @@ class HomeController extends Controller
 
     public function index()
     {
-//        $categories = Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
-//        $categories     = cache()->remember('categories', 60 * 60, function () {
-//            return Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
-//        });
-//
-//        $brands     = cache()->remember('brands', 60 * 60, function () {
-//            return Brand::active()->limit(12)->inRandomOrder()->get();
-//        });
+        //        $categories = Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
+        //        $categories     = cache()->remember('categories', 60 * 60, function () {
+        //            return Category::where('parent_id' , null)->active()->orderBy('priority', 'ASC')->get();
+        //        });
+        //
+        //        $brands     = cache()->remember('brands', 60 * 60, function () {
+        //            return Brand::active()->limit(12)->inRandomOrder()->get();
+        //        });
 
-        ( new CartService() )->mergeGuestCartsAndAuthCarts();
+        (new CartService())->mergeGuestCartsAndAuthCarts();
 
-        $priorityables = IndexPriority::where('status' , 1)->orderBy('priority' , 'ASC')->get();
+        $priorityables = IndexPriority::where('status', 1)->orderBy('priority', 'ASC')->get();
 
         $brands = Brand::active()->limit(12)->inRandomOrder()->get();
 
-        return view('themes.' . getAppTheme() . '.index' , compact('brands' , 'priorityables'));
+        return view('themes.' . getAppTheme() . '.index', compact('brands', 'priorityables'));
     }
 
 
     public function categoryProducts(Request $request, Category $category)
     {
-        if (count($request->all()) == 0){
+        if (count($request->all()) == 0) {
             $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
-        }elseif (count($request->all()) > 0){
+        } elseif (count($request->all()) > 0) {
             // Access the filters from the request
             $categoryId = $request->input('filter.category_id');
             $brandId = $request->input('filter.brand_id');
@@ -89,7 +89,7 @@ class HomeController extends Controller
                         return $query->where('price', '<=', $priceMax);
                     });
                 })->latest()->paginate(20);
-//            $products = Product::active()->filter($request->filter)->latest()->paginate(20);
+            //            $products = Product::active()->filter($request->filter)->latest()->paginate(20);
         }
 
         if ($request->ajax()) {
@@ -103,22 +103,35 @@ class HomeController extends Controller
         $brandIds = $products->pluck('brand_id')->unique();
         $categoryBrands = Brand::active()->whereIn('id', $brandIds)->get();
 
-        return view('themes.' . getAppTheme() . '.category', compact('category', 'products' , 'categoryBrands'));
+        return view('themes.' . getAppTheme() . '.category', compact('category', 'products', 'categoryBrands'));
     }
 
     public function search(Request $request)
     {
         $query = $request->input('query');
 
-        if (!isset($request->filter)){
-            $products = Product::
-            where('title->' . 'en', 'LIKE', '%' . $query . '%')
-            ->orWhere('title->' . 'ar', 'LIKE', '%' . $query . '%')
-            ->orWhere('description->' . 'en', 'LIKE', '%' . $query . '%')
-            ->orWhere('description->' . 'ar', 'LIKE', '%' . $query . '%')
-            // ->filter($request->all())
-            ->active()->latest()->paginate(20);
-        } else{
+        if (!isset($request->filter)) {
+            $products = Product::where('title->' . 'en', 'LIKE', '%' . $query . '%')
+                ->orWhere('title->' . 'ar', 'LIKE', '%' . $query . '%')
+                // ->filter($request->all())
+                ->active()->latest()->paginate(20);
+
+            if ($products->count() == 0) {
+                $products = Product::where('description->' . 'en', 'LIKE', '%' . $query . '%')
+                    ->orWhere('description->' . 'ar', 'LIKE', '%' . $query . '%')
+                    ->active()->latest()->paginate(20);
+            }
+
+            if ($products->count() == 0) {
+                $products = Product::where('instructions->' . 'en', 'LIKE', '%' . $query . '%')
+                    ->orWhere('instructions->' . 'ar', 'LIKE', '%' . $query . '%')
+                    ->active()->latest()->paginate(20);
+            }
+
+            if ($products->count() == 0) {
+                $products = Product::active()->inRandomOrder()->paginate(20);
+            }
+        } else {
             // Access the filters from the request
             $categoryId = $request->input('filter.category_id');
             $brandId = $request->input('filter.brand_id');
@@ -161,32 +174,48 @@ class HomeController extends Controller
     {
         try {
             $search = $request->search;
-            
-            // return response()->json( $request->all() );
-            if ( $search == true ){
 
-                $products = Product::
-                where('title->' . 'en', 'LIKE', '%' . $search . '%')
-                ->orWhere('title->' . 'ar', 'LIKE', '%' . $search . '%')
-                ->orWhere('description->' . 'en', 'LIKE', '%' . $search . '%')
-                ->orWhere('description->' . 'ar', 'LIKE', '%' . $search . '%')
-                ->withOnly([])
-                ->active()->latest()->take(20)->get();
+            // return response()->json( $request->all() );
+            if ($search == true) {
+
+                $products = Product::where('title->' . 'en', 'LIKE', '%' . $search . '%')
+                    ->orWhere('title->' . 'ar', 'LIKE', '%' . $search . '%')
+                    ->withOnly([])
+                    ->active()->latest()->take(20)->get();
                 // ->filter($request->all())
 
+                if ($products->count() == 0) {
+                    $products = Product::where('description->' . 'en', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description->' . 'ar', 'LIKE', '%' . $search . '%')
+                    ->withOnly([])
+                    ->active()->latest()->take(20)->get();
+                }
+
+                if ($products->count() == 0) {
+                    $products = Product::where('instructions->' . 'en', 'LIKE', '%' . $search . '%')
+                    ->orWhere('instructions->' . 'ar', 'LIKE', '%' . $search . '%')
+                    ->withOnly([])
+                    ->active()->latest()->take(20)->get();
+                }
+
+                if ($products->count() == 0) {
+                    $products = Product::active()
+                    ->withOnly([])
+                    ->inRandomOrder()
+                    ->take(20)->get();
+                }
                 // return response()->json( $search );
-                $status = 'success' ; 
-                
-                return response()->json( 
-                    compact( 'status' , 'products')
-                 );
+                $status = 'success';
+
+                return response()->json(
+                    compact('status', 'products')
+                );
             } else {
-                return response()->json( [
+                return response()->json([
                     'status' => false
-                ] );
+                ]);
             }
-            
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             return response()->json([
                 $e
