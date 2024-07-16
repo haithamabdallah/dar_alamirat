@@ -344,7 +344,7 @@
                                         </td> --}}
                                             <td>
                                                 <input type="number" class="form-control"
-                                                    name="variants[{{ $index }}][price]"
+                                                    name="variants[{{ $index }}][price]" step="0.01"
                                                     value="{{ $variant->price }}" placeholder="Price">
                                             </td>
                                             <td>
@@ -556,7 +556,7 @@
                     <input type="hidden" name="variant[${newIndex}][color]" value="${color}" />
                     <span>${size ? size : ''}${size && color ? ' • ' : ''}${color ? color : ''}</span>
                 </td>
-                <td><input type="number" class="form-control" name="variant[${newIndex}][price]" placeholder="0.00" /></td>
+                <td><input type="number" class="form-control" name="variant[${newIndex}][price]" placeholder="0.00" step="0.01" /></td>
                 <td><input type="number" class="form-control" name="variant[${newIndex}][quantity]" placeholder="0" /></td>
                 <td>
                     <input type="text" class="form-control"
