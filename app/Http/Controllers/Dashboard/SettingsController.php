@@ -47,6 +47,11 @@ class SettingsController extends Controller
 
         $newValue['main_banner_status'] = $validatedData['main_banner_status'];
 
+        if ( $validatedData['vat'] == 0 )
+        {
+            $newValue['vat'] = $validatedData['vat'];
+        }
+
         // Handle website icon upload
         if ($request->hasFile('website_icon') && $request->file('website_icon')->isValid()) {
             $websiteIconPath = $request->website_icon->store("website/{$setting->id}/img", 'public');
