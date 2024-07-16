@@ -59,7 +59,8 @@ class CouponController extends Controller
      */
     public function index()
     {
-        $coupons = Coupon::latest()->paginate(20);
+        // $coupons = Coupon::latest()->paginate(20);
+        $coupons = Coupon::latest()->get();
 
         return view('dashboard.coupons.index', compact('coupons'));
     }

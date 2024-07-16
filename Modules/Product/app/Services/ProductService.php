@@ -20,7 +20,8 @@ class ProductService {
     public function getPaginatedData(int $paginate = 10 )
     {
 
-        return  Product::latest()->paginate($paginate);
+        // return  Product::latest()->paginate($paginate);
+        return  Product::latest()->get();
     }
 
     public function getFilteredData(array $data ,int $paginate = 15, $order = 'ASC')

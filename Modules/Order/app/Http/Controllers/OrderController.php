@@ -72,7 +72,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['products','user','shippingMethod'])->latest()->paginate(10);
+        // $orders = Order::with(['products','user','shippingMethod'])->latest()->paginate(10);
+        $orders = Order::with(['products','user','shippingMethod'])->latest()->get();
         $orderStatuses = OrderStatus::getAll();
         $paymentStatuses = PaymentStatus::getAll();
 

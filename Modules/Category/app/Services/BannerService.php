@@ -19,7 +19,8 @@ class BannerService {
 
     public function getPaginatedData(array $data = [],int $paginate = 20 )
     {
-        return  Banner::latest()->paginate($paginate);
+        // return  Banner::latest()->paginate($paginate);
+        return  Banner::latest()->get();
     }
 
     public function getBannersData(array $data = [],int $paginate = 20 )

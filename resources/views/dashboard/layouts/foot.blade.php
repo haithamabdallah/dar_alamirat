@@ -34,6 +34,21 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 {{-- <script src="{{asset('assets/js/app.js')}}"></script> // import jquery and axios --}}
 
+<script src="{{ asset('admin-panel/assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin-panel/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('admin-panel/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('admin-panel/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('admin-panel/assets/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+<script src="{{ asset('admin-panel/assets/plugins/datatables.net-keytable-bs5/js/keyTable.bootstrap5.min.js') }}"></script>
+
+<script>
+    $('#data-table-keytable').DataTable({
+        autoWidth: true,
+        keys: true,
+        responsive: true
+    });
+</script>
+
 
 <!-- ================== END page-js ================== -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

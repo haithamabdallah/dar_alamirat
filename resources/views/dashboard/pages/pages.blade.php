@@ -31,22 +31,25 @@
                 <div class="tab-pane fade show active" id="allTab">
 
                     <!-- BEGIN input-group -->
-                    <div class="input-group mb-3">
-                        <p class="btn btn-white dropdown-toggle"><span class="d-none d-md-inline">Filter By Page Name</span></p>
+                    {{-- <div class="input-group mb-3">
+                        <p class="btn btn-white dropdown-toggle"><span class="d-none d-md-inline">Filter By Product
+                                Name</span></p>
                         <div class="flex-fill position-relative">
                             <div class="input-group">
-                                <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 start-0" style="z-index: 1;">
+                                <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 start-0"
+                                    style="z-index: 1;">
                                     <i class="fa fa-search opacity-5"></i>
                                 </div>
-                                <input type="text" id="searchForPage" onkeyup="searchPagesName()" class="form-control px-35px bg-light" placeholder="Search For Page..." />
+                                <input type="text" id="searchForProduct" onkeyup="searchProductName()"
+                                    class="form-control px-35px bg-light" placeholder="Search order Number..." />
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- END input-group -->
 
-                    <!-- table -->
-                    <div class="table-responsive mb-3">
-                        <table id="pagesTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
+                    <!-- BEGIN table -->
+                    <div class="row">
+                        <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
                             <thead>
                             <tr>
                                 <th width="1%"></th>

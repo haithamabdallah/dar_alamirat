@@ -24,7 +24,8 @@ class SubscriptionController extends Controller
 
     public function index()
     {
-        $subscribers= Subscriber::latest()->paginate(10);
+        // $subscribers= Subscriber::latest()->paginate(10);
+        $subscribers= Subscriber::latest()->get();
         return view('dashboard.subscriptions.index',compact('subscribers'));
     }
 

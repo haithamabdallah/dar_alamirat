@@ -59,7 +59,7 @@
             <!-- ./item -->
 
             <!-- shipping item -->
-            <div class="menu-item has-sub {{ activeLink('roles') }} {{ activeLink('admin') }}">
+            {{-- <div class="menu-item has-sub {{ activeLink('roles') }} {{ activeLink('admin') }}">
                 <a href="javascript:;" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-users"></i>
@@ -79,7 +79,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- ./item -->
 
             {{-- <!-- item -->

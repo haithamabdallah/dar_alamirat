@@ -101,7 +101,7 @@
                         </table>
 
                     <!-- pagination -->
-                        @include('shared.dashboard.pagination' , ['paginated' => $orders])
+                        {{-- @include('shared.dashboard.pagination' , ['paginated' => $orders]) --}}
                     <!-- ./pagination -->
 
 

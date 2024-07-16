@@ -14,7 +14,9 @@ class BrandService {
 
     public function getPaginatedData(array $data ,int $paginate = 1 )
     {
-        return  Brand::latest()->paginate($paginate);
+        // return  Brand::latest()->paginate($paginate);
+        return  Brand::latest()->get();
+
     }
 
     public function getAllBrandsForSelectElement()

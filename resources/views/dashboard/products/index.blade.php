@@ -2,9 +2,7 @@
 
 @section('customcss')
     <link href="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-panel/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-panel/assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-panel/assets/plugins/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css') }}" rel="stylesheet" />
+
 
 @endsection
 
@@ -35,7 +33,7 @@
                 <!-- tap panel -->
                 <div class="tab-pane fade show active" id="allTab">
                     <!-- BEGIN input-group -->
-                    <div class="input-group mb-3">
+                    {{-- <div class="input-group mb-3">
                         <p class="btn btn-white dropdown-toggle"><span class="d-none d-md-inline">Filter By Product
                                 Name</span></p>
                         <div class="flex-fill position-relative">
@@ -48,12 +46,12 @@
                                     class="form-control px-35px bg-light" placeholder="Search order Number..." />
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- END input-group -->
 
                     <!-- BEGIN table -->
-                    <div class="table-responsive mb-3">
-                        <table id="productsTableList" class="table table-hover table-panel text-nowrap align-middle mb-0">
+                    <div class="row">
+                        <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
                             <thead>
                                 <tr>
                                     <th class="pt-0 pb-2" width="1%"></th>
@@ -141,7 +139,7 @@
                     </div>
                     <!-- END table -->
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
                             <thead>
                             <tr>
@@ -402,7 +400,7 @@
 
                             </tbody>
                         </table>
-                    </div>
+                    </div> --}}
 
                     <!-- pagination -->
                     {{--@include('shared.dashboard.pagination' , ['paginated' => $products])--}}
@@ -420,20 +418,6 @@
 @section('scripts')
 
     <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/datatables.net-keytable-bs5/js/keyTable.bootstrap5.min.js') }}"></script>
-
-    <script>
-        $('#data-table-keytable').DataTable({
-            autoWidth: true,
-            keys: true,
-            responsive: true
-        });
-    </script>
 
     <script>
         function searchProductName() {
