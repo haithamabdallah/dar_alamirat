@@ -1,3 +1,18 @@
+  <div class="p-3" >
+    <div style="display: grid; justify-items: center ; align-items: center; text-decoration: none !important;">
+        @foreach (config('language') as $key => $lang)
+            @if ($key != current_language())
+                <a class="" href="{{ route('changeLang', ['lang' => $key]) }}">
+                <span class="" style="text-decoration: none !important; color: #000">
+                    <img src="{{ asset('theme1-assets/images/flags/' . $key . '.png') }}" alt="" width="20">
+                    <span style="text-decoration: none !important;">{{ $lang }}</span>
+                </span>
+                </a>
+            @endif
+        @endforeach
+      </div>
+  </div>
+  
   <!-- header -->
   <header class="header">
       <!-- logo -->
