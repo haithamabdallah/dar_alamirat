@@ -14,7 +14,7 @@ class UserAddressController extends Controller
             'governorate' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'street' => 'required|string|max:255',
-            'house_number' => 'required|string|max:255',
+            'house_number' => 'nullable|string|max:255',
             'postal_code' => 'nullable|string|max:255',
             'famous_place_nearby' => 'nullable|string|max:255',
             'phone1' => 'required|string|min:1|max:16',

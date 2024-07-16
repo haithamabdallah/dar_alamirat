@@ -2,15 +2,15 @@
     <a class="btn-close-address" onclick="cancelNewAddress()"><i class="fa-solid fa-xmark"></i></a>
     <div class="grid-list">
         <div class="grid-item">
-            <label for="newGovernorate" class="form-label"> {{ __("Governorate") }} </label>
+            <label for="newGovernorate" class="form-label"> {{ __("Governorate") }} *</label>
             <input type="text" class="form-control" id="newGovernorate" placeholder="{{ __("Governorate") }}">
         </div>
         <div class="grid-item">
-            <label for="newCity" class="form-label">{{ __("City") }}</label>
+            <label for="newCity" class="form-label">{{ __("City") }} *</label>
             <input type="text" class="form-control" id="newCity" placeholder="{{ __("City") }}">
         </div>
         <div class="grid-item">
-            <label for="newStreet" class="form-label">{{ __("Street") }}</label>
+            <label for="newStreet" class="form-label">{{ __("Street") }} *</label>
             <input type="text" class="form-control" id="newStreet" placeholder="{{ __("Street") }}">
         </div>
         <div class="grid-item">
@@ -27,7 +27,7 @@
                 placeholder="{{ __("Famous Place Nearby") }}">
         </div>
         <div class="grid-item">
-            <label for="newPhone1" class="form-label">{{ __("Phone1") }}</label>
+            <label for="newPhone1" class="form-label">{{ __("Phone1") }} *</label>
             <input type="text" class="form-control" id="newPhone1" placeholder="{{ __("Phone1") }}">
         </div>
         <div class="grid-item">

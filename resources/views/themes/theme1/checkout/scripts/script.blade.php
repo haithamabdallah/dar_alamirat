@@ -31,8 +31,8 @@
         const newHouseNumber = document.getElementById('newHouseNumber').value;
         const newPhone1 = document.getElementById('newPhone1').value;
         const newPhone2 = document.getElementById('newPhone2').value;
-        if (newGovernorate && newCity && newStreet && newPostalCode && newFamousPlaceNearby && newHouseNumber &&
-            newPhone1 && newPhone2) {
+        // if (newGovernorate && newCity && newStreet && newPostalCode && newFamousPlaceNearby && newHouseNumber &&
+            // newPhone1 && newPhone2) {
             axios.post(url, {
                 __token: token,
                 'governorate': $('#newGovernorate').val(),
@@ -72,9 +72,9 @@
             }).catch(function(error) {
                 console.log(error);
             });
-        } else {
-            alert('Please fill all fields.');
-        }
+        // } else {
+        //     // alert('Please fill all fields.');
+        // }
     }
 
     function editAddress(id) {
@@ -85,15 +85,15 @@
             <a class="btn-close-address" onclick="cancelEditAddress()"><i class="fa-solid fa-xmark"></i></a>
             <div class="grid-list">
                 <div class="grid-item">
-                    <label for="editGovernorate" class="form-label">{{ __("Governorate") }}</label>
+                    <label for="editGovernorate" class="form-label">{{ __("Governorate") }} *</label>
                     <input type="text" class="form-control" id="editGovernorate" value="${address.governorate??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editCity" class="form-label">{{ __("City") }}</label>
+                    <label for="editCity" class="form-label">{{ __("City") }} *</label>
                     <input type="text" class="form-control" id="editCity" value="${address.city??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editStreet" class="form-label">{{ __("Street") }}</label>
+                    <label for="editStreet" class="form-label">{{ __("Street") }} *</label>
                     <input type="text" class="form-control" id="editStreet" value="${address.street??''}">
                 </div>
                 <div class="grid-item">
@@ -109,7 +109,7 @@
                     <input type="text" class="form-control" id="editFamousPlaceNearby" value="${address.famous_place_nearby??''}">
                 </div>
                 <div class="grid-item">
-                    <label for="editPhone1" class="form-label">{{ __("Phone1") }}</label>
+                    <label for="editPhone1" class="form-label">{{ __("Phone1") }} *</label>
                     <input type="text" class="form-control" id="editPhone1" value="${address.phone1??''}">
                 </div>
                 <div class="grid-item">
@@ -144,8 +144,8 @@
         var editPhone1 = document.getElementById('editPhone1').value;
         var editPhone2 = document.getElementById('editPhone2').value;
 
-        if (editGovernorate && editCity && editStreet && editPostalCode && editFamousPlaceNearby && editHouseNumber &&
-            editPhone1 && editPhone2) {
+        // if (editGovernorate && editCity && editStreet && editPostalCode && editFamousPlaceNearby && editHouseNumber &&
+        //     editPhone1 && editPhone2) {
 
             axios.patch(url, {
                 _token: token,
@@ -186,9 +186,9 @@
             }).catch(function(error) {
                 console.log(error);
             });
-        } else {
-            alert('Please fill all fields.');
-        }
+        // } else {
+        //     alert('Please fill all fields.');
+        // }
     }
 
     function deleteAddress(id) {
@@ -310,7 +310,7 @@
             addressItem.innerHTML = `
             <label class="form-check-label" for="address${address.id}">
                 <input class="form-check-input" type="radio" name="address" id="address${address.id}" value="${address.id}">
-                ${address.governorate}, ${address.city}, ${address.street}, ${address.postal_code} , ${address.phone1??'no phone'}, ${address.phone2??'no phone'}
+                ${address.governorate ??'--'}, ${address.city ??'--'}, ${address.street ??'--'}, ${address.postal_code ??'--'} , ${address.phone1??'--'}, ${address.phone2??'--'}
             </label>
             <div class="btns">
                 <button class="btn-link" onclick="editAddress(${address.id})">Edit</button>
