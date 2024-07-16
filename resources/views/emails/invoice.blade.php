@@ -100,7 +100,10 @@ path => /my-orders/1
             <td style="padding: 10px;">{{  $order->coupon->discount_type == 'percent' ?  $order->coupon->discount_value . ' %' : $order->coupon->discount_value  }}</td>
         </tr>
         @endif
-        @if ( $settings->keyBy('type')['general']->value['vat'] > 0 )
+        @php
+            $vat = $settings->keyBy('type')['general']->value['vat'] ?? 0;
+        @endphp
+        @if ( $vat > 0 )
             <tr style="text-align: right">
                 <td colspan="2"></td>
                 <td style="padding: 10px;">Vat:</td>
