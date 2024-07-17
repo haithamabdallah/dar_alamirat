@@ -265,6 +265,14 @@
 
 </script>
 
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('.flash-message').hide()
+        } , 1500)
+    })
+</script>
+
 @yield('scripts')
 
 @stack('scripts')
