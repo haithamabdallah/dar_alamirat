@@ -28,11 +28,11 @@
         </div>
         <div class="grid-item">
             <label for="newPhone1" class="form-label">{{ __("Phone1") }} *</label>
-            <input type="text" class="form-control" id="newPhone1" placeholder="{{ __("Phone1") }}">
+            <input type="text" class="form-control" id="newPhone1" placeholder="">
         </div>
         <div class="grid-item">
             <label for="newPhone2" class="form-label">{{ __("Phone2") }}</label>
-            <input type="text" class="form-control" id="newPhone2" placeholder="{{ __("Phone2") }}">
+            <input type="text" class="form-control" id="newPhone2" placeholder="">
         </div>
         <div class="" id="store-errors">
         </div>

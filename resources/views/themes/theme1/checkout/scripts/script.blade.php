@@ -117,7 +117,7 @@
                     <input type="text" class="form-control" id="editPhone2" value="${address.phone2??''}">
                 </div>
             </div>
-            <div class="" id="edit-errors" > 
+            <div class="" id="edit-errors" >
             </div>
             <button class="btn-save" onclick="saveEditedAddress()">Save</button>
         `;
@@ -366,3 +366,35 @@
 
 @include('themes.theme1.shared-scripts.apply-coupon')
 
+
+
+<script src="{{ asset('theme1-assets/js/intlTelInput.min.js') }}"></script>
+<script>
+    const phone = document.querySelector("#newPhone1");
+    window.intlTelInput(phone, {
+        showSelectedDialCode: true,
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+            fetch("https://ipapi.co/json")
+                .then(function(res) { return res.json(); })
+                .then(function(data) { callback(data.country_code); })
+                .catch(function() { callback(); });
+        },
+        utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
+    });
+</script>
+
+<script>
+    const whatsapp = document.querySelector("#newPhone2");
+    window.intlTelInput(whatsapp, {
+        showSelectedDialCode: true,
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+            fetch("https://ipapi.co/json")
+                .then(function(res) { return res.json(); })
+                .then(function(data) { callback(data.country_code); })
+                .catch(function() { callback(); });
+        },
+        utilsScript: "{{ asset('theme1-assets/js/utils.js') }}",
+    });
+</script>

@@ -14,8 +14,14 @@
     <title>Dar Alamirat</title>
     <link rel="icon" type="image/png" href="{{ storage_asset($settings->keyBy('type')['general']->value['icon_path']) }}">
     <script src="https://kit.fontawesome.com/24eabd5129.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('theme1-assets/css/intlTelInput.min.css') }}">
     <link rel="stylesheet" href="theme1-assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="theme1-assets/css/checkout.css">
+    <style>
+        .iti {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body class="checkout_page">

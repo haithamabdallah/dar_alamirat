@@ -80,7 +80,21 @@
         }
       }
     }
+
+      .lang {
+          margin-left: auto;
+          a {
+              text-decoration: none;
+              color: #000;
+          }
+      }
   }
+    :dir(rtl) {
+        .lang {
+            margin-left: inherit;
+            margin-right: auto;
+        }
+    }
 
   .order_summary {
     padding: 15px;
@@ -184,7 +198,7 @@
     margin-top: -20px;
     border: 10px solid #f7f7f7;
     border-radius: 50px;
-    max-width: 120px;
+    max-width: 140px;
     margin-left: auto;
     margin-right: auto;
     color: #333;
@@ -192,9 +206,10 @@
 
     text-decoration: none;
     span {
-      border: 1px solid #333;
+      border: 1px solid #ccc;
       padding: 5px;
       border-radius: 50px;
+        padding: 5px 15px;
     }
   }
 
