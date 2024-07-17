@@ -9,7 +9,7 @@
 @endsection
 
 @section('customcss')
-    <!-- Include your custom CSS here -->
+    <link href="{{ asset('admin-panel/assets/plugins/summernote/dist/summernote-lite.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -44,7 +44,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="newsletterContent" class="form-label">Newsletter content</label>
-                            <textarea class="form-control" id="newsletterContent" name="content" rows="6" required></textarea>
+                            <textarea class="summernote" id="newsletterContent" name="content" rows="6" required></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Send newsletter</button>
@@ -62,5 +62,11 @@
 @endsection
 
 @section('scripts')
-    <!-- Include your scripts here -->
+    <script src="{{ asset('admin-panel/assets/plugins/summernote/dist/summernote-lite.min.js') }}"></script>
+    <script>
+        $(".summernote").summernote({
+            placeholder: 'Hi, this is summernote. Please, write text here! Super simple WYSIWYG editor on Bootstrap',
+            height: "300"
+        });
+    </script>
 @endsection

@@ -35,14 +35,14 @@
             // newPhone1 && newPhone2) {
             axios.post(url, {
                 __token: token,
-                'governorate': $('#newGovernorate').val(),
-                'city': $('#newCity').val(),
-                'street': $('#newStreet').val(),
-                'house_number': $('#newHouseNumber').val(),
-                'postal_code': $('#newPostalCode').val(),
-                'famous_place_nearby': $('#newFamousPlaceNearby').val(),
-                'phone1': $('#newPhone1').val(),
-                'phone2': $('#newPhone2').val()
+                governorate: newGovernorate,
+                city: newCity,
+                street: newStreet,
+                house_number: newHouseNumber,
+                postal_code: newPostalCode,
+                famous_place_nearby: newFamousPlaceNearby,
+                phone1: newPhone1,
+                phone2: newPhone2
             }).then(function(response) {
                 // console.log(response);
                 if (response.data.status === 'error') {
