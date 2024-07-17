@@ -60,7 +60,7 @@
         <div class="content">
             <p></p>
             <p class="main-message"></p>
-            <p>{{ $content }}</p>
+            <p>{!! $content !!}</p>
         </div>
         <div class="footer">
             <p>Thank you for being with us!{{-- ,<br>{{ $sender }} --}}</p>
