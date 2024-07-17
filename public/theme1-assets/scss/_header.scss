@@ -12,6 +12,7 @@
       a {
         img {
           max-height: 50px;
+            mix-blend-mode: darken;
         }
       }
     }
@@ -269,6 +270,7 @@
                 img {
                     height: 50px;
                     width: 50px;
+                    mix-blend-mode: darken;
                 }
             }
             .user-control {
