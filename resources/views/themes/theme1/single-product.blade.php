@@ -1,6 +1,6 @@
 {{-- @php
     // dd($productsYouMayLike); // 10 products randomly that user may like
-    dd($productVariantPrices); 
+    dd($productVariantPrices);
 @endphp --}}
 
 @extends('themes.theme1.layouts.app')
@@ -394,14 +394,14 @@
                 slidesPerView: 4,
                 spaceBetween: 20,
                 slidesPerGroup: 1,
-                autoplay: true , 
+                autoplay: true ,
                 breakpoints: {
                     320: {
                         slidesPerView: 1,
                         spaceBetween: 20,
                     },
                     425: {
-                        slidesPerView: 1,
+                        slidesPerView: 2.5,
                         spaceBetween: 20,
                     },
                     640: {
