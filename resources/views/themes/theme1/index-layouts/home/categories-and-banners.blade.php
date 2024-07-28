@@ -1,6 +1,6 @@
 <!-- ./categories & Banners -->
 @foreach ($priorityables as $priorityable)
-    @if ($priorityable->type === 'Banner')
+    {{-- @if ($priorityable->type === 'Banner')
         @php $banner = $priorityable->priorityable; @endphp
         <!-- full banner -->
         <section class="banner-block">
@@ -22,7 +22,7 @@
             <!-- ./container -->
         </section>
         <!-- ./full banner -->
-    @endif
+    @endif --}}
 
     @if ($priorityable->type === 'Category' && $priorityable->priorityable->products->count() > 0)
         {{-- @if ($priorityable->type === 'Category') --}}
