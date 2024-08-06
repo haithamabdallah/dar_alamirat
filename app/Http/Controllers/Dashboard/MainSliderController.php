@@ -6,6 +6,7 @@ use App\Models\MainSlider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MainSliderRequest;
+use Illuminate\Support\Facades\Storage;
 
 class MainSliderController extends Controller
 {
@@ -77,6 +78,10 @@ class MainSliderController extends Controller
         $validated['is_reversed'] = isset($request['is_reversed']) && $request['is_reversed'] == true ? 1 :  0 ;
 
         foreach ( ['background_image' , 'image'] as $input ) {
+            if ( isset( $mainSlider[$input] ) && Storage::disk('public')->exists( $mainSlider[$input] ) ) {
+                Storage::disk('public')->delete( $mainSlider[$input] );
+            }
+
             if ( $request->hasFile( $input ) && $request->file( $input )->isValid() && request($input) != false ){
                 $validated[$input] = $request->file( $input )->store('sliders' , 'public');
             } 
