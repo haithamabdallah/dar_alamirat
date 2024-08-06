@@ -157,8 +157,9 @@
                         <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method($method)
+                            
+                            @if($method != 'PUT')
                             <div class="card border-0 mb-4">
-
                                 <div class="m-2">
                                     <div class="form-group row">
                                         <label class="form-label col-form-label col-md-3"> Type: </label>
@@ -218,6 +219,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             {{-- <div class="row mb-15px">
                                 <label class="form-label col-form-label col-md-3">priority :</label>
                                 <div class="col-sm-9">

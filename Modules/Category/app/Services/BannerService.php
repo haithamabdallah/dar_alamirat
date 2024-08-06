@@ -61,11 +61,11 @@ class BannerService {
         return  $banner;
     }
 
-    public function updateData(array $data , $banner)
-    {
-        $banner->category()->update($data);
+    // public function updateData(array $data , $banner)
+    // {
+    //     $banner->category()->update($data);
 
-        return  $banner;
-    }
+    //     return  $banner;
+    // }
 
 }

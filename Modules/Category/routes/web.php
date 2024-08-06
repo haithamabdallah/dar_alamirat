@@ -19,7 +19,7 @@ use Modules\Category\Http\Controllers\BannerController;
 Route::group(['middleware' => 'admin' , 'prefix'=>'dashboard'], function () {
     Route::resource('category', CategoryController::class)->names('category');
     Route::post('category/status/{category}', [CategoryController::class , 'changeStatus'])->name('category.status');
-    Route::resource('banners', BannerController::class )->except(['edit' , 'update'])->names('banner');
+    Route::resource('banners', BannerController::class )->names('banner');
     Route::post('banner/status/{banner}', [BannerController::class , 'changeStatus'])->name('banner.status');
 
     Route::get('index-priority', [IndexPriorityController::class , 'index'])->name('index.priority');
