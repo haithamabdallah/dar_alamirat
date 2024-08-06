@@ -24,17 +24,17 @@ class MainSliderRequest extends FormRequest
         $rules =  [
             'is_dart' => 'boolean',
             'is_reversed' => 'boolean',
-            'title_en' => 'required|string|max:255',
-            'title_ar' => 'required|string|max:255',
-            'subtitle_en' => 'required|string|max:255',
-            'subtitle_ar' => 'required|string|max:255',
-            'button_text_en' => 'required|string|max:255',
-            'button_text_ar' => 'required|string|max:255',
-            'button_link' => 'required|url:http,https',
+            'title_en' => 'nullable|string|max:255',
+            'title_ar' => 'nullable|string|max:255',
+            'subtitle_en' => 'nullable|string|max:255',
+            'subtitle_ar' => 'nullable|string|max:255',
+            'button_text_en' => 'nullable|string|max:255',
+            'button_text_ar' => 'nullable|string|max:255',
+            'button_link' => 'nullable|url:http,https',
         ];
 
         if (request()->method() == 'POST') {
-            $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240';
+            $rules['image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240';
             $rules['background_image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240';
         } else {
             if (request()->hasFile('image')) {
