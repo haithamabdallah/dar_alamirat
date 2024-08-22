@@ -52,8 +52,8 @@ class HomeController extends Controller
 
     public function categoryProducts(Request $request, Category $category)
     {
-        if (count($request->all()) == 0) {
-            $products = $category->products()->filter($request->all())->active()->latest()->paginate(20);
+        if (count($request->all()) == 0 || isset($request['page'])) {
+            $products = $category->products()->active()->latest()->paginate(20);
         } elseif (count($request->all()) > 0) {
             // Access the filters from the request
             $categoryId = $request->input('filter.category_id');

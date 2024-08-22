@@ -112,6 +112,17 @@
             <!-- ./item --> --}}
 
             <!-- item -->
+            <div class="menu-item {{ request()->routeIs('dashboard.product.search.get') ||  request()->routeIs('dashboard.product.search.post') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.product.search.get') }}" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div class="menu-text">Products Search</div>
+                </a>
+            </div>
+            <!-- ./item -->
+
+            <!-- item -->
             <div class="menu-item {{ activeLink('product') }}">
                 <a href="{{ route('product.index') }}" class="menu-link">
                     <div class="menu-icon">

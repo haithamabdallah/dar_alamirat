@@ -12,9 +12,9 @@
             <div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}"> Home </a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('product.index') }}"> Products </a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('product.index') }}"> Products Search </a></li>
                 </ul>
-                <h1 class="page-header mb-0"> Products </h1>
+                <h1 class="page-header mb-0"> Products Search </h1>
             </div>
             <div class="ms-auto">
                 <a href="{{ route('product.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
@@ -25,8 +25,37 @@
         @include('dashboard.layouts.alerts')
 
         <!-- start card -->
-        <div class="card border-0">
+        <div class="card border-0 mb-3 p-2">
             <!-- tab content -->
+            <div class="tab-content p-3">
+                <!-- tap panel -->
+                <div class="tab-pane fade show active" id="allTab">
+                    <div class="row">
+                        <form action="{{ route('dashboard.product.search.post') }}" method="POST">
+                            @csrf
+                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
+                                <label for="sku-input form-label"> Sku </label>
+                                <input type="text" name="sku" id="sku-input" class="form-control rounded w-100" placeholder="Search By Sku">
+                            </div>
+                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
+                                    <label for="title-input form-label"> Title </label>
+                                    <input type="text" name="title" id="title-input" class="form-control rounded w-100" placeholder="Search By Title">
+                            </div>
+                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
+                                    <label for="category-input form-label"> Category </label>
+                                    <input type="text" name="category" id="category-input" class="form-control rounded w-100" placeholder="Search By Category">
+                            </div>
+                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
+                                    <label for="brand-input form-label"> Brand </label>
+                                    <input type="text" name="brand" id="brand-input" class="form-control rounded w-100" placeholder="Search By Brand">
+                            </div>
+                            <button class="btn btn-primary col-12" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-0">
             <div class="tab-content p-3">
                 <!-- tap panel -->
                 <div class="tab-pane fade show active" id="allTab">

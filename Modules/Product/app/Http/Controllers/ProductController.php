@@ -160,4 +160,42 @@ class ProductController extends Controller
         $product->save();
         return response()->json(['success' => true]);
     }
+
+    public function searchGet(Request $request)
+    {
+        return view('dashboard.products.search');
+    }
+
+    public function searchPost(Request $request)
+    {
+        $validated = $request->validate([
+            'sku' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'brand' => 'nullable|string|max:255',
+        ]);
+
+        $products = Product::query()
+            ->when( isset ( $validated ['title'] ) && $validated ['title'] != null , function ($query) use ($validated) {
+                $query->where('title', 'like', '%' . $validated ['title'] . '%');
+            })
+            ->when( isset ( $validated ['sku'] ) && $validated ['sku'] != null , function ($query) use ($validated) {
+                $query->whereHas('variants', function ($query) use ($validated) {
+                    $query->where('sku', 'like', '%' . $validated ['sku'] . '%');
+                });
+            })
+            ->when( isset ( $validated ['category'] ) && $validated ['category'] != null , function ($query) use ($validated) {
+                $query->whereHas('category', function ($query) use ($validated) {
+                    $query->where('name', 'like', '%' . $validated ['category'] . '%');
+                });
+            })
+            ->when( isset ( $validated ['brand'] ) && $validated ['brand'] != null , function ($query) use ($validated) {
+                $query->whereHas('brand', function ($query) use ($validated) {
+                    $query->where('name', 'like', '%' . $validated ['brand'] . '%');
+                });
+            })
+            ->get();
+
+        return view('dashboard.products.search' , compact('products'));
+    }
 }

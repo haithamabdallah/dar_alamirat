@@ -9,7 +9,7 @@ class BrandService {
 
     public function getAllData()
     {
-        return Brand::orderBy('id', 'DESC')->paginate(10);
+        return Brand::latest()->get();
     }
 
     public function getPaginatedData(array $data ,int $paginate = 1 )

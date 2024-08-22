@@ -28,3 +28,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('toggle-returnable', [ProductController::class , 'toggleReturnable'])->name('product.toggle-returnable');
     Route::post('toggleChoice', [ProductController::class , 'toggleChoice'])->name('product.toggleChoice');
 });
+
+Route::group(['middleware' => 'admin' , 'as' => 'dashboard.' , 'prefix' => 'dashboard'], function () {
+    
+    Route::resource('product', ProductController::class)->names('product');
+    Route::get('search', [ProductController::class , 'searchGet'])->name('product.search.get');
+    Route::post('search-results', [ProductController::class , 'searchPost'])->name('product.search.post');
+});
