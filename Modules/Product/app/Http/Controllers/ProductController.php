@@ -34,9 +34,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->productService->getPaginatedData();
+        // $products = $this->productService->getPaginatedData();
 
-        return view('dashboard.products.index', compact('products'));
+        // return view('dashboard.products.index', compact('products'));
+
+        return redirect()->route('dashboard.product.search.get');
     }
 
     /**
