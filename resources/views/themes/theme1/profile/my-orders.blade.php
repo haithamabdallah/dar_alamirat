@@ -218,47 +218,8 @@
                             <!-- If Empty Page -->
                         @endforelse
                         @if ($orders->lastPage() > 1)
-                        <div class="d-flex justify-content-center">
-                            <nav>
-                                <ul class="pagination">
-
-                                    @if ($orders->currentPage() == 1)
-                                        <li class="page-item disabled" aria-disabled="true" aria-label="« السابق">
-                                            <span class="page-link" aria-hidden="true">
-                                                ‹
-                                            </span></li>
-                                    @else
-                                        <li class="page-item"><a class="page-link"
-                                                href="{{ $orders->previousPageUrl() }}" rel="previous"
-                                                aria-label="« السابق"> ‹ </a></li>
-                                    @endif
-
-                                    @foreach (range(1, $orders->lastPage()) as $pageNum)
-                                        @if ($pageNum == $orders->currentPage())
-                                            <li class="page-item active" aria-current="page"><span
-                                                    class="page-link">{{ $pageNum }}</span>
-                                            </li>
-                                        @else
-                                            <li class="page-item"><a class="page-link"
-                                                    href="{{ $orders->url($pageNum) }}">{{ $pageNum }}</a>
-                                            </li>
-                                        @endif
-                                    @endforeach
-
-                                    @if ($orders->currentPage() == $orders->lastPage())
-                                        <li class="page-item disabled" aria-disabled="true" aria-label="التالي »">
-                                            <span class="page-link" aria-hidden="true">
-                                                ›
-                                            </span></li>
-                                    @else
-                                        <li class="page-item"><a class="page-link"
-                                                href="{{ $orders->nextPageUrl() }}" rel="next"
-                                                aria-label="التالي »"> › </a></li>
-                                    @endif
-                                </ul>
-                            </nav>
-                        </div>
-                    @endif
+                            @include('themes.theme1.partials.pagination' , [ 'items' => $orders ])
+                        @endif
                     </main>
                 </div>
             </div>

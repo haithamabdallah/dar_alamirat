@@ -78,7 +78,7 @@
                                     aria-labelledby="headCategory" data-bs-parent="#accCategories">
                                     <div class="accordion-body">
                                         <div class="s-filters-widget-values">
-                                            <div class="filter-form" id="category-filter-form">
+                                            <div class="filter-form" id="category-filter-form" style="overflow-y: scroll ; height: 600px">
                                                 @if (isset($category?->parent))
                                                     @if (isset($category?->parent->parent))
                                                         <div class="my-3">
@@ -246,46 +246,7 @@
                                 @endforeach
                             </div>
                             @if ($products->lastPage() > 1)
-                                <div class="d-flex justify-content-center">
-                                    <nav>
-                                        <ul class="pagination">
-
-                                            @if ($products->currentPage() == 1)
-                                                <li class="page-item disabled" aria-disabled="true"
-                                                    aria-label="« السابق"><span class="page-link" aria-hidden="true">
-                                                        ‹
-                                                    </span></li>
-                                            @else
-                                                <li class="page-item"><a class="page-link"
-                                                        href="{{ $products->previousPageUrl() }}" rel="previous"
-                                                        aria-label="« السابق"> ‹ </a></li>
-                                            @endif
-
-                                            @foreach (range(1, $products->lastPage()) as $pageNum)
-                                                @if ($pageNum == $products->currentPage())
-                                                    <li class="page-item active" aria-current="page"><span
-                                                            class="page-link">{{ $pageNum }}</span>
-                                                    </li>
-                                                @else
-                                                    <li class="page-item"><a class="page-link"
-                                                            href="{{ $products->url($pageNum) }}">{{ $pageNum }}</a>
-                                                    </li>
-                                                @endif
-                                            @endforeach
-
-                                            @if ($products->currentPage() == $products->lastPage())
-                                                <li class="page-item disabled" aria-disabled="true"
-                                                    aria-label="التالي »"><span class="page-link" aria-hidden="true">
-                                                        ›
-                                                    </span></li>
-                                            @else
-                                                <li class="page-item"><a class="page-link"
-                                                        href="{{ $products->nextPageUrl() }}" rel="next"
-                                                        aria-label="التالي »"> › </a></li>
-                                            @endif
-                                        </ul>
-                                    </nav>
-                                </div>
+                                @include('themes.theme1.partials.pagination' , ['items' => $products])
                             @endif
                         @else
                             <!-- no content -->
