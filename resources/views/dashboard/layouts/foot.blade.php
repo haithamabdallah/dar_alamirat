@@ -47,8 +47,80 @@
         keys: true,
         responsive: true
     });
-</script>
+    
+    let enableSwitchery = function() {
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-status:not(.styled)'));
+            elems.forEach(function(ele) {
+                var switchery = new Switchery(ele, {
+                    color: '#00acac'
+                });
+                ele.classList.add('styled');
+            });
+    }
 
+    let enableSwitcheryFunctionality = function() {
+        // Select all checkboxes with the class 'switch-status'
+        const statusSwitches = document.querySelectorAll('.switch-status');
+
+        statusSwitches.forEach(function(switchElem) {
+            switchElem.addEventListener('change', function() {
+                const isChecked = this.checked;
+                const url = this.getAttribute('data-url'); // Get the URL from data attribute
+
+                axios.post(url, {
+                    status: isChecked
+                })
+                    .then(function(response) {
+                        // Display a SweetAlert message with the response
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.data.message,
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                    })
+                    .catch(function(error) {
+                        // Display an error message if something went wrong
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Unable to update status.',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    });
+            });
+        });
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        enableSwitcheryFunctionality();
+        enableSwitchery();
+    });
+
+    $('select[name="data-table-keytable_length"]').each(function() {
+        $(this).on('change', function() {
+            enableSwitchery();
+            enableSwitcheryFunctionality();
+        })
+    })
+
+    $('.paginate_button').each(function() {
+        $(this).on('click', function() {
+            enableSwitchery();
+            enableSwitcheryFunctionality();
+        })
+    })
+
+    $('input[type="search"][class="form-control form-control-sm"]').each(function() {
+        $(this).on('keyup', function() {
+            enableSwitchery();
+            enableSwitcheryFunctionality();
+        })
+    })
+
+
+</script>
 
 <!-- ================== END page-js ================== -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
