@@ -136,19 +136,6 @@
     <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
 
     <script>
-        $('#data-table-default').DataTable({
-            responsive: true
-        });
-
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-status'));
-        elems.forEach(function(html) {
-            var switchery = new Switchery(html, {
-                color: '#00acac'
-            });
-        });
-    </script>
-
-    <script>
         function searchCategoryName() {
             // Declare variables
             var input, filter, table, tr, td, i, txtValue;

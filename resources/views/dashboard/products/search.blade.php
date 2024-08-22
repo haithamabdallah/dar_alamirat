@@ -114,18 +114,6 @@
         }
     </script>
 
-    <script>
-        $('#data-table-default').DataTable({
-            responsive: true
-        })
-
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-status'));
-        elems.forEach(function(html) {
-            var switchery = new Switchery(html, {
-                color: '#00acac'
-            });
-        });
-    </script>
 
     <script>
         $(document).ready(function() {

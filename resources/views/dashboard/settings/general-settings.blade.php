@@ -124,13 +124,5 @@
 
 @section('scripts')
     <script src="{{ asset('admin-panel/assets/plugins/dropzone/dist/min/dropzone.min.js') }}"></script>
-    <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
-    <script>
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-status'));
-        elems.forEach(function(html) {
-            var switchery = new Switchery(html, {
-                color: '#00acac'
-            });
-        });
-    </script>
+
 @endsection

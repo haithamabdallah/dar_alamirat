@@ -96,28 +96,30 @@
     document.addEventListener('DOMContentLoaded', function() {
         enableSwitcheryFunctionality();
         enableSwitchery();
+
+        $('select[name="data-table-keytable_length"]').each(function() {
+            $(this).on('change', function() {
+                enableSwitchery();
+                enableSwitcheryFunctionality();
+            })
+        })
+
+        $('.paginate_button,.page-link').each(function() {
+            $(this).on('click', function() {
+                enableSwitchery();
+                enableSwitcheryFunctionality();
+            })
+        })
+
+        $('input[type="search"][class="form-control form-control-sm"]').each(function() {
+            $(this).on('keyup', function() {
+                enableSwitchery();
+                enableSwitcheryFunctionality();
+            })
+        })
     });
 
-    $('select[name="data-table-keytable_length"]').each(function() {
-        $(this).on('change', function() {
-            enableSwitchery();
-            enableSwitcheryFunctionality();
-        })
-    })
 
-    $('.paginate_button').each(function() {
-        $(this).on('click', function() {
-            enableSwitchery();
-            enableSwitcheryFunctionality();
-        })
-    })
-
-    $('input[type="search"][class="form-control form-control-sm"]').each(function() {
-        $(this).on('keyup', function() {
-            enableSwitchery();
-            enableSwitcheryFunctionality();
-        })
-    })
 
 
 </script>
