@@ -32,6 +32,6 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'admin' , 'as' => 'dashboard.' , 'prefix' => 'dashboard'], function () {
     
     Route::resource('product', ProductController::class)->names('product');
-    Route::get('search', [ProductController::class , 'searchGet'])->name('product.search.get');
-    Route::post('search-results', [ProductController::class , 'searchPost'])->name('product.search.post');
+    Route::get('products', [ProductController::class , 'searchGet'])->name('product.search.get');
+    Route::post('products/search-results', [ProductController::class , 'searchPost'])->name('product.search.post');
 });

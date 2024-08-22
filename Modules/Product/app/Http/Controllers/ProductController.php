@@ -163,7 +163,8 @@ class ProductController extends Controller
 
     public function searchGet(Request $request)
     {
-        return view('dashboard.products.search');
+        $products = Product::query()->latest()->paginate(20);
+        return view('dashboard.products.search' , compact('products'));
     }
 
     public function searchPost(Request $request)
@@ -196,6 +197,8 @@ class ProductController extends Controller
             })
             ->get();
 
-        return view('dashboard.products.search' , compact('products'));
+        $isResult = true;
+
+        return view('dashboard.products.search' , compact('products' , 'isResult'));
     }
 }

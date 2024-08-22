@@ -21,7 +21,7 @@
                                 class="page-link">{{ $pageNum }}</span>
                         </li>
                     @else
-                        @if (   $pageNum == $items->lastPage()   && $items->currentPage() > 4 && $items->currentPage() < $items->lastPage() - 4   )
+                        @if (   $pageNum == $items->lastPage()   && $items->currentPage() > 3 && $items->currentPage() < $items->lastPage() - 3   )
                             ...
                         @endif
                         <li class="page-item"><a class="page-link"

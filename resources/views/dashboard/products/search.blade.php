@@ -12,11 +12,13 @@
             <div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}"> Home </a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('product.index') }}"> Products Search </a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('product.index') }}"> Products </a></li>
                 </ul>
-                <h1 class="page-header mb-0"> Products Search </h1>
+                <h1 class="page-header mb-0"> Products </h1>
             </div>
-            <div class="ms-auto">
+            <div class="ms-auto d-flex" style="gap:10px">
+                <a href="{{ route('product.index') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
+                        class="fa fa-book fa-lg me-2 ms-n2 text-success-900"></i> Show All Products</a>
                 <a href="{{ route('product.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
                         class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Add Product</a>
             </div>
@@ -33,21 +35,23 @@
                     <div class="row">
                         <form action="{{ route('dashboard.product.search.post') }}" method="POST">
                             @csrf
-                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
-                                <label for="sku-input form-label"> Sku </label>
-                                <input type="text" name="sku" id="sku-input" class="form-control rounded w-100" placeholder="Search By Sku">
-                            </div>
-                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
-                                    <label for="title-input form-label"> Title </label>
-                                    <input type="text" name="title" id="title-input" class="form-control rounded w-100" placeholder="Search By Title">
-                            </div>
-                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
-                                    <label for="category-input form-label"> Category </label>
-                                    <input type="text" name="category" id="category-input" class="form-control rounded w-100" placeholder="Search By Category">
-                            </div>
-                            <div class="row mb-3  d-flex flex-col" style="gap: 10px">
-                                    <label for="brand-input form-label"> Brand </label>
-                                    <input type="text" name="brand" id="brand-input" class="form-control rounded w-100" placeholder="Search By Brand">
+                            <div class="d-flex flex-row justify-content-between" style="gap: 1rem">
+                                <div class="row mb-3 col-3 d-flex flex-col" style="gap: 10px">
+                                    <label for="sku-input form-label"> Sku </label>
+                                    <input type="text" name="sku" id="sku-input" class="form-control rounded w-100" placeholder="Search By Sku">
+                                </div>
+                                <div class="row mb-3 col-3 d-flex flex-col" style="gap: 10px">
+                                        <label for="title-input form-label"> Title </label>
+                                        <input type="text" name="title" id="title-input" class="form-control rounded w-100" placeholder="Search By Title">
+                                </div>
+                                <div class="row mb-3 col-3 d-flex flex-col" style="gap: 10px">
+                                        <label for="category-input form-label"> Category </label>
+                                        <input type="text" name="category" id="category-input" class="form-control rounded w-100" placeholder="Search By Category">
+                                </div>
+                                <div class="row mb-3 col-3 d-flex flex-col" style="gap: 10px">
+                                        <label for="brand-input form-label"> Brand </label>
+                                        <input type="text" name="brand" id="brand-input" class="form-control rounded w-100" placeholder="Search By Brand">
+                                </div>
                             </div>
                             <button class="btn btn-primary col-12" type="submit">Search</button>
                         </form>
@@ -61,7 +65,7 @@
                 <div class="tab-pane fade show active" id="allTab">
                     <!-- BEGIN table -->
                     <div class="row">
-                        <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
+                        <table id="" class="table table-striped table-bordered align-middle">
                             <thead>
                                 <tr>
                                     @include('dashboard.products.partials.table-head')
@@ -75,7 +79,11 @@
                     <!-- END table -->
 
                     <!-- pagination -->
-                    {{-- @include('shared.dashboard.pagination' , ['paginated' => $products]) --}}
+                    @if ( !isset ( $isResult ) )
+                        @if ( $products->lastPage() > 1 )
+                            @include('shared.dashboard.pagination' , ['paginated' => $products])
+                        @endif
+                    @endif
                     <!-- ./pagination -->
                 </div>
                 <!-- ./tap panel -->
