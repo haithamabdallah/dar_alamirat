@@ -119,7 +119,7 @@ class HomeController extends Controller
                 
             if ($products->count() == 0) {
                 $products = Product::whereHas('brand' , function ($q) use ($query) {
-                    $q->where('name', 'LIKE', '%' . $query . '%');
+                    $q->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($query) . '%']);
                 })
                     ->active()->latest()->paginate(20);
             }
@@ -137,9 +137,9 @@ class HomeController extends Controller
             }
 
 
-            if ($products->count() == 0) {
-                $products = Product::active()->inRandomOrder()->paginate(20);
-            }
+            // if ($products->count() == 0) {
+            //     $products = Product::active()->inRandomOrder()->paginate(20);
+            // }
         } else {
             // Access the filters from the request
             $categoryId = $request->input('filter.category_id');
@@ -196,7 +196,7 @@ class HomeController extends Controller
                 
             if ($products->count() == 0) {
                 $products = Product::whereHas('brand' , function ($q) use ($search) {
-                    $q->where('name', 'LIKE', '%' . $search . '%');
+                    $q->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($search) . '%']);
                 })
                 ->withOnly([])
                 ->active()->latest()->take(20)->get();
@@ -216,12 +216,12 @@ class HomeController extends Controller
                     ->active()->latest()->take(20)->get();
                 }
 
-                if ($products->count() == 0) {
-                    $products = Product::active()
-                    ->withOnly([])
-                    ->inRandomOrder()
-                    ->take(20)->get();
-                }
+                // if ($products->count() == 0) {
+                //     $products = Product::active()
+                //     ->withOnly([])
+                //     ->inRandomOrder()
+                //     ->take(20)->get();
+                // }
                 // return response()->json( $search );
                 $status = 'success';
 
