@@ -116,6 +116,14 @@ class HomeController extends Controller
                 // ->filter($request->all())
                 ->active()->latest()->paginate(20);
 
+                
+            if ($products->count() == 0) {
+                $products = Product::whereHas('brand' , function ($q) use ($query) {
+                    $q->where('name', 'LIKE', '%' . $query . '%');
+                })
+                    ->active()->latest()->paginate(20);
+            }
+
             if ($products->count() == 0) {
                 $products = Product::where('description->' . 'en', 'LIKE', '%' . $query . '%')
                     ->orWhere('description->' . 'ar', 'LIKE', '%' . $query . '%')
@@ -127,6 +135,7 @@ class HomeController extends Controller
                     ->orWhere('instructions->' . 'ar', 'LIKE', '%' . $query . '%')
                     ->active()->latest()->paginate(20);
             }
+
 
             if ($products->count() == 0) {
                 $products = Product::active()->inRandomOrder()->paginate(20);
@@ -183,6 +192,15 @@ class HomeController extends Controller
                     ->withOnly([])
                     ->active()->latest()->take(20)->get();
                 // ->filter($request->all())
+
+                
+            if ($products->count() == 0) {
+                $products = Product::whereHas('brand' , function ($q) use ($search) {
+                    $q->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->withOnly([])
+                ->active()->latest()->take(20)->get();
+            }
 
                 if ($products->count() == 0) {
                     $products = Product::where('description->' . 'en', 'LIKE', '%' . $search . '%')
