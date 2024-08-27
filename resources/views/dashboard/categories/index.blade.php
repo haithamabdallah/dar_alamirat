@@ -87,7 +87,7 @@
                                         @elseif (isset($category?->parent))
                                             {{$category?->parent->name }}
                                         @else 
-                                            {{ '---' }}
+                                            {{ '' }}
                                         @endif
                                     </td>
                                     <td>{{$category->name}}</td>
