@@ -24,10 +24,6 @@ class ProductController extends Controller
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
-        $this->middleware('permission:products.read,admin', ['only' => ['index']]);
-        $this->middleware('permission:products.create,admin', ['only' => ['create', 'store']]);
-        $this->middleware('permission:products.edit,admin', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:products.delete,admin', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

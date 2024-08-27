@@ -19,10 +19,6 @@ class BrandController extends Controller
     public function __construct(BrandService $brandService)
     {
         $this->brandService = $brandService;
-        $this->middleware('permission:brands.read,admin', ['only' => ['index']]);
-        $this->middleware('permission:brands.create,admin', ['only' => ['create', 'store']]);
-        $this->middleware('permission:brands.edit,admin', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:brands.delete,admin', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

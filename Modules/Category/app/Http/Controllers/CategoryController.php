@@ -20,10 +20,6 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
-        $this->middleware('permission:categories.read,admin', ['only' => ['index','bannersData']]);
-        $this->middleware('permission:categories.create,admin', ['only' => ['create', 'store']]);
-        $this->middleware('permission:categories.edit,admin', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:categories.delete,admin', ['only' => ['destroy']]);
     }
 
     /**

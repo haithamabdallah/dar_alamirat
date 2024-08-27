@@ -19,10 +19,6 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:admins.read,admin', ['only' => ['index']]);
-        $this->middleware('permission:admins.create,admin', ['only' => ['create', 'store']]);
-        $this->middleware('permission:admins.edit,admin', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:admins.delete,admin', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

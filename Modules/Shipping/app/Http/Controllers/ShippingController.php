@@ -19,10 +19,6 @@ class ShippingController extends Controller
     public function __construct(ShippingService $shippingService)
     {
         $this->shippingService = $shippingService;
-//        $this->middleware('permission:shippings.read,admin', ['only' => ['index']]);
-//        $this->middleware('permission:shippings.create,admin', ['only' => ['create', 'store']]);
-//        $this->middleware('permission:shippings.edit,admin', ['only' => ['edit', 'update']]);
-//        $this->middleware('permission:shippings.delete,admin', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
