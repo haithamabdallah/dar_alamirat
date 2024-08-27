@@ -70,7 +70,7 @@
                                 <th class="text-nowrap" width="5%">icon</th>
                                 {{-- <th class="text-nowrap" width="5%">Priority</th> --}}
                                 <th class="text-nowrap" width="5%">status</th>
-                                <th class="text-nowrap" width="5%">Product Counts</th>
+                                <th class="text-nowrap" width="5%">Products Count</th>
                                 <th class="text-nowrap" width="10%">created At</th>
                                 <th class="text-nowrap" width="5%">Edit</th>
                                 <th class="text-nowrap" width="5%">Delete</th>
