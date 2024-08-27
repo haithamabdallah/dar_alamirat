@@ -18,7 +18,7 @@ use Modules\Settings\Http\Controllers\AnnouncementSettingController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::resource('settings', SettingsController::class)->names('settings');
     Route::resource('maintenance', MaintenanceController::class)->names('maintenance');
     Route::resource('announcement', AnnouncementSettingController::class)->names('announcement');

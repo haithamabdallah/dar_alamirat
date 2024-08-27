@@ -14,7 +14,7 @@ use Modules\Subscription\Http\Controllers\SubscriptionController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::resource('subscription', SubscriptionController::class)->names('subscription');
     Route::post('send-newsletter', [SubscriptionController::class,'sendNewsletter'])->name('send-newsletter');
 });

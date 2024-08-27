@@ -14,6 +14,6 @@ use Modules\Client\Http\Controllers\ClientController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::resource('client', ClientController::class)->names('client');
 });

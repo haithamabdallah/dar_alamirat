@@ -15,7 +15,7 @@ use Modules\Page\Http\Controllers\PageStatusController;
 |
 */
 
-Route::group([], function () {
+Route::group([['middleware' => 'admin']], function () {
     Route::resource('page', PageController::class)->names('page');
     Route::post('page/status', [PageController::class,'toggleStatus'])->name('page.toggle-status');
 
