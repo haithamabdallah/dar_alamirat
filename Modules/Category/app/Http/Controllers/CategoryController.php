@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->categoryService->getPaginatedData();
+        $categories =  Category::withCount('products')->where('type','default')->latest()->get();;
         return view('dashboard.categories.index', compact('categories'));
     }
 

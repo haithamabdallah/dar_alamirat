@@ -27,13 +27,14 @@ class BrandController extends Controller
             'name' => 'nullable|string|max:255',
         ]);
 
-        $brands = Brand::query()
+        $brands = Brand::withCount('products')
             ->when( isset ( $validated ['name'] ) && $validated ['name'] != null , function ($query) use ($validated) {
                 $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower( $validated ['name']) . '%']);
             })
             ->get();
 
         $isNotPaginated = true;
+        // $brands->loadCount('products');
 
         return view('dashboard.brands.search' , compact('brands' , 'isNotPaginated'));
     }
@@ -42,13 +43,14 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::query()->latest()->paginate(20);
+        $brands = Brand::withCount('products')->latest()->paginate(20);
         return view('dashboard.brands.search', compact('brands'));
     }
 
     public function all()
     {
-        $brands = Brand::latest()->get();
+        $brands = Brand::withCount('products')->latest()->get();
+        // $brands->loadCount('products');
         return view('dashboard.brands.index', compact('brands'));
     }
 

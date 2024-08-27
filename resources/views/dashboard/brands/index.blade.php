@@ -61,6 +61,7 @@
                                     <th class="text-nowrap" width="5%">Image</th>
                                     <th class="text-nowrap" width="40%">Name</th>
                                     <th class="text-nowrap" width="5%">status</th>
+                                    <th class="text-nowrap" width="5%">Products Count</th>
                                     <th class="text-nowrap" width="10%">created At</th>
                                     <th class="text-nowrap" width="5%">Edit</th>
                                     <th class="text-nowrap" width="5%">Delete</th>
@@ -82,11 +83,12 @@
                                                 data-url="{{ route('brand.status', $brand->id) }}"
                                                 @if ($brand->status) checked @endif />
                                         </td>
+                                        <td>{{ $brand->products_count }}</td>
                                         <td>{{ $brand->created_at->format('Y-m-d') }}</td>
                                         <td nowrap="">
                                             @adminCan('brands.edit')
-                                                <a href="{{ route('brand.edit', $brand->id) }}"
-                                                    class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i>
+                                                <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-sm btn-primary">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
                                                     {{ __('dashboard.brand.edit') }}</a>
                                             @endadminCan
                                         </td>
