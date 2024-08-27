@@ -6,6 +6,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
 @endsection
+
 @section('customcss')
     <link href="{{ asset('admin-panel/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}"
         rel="stylesheet" />
@@ -13,6 +14,7 @@
         rel="stylesheet" />
     <link href="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
 @endsection
+
 @section('content')
     <!-- BEGIN #content -->
     <div id="content" class="app-content">
@@ -25,36 +27,48 @@
                 <h1 class="page-header mb-0">{{ __('dashboard.brands') }}</h1>
             </div>
             <div class="ms-auto">
+                <a href="{{ route('dashboard.brand.all') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
+                    class="fa fa-book fa-lg me-2 ms-n2 text-success-900"></i> Show All Brands</a>
                 <a href="{{ route('brand.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
                         class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> {{ __('dashboard.brand.add') }}</a>
             </div>
         </div>
+
         @include('dashboard.layouts.alerts')
+
+        <!-- start card -->
+        <div class="card border-0 mb-3 p-2">
+            <!-- tab content -->
+            <div class="tab-content p-3">
+                <!-- tap panel -->
+                <div class="tab-pane fade show active" id="allTab">
+                    <div class="row">
+                        <form action="{{ route('dashboard.brand.search.post') }}" method="POST">
+                            @csrf
+                            <div class="d-flex flex-row justify-content-between" style="gap: 1rem">
+                                <div class="row mb-3 col-md-12 d-flex flex-col" style="gap: 10px">
+                                    <label for="title-input form-label"> Name </label>
+                                    <input type="text" name="name" id="name-input" class="form-control rounded w-100"
+                                        placeholder="Search By Name">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary col-12" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./end card -->
         <!-- start card -->
         <div class="card border-0">
             <!-- content -->
             <div class="tab-content p-3">
                 <!-- tab pane -->
                 <div class="tab-pane fade show active" id="allTab">
-                    <!-- BEGIN input-group -->
-                    {{-- <div class="input-group mb-3">
-                        <p class="btn btn-white dropdown-toggle"><span class="d-none d-md-inline">Filter By Product
-                                Name</span></p>
-                        <div class="flex-fill position-relative">
-                            <div class="input-group">
-                                <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 start-0"
-                                    style="z-index: 1;">
-                                    <i class="fa fa-search opacity-5"></i>
-                                </div>
-                                <input type="text" id="searchForProduct" onkeyup="searchProductName()"
-                                    class="form-control px-35px bg-light" placeholder="Search order Number..." />
-                            </div>
-                        </div>
-                    </div> --}}
-                    <!-- END input-group -->
+
                     <!-- BEGIN table -->
                     <div class="row">
-                        <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
+                        <table id="" class="table table-striped table-bordered align-middle">
                             <thead>
                                 <tr>
                                     <th width="1%"></th>
@@ -67,31 +81,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($brands as $brand)
-                                    <tr class="odd gradeX">
-                                        <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                        <td width="1%" class="with-img">
-                                            <img src="{{ storage_asset($brand->image) }}"
-                                                class="rounded h-30px my-n1 mx-n1" />
-                                        </td>
-                                        <td>{{ $brand->name }}</td>
-                                        {{-- <td>{{$brand->status}}</td> --}}
-                                        <td>
-                                            {{-- <input type="checkbox" class="switch-status" {!! ($brand->status) ? 'checked' : '' !!} /> --}}
-                                            <input type="checkbox" class="switch-status"
-                                                data-url="{{ route('brand.status', $brand->id) }}"
-                                                @if ($brand->status) checked @endif />
-                                        </td>
-                                        <td>{{ $brand->created_at->format('Y-m-d') }}</td>
-                                        <td nowrap="">
-                                            @adminCan('brands.edit')
+                                @if (isset($brands) && count($brands) > 0)
+                                    @foreach ($brands as $brand)
+                                        <tr class="odd gradeX">
+                                            <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}
+                                            </td>
+                                            <td width="1%" class="with-img">
+                                                <img src="{{ storage_asset($brand->image) }}"
+                                                    class="rounded h-30px my-n1 mx-n1" />
+                                            </td>
+                                            <td>{{ $brand->name }}</td>
+                                            {{-- <td>{{$brand->status}}</td> --}}
+                                            <td>
+                                                {{-- <input type="checkbox" class="switch-status" {!! ($brand->status) ? 'checked' : '' !!} /> --}}
+                                                <input type="checkbox" class="switch-status"
+                                                    data-url="{{ route('brand.status', $brand->id) }}"
+                                                    @if ($brand->status) checked @endif />
+                                            </td>
+                                            <td>{{ $brand->created_at->format('Y-m-d') }}</td>
+                                            <td nowrap="">
                                                 <a href="{{ route('brand.edit', $brand->id) }}"
-                                                    class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i>
+                                                    class="btn btn-sm btn-primary"> <i
+                                                        class="fa-regular fa-pen-to-square"></i>
                                                     {{ __('dashboard.brand.edit') }}</a>
-                                            @endadminCan
-                                        </td>
-                                        <td nowrap="">
-                                            @adminCan('brands.delete')
+                                            </td>
+                                            <td nowrap="">
                                                 <form id="deleteForm{{ $brand->id }}"
                                                     action="{{ route('brand.destroy', $brand->id) }}" method="POST">
                                                     @csrf
@@ -100,17 +114,23 @@
                                                             class="fa-solid fa-trash-can"></i>
                                                         {{ __('dashboard.brand.delete') }}</a>
                                                 </form>
-                                            @endadminCan
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
                     <!-- ./table -->
+
                     <!-- pagination -->
-                    {{-- @include('shared.dashboard.pagination' , ['paginated' => $brands]) --}}
+                    @if (!isset($isNotPaginated))
+                        @if ($brands->lastPage() > 1)
+                            @include('shared.dashboard.pagination', ['paginated' => $brands])
+                        @endif
+                    @endif
                     <!-- ./pagination -->
+
                 </div>
                 <!-- ./tab pane -->
             </div>
@@ -120,6 +140,7 @@
     </div>
     <!-- END #content -->
 @endsection
+
 @section('scripts')
     <script src="{{ asset('admin-panel/assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin-panel/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
@@ -128,6 +149,7 @@
     <script src="{{ asset('admin-panel/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}">
     </script>
     <script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
+
     <script>
         function searchBrandName() {
             // Declare variables
@@ -136,6 +158,7 @@
             filter = input.value.toUpperCase();
             table = document.getElementById("brandTableList");
             tr = table.getElementsByTagName("tr");
+
             // Loop through all table rows, and hide those who don't match the search query
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[2];

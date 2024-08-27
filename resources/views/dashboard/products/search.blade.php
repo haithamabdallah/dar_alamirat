@@ -17,7 +17,7 @@
                 <h1 class="page-header mb-0"> Products </h1>
             </div>
             <div class="ms-auto d-flex" style="gap:10px">
-                <a href="{{ route('product.index') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
+                <a href="{{ route('dashboard.product.all') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
                         class="fa fa-book fa-lg me-2 ms-n2 text-success-900"></i> Show All Products</a>
                 <a href="{{ route('product.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
                         class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Add Product</a>
@@ -79,7 +79,7 @@
                     <!-- END table -->
 
                     <!-- pagination -->
-                    @if ( !isset ( $isResult ) )
+                    @if ( !isset ( $isNotPaginated ) )
                         @if ( $products->lastPage() > 1 )
                             @include('shared.dashboard.pagination' , ['paginated' => $products])
                         @endif

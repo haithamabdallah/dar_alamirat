@@ -14,6 +14,11 @@ use Modules\Brand\Http\Controllers\BrandController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin' , 'as' => 'dashboard.' , 'prefix' => 'dashboard'], function () {
+    Route::get('brands/all', [BrandController::class , 'all'])->name('brand.all');
+    Route::post('brands/search-results', [BrandController::class , 'search'])->name('brand.search.post');
+});
+
+Route::group(['middleware' => 'admin'], function () {
     Route::resource('brand', BrandController::class)->names('brand');
 });

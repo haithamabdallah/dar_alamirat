@@ -112,14 +112,74 @@
             <!-- ./item --> --}}
 
             <!-- item -->
-            <div class="menu-item {{ request()->routeIs('dashboard.product.search.get') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.product.search.get') }}" class="menu-link">
+            <div class="menu-item">
+                <a href="{{ route('order.index') }}" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-cart-arrow-down"></i>
+                    </div>
+                    <div class="menu-text">Orders</div>
+                </a>
+            </div>
+            <!-- ./item -->
+
+            <!-- item -->
+            <div class="menu-item {{ request()->routeIs('product.index') ? 'active' : '' }}">
+                <a href="{{ route('product.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-store"></i>
                     </div>
                     <div class="menu-text">Products</div>
                 </a>
             </div>
+            <!-- ./item -->
+
+            <!-- item -->
+            <div class="menu-item {{ activeLink('brand') }}">
+                <a href="{{ route('brand.index') }}" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+                    <div class="menu-text">{{ __('dashboard.brands') }}</div>
+                </a>
+            </div>
+            <!-- ./item -->
+
+            <!-- item -->
+            <div class="menu-item has-sub {{ activeLink('category') }}">
+                <a href="javascript:;" class="menu-link">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="menu-text">{{ __('dashboard.categories') }}</div>
+                    <div class="menu-caret"></div>
+                </a>
+                <div class="menu-submenu">
+                    <div class="menu-item {{ activeLink('admin') }}">
+                        <a href="{{ route('category.index') }}" class="menu-link">
+                            <div class="menu-text">{{ __('dashboard.categories') }}</div>
+                        </a>
+                    </div>
+                    <div class="menu-item {{ activeLink('admin') }}">
+                        <a href="{{ route('banner.index') }}" class="menu-link">
+                            <div class="menu-text">{{ __('dashboard.banners') }}</div>
+                        </a>
+                    </div>
+                    <div class="menu-item {{ activeLink('admin') }}">
+                        <a href="{{ route('index.priority') }}" class="menu-link">
+                            <div class="menu-text">{{ __('dashboard.index-priority') }}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {{--            <div class="menu-item {{ activeLink('category') }}"> --}}
+            {{--                <a href="{{route('category.index')}}" class="menu-link"> --}}
+            {{--                    <div class="menu-icon"> --}}
+            {{--                        <i class="fa-solid fa-sitemap"></i> --}}
+            {{--                    </div> --}}
+            {{--                    <div class="menu-text">{{__('dashboard.categories')}}</div> --}}
+            {{--                </a> --}}
+            {{--            </div> --}}
             <!-- ./item -->
 
             <!-- item -->
@@ -164,64 +224,6 @@
                         <i class="fa-solid fa-store"></i>
                     </div>
                     <div class="menu-text">Shipping</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item">
-                <a href="{{ route('order.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-cart-arrow-down"></i>
-                    </div>
-                    <div class="menu-text">Orders</div>
-                </a>
-            </div>
-            <!-- ./item -->
-            <!-- item -->
-            <div class="menu-item has-sub {{ activeLink('category') }}">
-                <a href="javascript:;" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div class="menu-text">{{ __('dashboard.categories') }}</div>
-                    <div class="menu-caret"></div>
-                </a>
-                <div class="menu-submenu">
-                    <div class="menu-item {{ activeLink('admin') }}">
-                        <a href="{{ route('category.index') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.categories') }}</div>
-                        </a>
-                    </div>
-                    <div class="menu-item {{ activeLink('admin') }}">
-                        <a href="{{ route('banner.index') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.banners') }}</div>
-                        </a>
-                    </div>
-                    <div class="menu-item {{ activeLink('admin') }}">
-                        <a href="{{ route('index.priority') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.index-priority') }}</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            {{--            <div class="menu-item {{ activeLink('category') }}"> --}}
-            {{--                <a href="{{route('category.index')}}" class="menu-link"> --}}
-            {{--                    <div class="menu-icon"> --}}
-            {{--                        <i class="fa-solid fa-sitemap"></i> --}}
-            {{--                    </div> --}}
-            {{--                    <div class="menu-text">{{__('dashboard.categories')}}</div> --}}
-            {{--                </a> --}}
-            {{--            </div> --}}
-            <!-- ./item -->
-            <!-- item -->
-            <div class="menu-item {{ activeLink('brand') }}">
-                <a href="{{ route('brand.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-sitemap"></i>
-                    </div>
-                    <div class="menu-text">{{ __('dashboard.brands') }}</div>
                 </a>
             </div>
             <!-- ./item -->

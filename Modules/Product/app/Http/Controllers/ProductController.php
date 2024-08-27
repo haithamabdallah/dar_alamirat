@@ -25,16 +25,54 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
+
+    public function search(Request $request)
+    {
+        $validated = $request->validate([
+            'sku' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'brand' => 'nullable|string|max:255',
+        ]);
+
+        $products = Product::query()
+            ->when( isset ( $validated ['title'] ) && $validated ['title'] != null , function ($query) use ($validated) {
+                $query->where('title', 'like', '%' . $validated ['title'] . '%');
+            })
+            ->when( isset ( $validated ['sku'] ) && $validated ['sku'] != null , function ($query) use ($validated) {
+                $query->whereHas('variants', function ($query) use ($validated) {
+                    $query->where('sku', 'like', '%' . $validated ['sku'] . '%');
+                });
+            })
+            ->when( isset ( $validated ['category'] ) && $validated ['category'] != null , function ($query) use ($validated) {
+                $query->whereHas('category', function ($query) use ($validated) {
+                    $query->where('name', 'like', '%' . $validated ['category'] . '%');
+                });
+            })
+            ->when( isset ( $validated ['brand'] ) && $validated ['brand'] != null , function ($query) use ($validated) {
+                $query->whereHas('brand', function ($query) use ($validated) {
+                    $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower( $validated ['brand']) . '%']);
+                });
+            })
+            ->get();
+
+        $isNotPaginated = true;
+
+        return view('dashboard.products.search' , compact('products' , 'isNotPaginated'));
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $products = $this->productService->getPaginatedData();
-
-        // return view('dashboard.products.index', compact('products'));
-
-        return redirect()->route('dashboard.product.search.get');
+        $products = Product::query()->latest()->paginate(20);
+        return view('dashboard.products.search' , compact('products'));
+    }
+    
+    public function all()
+    {
+        $products = Product::latest()->get();
+        return view('dashboard.products.index', compact('products'));
     }
 
     /**
@@ -159,44 +197,5 @@ class ProductController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function searchGet(Request $request)
-    {
-        $products = Product::query()->latest()->paginate(20);
-        return view('dashboard.products.search' , compact('products'));
-    }
 
-    public function searchPost(Request $request)
-    {
-        $validated = $request->validate([
-            'sku' => 'nullable|string|max:255',
-            'title' => 'nullable|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'brand' => 'nullable|string|max:255',
-        ]);
-
-        $products = Product::query()
-            ->when( isset ( $validated ['title'] ) && $validated ['title'] != null , function ($query) use ($validated) {
-                $query->where('title', 'like', '%' . $validated ['title'] . '%');
-            })
-            ->when( isset ( $validated ['sku'] ) && $validated ['sku'] != null , function ($query) use ($validated) {
-                $query->whereHas('variants', function ($query) use ($validated) {
-                    $query->where('sku', 'like', '%' . $validated ['sku'] . '%');
-                });
-            })
-            ->when( isset ( $validated ['category'] ) && $validated ['category'] != null , function ($query) use ($validated) {
-                $query->whereHas('category', function ($query) use ($validated) {
-                    $query->where('name', 'like', '%' . $validated ['category'] . '%');
-                });
-            })
-            ->when( isset ( $validated ['brand'] ) && $validated ['brand'] != null , function ($query) use ($validated) {
-                $query->whereHas('brand', function ($query) use ($validated) {
-                    $query->where('name', 'like', '%' . $validated ['brand'] . '%');
-                });
-            })
-            ->get();
-
-        $isResult = true;
-
-        return view('dashboard.products.search' , compact('products' , 'isResult'));
-    }
 }

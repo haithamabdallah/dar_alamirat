@@ -20,12 +20,35 @@ class BrandController extends Controller
     {
         $this->brandService = $brandService;
     }
+
+    public function search(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+        ]);
+
+        $brands = Brand::query()
+            ->when( isset ( $validated ['name'] ) && $validated ['name'] != null , function ($query) use ($validated) {
+                $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower( $validated ['name']) . '%']);
+            })
+            ->get();
+
+        $isNotPaginated = true;
+
+        return view('dashboard.brands.search' , compact('brands' , 'isNotPaginated'));
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $brands = $this->brandService->getAllData();
+        $brands = Brand::query()->latest()->paginate(20);
+        return view('dashboard.brands.search', compact('brands'));
+    }
+
+    public function all()
+    {
+        $brands = Brand::latest()->get();
         return view('dashboard.brands.index', compact('brands'));
     }
 

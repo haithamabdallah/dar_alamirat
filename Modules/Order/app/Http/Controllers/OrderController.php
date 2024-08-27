@@ -67,17 +67,50 @@ class OrderController extends Controller
             return redirect()->route('cart.index')->with('error', 'Failed to place order. Please try again.');
         }
     }
+
+    public function search(Request $request)
+    {
+        $validated = $request->validate([
+            'user_email' => 'nullable|string|max:255',
+            'order_number' => 'nullable|string|max:255',
+        ]);
+
+        $orders = Order::query()
+            ->when( isset ( $validated ['order_number'] ) && $validated ['order_number'] != null , function ($query) use ($validated) {
+                $query->where('order_number', 'like', '%' . $validated ['order_number'] . '%');
+            })
+            ->when( isset ( $validated ['user_email'] ) && $validated ['user_email'] != null , function ($query) use ($validated) {
+                $query->whereHas('user', function ($query) use ($validated) {
+                    $query->whereRaw('LOWER(email) LIKE ?', ['%' . strtolower( $validated ['user_email']) . '%']);
+                });
+            })
+            ->get();
+
+        $isNotPaginated = true;
+
+        $orderStatuses = OrderStatus::getAll();
+        $paymentStatuses = PaymentStatus::getAll();
+
+        return view('dashboard.orders.search',compact('orders' , 'paymentStatuses' , 'orderStatuses' , 'isNotPaginated'));
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         // $orders = Order::with(['products','user','shippingMethod'])->latest()->paginate(10);
-        $orders = Order::with(['products','user','shippingMethod'])->latest()->get();
+        $orders = Order::with(['products','user','shippingMethod'])->latest()->paginate(20);
         $orderStatuses = OrderStatus::getAll();
         $paymentStatuses = PaymentStatus::getAll();
 
+        return view('dashboard.orders.search',compact('orders' , 'paymentStatuses' , 'orderStatuses'));
+    }
 
+    public function all()
+    {
+        $orders = Order::with(['products','user','shippingMethod'])->latest()->get();
+        $orderStatuses = OrderStatus::getAll();
+        $paymentStatuses = PaymentStatus::getAll();
         return view('dashboard.orders.orders',compact('orders' , 'paymentStatuses' , 'orderStatuses'));
     }
 

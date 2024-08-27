@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-
     <!-- BEGIN #content -->
     <div id="content" class="app-content">
         <div class="d-flex align-items-center mb-3">
@@ -19,7 +18,6 @@
         </div>
 
         @include('dashboard.layouts.alerts')
-
 
         <div class="card border-0">
             <ul class="nav nav-tabs nav-tabs-v2 px-3">
@@ -53,48 +51,61 @@
                     <div class="row">
                         <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
                             <thead>
-                            <tr>
-                                <th></th>
-                                <th>Order</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Customer</th>
-                                <th>VAT</th>
-                                <th>Shipping Price</th>
-                                <th>Final Price</th>
-                                {{-- <th>Currency</th> --}}
-                                <th>Payment status</th>
-                                <th>Fulfillment status</th>
-                                {{-- <th>Delivery method</th> --}}
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Order</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Customer</th>
+                                    <th>VAT</th>
+                                    <th>Shipping Price</th>
+                                    <th>Final Price</th>
+                                    {{-- <th>Currency</th> --}}
+                                    <th>Payment status</th>
+                                    <th>Fulfillment status</th>
+                                    {{-- <th>Delivery method</th> --}}
+                                    <th class="text-nowrap" width="5%"> Show </th>
+                                </tr>
                             </thead>
                             <tbody>
-                                @forelse ($orders as $order )
+                                @forelse ($orders as $index => $order)
+                                    <tr>
+                                        <td class="w-10px align-middle">
+                                            <div class="form-check">
+                                                {{ $index + 1 }}
+                                            </div>
+                                        </td>
+                                        <td> <a href="{{ route('order.show', $order->id) }}">{{ $order->order_number }}</a>
+                                        </td>
+                                        <td>{{ $order->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $order->created_at->format('h:i A') }}</td>
+                                        <td>{{ $order->user->full_name }}</td>
+                                        <td>{{ $order->vat ?? '---' }}</td>
+                                        <td>{{ $order->shipping_price ?? '---' }} ( {{ $order->shippingMethod->name }} )
+                                        </td>
+                                        <td>{{ $order->final_price }} </td>
+                                        {{-- <td>{{ $currency }}</td> --}}
+                                        <td><span
+                                                class="badge border border-{{ $paymentStatuses[$order->payment_status]['color'] }} text-{{ $paymentStatuses[$order->payment_status]['color'] }} px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i
+                                                    class="fa fa-circle fs-9px fa-fw me-5px"></i>
+                                                {{ $paymentStatuses[$order->payment_status][app()->currentLocale()] ?? $order->payment_status }}
+                                            </span></td>
+                                        <td><span
+                                                class="badge border border-{{ $paymentStatuses[$order->payment_status]['color'] }} text-{{ $paymentStatuses[$order->payment_status]['color'] }} px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i
+                                                    class="fa fa-circle fs-9px fa-fw me-5px"></i>
+                                                {{ $orderStatuses[$order->status][app()->currentLocale()] ?? $order->status }}
+                                            </span></td>
 
-                            <tr>
-                                <td class="w-10px align-middle">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="product1">
-                                        <label class="form-check-label" for="product1"></label>
-                                    </div>
-                                </td>
-                                <td> <a href="{{ route('order.show', $order->id) }}">{{ $order->order_number }}</a></td>
-                                <td>{{ $order->created_at->format('Y-m-d') }}</td>
-                                <td>{{ $order->created_at->format('h:i A') }}</td>
-                                <td>{{ $order->user->full_name }}</td>
-                                <td>{{ $order->vat ?? '---'}}</td>
-                                <td>{{ $order->shipping_price  ?? '---' }} ( {{ $order->shippingMethod->name }} ) </td>
-                                <td>{{  $order->final_price }} </td>
-                                {{-- <td>{{ $currency }}</td> --}}
-                                <td><span class="badge border border-{{ $paymentStatuses[$order->payment_status]['color'] }} text-{{ $paymentStatuses[$order->payment_status]['color'] }} px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> {{ $paymentStatuses[$order->payment_status][app()->currentLocale()] ?? $order->payment_status }} </span></td>
-                                <td><span class="badge border border-{{ $paymentStatuses[$order->payment_status]['color'] }} text-{{ $paymentStatuses[$order->payment_status]['color'] }} px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center"><i class="fa fa-circle fs-9px fa-fw me-5px"></i> {{  $orderStatuses[$order->status][app()->currentLocale()] ?? $order->status }} </span></td>
-                                
-                                {{-- <td>{{ $order->shippingMethod->name }}</td> --}}
-                            </tr>
+                                        <td nowrap="">
+                                            <a href="{{  route('order.show', $order->id) }}" class="btn btn-sm btn-primary">
+                                                Show </a>
+                                        </td>
+                                        {{-- <td>{{ $order->shippingMethod->name }}</td> --}}
+                                    </tr>
 
-                            @empty
-                            <p>NO ORDERS YET</p>
-                            @endforelse
+                                @empty
+                                    <p>NO ORDERS YET</p>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -108,12 +119,9 @@
         </div>
     </div>
     <!-- END #content -->
-
 @endsection
 
-
 @section('scripts')
-
     <script>
         function searchOrderNumber() {
             // Declare variables
@@ -137,5 +145,4 @@
             }
         }
     </script>
-
 @endsection
