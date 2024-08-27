@@ -94,8 +94,8 @@
 
     
     document.addEventListener('DOMContentLoaded', function() {
-        enableSwitcheryFunctionality();
         enableSwitchery();
+        enableSwitcheryFunctionality();
 
         $('select[name="data-table-keytable_length"]').each(function() {
             $(this).on('change', function() {
@@ -116,6 +116,11 @@
                 enableSwitchery();
                 enableSwitcheryFunctionality();
             })
+        })
+
+        $('table').on('click', function(event) {
+            enableSwitchery();
+            enableSwitcheryFunctionality();
         })
     });
 
@@ -153,29 +158,56 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var deleteButtons = document.querySelectorAll('.delete-btn');
 
-        deleteButtons.forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                var categoryId = this.getAttribute('data-id');
+        function deleteBtnFunction(){
+            var deleteButtons = document.querySelectorAll('.delete-btn');
 
-                // Use SweetAlert for confirmation
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('deleteForm' + categoryId).submit();
-                    }
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var categoryId = this.getAttribute('data-id');
+
+                    // Use SweetAlert for confirmation
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('deleteForm' + categoryId).submit();
+                        }
+                    });
                 });
             });
-        });
+        }
+
+        deleteBtnFunction();
+
+        $('select[name="data-table-keytable_length"]').each(function() {
+            $(this).on('change', function() {
+                deleteBtnFunction();
+            })
+        })
+
+        $('.paginate_button,.page-link').each(function() {
+            $(this).on('click', function() {
+                deleteBtnFunction();
+            })
+        })
+
+        $('input[type="search"][class="form-control form-control-sm"]').each(function() {
+            $(this).on('keyup', function() {
+                deleteBtnFunction();
+            })
+        })
+
+        $('table').on('click', function(event) {
+            deleteBtnFunction();
+        })
     });
 </script>
 

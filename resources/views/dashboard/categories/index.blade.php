@@ -103,18 +103,14 @@
                                     <td>{{$category->products_count}}</td>
                                     <td>{{$category->created_at->format('Y-m-d')}}</td>
                                     <td nowrap="">
-                                        @adminCan('categories.edit')
                                         <a href="{{route('category.edit' , $category->id)}}" class="btn btn-sm btn-primary"> <i class="fa-regular fa-pen-to-square"></i> {{__('dashboard.category.edit')}}</a>
-                                        @endadminCan
                                     </td>
                                     <td nowrap="">
-                                        @adminCan('categories.delete')
                                         <form id="deleteForm{{$category->id}}" action="{{ route('category.destroy', $category->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <a class="btn delete-btn btn-danger" data-id="{{$category->id}}"><i class="fa-solid fa-trash-can"></i> {{__('dashboard.category.delete')}}</a>
                                         </form>
-                                        @endadminCan
                                     </td>
                                 </tr>
                             @endforeach
