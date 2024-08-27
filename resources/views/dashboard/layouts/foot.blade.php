@@ -97,31 +97,10 @@
         enableSwitchery();
         enableSwitcheryFunctionality();
 
-        $('select[name="data-table-keytable_length"]').each(function() {
-            $(this).on('change', function() {
-                enableSwitchery();
-                enableSwitcheryFunctionality();
-            })
-        })
-
-        $('.paginate_button,.page-link').each(function() {
-            $(this).on('click', function() {
-                enableSwitchery();
-                enableSwitcheryFunctionality();
-            })
-        })
-
-        $('input[type="search"][class="form-control form-control-sm"]').each(function() {
-            $(this).on('keyup', function() {
-                enableSwitchery();
-                enableSwitcheryFunctionality();
-            })
-        })
-
-        $('table').on('click', function(event) {
+        $('#data-table-keytable').on('draw.dt', function() {
             enableSwitchery();
             enableSwitcheryFunctionality();
-        })
+        });
     });
 
 
@@ -187,64 +166,11 @@
 
         deleteBtnFunction();
 
-        $('select[name="data-table-keytable_length"]').each(function() {
-            $(this).on('change', function() {
-                deleteBtnFunction();
-            })
-        })
-
-        $('.paginate_button,.page-link').each(function() {
-            $(this).on('click', function() {
-                deleteBtnFunction();
-            })
-        })
-
-        $('input[type="search"][class="form-control form-control-sm"]').each(function() {
-            $(this).on('keyup', function() {
-                deleteBtnFunction();
-            })
-        })
-
-        $('table').on('click', function(event) {
+        $('#data-table-keytable').on('draw.dt', function() {
+            // console.log('Table content changed.');
             deleteBtnFunction();
-        })
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Select all checkboxes with the class 'switch-status'
-        const statusSwitches = document.querySelectorAll('.switch-status');
-
-        statusSwitches.forEach(function(switchElem) {
-            switchElem.addEventListener('change', function() {
-                const isChecked = this.checked;
-                const url = this.getAttribute('data-url'); // Get the URL from data attribute
-
-                axios.post(url, {
-                    status: isChecked
-                })
-                    .then(function(response) {
-                        // Display a SweetAlert message with the response
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.data.message,
-                            icon: 'success',
-                            confirmButtonText: 'Ok'
-                        });
-                    })
-                    .catch(function(error) {
-                        // Display an error message if something went wrong
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Unable to update status.',
-                            icon: 'error',
-                            confirmButtonText: 'Ok'
-                        });
-                    });
-            });
         });
     });
-
 </script>
+
 @yield('scripts')
