@@ -145,7 +145,10 @@
             <!-- ./item -->
 
             <!-- item -->
-            <div class="menu-item has-sub {{ activeLink('category') }}">
+            @php
+                $active = request()->routeIs('category.index') || request()->routeIs('banner.index') || request()->routeIs('index.priority') ? 'active' : '';
+            @endphp
+            <div class="menu-item has-sub {{ $active }}">
                 <a href="javascript:;" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-users"></i>
@@ -154,17 +157,17 @@
                     <div class="menu-caret"></div>
                 </a>
                 <div class="menu-submenu">
-                    <div class="menu-item {{ activeLink('admin') }}">
+                    <div class="menu-item {{ request()->routeIs('category.index') ? 'active' : '' }}">
                         <a href="{{ route('category.index') }}" class="menu-link">
                             <div class="menu-text">{{ __('dashboard.categories') }}</div>
                         </a>
                     </div>
-                    <div class="menu-item {{ activeLink('admin') }}">
+                    <div class="menu-item {{ request()->routeIs('banner.index') ? 'active' : '' }}">
                         <a href="{{ route('banner.index') }}" class="menu-link">
                             <div class="menu-text">{{ __('dashboard.banners') }}</div>
                         </a>
                     </div>
-                    <div class="menu-item {{ activeLink('admin') }}">
+                    <div class="menu-item {{ request()->routeIs('index.priority') ? 'active' : '' }}">
                         <a href="{{ route('index.priority') }}" class="menu-link">
                             <div class="menu-text">{{ __('dashboard.index-priority') }}</div>
                         </a>
@@ -229,7 +232,7 @@
             <!-- ./item -->
 
             <!-- item -->
-            <div class="menu-item {{ activeLink('coupons') }}">
+            <div class="menu-item {{ request()->routeIs('dashboard.coupons.index') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.coupons.index') }}" class="menu-link">
                     <div class="menu-icon">
                         <i class="fa-solid fa-sitemap"></i>
