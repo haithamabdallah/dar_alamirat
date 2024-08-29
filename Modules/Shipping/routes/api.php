@@ -14,6 +14,6 @@ use Modules\Shipping\Http\Controllers\ShippingController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('shipping', ShippingController::class)->names('shipping');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('shipping', ShippingController::class)->names('shipping');
+// });

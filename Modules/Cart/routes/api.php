@@ -14,6 +14,6 @@ use Modules\Cart\Http\Controllers\CartController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('cart', CartController::class)->names('cart');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('cart', CartController::class)->names('cart');
+// });

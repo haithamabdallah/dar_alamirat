@@ -14,6 +14,6 @@ use Modules\Favorite\Http\Controllers\FavoriteController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('favorite', FavoriteController::class)->names('favorite');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('favorite', FavoriteController::class)->names('favorite');
+// });

@@ -14,6 +14,6 @@ use Modules\Settings\Http\Controllers\SettingsController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('settings', SettingsController::class)->names('settings');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('settings', SettingsController::class)->names('settings');
+// });
