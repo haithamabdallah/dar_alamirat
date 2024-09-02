@@ -63,18 +63,30 @@ class AdminRolesSeeder extends Seeder
             'system'    => 1,
         ]);
 
-        Admin::where('userName', 'admin')->update(['password' => bcrypt('Cvbw-Awer-Jkil-2843')]);
-        Admin::where('userName', 'ali')->update(['password' => bcrypt('Zxc-Asd-Qwe-123')]);
-        Admin::where('userName', 'hiba')->update(['password' => bcrypt('Vbn-Ghj-Yui-678')]);
-        Admin::where('userName', 'sofyan')->update(['password' => bcrypt('Mlp-Nko-Bji-764')]);
-        Admin::where('userName', 'hana')->update(['password' => bcrypt('Ftg-Cgv-Jik-891')]);
-
-        // Modules\Admin\app\Models\Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Mla-Nao-Bqi-789')]);
-
+        $admin6 = Admin::updateOrCreate([
+            // 'id'        => 6,
+            'userName'  => 'super',
+            'name'      => 'Super',
+            'email'     => 'super@daaralamirat.com',
+            'phone'     => '+201234567891',
+            'password'  => '123456789',
+            'system'    => 1,
+        ]);
+        
         $admin->assignRole('admin');
         $admin2->assignRole('admin');
         $admin3->assignRole('admin');
         $admin4->assignRole('admin');
         $admin5->assignRole('admin');
+        $admin6->assignRole('admin');
+        
+        /* Modules\Admin\app\Models\ */
+        Admin::where('userName', 'admin')->update(['password' => bcrypt('Cvbw-Awer-Jkil-2843')]);
+        Admin::where('userName', 'ali')->update(['password' => bcrypt('Zxc-Asd-Qwe-123')]);
+        Admin::where('userName', 'hiba')->update(['password' => bcrypt('Vbn-Ghj-Yui-678')]);
+        // Admin::where('userName', 'sofyan')->update(['password' => bcrypt('Mlp-Nko-Bji-764')]);
+        Admin::where('userName', 'hana')->update(['password' => bcrypt('Ftg-Cgv-Jik-891')]);
+        Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Mla-Nao-Bqi-789')]);
+        Admin::where('userName' , 'super')->update(['password' => bcrypt('Afg-Fdr-Qrt-582')]);
     }
 }

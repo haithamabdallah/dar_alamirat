@@ -11,14 +11,20 @@ class AdminStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name'      => 'required|string',
-            'userName'  => 'required|string|unique:admins,userName',
+        $rules = [
+            'name'      => 'required|string|unique:admins,name',
             'email'     => 'required|email|unique:admins,email',
-            'image'     => 'required|image|max:4048', // 4MB Max
-            'phone'     => 'nullable|max:11',
-            'password'  => 'required|min:6|max:30'
+            'userName'  => 'required|string|unique:admins,userName',
+            'password'  => 'nullable|min:6|max:30',
+//            'image'     => 'required|image|max:4048', // 4MB Max
+            'phone'     => 'nullable',
         ];
+
+        if ( $this->hasFile('image') ) {
+            $rules['image'] = 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:4048';
+        }
+
+        return $rules;
     }
 
     /**

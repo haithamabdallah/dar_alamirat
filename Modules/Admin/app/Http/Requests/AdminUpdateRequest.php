@@ -11,14 +11,21 @@ class AdminUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name'      => 'required|string',
+
+        $rules = [
+            'name'      => 'required|string|unique:admins,name,'.$this->admin->id,
             'email'     => 'required|email|unique:admins,email,'.$this->admin->id,
             'userName'  => 'required|string|unique:admins,userName,'.$this->admin->id,
             'password'  => 'nullable|min:6|max:30',
 //            'image'     => 'required|image|max:4048', // 4MB Max
-            'phone'     => 'nullable|max:11',
+            'phone'     => 'nullable',
         ];
+
+        if ( $this->hasFile('image') ) {
+            $rules['image'] = 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:4048';
+        }
+
+        return $rules;
     }
 
     /**
