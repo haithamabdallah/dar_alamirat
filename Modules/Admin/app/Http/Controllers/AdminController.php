@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            abort_unless( auth('admin')->user()->name == 'super', 403 , 'You are not allowed to access this page');
+            abort_unless( auth('admin')->user()->nameName == 'super', 403 , 'You are not allowed to access this page');
             return $next($request);
         });
     }
