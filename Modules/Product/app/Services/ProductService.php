@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\Variant;
 use Modules\Product\Models\Inventory;
+use Modules\Brand\Models\Brand;
+use Illuminate\Support\Facades\DB;
+use Modules\Category\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService {
 
@@ -66,6 +70,167 @@ class ProductService {
         }
 
         return  $product;
+    }
+    
+    public function importDataFromExcelFile( $array )
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $groupedProducts = collect($array)->groupBy('1');
+
+            $savedVariants = 0;
+
+            $mappedGroupedProducts = $groupedProducts->map(function ($productGroup, $productName) {
+
+                $newGroupedProducts = [];
+
+                # rename product keys
+
+                $mappedProductGroup = collect($productGroup)->map(function ($product, $index) {
+
+                    $newProduct = [];
+
+                    $newProduct['category']['name']['ar']  = $product[9] ?? '';
+                    $newProduct['category']['name']['en']  = $product[10] ?? '';
+
+                    $newProduct['brand']['name']['ar']  = $product[11] ?? '';
+                    $newProduct['brand']['name']['en']  = $product[12] ?? '';
+
+                    $newProduct['product']['title']['ar']  = $product[0] ?? '';
+                    $newProduct['product']['title']['en']  = $product[1] ?? '';
+                    $newProduct['product']['description']['ar']  = $product[2] ?? '';
+                    $newProduct['product']['description']['en']  = $product[3] ?? '';
+                    $newProduct['product']['instructions']['ar']  = $product[4] ?? '';
+                    $newProduct['product']['instructions']['en']  = $product[5] ?? '';
+                    $newProduct['product']['discount_type']  = $product[13];
+                    $newProduct['product']['discount_value']  = $product[14];
+                    $newProduct['product']['is_returnable']  = $product[15] == 'true' ? 1 : 0;
+                    $newProduct['product']['slug'] = Str::slug($newProduct['product']['title']['en']);
+
+                    $newProduct['product']['thumbnail']  = $product[6];
+
+                    $newProduct['variant']['color']  = $product[16];
+                    $newProduct['variant']['size']  = $product[17];
+                    $newProduct['variant']['sku']  = $product[18];
+                    $newProduct['variant']['quantity']  = $product[19];
+                    $newProduct['variant']['price']  = $product[20];
+
+                    $newProduct['images']['product'] = [$product[7], $product[8]];
+                    $newProduct['images']['variant']  = [$product[21], $product[22]];
+
+                    return $newProduct;
+                });
+
+                return $mappedProductGroup;
+            });
+
+            // dd($mappedGroupedProducts->toArray());
+
+            # handling product info
+
+            foreach ($mappedGroupedProducts as $productName => $productGroup) {
+
+                $product = $productGroup->first();
+                # check for category
+
+                $category = Category::when($product['category']['name']['en'] == true, function ($query) use ($product) {
+                    $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($product['category']['name']['en']) . '%']);
+                })
+                    ->when($product['category']['name']['ar'] == true, function ($query) use ($product) {
+                        $query->orWhereRaw('LOWER(name) LIKE ?', ['%' . strtolower($product['category']['name']['ar']) . '%']);
+                    })
+                    ->first();
+
+                if (!$category) {
+
+                    $categoryData = [
+                        'name' => $product['category']['name'],
+                        'slug' => Str::slug($product['category']['name']['en']),
+                    ];
+
+                    $category = Category::create($categoryData);
+                }
+
+                $product['product']['category_id'] = $category->id;
+
+                # check for brand
+
+                $brand = Brand::when($product['brand']['name']['en'] == true, function ($query) use ($product) {
+                    $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($product['brand']['name']['en']) . '%']);
+                })
+                    ->when($product['brand']['name']['ar'] == true, function ($query) use ($product) {
+                        $query->orWhereRaw('LOWER(name) LIKE ?', ['%' . strtolower($product['brand']['name']['ar']) . '%']);
+                    })
+                    ->first();
+
+                if (!$brand) {
+                    $brandData = [
+                        'name' => $product['brand']['name'],
+                    ];
+
+                    $brand = Brand::create($brandData);
+                }
+
+                $product['product']['brand_id'] = $brand->id;
+
+                $newStoredProduct = Product::create($product['product']);
+
+                // handling thumbnail
+                $imageContents = file_get_contents($product['product']['thumbnail']);
+                $imageName = date('Y-m-d-H-i-s') . '-' .  rand(1000, 999999)  . '.'  . pathinfo($product['product']['thumbnail'], PATHINFO_EXTENSION);
+                $path = "products/{$newStoredProduct->id}/thumbnail/{$imageName}";
+                Storage::disk('public')->put($path, $imageContents);
+
+                $newStoredProduct->thumbnail = $path;
+                $newStoredProduct->save();
+
+                // handling images
+                foreach ($product['images']['product'] as $index => $imageUrl) {
+                    if ($imageUrl == false) {
+                        continue;
+                    }
+                    $imageContents = file_get_contents($imageUrl);
+                    $imageName = date('Y-m-d-H-i-s') . '-' .  rand(1000, 999999)  . '.'  . pathinfo($imageUrl, PATHINFO_EXTENSION);
+                    $path = "products/{$newStoredProduct->id}/images/{$imageName}";
+                    Storage::disk('public')->put($path, $imageContents);
+                    $newStoredProduct->media()->create(['file' => $path]);
+                }
+
+                # handling variant info
+
+                foreach ($productGroup as $index => $variant) {
+                    $variant['variant']['product_id'] = $newStoredProduct->id;
+                    $newStoredVariant = Variant::create(collect($variant['variant'])->except('quantity')->toArray());
+
+                    $savedVariants++;
+                    // handling quantity
+                    Inventory::create([
+                        'product_id' => $newStoredVariant->product_id,
+                        'variant_id' => $newStoredVariant->id,
+                        'quantity' => $variant['variant']['quantity'],
+                    ]);
+
+                    // handling images
+                    foreach ($variant['images']['variant'] as $index => $imageUrl) {
+                        if ($imageUrl == false) {
+                            continue;
+                        }
+                        $imageContents = file_get_contents($imageUrl);
+                        $imageName = date('Y-m-d-H-i-s') . '-' .  rand(1000, 999999)  . '.'  . pathinfo($imageUrl, PATHINFO_EXTENSION);
+                        $path = "products/{$newStoredProduct->id}/variants/{$newStoredVariant->id}/{$imageName}";
+                        Storage::disk('public')->put($path, $imageContents);
+                        $newStoredVariant->images()->create(['image' => $path]);
+                    }
+                }
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd( $e->getMessage() );
+        }
+        return $savedVariants;
     }
 
     private function generateSKU($variantData, $productId)

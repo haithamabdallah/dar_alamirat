@@ -19,8 +19,15 @@
             <div class="ms-auto d-flex" style="gap:10px">
                 <a href="{{ route('dashboard.product.all') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
                         class="fa fa-book fa-lg me-2 ms-n2 text-success-900"></i> Show All Products</a>
+                <form action="{{ route('product.export-excel.post') }}" method="POST" >
+                    @csrf
+                    <button href="{{ route('product.export-excel.post') }}" class="btn btn-primary btn-rounded px-4 rounded-pill"><i
+                        class="fa fa-book fa-lg me-2 ms-n2 text-success-900"></i> Export Products As Excel </button>
+                </form>
+                <a href="{{ route('product.import-excel.get') }}" class="btn btn-primary btn-rounded px-4 rounded-pill"><i
+                        class="fa fa-book fa-lg me-2 ms-n2 text-success-900"></i> Import Products From Excel File </a>
                 <a href="{{ route('product.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
-                        class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Add Product</a>
+                        class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Add Product </a>
             </div>
         </div>
 

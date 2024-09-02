@@ -16,17 +16,17 @@ use Modules\Product\Http\Controllers\ProductController;
 */
 
 Route::group(['middleware' => 'admin'], function () {
-    
     Route::get('/main-images/{productMedia}' , [ImageController::class , 'deleteProductImage'])->name('product-images.delete');
     Route::get('/variant-images/{variantImage}' , [ImageController::class , 'deleteVariantImage'])->name('variant-images.delete');
-
 });
 
 Route::group(['middleware' => 'admin'], function () {
-    
-    Route::resource('product', ProductController::class)->names('product');
+    Route::get('product/import-excel', [ProductController::class , 'importProductsFromExcelFileGet'])->name('product.import-excel.get');
+    Route::post('product/import-excel/post', [ProductController::class , 'importProductsFromExcelFilePost'])->name('product.import-excel.post');
+    Route::post('product/export-excel/post', [ProductController::class , 'exportProductsAsExcel'])->name('product.export-excel.post');
     Route::post('toggle-returnable', [ProductController::class , 'toggleReturnable'])->name('product.toggle-returnable');
     Route::post('toggleChoice', [ProductController::class , 'toggleChoice'])->name('product.toggleChoice');
+    Route::resource('product', ProductController::class)->names('product');
 });
 
 Route::group(['middleware' => 'admin' , 'as' => 'dashboard.' , 'prefix' => 'dashboard'], function () {

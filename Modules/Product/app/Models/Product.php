@@ -152,10 +152,13 @@ class Product extends Model
 
     public function delete()
     {
-        if ($this->thumbnail && Storage::exists($this->thumbnail)) 
+        $thumbnail = $this->getAttributes()['thumbnail'];
+
+        if (  $thumbnail  && Storage::exists( $thumbnail )) 
         {
-            Storage::delete($this->thumbnail);
+            Storage::delete( $thumbnail );
         }
+        
         parent::delete();
     }
 }
