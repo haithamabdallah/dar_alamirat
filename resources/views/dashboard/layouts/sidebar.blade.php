@@ -59,7 +59,7 @@
             <!-- ./item -->
 
             <!-- item -->
-            @if ( auth('admin')->user()->name == 'super' )
+            @if ( auth('admin')->user()->userName == 'super' )
                 <div class="menu-item has-sub {{ activeLink('roles') }} {{ activeLink('admin') }}">
                     <a href="javascript:;" class="menu-link">
                         <div class="menu-icon">
