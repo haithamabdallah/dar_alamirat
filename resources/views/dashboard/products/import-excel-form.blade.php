@@ -22,6 +22,11 @@
                 <div class="col-lg-12">
                     <div class="card border-0 mb-4">
                         <div class="card-body row">
+                            <div class="text-center mt-4 col-12">
+                                <a href="{{ route('product.export-excel-template') }}" class="btn btn-primary">
+                                    <span class="indicator-label"> Download The Template That Must Be Used  </span>
+                                </a>
+                            </div>
                             <label class="form-label p-2"> Upload Excel File ( *.xlsx ) : </label>
                             <input class="form-control" name="excel" type="file" id="formFile" accept=".xlsx" />
                             <p class="text-danger  my-2"> To avoid errors => all fields in excel must be filled except (

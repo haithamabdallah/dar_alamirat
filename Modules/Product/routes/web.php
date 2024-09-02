@@ -24,6 +24,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('product/import-excel', [ProductController::class , 'importProductsFromExcelFileGet'])->name('product.import-excel.get');
     Route::post('product/import-excel/post', [ProductController::class , 'importProductsFromExcelFilePost'])->name('product.import-excel.post');
     Route::post('product/export-excel/post', [ProductController::class , 'exportProductsAsExcel'])->name('product.export-excel.post');
+    Route::get('product/export-excel-template', [ProductController::class , 'DownloadExcelTemplate'])->name('product.export-excel-template');
     Route::post('toggle-returnable', [ProductController::class , 'toggleReturnable'])->name('product.toggle-returnable');
     Route::post('toggleChoice', [ProductController::class , 'toggleChoice'])->name('product.toggleChoice');
     Route::resource('product', ProductController::class)->names('product');

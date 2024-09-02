@@ -169,6 +169,11 @@ class ProductController extends Controller
     {
         return Excel::download(new ProductsExport, 'products.xlsx');
     }
+    
+    public function DownloadExcelTemplate()
+    {
+        return response()->download(public_path('assets/others/product-excel-template.xlsx'));
+    }
 
     /**
      * Show the specified resource.
