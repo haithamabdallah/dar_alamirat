@@ -124,6 +124,12 @@ Route::get('/subscriber/{subscriber}/unsubscribe/{token}', [SubscriberController
 
 Route::middleware('auth:admin')->group(function () {
 
+    Route::post('dashboard/change-dark-mode', function () {
+        if ( !session()->has('darkMode') ) 
+                { return session()->put('darkMode', true); } 
+        else    { return session()->forget('darkMode'); }
+    })->name('dashboard.change-dark-mode');
+
     Route::prefix('settings')->group(function () {
         Route::post('site-info-store', [SettingsController::class, 'siteInfo'])->name('site');
         Route::post('social-store', [SettingsController::class, 'saveSocialMedia'])->name('social');

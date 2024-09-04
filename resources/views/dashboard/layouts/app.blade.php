@@ -15,7 +15,7 @@
 @include('dashboard.layouts.head')
 
 
-<body class="dark-mode">
+<body class="{{  session()->has('darkMode') && session('darkMode') == true ? 'dark-mode' : ''}}">
 
     <!-- BEGIN #loader -->
     <div id="loader" class="app-loader">

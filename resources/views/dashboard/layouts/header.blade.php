@@ -93,6 +93,13 @@
 
     <!-- Notifications -->
 
+    <div class="p-2 rounded d-flex flex-row align-items-center justify-content-between">
+        <i class="fas fa-sun fa-lg "></i>
+        <div class="" style="transform: scale( 0.7 )">
+            <input type="checkbox" id="switchery-default-1"   value="1" {{ session()->has('darkMode')  && session()->get('darkMode') == true ? 'checked' : '' }} />
+        </div>
+        <i class="fas fa-moon fa-lg "></i>
+    </div>
 
         <div class="navbar-item navbar-user dropdown">
             <a href="#" class="navbar-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">

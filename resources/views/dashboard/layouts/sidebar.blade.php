@@ -1,6 +1,6 @@
 <!-- BEGIN #
     idebar -->
-<div id="sidebar" class="app-sidebar">
+<div id="sidebar" class="app-sidebar {{  session()->has('darkMode') && session('darkMode') == true ? '' : 'bg-white '}}">
     <!-- BEGIN scrollbar -->
     <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
         <!-- BEGIN menu -->

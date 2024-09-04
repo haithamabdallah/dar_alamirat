@@ -173,4 +173,23 @@
     });
 </script>
 
+<script src="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.js') }}"></script>
+
+<!-- script -->
+<script>
+    var elm = document.getElementById('switchery-default-1');
+    var switchery = new Switchery(elm, {
+      color: '#00acac'
+    });
+
+    $('#switchery-default-1').on('change', function() {
+        axios.post('/dashboard/change-dark-mode', )
+        .then(function(response) {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        })
+    })
+</script>
+
 @yield('scripts')
