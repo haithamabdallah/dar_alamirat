@@ -34,8 +34,11 @@
             .menu-item * , .menu-item * * , .menu-header { 
                 color: #000000 !important;
             }
-
-            .active.menu-item * , .active.menu-item * * , .app-sidebar-minify-btn * { 
+            
+            .active.menu-item *,
+            .active.menu-item * *,
+            .app-sidebar-minify-btn *,
+            .app-sidebar-float-submenu * {
                 color: #fff !important;
             }
 
