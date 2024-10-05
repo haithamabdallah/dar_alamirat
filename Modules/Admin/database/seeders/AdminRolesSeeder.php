@@ -84,10 +84,10 @@ class AdminRolesSeeder extends Seeder
         Admin::where('userName', 'admin')->update(['password' => bcrypt('Cvbw-Awer-Jkil-2843')]);
         Admin::where('userName', 'ali')->update(['password' => bcrypt('Zxc-Asd-Qwe-123')]);
         Admin::where('userName', 'hiba')->update(['password' => bcrypt('Vbn-Ghj-Yui-678')]);
-        // Admin::where('userName', 'sofyan')->update(['password' => bcrypt('Mlp-Nko-Bji-764')]);
         Admin::where('userName', 'hana')->update(['password' => bcrypt('Ftg-Cgv-Jik-891')]);
+        // Admin::where('userName', 'sofyan')->update(['password' => bcrypt('Mlp-Nko-Bji-764')]);
         // Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Mla-Nao-Bqi-789')]);
-        \Modules\Admin\app\Models\Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Mlp-Nko-Bji-764')]); // updated 05/10/2024
+        \Modules\Admin\app\Models\Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Gfb-Nrt-Bqe-562')]); // updated 05/10/2024
         Admin::where('userName' , 'super')->update(['password' => bcrypt('Afg-Fdr-Qrt-582')]);
     }
 }
