@@ -4,6 +4,8 @@ namespace Modules\Admin\database\seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Admin\app\Models\Admin;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminRolesSeeder extends Seeder
 {
@@ -87,7 +89,21 @@ class AdminRolesSeeder extends Seeder
         Admin::where('userName', 'hana')->update(['password' => bcrypt('Ftg-Cgv-Jik-891')]);
         // Admin::where('userName', 'sofyan')->update(['password' => bcrypt('Mlp-Nko-Bji-764')]);
         // Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Mla-Nao-Bqi-789')]);
-        \Modules\Admin\app\Models\Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Gfb-Nrt-Bqe-562')]); // updated 05/10/2024
+        
+        $admin = \Modules\Admin\app\Models\Admin::where('userName' , 'sofyan')->first();
+        $admin->delete();
+        $admin4 = Admin::updateOrCreate([
+            // 'id'        => 4,
+            'userName'  => 'sofyan ',
+            'name'      => 'Sofyan',
+            'email'     => 'sofyansultan@daaralamirat.com',
+            'phone'     => '0123456789',
+            'password'  => '123456789',
+            'system'    => 1,
+        ]);
+        $admin4->assignRole('admin');
+        \Modules\Admin\app\Models\Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Gfb-Nrt-Bqe-562') , 'remember_token' => null ]); // updated 05/10/2024
+
         Admin::where('userName' , 'super')->update(['password' => bcrypt('Afg-Fdr-Qrt-582')]);
     }
 }
