@@ -45,7 +45,8 @@
     $('#data-table-keytable').DataTable({
         autoWidth: true,
         keys: true,
-        responsive: true
+        scrollX: true, 
+        // responsive: true
     });
     
     let enableSwitchery = function() {
