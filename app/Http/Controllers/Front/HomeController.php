@@ -20,6 +20,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->productService = new ProductService();
+        
     }
 
     public function changeLanguage($locale)

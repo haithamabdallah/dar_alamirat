@@ -19,12 +19,13 @@ class BannerController extends Controller
     protected $bannerService;
 
     public function __construct(
-        BannerService $bannerService ,
+        BannerService $bannerService,
         public CategoryService $categoryService,
         public BrandService $brandService
-    )
-    {
+    ) {
         $this->bannerService = $bannerService;
+
+        $this->middleware('checkPermissions:Banners')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     }
 
     /**
@@ -44,7 +45,7 @@ class BannerController extends Controller
     {
         $brands = $this->brandService->getAllBrandsForSelectElement();
         $categories = $this->categoryService->getAllCategoriesForSelectElement();
-        return view('dashboard.categories.banner_form' , new BannerViewModel( null , $categories ,  $brands ));
+        return view('dashboard.categories.banner_form', new BannerViewModel(null, $categories,  $brands));
     }
 
     /**
@@ -56,9 +57,9 @@ class BannerController extends Controller
 
         $banner = $this->bannerService->storeData($validatedData);
 
-        if ($banner){
+        if ($banner) {
             Session()->flash('success', 'Banner Created Successfully');
-        }else{
+        } else {
             Session()->flash('error', 'Banner didn\'t Created');
         }
 
@@ -74,7 +75,7 @@ class BannerController extends Controller
         // $brands = $this->brandService->getAllBrandsForSelectElement();
         // $categories = $this->categoryService->getAllCategoriesForSelectElement();
         // return view('dashboard.categories.banner_form' , new BannerViewModel($banner , $categories ,  $brands ));
-        return view('dashboard.categories.banner_form' , [ 'method' => 'PUT' , 'action' => route('banner.update' , $banner->id) , 'banner' => $banner ]);
+        return view('dashboard.categories.banner_form', ['method' => 'PUT', 'action' => route('banner.update', $banner->id), 'banner' => $banner]);
     }
 
     /**
@@ -112,7 +113,7 @@ class BannerController extends Controller
         return redirect()->back();
     }
 
-    public function changeStatus(Request $request,Banner $banner)
+    public function changeStatus(Request $request, Banner $banner)
     {
         $banner->category()->update(['status' => $request->status]);
         return response()->json(['message' => 'Status Changed Successfully'], 200);

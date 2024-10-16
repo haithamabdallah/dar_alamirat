@@ -45,25 +45,30 @@
                     <!-- BEGIN panel-body -->
                     <div class="panel-body">
                         <a href="{{route('roles.create')}}" class="btn btn-primary btn-lg m-2" > {{__('dashboard.role.add')}}</a>
-                        <table id="data-table-combine" class="table table-striped table-bordered align-middle">
+                        <table id="" class="table table-striped table-bordered align-middle text-center">
                             <thead class="text-center">
                                 <tr>
                                     <th width="1%">#</th>
-                                    <th width="1%">{{__('dashboard.role.name')}}</th>
-                                    <th class="text-nowrap">{{__('dashboard.role.guard_name')}}</th>
-                                    <th class="text-nowrap">{{__('dashboard.created_at')}}</th>
-                                    <th class="text-nowrap">{{__('dashboard.action')}}</th>
+                                    <th width="10%"> Name </th>
+                                    <th width="10%"> Permissions </th>
+                                    <th width="10%"> Created At</th>
+                                    <th width="10%"> Edit </th>
+                                    {{-- <th class="10%"> Actions </th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($roles as $role)
-                                    <tr class="odd gradeX">
-                                        <td width="1%" class="fw-bold text-dark">1</td>
-                                        <td>{{strtoupper($role->name)}}</td>
-                                        <td>{{$role->guard_name}}</td>
+                                    <tr class="">
+                                        <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
+                                        <td>{{$role->name}}</td>
+                                        <td>{{ implode(', ', $role->Permissions->pluck('name')->toArray() ) }}</td>
                                         <td>{{$role->created_at->format('Y-m-d')}}</td>
-                                        <td class="text-center">
-
+                                        <td>
+                                            <a href="{{route('roles.edit' , $role->id)}}" class="btn btn-sm btn-primary">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                                Edit </a>
+                                        </td>
+                                        {{-- <td class="text-center">
                                             <div class="btn-group me-1 mb-1">
                                                 <a href="javascript:;" class="btn btn-default">{{__('dashboard.action')}}</a>
                                                 <a href="#" data-bs-toggle="dropdown" class="btn btn-default dropdown-toggle"><i class="fa fa-caret-down"></i></a>
@@ -77,7 +82,7 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

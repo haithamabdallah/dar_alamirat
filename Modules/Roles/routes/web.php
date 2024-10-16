@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Roles\Http\Controllers\RolesController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,6 @@ use Modules\Roles\Http\Controllers\RolesController;
 |
 */
 
-// Route::group(['middleware' => 'admin'], function () {
-//     Route::resource('roles', RolesController::class)->names('roles');
-// });
+Route::group(['middleware' => 'admin'], function () {
+    Route::resource('roles', RoleController::class)->names('roles');
+});

@@ -19,6 +19,7 @@ class BrandController extends Controller
     public function __construct(BrandService $brandService)
     {
         $this->brandService = $brandService;
+        $this->middleware('checkPermissions:Brands')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     }
 
     public function search(Request $request)
@@ -28,15 +29,15 @@ class BrandController extends Controller
         ]);
 
         $brands = Brand::withCount('products')
-            ->when( isset ( $validated ['name'] ) && $validated ['name'] != null , function ($query) use ($validated) {
-                $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower( $validated ['name']) . '%']);
+            ->when(isset($validated['name']) && $validated['name'] != null, function ($query) use ($validated) {
+                $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($validated['name']) . '%']);
             })
             ->get();
 
         $isNotPaginated = true;
         // $brands->loadCount('products');
 
-        return view('dashboard.brands.search' , compact('brands' , 'isNotPaginated'));
+        return view('dashboard.brands.search', compact('brands', 'isNotPaginated'));
     }
     /**
      * Display a listing of the resource.
@@ -59,7 +60,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('dashboard.brands.form' , new BrandViewModel());
+        return view('dashboard.brands.form', new BrandViewModel());
     }
 
     /**
@@ -74,12 +75,11 @@ class BrandController extends Controller
             $validatedData['image'] = $path;
         }
 
-        $brand =$this->brandService->storeData($validatedData);
-        if ($brand){
+        $brand = $this->brandService->storeData($validatedData);
+        if ($brand) {
             Session()->flash('success', 'Brand Created Successfully');
-        }else{
+        } else {
             Session()->flash('error', 'Brand didn\'t Created');
-
         }
 
         return redirect()->route('brand.index');
@@ -98,7 +98,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        return view('dashboard.brands.form' , new BrandViewModel($brand));
+        return view('dashboard.brands.form', new BrandViewModel($brand));
     }
 
     /**
@@ -117,12 +117,11 @@ class BrandController extends Controller
             $validatedData['image'] = $path;
         }
 
-        $brand =$this->brandService->updateData($validatedData , $brand);
-        if ($brand){
+        $brand = $this->brandService->updateData($validatedData, $brand);
+        if ($brand) {
             Session()->flash('success', 'Brand Updated Successfully');
-        }else{
+        } else {
             Session()->flash('error', 'Brand didn\'t Created');
-
         }
 
         return redirect()->route('brand.index');

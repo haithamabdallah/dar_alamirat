@@ -20,14 +20,19 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
+        $this->middleware('checkPermissions:Statistics')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     }
+
+
+
+
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories =  Category::withCount('products')->where('type','default')->latest()->get();;
+        $categories =  Category::withCount('products')->where('type', 'default')->latest()->get();;
         return view('dashboard.categories.index', compact('categories'));
     }
 
@@ -36,7 +41,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('dashboard.categories.form' , new CategoryViewModel());
+        return view('dashboard.categories.form', new CategoryViewModel());
     }
 
     /**
@@ -46,16 +51,16 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
 
-        $category =$this->categoryService->storeData($validatedData);
+        $category = $this->categoryService->storeData($validatedData);
 
         if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
             $path = $request->icon->store("category/{$category->id}/img", 'public');
             $category->update(['icon' => $path]);
         }
 
-        if ($category){
+        if ($category) {
             Session()->flash('success', 'Category Created Successfully');
-        }else{
+        } else {
             Session()->flash('error', 'Category didn\'t Created');
         }
 
@@ -75,7 +80,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('dashboard.categories.form' , new CategoryViewModel($category));
+        return view('dashboard.categories.form', new CategoryViewModel($category));
     }
 
     /**
@@ -94,12 +99,11 @@ class CategoryController extends Controller
             $validatedData['icon'] = $path;
         }
 
-        $category =$this->categoryService->updateData($validatedData , $category);
-        if ($category){
+        $category = $this->categoryService->updateData($validatedData, $category);
+        if ($category) {
             Session()->flash('success', 'Category Updated Successfully');
-        }else{
+        } else {
             Session()->flash('error', 'Category didn\'t Created');
-
         }
 
         return redirect()->route('category.index');
@@ -119,7 +123,7 @@ class CategoryController extends Controller
         return redirect()->back();
     }
 
-    public function changeStatus(Request $request,Category $category)
+    public function changeStatus(Request $request, Category $category)
     {
         $category->update(['status' => $request->status]);
         return response()->json(['message' => 'Status Changed Successfully'], 200);

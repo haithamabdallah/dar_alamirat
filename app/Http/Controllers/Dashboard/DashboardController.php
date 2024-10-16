@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkPermissions:Statistics' , ['only' => ['index']]);
+    }
+
     /**
      * Display a listing of the resource.
      */

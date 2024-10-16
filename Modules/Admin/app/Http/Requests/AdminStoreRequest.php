@@ -15,9 +15,10 @@ class AdminStoreRequest extends FormRequest
             'name'      => 'required|string|unique:admins,name',
             'email'     => 'required|email|unique:admins,email',
             'userName'  => 'required|string|unique:admins,userName',
-            'password'  => 'nullable|min:6|max:30',
+            'password'  => 'required|min:6|max:30|confirmed',
 //            'image'     => 'required|image|max:4048', // 4MB Max
             'phone'     => 'nullable',
+            'role_id'     => 'required|exists:roles,id',
         ];
 
         if ( $this->hasFile('image') ) {

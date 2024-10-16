@@ -2,22 +2,23 @@
 
 namespace Modules\Admin\app\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Role;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable , HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['userName' , 'name' ,'email' ,'image', 'password', 'phone' , 'image', 'status' ,'system'];
+    protected $guarded = ['id'];
     protected $guard_name  = 'admin';
 
     /**
@@ -30,13 +31,20 @@ class Admin extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['permission_names'];
+
     public function getImageAttribute()
     {
-        if (isset($this->attributes['image']) && Storage::disk('public')->exists($this->attributes['image'])){
+        if (isset($this->attributes['image']) && Storage::disk('public')->exists($this->attributes['image'])) {
             return storage_asset($this->attributes['image']);
-        }else{
+        } else {
             return asset('assets/images/admin.png');
         }
+    }
+
+    public function getPermissionNamesAttribute()
+    {
+        return $this->role->Permissions->pluck('name')->toArray();
     }
 
     /**
@@ -51,5 +59,13 @@ class Admin extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    # Relations 
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
 
 }

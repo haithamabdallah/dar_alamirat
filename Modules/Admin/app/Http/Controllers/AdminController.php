@@ -9,7 +9,7 @@ use Modules\Admin\app\Models\Admin;
 use Modules\Admin\app\ViewModels\AdminViewModel;
 use Modules\Admin\Http\Requests\AdminStoreRequest;
 use Modules\Admin\Http\Requests\AdminUpdateRequest;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -19,11 +19,10 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            abort_unless( auth('admin')->user()->userName == 'super', 403 , 'You are not allowed to access this page');
-            return $next($request);
-        });
+        $this->middleware('checkPermissions:Admins')->only([ 'index' , 'show' , 'create' , 'store' , 'edit' , 'update', 'destroy' ]);
     }
+
+
 
     /**
      * Display a listing of the resource.
@@ -39,7 +38,14 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admins.form' , new AdminViewModel());
+        return view(
+            'dashboard.admins.form',
+            [
+                'roles' => Role::all(),
+                'action' => route('admin.store'),
+                'method' => 'POST'
+            ]
+        );
     }
 
     /**
@@ -58,9 +64,6 @@ class AdminController extends Controller
 
         $admin = Admin::create($validatedData);
 
-        $roleName = Role::where('id', $request->role)->first()->name;
-
-        $admin->assignRole($roleName);
         Session()->flash('success', 'Admin Added Successfully');
         return redirect()->route('admin.index');
     }
@@ -78,7 +81,13 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        return view('dashboard.admins.form' , new AdminViewModel($admin));
+        return view(
+            'dashboard.admins.form', [
+            'roles' => Role::all(),
+            'action' => route('admin.update', $admin->id),
+            'method' => 'PUT',
+            'admin' => $admin
+        ]);
     }
 
     /**
@@ -102,11 +111,9 @@ class AdminController extends Controller
             $data['image'] = $path;
         }
 
-        $data['password'] = $request->password == null ? $admin->password : $request->password;
-        $admin->update($data);
+        $data['password'] = $request->password == null ? $admin->password : bcrypt($request->password);
 
-        $roleName = Role::where('id', $request->role)->first()->name;
-        $admin->syncRoles($roleName);
+        $admin->update($data);
 
         Session()->flash('success', 'Admin Updated Successfully');
         return redirect()->route('admin.index');

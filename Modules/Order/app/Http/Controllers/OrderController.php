@@ -27,41 +27,42 @@ class OrderController extends Controller
     public function __construct(OrderService $orderService)
     {
         $this->orderService = $orderService;
+
+        $this->middleware('checkPermissions:Categories')->only([ 'index' , 'show' , 'create' , 'store' , 'edit' , 'update', 'destroy' ]);
     }
 
     public function myOrderDetailsPage(Order $order)
     {
-        $order->load(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod']);
-        return view('themes.' . getAppTheme() . '.profile.my-order-details' , compact('order'));
+        $order->load(['orderDetails.product', 'orderDetails.variant', 'coupon', 'userAddress', 'shippingMethod']);
+        return view('themes.' . getAppTheme() . '.profile.my-order-details', compact('order'));
     }
 
     public function myOrdersPage()
     {
-        $orders = Order::where('user_id',auth()->user()->id)->with(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod'])->latest()->paginate(10);
-        return view('themes.' . getAppTheme() . '.profile.my-orders' , compact('orders'));
+        $orders = Order::where('user_id', auth()->user()->id)->with(['orderDetails.product', 'orderDetails.variant', 'coupon', 'userAddress', 'shippingMethod'])->latest()->paginate(10);
+        return view('themes.' . getAppTheme() . '.profile.my-orders', compact('orders'));
     }
-    
+
 
     public function checkoutPage()
     {
         $cartTotal = session('final_total');
-            
+
         $addresses = auth()->user()->addresses;
-        
+
         $shippings = Shipping::active()->get();
 
-        return view('themes.' . getAppTheme() . '.checkout.checkout' , compact('cartTotal' , 'addresses' , 'shippings'));
+        return view('themes.' . getAppTheme() . '.checkout.checkout', compact('cartTotal', 'addresses', 'shippings'));
     }
 
     public function checkout(Request $request)
     {
         if ($request->has('final_total') || $request->session()->has('final_total')) {
-        if ($request->has('final_total') ) {
-            $request->session()->put('final_total', $request->final_total);
-        }
-            
-        return redirect()->route('checkout');
+            if ($request->has('final_total')) {
+                $request->session()->put('final_total', $request->final_total);
+            }
 
+            return redirect()->route('checkout');
         } else {
 
             return redirect()->route('cart.index')->with('error', 'Failed to place order. Please try again.');
@@ -76,12 +77,12 @@ class OrderController extends Controller
         ]);
 
         $orders = Order::query()
-            ->when( isset ( $validated ['order_number'] ) && $validated ['order_number'] != null , function ($query) use ($validated) {
-                $query->where('order_number', 'like', '%' . $validated ['order_number'] . '%');
+            ->when(isset($validated['order_number']) && $validated['order_number'] != null, function ($query) use ($validated) {
+                $query->where('order_number', 'like', '%' . $validated['order_number'] . '%');
             })
-            ->when( isset ( $validated ['user_email'] ) && $validated ['user_email'] != null , function ($query) use ($validated) {
+            ->when(isset($validated['user_email']) && $validated['user_email'] != null, function ($query) use ($validated) {
                 $query->whereHas('user', function ($query) use ($validated) {
-                    $query->whereRaw('LOWER(email) LIKE ?', ['%' . strtolower( $validated ['user_email']) . '%']);
+                    $query->whereRaw('LOWER(email) LIKE ?', ['%' . strtolower($validated['user_email']) . '%']);
                 });
             })
             ->get();
@@ -91,7 +92,7 @@ class OrderController extends Controller
         $orderStatuses = OrderStatus::getAll();
         $paymentStatuses = PaymentStatus::getAll();
 
-        return view('dashboard.orders.search',compact('orders' , 'paymentStatuses' , 'orderStatuses' , 'isNotPaginated'));
+        return view('dashboard.orders.search', compact('orders', 'paymentStatuses', 'orderStatuses', 'isNotPaginated'));
     }
     /**
      * Display a listing of the resource.
@@ -99,19 +100,19 @@ class OrderController extends Controller
     public function index()
     {
         // $orders = Order::with(['products','user','shippingMethod'])->latest()->paginate(10);
-        $orders = Order::with(['products','user','shippingMethod'])->latest()->paginate(20);
+        $orders = Order::with(['products', 'user', 'shippingMethod'])->latest()->paginate(20);
         $orderStatuses = OrderStatus::getAll();
         $paymentStatuses = PaymentStatus::getAll();
 
-        return view('dashboard.orders.search',compact('orders' , 'paymentStatuses' , 'orderStatuses'));
+        return view('dashboard.orders.search', compact('orders', 'paymentStatuses', 'orderStatuses'));
     }
 
     public function all()
     {
-        $orders = Order::with(['products','user','shippingMethod'])->latest()->get();
+        $orders = Order::with(['products', 'user', 'shippingMethod'])->latest()->get();
         $orderStatuses = OrderStatus::getAll();
         $paymentStatuses = PaymentStatus::getAll();
-        return view('dashboard.orders.orders',compact('orders' , 'paymentStatuses' , 'orderStatuses'));
+        return view('dashboard.orders.orders', compact('orders', 'paymentStatuses', 'orderStatuses'));
     }
 
     /**
@@ -140,8 +141,6 @@ class OrderController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('order.index')->with('error', 'Failed to place order. Please try again.');
         }
-
-
     }
 
     public function storeCheckout(Request $request) // from checkout page
@@ -162,8 +161,6 @@ class OrderController extends Controller
             return dd($e->getMessage());
             // return redirect()->route('index')->with('error', 'Failed to place order. Please try again.');
         }
-
-
     }
 
     /**
@@ -173,8 +170,8 @@ class OrderController extends Controller
     {
         $paymentStatuses = PaymentStatus::getValues();
         $orderStatuses = OrderStatus::getValues();
-        $order->load(['orderDetails.product', 'orderDetails.variant' ,'coupon' , 'userAddress','shippingMethod']);
-        return view('dashboard.orders.order_details',compact('order' , 'paymentStatuses' , 'orderStatuses'));
+        $order->load(['orderDetails.product', 'orderDetails.variant', 'coupon', 'userAddress', 'shippingMethod']);
+        return view('dashboard.orders.order_details', compact('order', 'paymentStatuses', 'orderStatuses'));
     }
 
     /**
@@ -191,8 +188,8 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $validedData = $request->validate([
-            'status' => 'required|in:'.implode(',', OrderStatus::getValues()),
-            'payment_status' => 'required|in:'.implode(',', PaymentStatus::getValues()),
+            'status' => 'required|in:' . implode(',', OrderStatus::getValues()),
+            'payment_status' => 'required|in:' . implode(',', PaymentStatus::getValues()),
         ]);
 
         $order->update($validedData);
@@ -216,5 +213,4 @@ class OrderController extends Controller
 
         return response()->json($variants);
     }
-
 }

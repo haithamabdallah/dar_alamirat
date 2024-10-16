@@ -20,13 +20,15 @@ class SubscriptionController extends Controller
     public function __construct(NewsletterService $newsletterService)
     {
         $this->newsletterService = $newsletterService;
+
+        $this->middleware('checkPermissions:Subscribers')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     }
 
     public function index()
     {
         // $subscribers= Subscriber::latest()->paginate(10);
-        $subscribers= Subscriber::latest()->get();
-        return view('dashboard.subscriptions.index',compact('subscribers'));
+        $subscribers = Subscriber::latest()->get();
+        return view('dashboard.subscriptions.index', compact('subscribers'));
     }
 
     /**

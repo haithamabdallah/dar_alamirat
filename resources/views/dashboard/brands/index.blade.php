@@ -86,11 +86,9 @@
                                         <td>{{ $brand->products_count }}</td>
                                         <td>{{ $brand->created_at->format('Y-m-d') }}</td>
                                         <td nowrap="">
-                                            @adminCan('brands.edit')
                                                 <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-sm btn-primary">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                     {{ __('dashboard.brand.edit') }}</a>
-                                            @endadminCan
                                         </td>
                                         <td nowrap="">
                                             @adminCan('brands.delete')

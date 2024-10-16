@@ -78,7 +78,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($priorityables as $priorityable)
-                                    <div data-id="{{ $priorityable->id }}" data-url="{{ route('index.priority.update' , $priorityable->id) }}">
+                                    <div data-id="{{ $priorityable->id }}"
+                                        data-url="{{ route('index.priority.update', $priorityable->id) }}">
                                         <tr class="odd gradeX">
                                             <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
                                             <td>{{ $priorityable->type }}</td>
@@ -95,18 +96,22 @@
                                                 @endif
                                             </td>
                                             <td><input type="number" min='1' name="priority"
-                                                    value="{{ $priorityable->priority ?? '' }}"  data-id="{{ $priorityable->id }}"/> </td>
+                                                    value="{{ $priorityable->priority ?? '' }}"
+                                                    data-id="{{ $priorityable->id }}" /> </td>
                                             <td>
                                                 <input type="checkbox" class="" name="status"
-                                                    @if ($priorityable->status == true ) checked @endif  data-id="{{ $priorityable->id }}"/>
+                                                    @if ($priorityable->status == true) checked @endif
+                                                    data-id="{{ $priorityable->id }}" />
                                             </td>
                                             <td>
-                                                <button class="btn btn-sm btn-primary" data-id="{{ $priorityable->id }}" type="submit" > 
+                                                <button class="btn btn-sm btn-primary" data-id="{{ $priorityable->id }}"
+                                                    type="submit">
                                                     <i class="fa-regular fa-pen-to-square"></i>
-                                                    {{ __('dashboard.save') }}  </button>
-                                                <button class="btn btn-sm btn-success" data-id="{{ $priorityable->id }}" type="button" disabled  style="display: none"> 
+                                                    {{ __('dashboard.save') }} </button>
+                                                <button class="btn btn-sm btn-success" data-id="{{ $priorityable->id }}"
+                                                    type="button" disabled style="display: none">
                                                     Saved. </button>
-                                                
+
                                             </td>
                                         </tr>
                                     </div>
@@ -159,28 +164,33 @@
         }
     </script>
     <script>
-        $('div[data-id]').each(function(index , element) {
-            let id = $(element).data('id');
-            $(`button[data-id="${id}"][type="submit"]`).on('click', function() {
-                console.log($(`input[name="status"][data-id="${id}"]`)[0].checked ? 1 : 0);
+        function editPriority() {
+            $('div[data-id]').each(function(index, element) {
+                let id = $(element).data('id');
+                $(`button[data-id="${id}"][type="submit"]`).on('click', function() {
+                    console.log($(`input[name="status"][data-id="${id}"]`)[0].checked ? 1 : 0);
 
-                axios.put($(element).data('url') , {
-                    _token : '{{ csrf_token() }}',
-                    priority : $(`input[name="priority"][data-id="${id}"]`).val(),
-                    status : $(`input[name="status"][data-id="${id}"]`)[0].checked ? 1 : 0 ,
-                }).then(function (response) {
-                    console.log(response);
-                    $(`button[data-id="${id}"][type="submit"]`).hide();
-                    $(`button[data-id="${id}"][type="button"]`).show();
-                    setTimeout(() => {
-                        $(`button[data-id="${id}"][type="submit"]`).show();
-                        $(`button[data-id="${id}"][type="button"]`).hide();
-                    }, 1000 );
-                }).catch(function (error) {
-                    console.log(error);
+                    axios.put($(element).data('url'), {
+                        _token: '{{ csrf_token() }}',
+                        priority: $(`input[name="priority"][data-id="${id}"]`).val(),
+                        status: $(`input[name="status"][data-id="${id}"]`)[0].checked ? 1 : 0,
+                    }).then(function(response) {
+                        console.log(response);
+                        $(`button[data-id="${id}"][type="submit"]`).hide();
+                        $(`button[data-id="${id}"][type="button"]`).show();
+                        setTimeout(() => {
+                            $(`button[data-id="${id}"][type="submit"]`).show();
+                            $(`button[data-id="${id}"][type="button"]`).hide();
+                        }, 1000);
+                    }).catch(function(error) {
+                        console.log(error);
+                    })
                 })
-
-            })
+            });
+        }
+        $('#data-table-keytable').on('draw.dt', function() {
+            // console.log('Table content changed.');
+            editPriority();
         });
     </script>
 @endsection

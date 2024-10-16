@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class SettingsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkPermissions:Settings');
+    }
+
     public function companyInfo()
     {
         return view('dashboard.settings.general-settings');

@@ -27,6 +27,8 @@ class ProductController extends Controller
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
+
+        $this->middleware('checkPermissions:Products')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     }
 
     public function search(Request $request)
@@ -113,9 +115,8 @@ class ProductController extends Controller
             }
 
             DB::commit();
-        
-            return redirect()->route('product.index')->with('success', 'Product created successfully!');
 
+            return redirect()->route('product.index')->with('success', 'Product created successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             dd($e);
@@ -154,14 +155,14 @@ class ProductController extends Controller
             '*.18.unique' => 'Make sure that all SKU fields are unique in your data file and in the stored data in the app! Please check row #:attribute',
         ];
 
-        $validator2 = Validator::make($array, $rules , $messages);
+        $validator2 = Validator::make($array, $rules, $messages);
 
         if ($validator2->fails()) {
             return redirect()->back()->withErrors($validator2)->withInput();
         }
 
-        $savedVariants = $this->productService->importDataFromExcelFile( $array );
-        
+        $savedVariants = $this->productService->importDataFromExcelFile($array);
+
         return redirect()->back()->with('success', "$savedVariants records created successfully.");
     }
 
@@ -169,7 +170,7 @@ class ProductController extends Controller
     {
         return Excel::download(new ProductsExport, 'products.xlsx');
     }
-    
+
     public function DownloadExcelTemplate()
     {
         return response()->download(public_path('assets/others/product-excel-template.xlsx'));

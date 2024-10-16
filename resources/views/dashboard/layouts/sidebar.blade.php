@@ -1,6 +1,7 @@
 <!-- BEGIN #
     idebar -->
-<div id="sidebar" class="app-sidebar {{  session()->has('darkMode') && session('darkMode') == true ? '' : 'bg-white '}}">
+<div id="sidebar"
+    class="app-sidebar {{ session()->has('darkMode') && session('darkMode') == true ? '' : 'bg-white ' }}">
     <!-- BEGIN scrollbar -->
     <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
         <!-- BEGIN menu -->
@@ -19,321 +20,182 @@
                             </div>
                             <div class="menu-caret ms-auto"></div>
                         </div>
-                        <small>{{ auth('admin')->user()->roles()->first()->name }}</small>
+                        {{-- <small>{{ auth('admin')->user()->roles()->first()->name }}</small> --}}
                     </div>
                 </a>
             </div>
-            <!-- User Menu -->
-            {{-- <div id="appSidebarProfileMenu" class="collapse">
-                <div class="menu-item pt-5px">
-                    <a href="javascript:;" class="menu-link">
-                        <div class="menu-icon"><i class="fa fa-cog"></i></div>
-                        <div class="menu-text">Settings</div>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a href="javascript:;" class="menu-link">
-                        <div class="menu-icon"><i class="fa fa-pencil-alt"></i></div>
-                        <div class="menu-text"> Send Feedback</div>
-                    </a>
-                </div>
-                <div class="menu-item pb-5px">
-                    <a href="javascript:;" class="menu-link">
-                        <div class="menu-icon"><i class="fa fa-question-circle"></i></div>
-                        <div class="menu-text"> Helps</div>
-                    </a>
-                </div>
-                <div class="menu-divider m-0"></div>
-            </div> --}}
-            <!-- User Menu -->
             <div class="menu-header">Navigation</div>
-            <!-- item -->
-            <div class="menu-item {{ activeSingleLink('dashboard.index') }}">
-                <a href="/dashboard" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-house"></i>
-                    </div>
-                    <div class="menu-text">Statistics</div>
-                </a>
-            </div>
-            <!-- ./item -->
 
-            <!-- item -->
-            @if ( auth('admin')->user()->userName == 'super' )
-                <div class="menu-item has-sub {{ activeLink('roles') }} {{ activeLink('admin') }}">
-                    <a href="javascript:;" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <div class="menu-text">{{ __('dashboard.administrator') }}</div>
-                        <div class="menu-caret"></div>
-                    </a>
-                    <div class="menu-submenu">
-                        <div class="menu-item {{ activeLink('admin') }}">
-                            <a href="{{ route('admin.index') }}" class="menu-link">
-                                <div class="menu-text">{{ __('dashboard.admins') }}</div>
-                            </a>
-                        </div>
-                        {{-- <div class="menu-item {{ activeLink('roles') }}">
-                            <a href="{{ route('roles.index') }}" class="menu-link">
-                                <div class="menu-text">{{ __('dashboard.roles') }}</div>
-                            </a>
-                        </div> --}}
-                    </div>
-                </div>
-                <!-- ./item -->
-            @endif
-
-            <!-- shipping item -->
-            {{-- <div class="menu-item has-sub {{ activeLink('roles') }} {{ activeLink('admin') }}">
-                <a href="javascript:;" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div class="menu-text">{{ __('dashboard.administrator') }}</div>
-                    <div class="menu-caret"></div>
-                </a>
-                <div class="menu-submenu">
-                    <div class="menu-item {{ activeLink('admin') }}">
-                        <a href="{{ route('admin.index') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.admins') }}</div>
-                        </a>
-                    </div>
-                    <div class="menu-item {{ activeLink('roles') }}">
-                        <a href="{{ route('roles.index') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.roles') }}</div>
-                        </a>
-                    </div>
-                </div>
-            </div> --}}
-            <!-- ./item -->
-
-            {{-- <!-- item -->
-            <div class="menu-item has-sub {{ activeLink('shipping') }}">
-                <a href="javascript:;" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div class="menu-text">{{ __('dashboard.shippings') }}</div>
-                    <div class="menu-caret"></div>
-                </a>
-                <div class="menu-submenu">
-                    <div class="menu-item {{ activeLink('shipping/countries') }}">
-                        <a href="" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.shipping.countries') }}</div>
-                        </a>
-                    </div>
-                    <div class="menu-item {{ activeLink('shipping/states') }}">
-                        <a href="" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.shipping.states') }}</div>
-                        </a>
-                    </div>
-                    <div class="menu-item {{ activeLink('shipping/cities') }}">
-                        <a href="" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.shipping.cities') }}</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- ./item --> --}}
-
-            <!-- item -->
-            <div class="menu-item">
-                <a href="{{ route('order.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-cart-arrow-down"></i>
-                    </div>
-                    <div class="menu-text">Orders</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item {{ request()->routeIs('product.index') ? 'active' : '' }}">
-                <a href="{{ route('product.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <div class="menu-text">Products</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item {{ activeLink('brand') }}">
-                <a href="{{ route('brand.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-sitemap"></i>
-                    </div>
-                    <div class="menu-text">{{ __('dashboard.brands') }}</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
+            <!-- items with childs -->
             @php
-                $active =
-                    request()->routeIs('category.index') ||
-                    request()->routeIs('banner.index') ||
-                    request()->routeIs('index.priority')
-                        ? 'active'
-                        : '';
+
+                $adminPermissionNames = auth('admin')->user()?->role?->permissions?->pluck('name')->toArray();
+
+                $itemsWithChilds = [
+                    [
+                        'isVisible' =>
+                            in_array('Admins', $adminPermissionNames) || in_array('Roles', $adminPermissionNames),
+                        'isActive' => activeLink('roles') ?? activeLink('admin'),
+                        'iconClasses' => 'fa-solid fa-users',
+                        'name' => __('dashboard.administrator'),
+                        'childs' => [
+                            [
+                                'isVisible' => in_array('Admins', $adminPermissionNames),
+                                'isActive' => activeLink('admin'),
+                                'href' => route('admin.index'),
+                                'name' => __('dashboard.admins'),
+                            ],
+                            [
+                                'isVisible' => in_array('Roles', $adminPermissionNames),
+                                'isActive' => activeLink('roles'),
+                                'href' => route('roles.index'),
+                                'name' => __('dashboard.roles'),
+                            ],
+                        ],
+                    ],
+                ];
             @endphp
-            <div class="menu-item has-sub {{ $active }}">
-                <a href="javascript:;" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-users"></i>
+
+            @foreach ($itemsWithChilds as $item)
+                @if ($item['isVisible'])
+                    <!-- item -->
+                    <div class="menu-item has-sub {{ $item['isActive'] }}">
+                        <a href="javascript:;" class="menu-link">
+                            <div class="menu-icon">
+                                <i class="{{ $item['iconClasses'] }}"></i>
+                            </div>
+                            <div class="menu-text">{{ $item['name'] }}</div>
+                            <div class="menu-caret"></div>
+                        </a>
+                        <div class="menu-submenu">
+                            @foreach ($item['childs'] as $childItem)
+                                @if ($childItem['isVisible'])
+                                    <div class="menu-item {{ $childItem['isActive'] }}">
+                                        <a href="{{ $childItem['href'] }}" class="menu-link">
+                                            <div class="menu-text">{{ $childItem['name'] }}</div>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="menu-text">{{ __('dashboard.categories') }}</div>
-                    <div class="menu-caret"></div>
-                </a>
-                <div class="menu-submenu">
-                    <div class="menu-item {{ request()->routeIs('category.index') ? 'active' : '' }}">
-                        <a href="{{ route('category.index') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.categories') }}</div>
+                    <!-- ./item -->
+                @endif
+            @endforeach
+
+            <!-- items without childs -->
+
+            @php
+
+                $items = [
+                    [
+                        'isVisible' => in_array('Statistics', $adminPermissionNames),
+                        'isActive' => activeSingleLink('dashboard.index'),
+                        'href' => 'dashboard',
+                        'iconClasses' => 'fa-solid fa-house',
+                        'name' => 'Statistics',
+                    ],
+                    [
+                        'isVisible' => in_array('Orders', $adminPermissionNames),
+                        'isActive' => activeLink('order'),
+                        'href' => route('order.index'),
+                        'iconClasses' => 'fa-solid fa-cart-arrow-down',
+                        'name' => 'Orders',
+                    ],
+                    [
+                        'isVisible' => in_array('Categories', $adminPermissionNames),
+                        'isActive' => activeLink('category'),
+                        'href' => route('category.index'),
+                        'iconClasses' => 'fa-solid fa-book',
+                        'name' => 'Categories',
+                    ],
+                    [
+                        'isVisible' => in_array('Brands', $adminPermissionNames),
+                        'isActive' => activeLink('brand'),
+                        'href' => route('brand.index'),
+                        'iconClasses' => 'fa-solid fa-sitemap',
+                        'name' => 'Brands',
+                    ],
+                    [
+                        'isVisible' => in_array('Shipping', $adminPermissionNames),
+                        'isActive' => activeLink('shipping'),
+                        'href' => route('shipping.index'),
+                        'iconClasses' => 'fa-solid fa-bicycle',
+                        'name' => 'Shipping',
+                    ],
+                    [
+                        'isVisible' => in_array('Products', $adminPermissionNames),
+                        'isActive' => activeLink('product'),
+                        'href' => route('product.index'),
+                        'iconClasses' => 'fa-solid fa-store',
+                        'name' => 'Products',
+                    ],
+                    [
+                        'isVisible' => in_array('Coupons', $adminPermissionNames),
+                        'isActive' => activeLink('dashboard.coupons'),
+                        'href' => route('dashboard.coupons.index'),
+                        'iconClasses' => 'fa-solid fa-dollar',
+                        'name' => 'Coupons',
+                    ],
+                    [
+                        'isVisible' => in_array('Sliders', $adminPermissionNames),
+                        'isActive' => activeLink('dashboard.slider'),
+                        'href' => route('dashboard.slider.index'),
+                        'iconClasses' => 'fa-solid fa-images',
+                        'name' => 'Sliders',
+                    ],
+                    [
+                        'isVisible' => in_array('Pages', $adminPermissionNames),
+                        'isActive' => activeLink('page'),
+                        'href' => route('page.index'),
+                        'iconClasses' => 'fa-solid fa-newspaper',
+                        'name' => 'Static Pages',
+                    ],
+                    [
+                        'isVisible' => in_array('Subscribers', $adminPermissionNames),
+                        'isActive' => activeLink('subscription') ?? activeLink('subscriber'),
+                        'href' => route('subscription.index'),
+                        'iconClasses' => 'fa-solid fa-message',
+                        'name' => 'Subscribers',
+                    ],
+                    [
+                        'isVisible' => in_array('Banners', $adminPermissionNames),
+                        'isActive' => activeLink('banner'),
+                        'href' => route('banner.index'),
+                        'iconClasses' => 'fa-solid fa-image',
+                        'name' => 'Banners',
+                    ],
+                    [
+                        'isVisible' => in_array('Index Page Priority Settings', $adminPermissionNames),
+                        'isActive' => request()->routeIs('index.priority') ? 'active' : '',
+                        'href' => route('index.priority'),
+                        'iconClasses' => 'fa-solid fa-gear',
+                        'name' => 'Index Page Priority Settings',
+                    ],
+                    [
+                        'isVisible' => in_array('Settings', $adminPermissionNames),
+                        'isActive' => activeLink('setting'),
+                        'href' => route('settings.index'),
+                        'iconClasses' => 'fa-solid fa-gear',
+                        'name' => 'Settings',
+                    ],
+                ];
+            @endphp
+
+            @foreach ($items as $item)
+                @if ($item['isVisible'])
+                    <!-- item -->
+                    <div class="menu-item {{ $item['isActive'] }}">
+                        <a href="{{ $item['href'] }}" class="menu-link">
+                            <div class="menu-icon">
+                                <i class="{{ $item['iconClasses'] }}"></i>
+                            </div>
+                            <div class="menu-text"> {{ $item['name'] }}</div>
                         </a>
                     </div>
-                    <div class="menu-item {{ request()->routeIs('banner.index') ? 'active' : '' }}">
-                        <a href="{{ route('banner.index') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.banners') }}</div>
-                        </a>
-                    </div>
-                    <div class="menu-item {{ request()->routeIs('index.priority') ? 'active' : '' }}">
-                        <a href="{{ route('index.priority') }}" class="menu-link">
-                            <div class="menu-text">{{ __('dashboard.index-priority') }}</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            {{--            <div class="menu-item {{ activeLink('category') }}"> --}}
-            {{--                <a href="{{route('category.index')}}" class="menu-link"> --}}
-            {{--                    <div class="menu-icon"> --}}
-            {{--                        <i class="fa-solid fa-sitemap"></i> --}}
-            {{--                    </div> --}}
-            {{--                    <div class="menu-text">{{__('dashboard.categories')}}</div> --}}
-            {{--                </a> --}}
-            {{--            </div> --}}
-            <!-- ./item -->
-
-            <!-- item -->
-            {{-- <div class="menu-item {{ activeLink('product') }}">
-                <a href="{{ route('product.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <div class="menu-text">Products</div>
-                </a>
-            </div> --}}
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item {{ activeLink('shipping') }}">
-                <a href="{{ route('shipping.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <div class="menu-text">Shipping</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item {{ request()->routeIs('dashboard.coupons.index') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.coupons.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-sitemap"></i>
-                    </div>
-                    <div class="menu-text">Coupons</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
-            {{-- <div class="menu-item">
-                <a href="{{ route('client.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div class="menu-text">Clients</div>
-                </a>
-            </div> --}}
-            <!-- ./item -->
-
-            <!-- item -->
-            {{-- <div class="menu-item">
-                <a href="/dashboard/reports" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </div>
-                    <div class="menu-text">Reports</div>
-                </a>
-            </div> --}}
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item">
-                {{-- <a href="{{ route('dashboard.slider.index') }}" class="menu-link"> --}}
-                <a href="{{ route('dashboard.slider.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-regular fa-newspaper"></i>
-                    </div>
-                    <div class="menu-text">Sliders</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item">
-                <a href="{{ route('page.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-regular fa-newspaper"></i>
-                    </div>
-                    <div class="menu-text">Pages</div>
-                </a>
-            </div>
-            <!-- ./item -->
-            <!-- item -->
-            <div class="menu-item">
-                <a href="{{ route('subscription.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div class="menu-text">Subscribers</div>
-                </a>
-            </div>
-            <!-- ./item -->
-
-            <!-- item -->
-            <div class="menu-item">
-                <a href="{{ route('settings.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-gear"></i>
-                    </div>
-                    <div class="menu-text">Settings</div>
-                </a>
-            </div>
-            <!-- ./item -->
-            <!-- item -->
-            {{-- <div class="menu-item">
-                <a href="{{ route('maintenance.index') }}" class="menu-link">
-                    <div class="menu-icon">
-                        <i class="fa-solid fa-gear"></i>
-                    </div>
-                    <div class="menu-text">Maintenance</div>
-                </a>
-            </div> --}}
-            <!-- ./item -->
-            <!-- item -->
-            {{-- <div class="menu-item">
-               <a href="{{ route('announcement.index') }}" class="menu-link">
-                   <div class="menu-icon">
-                       <i class="fa-solid fa-gear"></i>
-                   </div>
-                   <div class="menu-text">Announcement</div>
-               </a>
-           </div> --}}
-            <!-- ./item -->
+                    <!-- ./item -->
+                @endif
+            @endforeach
 
             <!-- BEGIN minify-button -->
             <div class="menu-item d-flex">
@@ -348,6 +210,6 @@
     <!-- END scrollbar -->
 </div>
 <div class="app-sidebar-bg"></div>
-<div class="app-sidebar-mobile-backdrop"><a href="#" data-dismiss="app-sidebar-mobile"
-        class="stretched-link"></a></div>
+<div class="app-sidebar-mobile-backdrop"><a href="#" data-dismiss="app-sidebar-mobile" class="stretched-link"></a>
+</div>
 <!-- END #sidebar -->

@@ -134,6 +134,7 @@
 @endif
 <script>
     $(".default-select2").select2();
+    $(".multiple-select2").select2({ placeholder: "Select multiple options" });
 </script>
 
 <script>

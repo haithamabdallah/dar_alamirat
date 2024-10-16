@@ -25,6 +25,15 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // use Illuminate\Database\Migrations\Migration;
+        // use Illuminate\Database\Schema\Blueprint;
+        // use Illuminate\Support\Facades\Schema;
+        Schema::table('admins', function (Blueprint $table) {
+            $table->after('id', function ($table) {
+                $table->unsignedBigInteger('role_id')->default(1); // 1 = Data Entry 
+            });
+        });
     }
 
     /**

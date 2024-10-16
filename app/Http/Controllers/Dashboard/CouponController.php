@@ -12,42 +12,44 @@ class CouponController extends Controller
     /**
      * Checks if the coupon is valid 
      */
+
+    public function __construct()
+    {
+        $this->middleware('checkPermissions:Coupons')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
+    }
+
+
     public function checkCoupon(Request $request)
     {
         try {
-            if ( session()->has('coupon') ) 
-            {
+            if (session()->has('coupon')) {
                 session()->forget('coupon');
             }
             $coupon = Coupon::where('code', $request->coupon_code)->first();
 
             if ($coupon) {
 
-                if ($coupon->user_usage_count > $coupon->limit_per_user  ) {
+                if ($coupon->user_usage_count > $coupon->limit_per_user) {
                     return response()->json(['status' => 'error', 'msg' => "Limit per user is $coupon->limit_per_user & it's reached."]);
-                } else if ( $coupon->usage_count > $coupon->usage_limit ) {
+                } else if ($coupon->usage_count > $coupon->usage_limit) {
                     return response()->json(['status' => 'error', 'msg' => 'General usage limit is reached.']);
-                } else if ( $coupon->status != true ) {
+                } else if ($coupon->status != true) {
                     return response()->json(['status' => 'error', 'msg' => 'Coupon is not active now.']);
                 }
 
                 $todayDate = date('Y-m-d');
-                
-                if( $coupon->start_date <= $todayDate && $coupon->end_date >= $todayDate ) {
+
+                if ($coupon->start_date <= $todayDate && $coupon->end_date >= $todayDate) {
 
                     session()->put('coupon', $coupon);
                     return response()->json(['status' => 'success', 'coupon' => $coupon]);
-
                 } else {
 
                     return response()->json(['status' => 'error', 'msg' => 'coupon expired.']);
-
                 }
-
             } else {
 
                 return response()->json(['status' => 'error', 'msg' => 'Invalid coupon.']);
-
             }
         } catch (\Exception $e) {
 

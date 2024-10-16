@@ -39,7 +39,7 @@
                         <label class="fs-5 fw-bold form-label mb-5">Name :</label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="text" class="form-control form-control-solid" value="{{ old('name') ?? $admin->name}}" placeholder="name" name="name" />
+                        <input type="text" class="form-control form-control-solid" value="{{ old('name') ?? $admin->name ?? ''}}" placeholder="name" name="name" />
                         @error('name')
                         <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
                         <label class="fs-5 fw-bold form-label mb-5">User Name :</label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="text" class="form-control form-control-solid" value="{{ old('userName') ?? $admin->userName}}" placeholder="userName" name="userName" />
+                        <input type="text" class="form-control form-control-solid" value="{{ old('userName') ?? $admin->userName ?? ''}}" placeholder="userName" name="userName" />
                         @error('userName')
                         <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
                         <label class="fs-5 fw-bold form-label mb-5">Email :</label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="email" class="form-control form-control-solid" value="{{ old('email') ?? $admin->email}}" placeholder="email" name="email" />
+                        <input type="email" class="form-control form-control-solid" value="{{ old('email') ?? $admin->email ?? ''}}" placeholder="email" name="email" />
                         @error('email')
                         <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
@@ -75,7 +75,7 @@
                         <label class="fs-5 fw-bold form-label mb-5">Phone :</label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="number" pattern="^\d{11}$" title="The number must be exactly 11 digits long." class="form-control form-control-solid" value="{{ old('phone') ?? $admin->phone}}" placeholder="phone" name="phone" />
+                        <input type="number" pattern="^\d{11}$" title="The number must be exactly 11 digits long." class="form-control form-control-solid" value="{{ old('phone') ?? $admin->phone ?? ''}}" placeholder="phone" name="phone" />
                         @error('phone')
                         <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
@@ -87,8 +87,20 @@
                         <label class="fs-5 fw-bold form-label mb-5">Password :</label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="password" class="form-control form-control-solid" placeholder="password" name="password" />
+                        <input type="password" class="form-control form-control-solid" placeholder="Password" name="password" />
                         @error('password')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-6 mt-5">
+                        <label class="fs-5 fw-bold form-label mb-5">Password Confirmation :</label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input type="password" class="form-control form-control-solid" placeholder="Password Confirmation" name="password_confirmation" />
+                        @error('password_confirmation')
                         <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -99,13 +111,13 @@
                         <label class="fs-5 fw-bold form-label mb-5">Role:</label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <select name="role" class="form-control form-control-solid">
+                        <select name="role_id" class="form-control form-control-solid">
                             <option value="">---</option>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->id }}" {{ in_array($role->id  , $admin->roles->pluck('id')->toArray() )  ? 'selected' : ''}}>{{ $role->name }}</option>
+                                <option value="{{ $role->id }}" {{ isset($admin) && $role->id == $admin?->role_id   ? 'selected' : ''}}>{{ $role->name }}</option>
                             @endforeach
                         </select>
-                        @error('type')
+                        @error('role_id')
                         <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -113,7 +125,7 @@
                     </div>
 
                     <div class="col-6 mt-5">
-                        <label class="fs-5 fw-bold form-label mb-5">Photo :</label>
+                        <label class="fs-5 fw-bold form-label mb-5">Image :</label>
                         <!--end::Label-->
                         <!--begin::Input-->
                         <input class="form-control form-control-solid" name="image" type="file" id="formFile" />
@@ -123,7 +135,7 @@
                         </span>
                         @enderror
                     </div>
-                    @if($admin->image != null)
+                    @if( isset($admin) && $admin->image != null)
                         <img src="{{ $admin->image }}" class="col-3 mt-5" alt="brand" width="200" height="200">
                     @endif
                 </div>

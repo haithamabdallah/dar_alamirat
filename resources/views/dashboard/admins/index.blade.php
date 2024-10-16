@@ -65,9 +65,7 @@
                                         <td>{{ strtoupper($admin->name) }}</td>
                                         <td>{{ $admin->email }}</td>
                                         <td>
-                                            @foreach($admin->roles as $role)
-                                                    {{ $role->name }}
-                                            @endforeach
+                                                {{ $admin->role->name }}
                                         </td>
                                         <td>
                                             <img src="{{ $admin->image }}" alt="" class="mw-100 w-70px rounded">

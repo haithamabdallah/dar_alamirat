@@ -16,9 +16,10 @@ class AdminUpdateRequest extends FormRequest
             'name'      => 'required|string|unique:admins,name,'.$this->admin->id,
             'email'     => 'required|email|unique:admins,email,'.$this->admin->id,
             'userName'  => 'required|string|unique:admins,userName,'.$this->admin->id,
-            'password'  => 'nullable|min:6|max:30',
+            'password'  => 'nullable|min:6|max:30|confirmed',
 //            'image'     => 'required|image|max:4048', // 4MB Max
             'phone'     => 'nullable',
+            'role_id'     => 'required|exists:roles,id',
         ];
 
         if ( $this->hasFile('image') ) {

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class IndexPriorityController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkPermissions:"Index Page Priority Settings"')->only([ 'index' , 'show' , 'create' , 'store' , 'edit' , 'update', 'destroy' ]);
+    }
     /**
      * Display a listing of the resource.
      */
