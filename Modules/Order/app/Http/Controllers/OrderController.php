@@ -28,7 +28,7 @@ class OrderController extends Controller
     {
         $this->orderService = $orderService;
 
-        $this->middleware('checkPermissions:Categories')->only([ 'index' , 'show' , 'create' , 'store' , 'edit' , 'update', 'destroy' ]);
+        $this->middleware('checkPermissions:Orders')->only([ 'index' , 'show' , 'create' , 'store' , 'edit' , 'update', 'destroy' ]);
     }
 
     public function myOrderDetailsPage(Order $order)

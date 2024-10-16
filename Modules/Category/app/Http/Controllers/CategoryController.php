@@ -20,13 +20,9 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
-        $this->middleware('checkPermissions:Statistics')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
+        $this->middleware('checkPermissions:Categories')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     }
-
-
-
-
-
+    
     /**
      * Display a listing of the resource.
      */

@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Modules\Admin\app\Models\Admin;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RoleSeeder extends Seeder
 {
@@ -23,7 +24,10 @@ class RoleSeeder extends Seeder
             ],
         ];
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Role::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         foreach ($roles as $role) {
             Role::firstOrCreate( $role );
         }
