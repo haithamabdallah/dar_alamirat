@@ -93,6 +93,10 @@ use Modules\Brand\Http\Controllers\BrandController as BrandControllerBE;
 
 
 /************************************ Front Routs ****************************/
+// Route::get('/test', function () {
+// });
+Route::get('/maintenance-page', [HomeController::class , 'maintenance' ])->name('maintenance-page');
+
 Route::get('/lang/{lang}', [HomeController::class, 'changeLanguage'])->name('changeLang');
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/category-products/{category}', [HomeController::class, 'categoryProducts'])->name('category.products');

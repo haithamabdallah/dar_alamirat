@@ -5,6 +5,7 @@ namespace Modules\Settings\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Modules\Settings\Models\MaintenanceSetting;
 
@@ -15,7 +16,7 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        $maintenances=MaintenanceSetting::get();
+        $maintenances= Setting::where('type','maintenance')->first()['value'] ?? null; // ['maintenance_mode']
         return view('dashboard.settings.maintenances.index',compact('maintenances'));
     }
 

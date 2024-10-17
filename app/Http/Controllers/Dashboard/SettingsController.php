@@ -158,8 +158,6 @@ class SettingsController extends Controller
 
     public function saveMaintenances(Request $request)
     {
-
-
         $maintenanceMode = $request->input('maintenance_mode');
         $maintenanceMessage = $request->input('maintenance_message');
         $maintenanceTitle = $request->input('maintenance_title');
@@ -180,6 +178,6 @@ class SettingsController extends Controller
         // Save the settings
         $setting->save();
 
-        return redirect()->route('maintenance.index')->with('success', 'maintenance saved successfully');
+        return redirect()->back()->with('success', 'settings saved successfully');
     }
 }

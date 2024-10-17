@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Setting;
 use App\Services\CarService;
 use Illuminate\Http\Request;
 use App\Models\IndexPriority;
@@ -21,6 +22,16 @@ class HomeController extends Controller
     {
         $this->productService = new ProductService();
         
+    }
+
+    public function Maintenance()
+    {
+        $setting = Setting::where('type','maintenance')->first() ?? null;
+        if (!isset($setting)) {
+            abort(404);
+        }
+        $maintenances = isset($setting) ? Setting::where('type','maintenance')->first()['value']  : null  ;// ['maintenance_mode']
+        return view('dashboard.maintenance' , compact('maintenances'));
     }
 
     public function changeLanguage($locale)

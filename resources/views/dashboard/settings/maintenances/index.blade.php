@@ -56,11 +56,11 @@
 
                             </div>
                             <div class="col-sm-2">
-                                <input type="radio" class="" name="maintenance_mode" value="enabled" >
+                                <input type="radio" class="" name="maintenance_mode" value="enabled" {{ isset($maintenances) && $maintenances['maintenance_mode'] == 'enabled' ? 'checked' : ''}} >
                                 <label for="maintenance_mode">Enabled</label>
                             </div>
                             <div class="col-sm-2">
-                                <input type="radio" class="" name="maintenance_mode" value="disabled" >
+                                <input type="radio" class="" name="maintenance_mode" value="disabled" {{ isset($maintenances) && $maintenances['maintenance_mode'] == 'disabled' ? 'checked' : '' }}>
                                 <label for="maintenance_mode">Disabled</label>
                             </div>
 
@@ -68,7 +68,7 @@
                                 <label class="form-label col-form-label col-md-3">Maintenance Title</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" name="maintenance_title" rows="3" placeholder="we back soon">
-                                        {{ \App\Models\Setting::where('type', 'maintenance')->value('value')['maintenance_title'] ?? '' }}
+                                        {{ old('maintenance_title') ?? $maintenances['maintenance_title'] ??  '' }}
                                     </textarea>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                 <label class="form-label col-form-label col-md-3">Maintenance Message</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" name="maintenance_message" rows="3" placeholder="Our dear customers, we are sorry and we will back ASAP">
-                                        {{ \App\Models\Setting::where('type', 'maintenance')->value('value')['maintenance_message'] ?? '' }}
+                                        {{ old('maintenance_message') ?? $maintenances['maintenance_message'] ??  ''  }}
                                     </textarea>
                                 </div>
                             </div>
