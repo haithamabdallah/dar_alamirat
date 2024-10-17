@@ -77,8 +77,8 @@
                             @foreach($banners as $banner)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    <td>{{$banner->type}}</td>
-                                    <td>{{$banner->bannerable->name}}</td>
+                                    <td>{{$banner->type ?? ''}}</td>
+                                    <td>{{$banner->bannerable?->name ?? ''}}</td>
                                     {{-- <td>{{$banner->priority}}</td> --}}
                                     <td>
                                         <a href="{{storage_asset($banner->image)}}" class="" target="_blank">
