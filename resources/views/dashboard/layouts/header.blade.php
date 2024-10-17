@@ -3,7 +3,7 @@
 <div id="header" class="app-header">
     <!-- BEGIN navbar-header -->
     <div class="navbar-header">
-        <a href="dashboard" class="navbar-brand"><span class="navbar-logo"></span> <b>{{__('dashboard.website_first_name')}}</b> {{__('dashboard.website_last_name')}}</a>
+        <a href="{{ route('dashboard.index') }}" class="navbar-brand"><span class="navbar-logo"></span> <b>{{__('dashboard.website_first_name')}}</b> {{__('dashboard.website_last_name')}}</a>
         <button type="button" class="navbar-mobile-toggler" data-toggle="app-sidebar-mobile">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
