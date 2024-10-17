@@ -63,8 +63,8 @@
                             <thead>
                             <tr>
                                 <th width="1%"></th>
-                                {{-- <th class="text-nowrap" width="20%">Type</th>
-                                <th class="text-nowrap" width="20%">Name</th> --}}
+                                <th class="text-nowrap" width="20%">Type</th>
+                                <th class="text-nowrap" width="20%">Name</th>
                                 {{-- <th class="text-nowrap" width="20%">Priority</th> --}}
                                 <th class="text-nowrap" width="40%">Image</th>
                                 {{-- <th class="text-nowrap" width="5%">status</th> --}}
@@ -77,8 +77,8 @@
                             @foreach($banners as $banner)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
-                                    {{-- <td>{{ $banner?->type ?? ''}}</td>
-                                    <td>{{ $banner?->bannerable?->name ?? ''}}</td> --}}
+                                    <td>{{ $banner?->type ?? ''}}</td>
+                                    <td>{{ $banner?->bannerable?->name ?? ''}}</td>
                                     {{-- <td>{{$banner->priority}}</td> --}}
                                     <td>
                                         <a href="{{storage_asset($banner->image)}}" class="" target="_blank">
