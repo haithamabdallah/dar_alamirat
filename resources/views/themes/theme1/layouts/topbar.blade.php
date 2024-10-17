@@ -9,7 +9,7 @@
                             <button class="select-lang" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="language">
                                     <!-- Display current language flag and name -->
-                                    <img src="{{ asset('theme1-assets/images/flags/' . current_language() . '.png') }}" alt="">
+                                    <img loading="lazy" src="{{ asset('theme1-assets/images/flags/' . current_language() . '.png') }}" alt="">
                                     <span>{{ current_language() == 'en' ? 'English' : 'العربية' }}</span>
                                 </span>
                             </button>
@@ -19,7 +19,7 @@
                                         @if ($key != current_language())
                                             <a class="dropdown-item" href="{{ route('changeLang', ['lang' => $key]) }}">
                                             <span class="language">
-                                                <img src="{{ asset('theme1-assets/images/flags/' . $key . '.png') }}" alt="">
+                                                <img loading="lazy" src="{{ asset('theme1-assets/images/flags/' . $key . '.png') }}" alt="">
                                                 <span>{{ $lang }}</span>
                                             </span>
                                             </a>

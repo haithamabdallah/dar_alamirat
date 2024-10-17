@@ -21,7 +21,7 @@
                                 $LogoUrl = $LogoPath ? Storage::url($LogoPath) : null;
                             @endphp
                             @if($LogoUrl)
-                                <img src="{{ $LogoUrl }}" alt="Logo">
+                                <img loading="lazy" src="{{ $LogoUrl }}" alt="Logo">
                             @else
                                 <h3>{{ $setting->value['website_name'] ?? '' }}</h3> <!-- Provide a default icon path if needed -->
                             @endif
@@ -108,7 +108,7 @@
                                 $IconUrl = $IconPath ? Storage::url($IconPath) : null;
                             @endphp
                             @if($IconUrl)
-                                <img src="{{ $IconUrl }}" alt="Icon">
+                                <img loading="lazy" src="{{ $IconUrl }}" alt="Icon">
                             @else
                                 <h3>{{ $setting->value['website_name'] ?? '' }}</h3> <!-- Provide a default icon path if needed -->
                             @endif

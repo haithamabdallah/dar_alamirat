@@ -51,7 +51,7 @@
                                         <!-- img -->
                                         <div class="img">
                                             <a href="{{route('cart-empty')}}">
-                                                <img class="w-full object-contain" src="{{$product->thumbnail}}" alt="{{$product->title}}">
+                                                <img class="w-full object-contain" loading="lazy" src="{{$product->thumbnail}}" alt="{{$product->title}}">
                                             </a>
                                         </div>
                                         <!-- img -->

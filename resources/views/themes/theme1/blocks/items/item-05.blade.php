@@ -6,7 +6,7 @@
     <!-- img -->
     <div class="img">
         <a href="{{route('cart-empty')}}">
-            <img class="w-full object-contain" src="{{('theme1-assets/images/products/05.jpg')}}" alt="">
+            <img class="w-full object-contain" loading="lazy" src="{{('theme1-assets/images/products/05.jpg')}}" alt="">
         </a>
     </div>
     <!-- img -->

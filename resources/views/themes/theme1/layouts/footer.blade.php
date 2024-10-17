@@ -32,7 +32,7 @@
                                     $logoPath = $setting->value['logo_path'];
                                     $logoUrl = Storage::url($logoPath);
                                 @endphp
-                                <img src="{{ $logoUrl }}" alt="Logo">
+                                <img loading="lazy" src="{{ $logoUrl }}" alt="Logo">
                             @endif
                         </div>
 
@@ -59,7 +59,7 @@
                                 @if (!array_key_exists($platform, $socialMediaPlatforms))
                                     @continue
                                 @endif
-                                @if (array_key_exists($platform, $socialMediaPlatforms) && !empty($url) 
+                                @if (array_key_exists($platform, $socialMediaPlatforms) && !empty($url)
                                     && isset($setting->value['status'][$platform]) && $setting->value['status'][$platform] == true )
                                     <li>
                                         <a href="{{ $url }}">

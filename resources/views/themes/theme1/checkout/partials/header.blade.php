@@ -10,7 +10,7 @@
                         $IconUrl = $IconPath ? Storage::url($IconPath) : null;
                     @endphp
                     @if($IconUrl)
-                        <img src="{{ $IconUrl }}" alt="Icon">
+                        <img loading="lazy" src="{{ $IconUrl }}" alt="Icon">
                     @else
                         <h3>{{ $setting->value['website_name'] ?? '' }}</h3> <!-- Provide a default icon path if needed -->
                     @endif
@@ -41,7 +41,7 @@
               @if ($key != current_language())
                   <a class="" href="{{ route('changeLang', ['lang' => $key]) }}">
                 <span class="" style="text-decoration: none !important; color: #000">
-                    <img src="{{ asset('theme1-assets/images/flags/' . $key . '.png') }}" alt="" width="20">
+                    <img loading="lazy" src="{{ asset('theme1-assets/images/flags/' . $key . '.png') }}" alt="" width="20">
                     <span style="text-decoration: none !important;">{{ $lang }}</span>
                 </span>
                   </a>

@@ -127,7 +127,7 @@
                                             <div class="itemInfo">
                                                 <a href="{{ route('product', $orderDetails->product->id) }}">
                                                     <img class="w-full object-contain"
-                                                        src="{{ $orderDetails->product->thumbnail }} " alt="">
+                                                         loading="lazy" src="{{ $orderDetails->product->thumbnail }} " alt="">
                                                 </a>
 
                                                 <h2>
