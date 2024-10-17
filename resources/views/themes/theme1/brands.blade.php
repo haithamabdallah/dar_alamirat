@@ -56,7 +56,7 @@
                         <div class="s-brands-list">
                             @foreach ($brandsByLetter as $brand)
                                 <a href="{{ route('brand', $brand->id) }}" class="brand-item">
-                                    <img class="" src="{{ storage_asset($brand->image) }}" alt="{{ $brand->name }}">
+                                    <img class="" loading="lazy" src="{{ storage_asset($brand->image) }}" alt="{{ $brand->name }}">
                                 </a>
                             @endforeach
                         </div>

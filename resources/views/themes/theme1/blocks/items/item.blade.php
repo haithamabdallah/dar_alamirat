@@ -10,7 +10,7 @@
     <!-- img -->
     <div class="img">
         <a href="javascript:;">
-            <img class="w-full object-contain" src="{{asset('theme1-assets/images/products/01.png')}}" alt="">
+            <img class="w-full object-contain" loading="lazy" src="{{asset('theme1-assets/images/products/01.png')}}" alt="">
         </a>
     </div>
     <!-- img -->

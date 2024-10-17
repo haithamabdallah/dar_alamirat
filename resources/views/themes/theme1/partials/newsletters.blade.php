@@ -3,7 +3,7 @@
     <div class="newContent">
         <a href="javascript:;" class="closeNews close-btn"><i class="fa-solid fa-xmark"></i></a>
         <div class="newsImage">
-            <img src="{{ asset('theme1-assets/images/newsletter/01.jpg') }}" alt="">
+            <img loading="lazy" src="{{ asset('theme1-assets/images/newsletter/01.jpg') }}" alt="">
         </div>
         <div id="subscription">
             <h3>{{ __("Sign Up For") }}</h3>

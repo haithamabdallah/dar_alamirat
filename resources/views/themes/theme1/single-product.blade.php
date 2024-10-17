@@ -67,7 +67,7 @@
                         <div class="item_brand">
                             <!-- img -->
                             <div class="brand_img">
-                                <img class="" src="{{ storage_asset($product->brand->image) }}"
+                                <img class="" loading="lazy" src="{{ storage_asset($product->brand->image) }}"
                                     alt="{{ $product->brand->name }}">
                             </div>
                             <!-- ./img -->
@@ -133,7 +133,7 @@
                                                     <input type="radio" id="variant-{{ $variant->id }}" name="variant" value="{{ $variant->id }}" @if ($index === 0) checked @endif>
                                                     <label for="variant-{{ $variant->id }}">
                                                         @if ($variant->images->count() > 0)
-                                                            <img src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
+                                                            <img loading="lazy" src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
                                                         @endif
                                                         <span>{{ $variant->variantName }}</span>
                                                     </label>
@@ -232,7 +232,7 @@
 
                             <div class="small_product">
                                 <div class="p-img">
-                                    <img class="object-cover" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
+                                    <img class="object-cover" loading="lazy" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                 </div>
                                 <div class="p-info">
                                     <a href="#" class="category">{{ $product->category->name  }}</a>
@@ -268,7 +268,7 @@
                                                     <li class="swiper-slide" {{-- {!! $index != 0  ? 'style="display:none;"' :  '' !!} --}} data-variant-id="{{ $variant->id }}" >
                                                         <a href="{{ $image->image }}"
                                                             title="{{ $product->slug . $image->id }}">
-                                                            <img src="{{ $image->image }}"
+                                                            <img loading="lazy" src="{{ $image->image }}"
                                                                 alt="{{ $product->slug . $image->id }}">
                                                         </a>
                                                     </li>
@@ -277,7 +277,7 @@
                                         @endforeach
                                         <li class="swiper-slide">
                                             <a href="{{ $product->thumbnail }}" title="{{ $product->slug }}">
-                                                <img src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
+                                                <img loading="lazy" src="{{ $product->thumbnail }}" alt="{{ $product->slug }}">
                                             </a>
                                         </li>
                                         @if (count($product->media) > 0)
@@ -285,7 +285,7 @@
                                                 <li class="swiper-slide">
                                                     <a href="{{ $image->file }}"
                                                         title="{{ $product->slug . $image->id }}">
-                                                        <img src="{{ $image->file }}"
+                                                        <img loading="lazy" src="{{ $image->file }}"
                                                             alt="{{ $product->slug . $image->id }}">
                                                     </a>
                                                 </li>
@@ -302,18 +302,18 @@
                                             @if (count($variant->images) > 0)
                                                 @foreach ($variant->images as $index => $image)
                                                     <li class="swiper-slide" {!! $index != 0  ? 'style="display:none;"' :  '' !!} data-variant-id="{{ $variant->id }}" >
-                                                        <img src="{{ $image->image }}" />
+                                                        <img loading="lazy" src="{{ $image->image }}" />
                                                     </li>
                                                 @endforeach
                                             @endif
                                         @endforeach
                                         <li class="swiper-slide">
-                                            <img src="{{ $product->thumbnail }}" />
+                                            <img loading="lazy" src="{{ $product->thumbnail }}" />
                                         </li>
                                         @if (count($product->media) > 0)
                                             @foreach ($product->media as $image)
                                                 <li class="swiper-slide">
-                                                    <img src="{{ $image->file }}" />
+                                                    <img loading="lazy" src="{{ $image->file }}" />
                                                 </li>
                                             @endforeach
                                         @endif

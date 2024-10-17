@@ -7,7 +7,7 @@
     <!-- img -->
     <div class="img">
         <a href="{{ route('product', $product->id) }}">
-            <img class="w-full object-contain" src="{{ $product->thumbnail }}" alt="Product Image">
+            <img class="w-full object-contain" loading="lazy" src="{{ $product->thumbnail }}" alt="Product Image">
         </a>
     </div>
     <!-- img -->

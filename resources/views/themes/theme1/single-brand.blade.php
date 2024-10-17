@@ -14,7 +14,7 @@
                     <div class="brand_data">
                         <!-- img -->
                         <div class="brand_img">
-                            <img class="brand-item w-full object-contain" src="{{ storage_asset($brand->image) }}"
+                            <img class="brand-item w-full object-contain" loading="lazy" src="{{ storage_asset($brand->image) }}"
                                 alt="{{ $brand->name }}">
                         </div>
                         <!-- ./img -->

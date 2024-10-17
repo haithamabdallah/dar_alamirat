@@ -99,7 +99,7 @@
                                             <div class="itemInfo">
                                                 <a href="#">
                                                     <img class="w-full object-contain"
-                                                        src="{{ $cart->product->thumbnail }}" alt="product image">
+                                                         loading="lazy" src="{{ $cart->product->thumbnail }}" alt="product image">
                                                 </a>
 
                                                 <h2>
@@ -134,13 +134,13 @@
                                             <form id="variant-form">
                                                 @foreach ($cart->product?->variants as  $variantIndex => $variant)
                                                     <div class="variant-option">
-                                                        <input type="radio" id="variant-{{ $index }}-{{ $variantIndex }}" class="variant-{{ $index }}" name="variant-{{ $index }}" value="{{ $variant->id }}" 
-                                                            @if ($cart->variant_id && $cart->variant_id == $variant->id) checked 
+                                                        <input type="radio" id="variant-{{ $index }}-{{ $variantIndex }}" class="variant-{{ $index }}" name="variant-{{ $index }}" value="{{ $variant->id }}"
+                                                            @if ($cart->variant_id && $cart->variant_id == $variant->id) checked
                                                             @endif
                                                             >
                                                         <label for="variant-{{ $index }}-{{ $variantIndex }}">
                                                             @if ($variant->images->count() > 0)
-                                                                <img src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
+                                                                <img loading="lazy" src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
                                                             @endif
                                                             <span>{{ $variant->variantName }}</span>
                                                         </label>

@@ -13,7 +13,7 @@
                         ? route('category.products', $banner->bannerable_id)
                         :  route('brand',  $banner->bannerable_id)
                         }}" class="" aria-label="Banner">
-                        <img class="w-full object-cover" src="{{ storage_asset($banner->image) }}"
+                        <img class="w-full object-cover" loading="lazy" src="{{ storage_asset($banner->image) }}"
                             alt="baaner image">
                     </a>
                 </div>
