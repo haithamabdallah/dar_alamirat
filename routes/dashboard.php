@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\MainSliderController;
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/', [DashboardController::class , 'index' ])->name('index');
+    Route::get('/authorized', [DashboardController::class , 'authorized' ])->name('authorized');
     Route::get('/logout', [AuthController::class , 'logout' ])->name('logout');
     
     Route::group(['middleware' => 'admin' , 'prefix' => 'coupons' , 'as' => 'coupons.'], function () {

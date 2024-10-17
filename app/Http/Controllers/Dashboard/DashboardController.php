@@ -30,4 +30,10 @@ class DashboardController extends Controller
     }
 
 
+    public function authorized()
+    {
+        return view('dashboard.authorized');
+    }
+
+
 }

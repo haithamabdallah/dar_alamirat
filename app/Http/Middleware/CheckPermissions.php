@@ -17,7 +17,8 @@ class CheckPermissions
     {
         
         if (  !in_array( $role , auth('admin')->user()?->role?->permissions?->pluck('name')->toArray() ) ) {
-            abort(403 , 'You do not have permission to access this page');
+            return redirect(route('dashboard.authorized'));
+            // abort(403 , 'You do not have permission to access this page');
         }
 
         return $next($request);
