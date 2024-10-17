@@ -33,8 +33,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = $this->bannerService->getPaginatedData();
-        return view('dashboard.categories.banners', compact('banners'));
+        // $banners = $this->bannerService->getPaginatedData();
+        // return view('dashboard.categories.banners', compact('banners'));
     }
 
 
