@@ -78,6 +78,15 @@ class User extends Authenticatable
         return $this->email ?? $this->guest_email ;
     }
 
+    public function setEmailAttribute($value)
+    {
+        if ( $this->guest_email == true ) {
+            return $this->attributes['guest_email'] = $value;
+        } else {
+            return $this->attributes['email'] = $value;
+        }
+    }
+
     public function getFullNameAttribute()
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
