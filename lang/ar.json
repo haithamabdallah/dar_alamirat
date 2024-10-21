@@ -346,7 +346,7 @@
     "Load More": "تحميل المزيد",
     "from": "من",
     "Email": "البريد الالكتروني",
-    "Please login to use coupons and to checkout.": "فضلا سجل الدخول لاستخدام الكوبونات وللدفع.",
+    "Please login to use coupons and get discounts.": "فضلا سجل الدخول لاستخدام الكوبونات وللحصول على الخصومات.",
     "Save Cart Options": "حفظ خيارات السلة",
     "Saved": "تم الحفط",
     "Category Name": "اسم التصنيف",
@@ -366,6 +366,11 @@
     "Date and Time": "التاريخ والوقت",
     "Date": "التاريخ",
     "Time": "الوقت",
+    "Continue As Guest": "أكمل بدون تسجيل الدخول",
+    "OR": "أو",
+    "Enter Your Data": "أدخل بياناتاك",
+    "First Name": "الاسم الاول",
+    "Last Name": "الاسم الأخير",
     "": "",
     "": ""
 }

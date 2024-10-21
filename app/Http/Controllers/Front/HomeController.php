@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\IndexPriority;
 use App\Services\CartService;
 use Modules\Brand\Models\Brand;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Modules\Product\Models\Product;
 use App\Http\Controllers\Controller;
@@ -123,10 +124,10 @@ class HomeController extends Controller
         $query = $request->input('query');
 
         if (!isset($request->filter)) {
-            $products = Product::where('title->' . 'en', 'LIKE', '%' . $query . '%')
-                ->orWhere('title->' . 'ar', 'LIKE', '%' . $query . '%')
-                // ->filter($request->all())
-                ->active()->latest()->paginate(20);
+            $products = Product::where(DB::raw('LOWER(JSON_UNQUOTE(title->"$.en"))'), 'LIKE', '%' . strtolower($query) . '%')
+            ->orWhere(DB::raw('LOWER(JSON_UNQUOTE(title->"$.ar"))'), 'LIKE', '%' . strtolower($query) . '%')
+            // ->filter($request->all())
+            ->active()->latest()->paginate(20);
 
                 
             if ($products->count() == 0) {
@@ -199,8 +200,8 @@ class HomeController extends Controller
             // return response()->json( $request->all() );
             if ($search == true) {
 
-                $products = Product::where('title->' . 'en', 'LIKE', '%' . $search . '%')
-                    ->orWhere('title->' . 'ar', 'LIKE', '%' . $search . '%')
+                $products = Product::where(DB::raw('LOWER(JSON_UNQUOTE(title->"$.en"))'), 'LIKE', '%' . strtolower($search) . '%')
+                ->orWhere(DB::raw('LOWER(JSON_UNQUOTE(title->"$.ar"))'), 'LIKE', '%' . strtolower($search) . '%')
                     ->withOnly([])
                     ->active()->latest()->take(20)->get();
                 // ->filter($request->all())

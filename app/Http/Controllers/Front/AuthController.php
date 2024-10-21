@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Auth\GuestSignUpRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -81,6 +82,22 @@ class AuthController extends Controller
         request()->session()->regenerateToken();
 
         return redirect()->route('index')->with('success', 'You have been logged out.');
+    }
+
+    public function guestSignUp(GuestSignUpRequest $request)
+    {
+        $validated = $request->validated();
+
+        $user = User::updateOrCreate([ 'guest_email' =>  $validated['guest_email'] ], [
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+        ]);
+
+        Auth::login($user);
+
+        $request->session()->regenerate();
+
+        return redirect()->route('cart.index');
     }
 
 

@@ -15,12 +15,12 @@
         #variant-form {
             display: flex;
             grid-gap: 10px;
-
         }
 
         .variant-option input {
             display: none;
         }
+
         .variant-option label {
             display: flex;
             flex-direction: column;
@@ -38,16 +38,19 @@
             border-color: #5E6FB4;
         }
 
-        .variant-option input:checked + label {
+        .variant-option input:checked+label {
             border: 1px solid #5E6FB4;
             color: #5E6FB4;
         }
 
         .variant-option label img {
-            max-width: 50px; /* Adjust image size as needed */
-            max-height: 50px; /* Adjust image size as needed */
+            max-width: 50px;
+            /* Adjust image size as needed */
+            max-height: 50px;
+            /* Adjust image size as needed */
             vertical-align: middle;
-            margin-right: 10px; /* Adjust spacing between image and text */
+            margin-right: 10px;
+            /* Adjust spacing between image and text */
         }
     </style>
 @endsection
@@ -64,8 +67,9 @@
                         <main>
                             @foreach ($carts as $index => $cart)
                                 <div class="items_in_cart">
-                                    @if ( auth()->check() )
-                                        <div class="d-none" id="cart-id-{{ $index }}" data-id="{{ $cart->id }}"></div>
+                                    @if (auth()->check())
+                                        <div class="d-none" id="cart-id-{{ $index }}" data-id="{{ $cart->id }}">
+                                        </div>
                                     @endif
 
                                     <!-- item -->
@@ -76,8 +80,10 @@
                                             {{-- <a class="removeItem" href="javascript:;" data-bs-dismiss="alert"
                                             aria-label="Close"><i class="fa-solid fa-xmark"></i></a> --}}
 
-                                            <form action="{{ auth()->check() ? route('cart.destroy', $cart->id) : route('guest.cart.destroy', [ 'productId' => $cart->product_id , 'index' => $index]) }}" method="POST"
-                                                id="delete-form-{{ $index }}" data-index="{{ $index }}">
+                                            <form
+                                                action="{{ auth()->check() ? route('cart.destroy', $cart->id) : route('guest.cart.destroy', ['productId' => $cart->product_id, 'index' => $index]) }}"
+                                                method="POST" id="delete-form-{{ $index }}"
+                                                data-index="{{ $index }}">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
@@ -98,14 +104,16 @@
                                             <!-- img and title -->
                                             <div class="itemInfo">
                                                 <a href="#">
-                                                    <img class="w-full object-contain"
-                                                         loading="lazy" src="{{ $cart->product->thumbnail }}" alt="product image">
+                                                    <img class="w-full object-contain" loading="lazy"
+                                                        src="{{ $cart->product->thumbnail }}" alt="product image">
                                                 </a>
 
                                                 <h2>
-                                                    <a href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
+                                                    <a
+                                                        href="{{ route('product', $cart->product->id) }}">{{ $cart->product->title }}</a>
                                                     <div class="variant-price">
-                                                        <span id="variant-price-{{ $index }}">{{ $cart->product->price }}</span>
+                                                        <span
+                                                            id="variant-price-{{ $index }}">{{ $cart->product->price }}</span>
                                                         {{ $currency }}
                                                     </div>
                                                 </h2>
@@ -123,8 +131,9 @@
                                             <!-- ./quantity -->
 
                                             <!-- total price -->
-                                            <div class="price">{{ __("Total Price") }}:
-                                                <span id="price-{{ $index }}"> {{ $cart->product->price }} </span> {{ $currency }}
+                                            <div class="price">{{ __('Total Price') }}:
+                                                <span id="price-{{ $index }}"> {{ $cart->product->price }} </span>
+                                                {{ $currency }}
                                             </div>
                                             <!-- ./total price -->
                                         </div>
@@ -132,15 +141,18 @@
                                         <div class="select-option" {!! $cart->product?->variants()->count() > 1 ? '' : 'style="display: none"' !!}>
                                             <h3> {{ __('Please select one of the options') }}<span>*</span></h3>
                                             <form id="variant-form">
-                                                @foreach ($cart->product?->variants as  $variantIndex => $variant)
+                                                @foreach ($cart->product?->variants as $variantIndex => $variant)
                                                     <div class="variant-option">
-                                                        <input type="radio" id="variant-{{ $index }}-{{ $variantIndex }}" class="variant-{{ $index }}" name="variant-{{ $index }}" value="{{ $variant->id }}"
-                                                            @if ($cart->variant_id && $cart->variant_id == $variant->id) checked
-                                                            @endif
-                                                            >
+                                                        <input type="radio"
+                                                            id="variant-{{ $index }}-{{ $variantIndex }}"
+                                                            class="variant-{{ $index }}"
+                                                            name="variant-{{ $index }}" value="{{ $variant->id }}"
+                                                            @if ($cart->variant_id && $cart->variant_id == $variant->id) checked @endif>
                                                         <label for="variant-{{ $index }}-{{ $variantIndex }}">
                                                             @if ($variant->images->count() > 0)
-                                                                <img loading="lazy" src="{{ $variant->images[0]->image }}" alt=""> <!-- Replace with your actual image URL -->
+                                                                <img loading="lazy" src="{{ $variant->images[0]->image }}"
+                                                                    alt="">
+                                                                <!-- Replace with your actual image URL -->
                                                             @endif
                                                             <span>{{ $variant->variantName }}</span>
                                                         </label>
@@ -150,84 +162,98 @@
                                         </div>
                                     </div>
 
-                                    </div>
-                                    <!-- ./item -->
+                                </div>
+                                <!-- ./item -->
                             @endforeach
-                    </main>
-                    <!-- .main -->
+                        </main>
+                        <!-- .main -->
 
-                    <!-- aside -->
-                    <aside>
-                        <!-- stick on scroll -->
-                        <div class="sticky-top">
-                            <!-- summary -->
-                            <div class="order-summary">
-                                <h6>{{ __("Order Summary") }}</h6>
+                        <!-- aside -->
+                        <aside>
+                            <!-- stick on scroll -->
+                            <div class="sticky-top">
+                                <!-- summary -->
+                                <div class="order-summary">
+                                    <h6>{{ __('Order Summary') }}</h6>
 
-                                {{-- <div class="final-total">
+                                    {{-- <div class="final-total">
                                     <p id="final-total"><b>Final Total:</b><span id="final-total-up"></span></p>
                                 </div> --}}
 
-                                @foreach ($carts as $index => $cart)
-                                    <div class="item-summary">
-                                        <p id="selected-product-{{ $index }}"></p>
+                                    @foreach ($carts as $index => $cart)
+                                        <div class="item-summary">
+                                            <p id="selected-product-{{ $index }}"></p>
 
-                                        <p id="selected-variant-{{ $index }}"></p>
+                                            <p id="selected-variant-{{ $index }}"></p>
 
-                                        <p id="variant-price-summary-{{ $index }}"></p>
+                                            <p id="variant-price-summary-{{ $index }}"></p>
 
-                                        <p id="quantity-summary-{{ $index }}"></p>
+                                            <p id="quantity-summary-{{ $index }}"></p>
 
-                                        <p id="item-total-price-{{ $index }}"></p>
+                                            <p id="item-total-price-{{ $index }}"></p>
 
-                                        <div class="" style="background-color: #cccccc ; height: 5px ; width: 100%">
+                                            <div class=""
+                                                style="background-color: #cccccc ; height: 5px ; width: 100%">
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
 
-                                <p id="final-total"><b>{{ __("Final Total") }}:</b><span id="final-total-price" ></span></p>
-                                @auth
-                                    <div class="coupons">
-                                        <label for="apply_coupons">{{ __("Have Coupon") }} {{ __("?") }}</label>
-                                        <div class="apply">
-                                            <input type="text" placeholder="Apply Coupon" id="coupon-code" name="coupon_code" value="{{ session('coupon')['code'] ?? old('coupon_code')  }}">
-                                            <button onclick="applyCoupon()">{{ __("Apply") }}</button>
+                                    <p id="final-total"><b>{{ __('Final Total') }}:</b><span id="final-total-price"></span>
+                                    </p>
+                                    @auth
+                                        <div class="coupons">
+                                            <label for="apply_coupons">{{ __('Have Coupon') }} {{ __('?') }}</label>
+                                            <div class="apply">
+                                                <input type="text" placeholder="Apply Coupon" id="coupon-code"
+                                                    name="coupon_code"
+                                                    value="{{ session('coupon')['code'] ?? old('coupon_code') }}">
+                                                <button onclick="applyCoupon()">{{ __('Apply') }}</button>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <p id="coupon-details-div" style="display: none"> <span class="text-success"> {{ __("Valid Coupon") }} </span> <br> <span id="coupon-details" > </span> </p>
-                                    <div id="invalid-coupon" style="display: none"> <span class="text-danger"> {{ __("Invalid Coupn") }} </span> </div>
+                                        <p id="coupon-details-div" style="display: none"> <span class="text-success">
+                                                {{ __('Valid Coupon') }} </span> <br> <span id="coupon-details"> </span> </p>
+                                        <div id="invalid-coupon" style="display: none"> <span class="text-danger">
+                                                {{ __('Invalid Coupn') }} </span> </div>
 
+                                        {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}
 
-                                    {{-- <p class="vat">{{ __("VAT Inclusive") }}</p> --}}
+                                        <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form"
+                                            style="display: none">
+                                            @csrf
+                                            <input type="hidden" name="final_total" id="final-total-input" value="">
+                                        </form>
+                                        <button class="place_order" id="final-total-btn">{{ __('Submit Order') }}</button>
+                                    @endauth
 
-                                    <form action="{{ route('order.checkout') }}" method="POST" id="final-total-form" style="display: none">
-                                        @csrf
-                                        <input type="hidden" name="final_total" id="final-total-input" value="">
-                                    </form>
-                                    <button class="place_order" id="final-total-btn">{{ __("Submit Order") }}</button>
-                                @endauth
+                                    @guest
+                                        <div class="text-center  p-2 rounded" style="color: #5e6fb4; font-weight: bold">
+                                            {{ __('Please login to use coupons and get discounts.') }}
+                                        </div>
+                                        <button type="button" class="text-center text-white p-2 rounded"
+                                            style="background-color: #5e6fb4; font-weight: bold ; width:100% !important"
+                                            id="save-cart-options">{{ __('Login') }}</button>
+                                        <div class="text-center  p-2 rounded" style="color: #5e6fb4; font-weight: bold">
+                                            {{ __('OR') }}
+                                        </div>
+                                        
+                                        <button type="button" class="text-center text-white p-2 rounded"
+                                            style="background-color: #5e6fb4; font-weight: bold ; width:100% !important"
+                                            onclick="saveGuestCart('guestSignUp')">{{ __('Continue As Guest') }}</button>
 
-                                @guest
-                                    <div class="text-center  p-2 rounded" style="color: #5e6fb4; font-weight: bold" >
-                                        {{ __("Please login to use coupons and to checkout.") }}
-                                    </div>
-                                    <button type="button" class="text-center text-white p-2 rounded" style="background-color: #5e6fb4; font-weight: bold ; width:100% !important"
-                                    id="save-cart-options">{{ __("Save Cart Options") }}</button>
-                                    <button type="button" class="text-center text-white bg-success p-2 rounded" style="display: none; font-weight: bold ; width:100% !important"
-                                        id="cart-options-saved">{{ __("Saved") }}</button>
+                                        @include('themes.theme1.partials.modals.guest-sign-up')
 
-                                @endguest
+                                    @endguest
+                                </div>
+                                <!-- summary -->
                             </div>
-                            <!-- summary -->
-                        </div>
-                        <!-- stick on scroll -->
-                    </aside>
-                    <!-- ./aside -->
+                            <!-- stick on scroll -->
+                        </aside>
+                        <!-- ./aside -->
+                    </div>
+                    <!-- ./content -->
                 </div>
-                <!-- ./content -->
-            </div>
-            <!-- ./row -->
+                <!-- ./row -->
             </div>
         </section>
     @else
@@ -242,8 +268,9 @@
                         <div class="main-content">
                             <div class="no-content-placeholder">
                                 <i class="sicon-shopping-bag icon"></i>
-                                <p>{{ __("Empty Cart") }}</p>
-                                <a href="{{route('index')}}" class="btn btn--outline-primary">{{ __("Home Page") }}</a>
+                                <p>{{ __('Empty Cart') }}</p>
+                                <a href="{{ route('index') }}"
+                                    class="btn btn--outline-primary">{{ __('Home Page') }}</a>
                             </div>
                         </div>
                     </main>

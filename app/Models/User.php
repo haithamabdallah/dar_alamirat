@@ -22,9 +22,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'first_name','last_name','email','phone_number','birthday','gender',
-
+    protected $guarded = [
+        'id',
     ];
 
     /**
@@ -74,11 +73,15 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
+    public function getEmailAttribute()
+    {
+        return $this->email ?? $this->guest_email ;
+    }
+
     public function getFullNameAttribute()
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
-
 
     public function setFullNameAttribute($value)
     {

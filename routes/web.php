@@ -94,8 +94,18 @@ use Modules\Brand\Http\Controllers\BrandController as BrandControllerBE;
 
 /************************************ Front Routs ****************************/
 // Route::get('/test', function () {
+//     $user = auth()->user();
+//     // $order = $user->orders->first();
+//     try {
+//         Mail::raw('This is a simple email message for testing.', function ($message) use ($user) {
+//             $message->to( $user->email)
+//                 ->subject('Test');
+//         });
+//     } catch (\Exception $e) {
+//         dd($e);
+//     }
 // });
-Route::get('/maintenance-page', [HomeController::class , 'maintenance' ])->name('maintenance-page');
+Route::get('/maintenance-page', [HomeController::class, 'maintenance'])->name('maintenance-page');
 
 Route::get('/lang/{lang}', [HomeController::class, 'changeLanguage'])->name('changeLang');
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -106,11 +116,12 @@ Route::post('/searching-products', [HomeController::class, 'searchAjax'])->name(
 Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('sendOtp');
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verifyOtp');
 Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resendOtp');
+Route::post('/guest-sign-up', [AuthController::class, 'guestSignUp'])->name('guest.register');
 
 Route::prefix('brands')->group(function () {
     Route::get('allBrands', [BrandController::class, 'index'])->name('brands.index');
     Route::get('brands/{brand}', [BrandController::class, 'showBrand'])->name('brand');
-    Route::post('status/{brand}', [BrandControllerBE::class , 'changeStatus'])->name('brand.status');
+    Route::post('status/{brand}', [BrandControllerBE::class, 'changeStatus'])->name('brand.status');
 });
 
 Route::prefix('products')->group(function () {
@@ -129,9 +140,11 @@ Route::get('/subscriber/{subscriber}/unsubscribe/{token}', [SubscriberController
 Route::middleware('auth:admin')->group(function () {
 
     Route::post('dashboard/change-dark-mode', function () {
-        if ( !session()->has('darkMode') ) 
-                { return session()->put('darkMode', true); } 
-        else    { return session()->forget('darkMode'); }
+        if (!session()->has('darkMode')) {
+            return session()->put('darkMode', true);
+        } else {
+            return session()->forget('darkMode');
+        }
     })->name('dashboard.change-dark-mode');
 
     Route::prefix('settings')->group(function () {
@@ -141,7 +154,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::post('maintenance-store', [SettingsController::class, 'saveMaintenances'])->name('maintenance');
     });
 });
-Route::group(['prefix' => 'guest' , 'as' => 'guest.'], function () {
+Route::group(['prefix' => 'guest', 'as' => 'guest.'], function () {
     Route::post('/cart/add/{product}', [CartController::class, 'addToGuestCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'showGuestCart'])->name('cart.index');
     Route::patch('/cart/update', [CartController::class, 'updateGuestCart'])->name('cart.update');

@@ -3,7 +3,7 @@
     // prices = JSON.parse(prices);
 
     var carts = {};
-    var guestCarts ={};
+    var guestCarts = {};
 
     function getPricePerUnit(index) {
         let variantId = $(`input[name='variant-${index}'].variant-${index}:checked`).val();
@@ -71,7 +71,8 @@
     function updateOrderSummary(index) {
         const cartId = $('#cart-id-' + index).data('id');
         const selectedProductElement = document.getElementById('selected-product-' + index); // Order summary element
-        const productPriceSummaryElement = document.getElementById('product-price-summary-' + index); // Order summary element
+        const productPriceSummaryElement = document.getElementById('product-price-summary-' +
+            index); // Order summary element
         const quantitySummaryElement = document.getElementById('quantity-summary-' + index); // Order summary element
         const itemTotalPriceElement = document.getElementById('item-total-price-' + index); // Order summary element
         const finalTotalPriceElement = document.getElementById('final-total-price'); // Order summary element
@@ -94,22 +95,22 @@
         }
 
         @auth
-            carts[cartId] = {
-                variant_id :  $(`input[type=radio][name=variant-${index}].variant-${index}:checked`).val(),
-                product_id: $('#product-id-' + index).data('id'),
-                quantity: parseInt(quantity),
-            };
-        @endauth
+        carts[cartId] = {
+            variant_id: $(`input[type=radio][name=variant-${index}].variant-${index}:checked`).val(),
+            product_id: $('#product-id-' + index).data('id'),
+            quantity: parseInt(quantity),
+        };
+    @endauth
 
-        @guest
-            guestCarts[index] = {
-                variant_id :  $(`input[type=radio][name=variant-${index}].variant-${index}:checked`).val(),
-                product_id: $('#product-id-' + index).data('id'),
-                quantity: parseInt(quantity),
-            };
-        @endguest
+    @guest
+    guestCarts[index] = {
+        variant_id: $(`input[type=radio][name=variant-${index}].variant-${index}:checked`).val(),
+        product_id: $('#product-id-' + index).data('id'),
+        quantity: parseInt(quantity),
+    };
+    @endguest
 
-        updateFinalPrice();
+    updateFinalPrice();
     }
 
     function updateFinalPrice() {
@@ -138,33 +139,42 @@
         });
     })
 
-    $('#save-cart-options').on('click', () => {
+    function saveGuestCart(modalId) {
         axios.patch('{{ route('guest.cart.update') }}', {
-            @auth
-                'carts': carts
+                @auth 'carts': carts
             @endauth
-            @guest
-                'carts': guestCarts
-            @endguest
-        }).then((response) => {
-            if (response.data.status === 'success') {
-                if ( response.data.cartTotal  ) {
-                    $('#cart-summary-total').text(response.data.cartTotal  + ' {!! $currency !!}');
-                    $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
-                }
-                console.log(response.data);
-                $('#save-cart-options').hide();
-                $('#cart-options-saved').show();
-                setTimeout(() => {
-                    $('#cart-options-saved').hide();
-                    $('#save-cart-options').show();
-                }, 2000);
-            } else {
-                console.log(response.data);
+            @guest 'carts': guestCarts
+        @endguest
+    }).then((response) => {
+        if (response.data.status === 'success') {
+            if (response.data.cartTotal) {
+                $('#cart-summary-total').text(response.data.cartTotal + ' {!! $currency !!}');
+                $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
             }
-        }).catch((error) => {
-            console.log(error);
-        });
+            console.log(response.data);
+            // $('#save-cart-options').hide();
+            // $('#cart-options-saved').show();
+            // setTimeout(() => {
+            //     $('#cart-options-saved').hide();
+            //     $('#save-cart-options').show();
+            // }, 2000);
+            $(`#${modalId}`).modal('show')
+        } else {
+            console.log(response.data);
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+    }
+
+    $('#save-cart-options').on('click', () => {
+        saveGuestCart('loginEmail');
+    });
+
+    $('#guestSignUp').on('show.bs.modal', function() {
+        setTimeout(() => {
+            $('.modal-backdrop').hide(); // Hide backdrop
+        }, 500);
     })
 
     function checkInventoryQuantity(index) {
@@ -177,7 +187,6 @@
                 inventoryQuantity);
         }
     }
-
 </script>
 
 @include('themes.theme1.shared-scripts.apply-coupon')
