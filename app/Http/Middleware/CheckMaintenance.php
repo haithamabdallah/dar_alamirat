@@ -16,15 +16,23 @@ class CheckMaintenance
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $setting = Setting::where('type','maintenance')->first() ?? null;
-        $status = isset($setting) ? Setting::where('type','maintenance')->first()['value']['maintenance_mode']  : 'disabled' ;
-        if ($status == 'enabled' && !auth('admin')->check() && !$request->is('dashboard/*'))  {
-            if ( $request->routeIs('maintenance-page' ) ){
-                return $next($request);
-            } else {
-                return redirect()->route('maintenance-page');
+        $setting = Setting::where('type', 'maintenance')->first() ?? null;
+        $status = isset($setting) ? Setting::where('type', 'maintenance')->first()['value']['maintenance_mode']  : 'disabled';
+        
+        if ($status == 'enabled') {
+            session(['maintenance' =>  true]);
+            
+            if (!auth('admin')->check() && !$request->is('dashboard/*')) {
+                if ($request->routeIs('maintenance-page')) {
+                    return $next($request);
+                } else {
+                    return redirect()->route('maintenance-page');
+                }
             }
+        } else {
+            session(['maintenance' =>  false]);
         }
+
         return $next($request);
     }
 }

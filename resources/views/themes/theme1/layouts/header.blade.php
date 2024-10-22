@@ -1,3 +1,8 @@
+@if (session('maintenance'))
+    <div class="bg-success text-center p-2 text-white">
+        Maintenance Mode Is On
+    </div>
+@endif
 <!-- resources/views/layouts/header.blade.php -->
 <header id="header">
 

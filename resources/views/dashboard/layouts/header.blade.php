@@ -1,4 +1,8 @@
-
+@if (session('maintenance'))
+    <div class="bg-success text-center p-2 text-white">
+        Maintenance Mode Is On
+    </div>
+@endif
 <!-- BEGIN #header -->
 <div id="header" class="app-header">
     <!-- BEGIN navbar-header -->
