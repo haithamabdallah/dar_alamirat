@@ -36,14 +36,16 @@ class SendManyEmails implements ShouldQueue
             }
             $unsubscribeLink = route('unsubscribe', ['subscriber' => $recipient->id, 'token' => $recipient->token]);
             try {
-                Mail::to($recipient->email)->send(
-                    new SendNewsletterMail(
-                        /* $details['sender'], */
-                        $this->details['subject'],
-                        $this->details['content'],
-                        $unsubscribeLink
-                    ),
-                );
+                if ( $recipient->status != 0 && $recipient->email == 'alyredagomaa@gmail.com') {
+                    Mail::to($recipient->email)->send(
+                        new SendNewsletterMail(
+                            /* $details['sender'], */
+                            $this->details['subject'],
+                            $this->details['content'],
+                            $unsubscribeLink
+                        ),
+                    );
+                }
             } catch (\Exception $e) {
                 dd($e->getMessage());
             }
