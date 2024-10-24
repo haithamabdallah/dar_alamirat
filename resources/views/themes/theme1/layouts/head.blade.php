@@ -31,6 +31,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- custom style -->
 
+        <style>
+            /* Custom class for SweetAlert with smaller size */
+            .small-swal {
+                width: 300px !important; /* Decrease width of the alert */
+                font-size: 14px !important; /* Adjust text size */
+            }
+        </style>
+
     @stack('head')
 
     @yield('customcss')

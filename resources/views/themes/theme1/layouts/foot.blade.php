@@ -183,15 +183,18 @@
             _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         };
 
-        // Show a loading indicator immediately
+        // Show a smaller loading indicator immediately
         Swal.fire({
             title: 'Processing...',
             text: 'Please wait while we add the item to your cart.',
             icon: 'info',
             allowOutsideClick: false,
-            showConfirmButton: false, // Hide the confirm button during loading
+            showConfirmButton: false,
+            customClass: {
+                popup: 'small-swal', // Custom class for small modal
+            },
             didOpen: () => {
-                Swal.showLoading(); // Show loading animation
+                Swal.showLoading();
             }
         });
 
@@ -208,22 +211,28 @@
                     $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
                 }
 
-                // Update SweetAlert with the response message
+                // Show the final smaller alert
                 Swal.fire({
                     title: (status === 'danger' || status === 'error') ? 'Oops...' : 'Success!',
                     text: response.data.message,
                     icon: icon,
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        popup: 'small-swal', // Custom class for small modal
+                    }
                 });
             })
             .catch(function (error) {
                 if (error.response) {
-                    // Update SweetAlert for error message
+                    // Show error alert in a smaller size
                     Swal.fire({
                         title: 'Error',
                         text: error.response.data.message,
                         icon: 'error',
-                        confirmButtonText: 'OK'
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            popup: 'small-swal', // Custom class for small modal
+                        }
                     });
                 }
             });
