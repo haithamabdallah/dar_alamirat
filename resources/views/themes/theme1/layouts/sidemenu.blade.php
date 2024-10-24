@@ -33,16 +33,18 @@
             @foreach (defaultCategory() as $category)
                 @if ($category->childes->isNotEmpty())
                     <li class="nav__item">
-                        <a class="nav__link"
-                            href="{{ route('category.products', $category->id) }}">{{ $category->name }}<i
-                                class="fas fa-chevron-right"></i></a>
+                        <a href="{{ route('category.products', $category->id) }}">{{ $category->name }}</a>
+                        <div class="nav__link">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
                         <ul class="nav__sub">
                             @foreach ($category->childes as $child)
                                 @if ($child->childes->isNotEmpty())
                                     <li class="nav__item">
-                                        <a class="nav__link"
-                                            href="{{ route('category.products', $child->id) }}">{{ $child->name }}<i
-                                                class="fas fa-chevron-right"></i></a>
+                                        <a class="nav__link" href="{{ route('category.products', $child->id) }}">{{ $child->name }}</a>
+                                        <div class="nav__link">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
                                         <ul class="nav__sub">
                                             @foreach ($child->childes as $child2)
                                                 @if ($child2->childes->isNotEmpty())
