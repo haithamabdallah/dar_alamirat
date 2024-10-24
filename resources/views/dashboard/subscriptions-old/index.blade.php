@@ -18,16 +18,14 @@
         <div class="d-flex align-items-center mb-3">
             <div>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ "Home" }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.home') }}</a></li>
                     <li class="breadcrumb-item">Subscribers</li>
                 </ul>
                 <h1 class="page-header mb-0">Subscribers</h1>
             </div>
             <div class="ms-auto">
-                <a href="{{ route('send-marketing-page') }}" class="btn btn-success btn-rounded px-4 rounded-pill mx-2"><i
-                    class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>Send Marketing Email</a>
-                <a href="{{ route('send-newsletter-page') }}" class="btn btn-success btn-rounded px-4 rounded-pill mx-2"><i
-                        class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>Send Newsletter Email</a>
+                <a href="{{ route('subscription.create') }}" class="btn btn-success btn-rounded px-4 rounded-pill"><i
+                        class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i>Send Newsletter </a>
             </div>
         </div>
 
@@ -59,11 +57,9 @@
                         <table id="data-table-keytable" class="table table-striped table-bordered align-middle">
                             <thead>
                                 <tr>
-                                    <th width="1%">#</th>
+                                    <th width="1%"></th>
                                     <th class="text-nowrap" width="20%">Email</th>
                                     <th class="text-nowrap" width="20%">Status</th>
-                                    <th class="text-nowrap" width="20%">Created At</th>
-                                    <th class="text-nowrap" width="20%">Updated At</th>
                                     <!-- Add more columns if needed -->
                                 </tr>
                             </thead>
@@ -73,13 +69,11 @@
                                         <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
                                         <td>{{ $subscriber->email }}</td>
                                         <td>{{ $subscriber->status ? 'Active' : 'Inactive' }}</td>
-                                        <td>{{ $subscriber->created_at }}</td>
-                                        <td>{{ $subscriber->updated_at }}</td>
                                         <!-- Add more columns if needed -->
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">No Subscribers found</td>
+                                        <td colspan="2" class="text-center">No Subscribers found</td>
                                     </tr>
                                 @endforelse
                             </tbody>

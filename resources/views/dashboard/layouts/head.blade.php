@@ -27,6 +27,8 @@
     <link href="{{ asset('admin-panel/assets/plugins/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin-panel/assets/plugins/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin-panel/assets/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin-panel/assets/plugins/summernote/dist/summernote-lite.css') }}" rel="stylesheet" />
+
     
     @yield('customcss')
 

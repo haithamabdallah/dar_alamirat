@@ -109,6 +109,36 @@
 
 </script>
 
+<script src="{{ asset('admin-panel/assets/plugins/summernote/dist/summernote-lite.min.js') }}"></script>
+<script>
+    $(".summernote1").summernote({
+        placeholder: 'Hi, this is summernote. Please, write text here! Super simple WYSIWYG editor on Bootstrap',
+        height: "300",
+        toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['view', ['fullscreen', 'codeview', 'help']],
+        ]
+    });
+
+    $('.summernote').summernote({
+        placeholder: 'Hi, this is summernote. Please, write text here! Super simple WYSIWYG editor on Bootstrap',
+        height: "300",
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ]
+    });
+</script>
+
 <!-- ================== END page-js ================== -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
