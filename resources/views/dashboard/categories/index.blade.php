@@ -65,11 +65,12 @@
                             <thead>
                             <tr>
                                 <th width="1%"></th>
-                                <th class="text-nowrap" width="20%">Parent Category</th>
+
                                 <th class="text-nowrap" width="20%">الاسم</th>
                                 <th class="text-nowrap" width="20%">Name</th>
                                 {{-- <th class="text-nowrap" width="20%">Slug</th> --}}
                                 <th class="text-nowrap" width="5%">icon</th>
+                                <th class="text-nowrap" width="20%">Parent Category</th>
                                 {{-- <th class="text-nowrap" width="5%">Priority</th> --}}
                                 <th class="text-nowrap" width="5%">status</th>
                                 <th class="text-nowrap" width="5%">Products Count</th>
@@ -82,6 +83,12 @@
                             @foreach($categories as $category)
                                 <tr class="odd gradeX">
                                     <td width="1%" class="fw-bold text-dark">{{ $loop->iteration }}</td>
+                                    <td>{{$category->getTranslations('name')['ar'] ?? ''}}</td>
+                                    <td>{{$category->getTranslations('name')['en'] ?? '' }}</td>
+                                    {{-- <td>{{$category->slug}}</td> --}}
+                                    <td width="1%" class="with-img">
+                                        <img src="{{$category->icon}}" class="rounded h-30px my-n1 mx-n1" />
+                                    </td>
                                     <td>
                                         @if (isset($category?->parent?->parent))
                                             {{$category?->parent?->parent?->name }} ==>>
@@ -91,12 +98,6 @@
                                         @else 
                                             {{ '' }}
                                         @endif
-                                    </td>
-                                    <td>{{$category->getTranslations('name')['ar'] ?? ''}}</td>
-                                    <td>{{$category->getTranslations('name')['en'] ?? '' }}</td>
-                                    {{-- <td>{{$category->slug}}</td> --}}
-                                    <td width="1%" class="with-img">
-                                        <img src="{{$category->icon}}" class="rounded h-30px my-n1 mx-n1" />
                                     </td>
                                     {{-- <td>{{$category->priority}}</td> --}}
                                     {{-- <td>{{$category->status}}</td> --}}
