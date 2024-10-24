@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.app')
+
 @section('meta')
     <meta charset="utf-8" />
     <title> {{__('dashboard.categories')}} </title>
@@ -65,6 +66,7 @@
                             <tr>
                                 <th width="1%"></th>
                                 <th class="text-nowrap" width="20%">Parent Category</th>
+                                <th class="text-nowrap" width="20%">الاسم</th>
                                 <th class="text-nowrap" width="20%">Name</th>
                                 {{-- <th class="text-nowrap" width="20%">Slug</th> --}}
                                 <th class="text-nowrap" width="5%">icon</th>
@@ -90,7 +92,8 @@
                                             {{ '' }}
                                         @endif
                                     </td>
-                                    <td>{{$category->name}}</td>
+                                    <td>{{$category->getTranslations('name')['ar'] ?? ''}}</td>
+                                    <td>{{$category->getTranslations('name')['en'] ?? '' }}</td>
                                     {{-- <td>{{$category->slug}}</td> --}}
                                     <td width="1%" class="with-img">
                                         <img src="{{$category->icon}}" class="rounded h-30px my-n1 mx-n1" />
