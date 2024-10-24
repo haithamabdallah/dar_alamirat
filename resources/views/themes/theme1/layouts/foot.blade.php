@@ -122,57 +122,115 @@
 
 {{--Add to cart --}}
 
-<script>
-    function addToCart(button , variantId) {
+<!-- Alert Without Loader -->
+{{--<script>
+    function addToCart(button, variantId) {
         const url = button.getAttribute('data-cart-url');
 
         // Set up the Axios request headers, including the CSRF token
-        const data =
-        {
-            variantId : $('#variant-select').val() ?? $('input[type=radio][name="variant"]:checked').val() ?? variantId
-            , quantity : $('#quantity').val() ?? 1
-            , _token : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        const data = {
+            variantId: $('#variant-select').val() ?? $('input[type=radio][name="variant"]:checked').val() ?? variantId,
+            quantity: $('#quantity').val() ?? 1,
+            _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         };
 
         axios.post(url, data)
             .then(function (response) {
-                console.log(response)
-                const icon = response.data.status === 'danger' || response.data.status === 'error' ? 'warning' : 'success';
-                // console.log(response)
-                if (response.data.status === 'success') {
+                const status = response.data.status;
+                const icon = (status === 'danger' || status === 'error') ? 'error' : 'success';
+
+                if (status === 'success') {
+                    // Update cart summary
                     $('#cart-summary-count').text(response.data.cartCount);
                     $('#cart-summary-total').text(response.data.cartTotal + ' {!! $currency !!}');
                     $('#cart-summary-count-mob').text(response.data.cartCount);
                     $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
-
-                    $.jGrowl(
-                        response.data.message,
-                        {
-                            header: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
-                            theme:  'success',
-                        });
-                } else {
-                    $.jGrowl(
-                        response.data.message,
-                        {
-                            header: response.data.status === 'danger' || response.data.status === 'error' ? 'Oops...' : 'Success!',
-                            theme:  'danger',
-                        });
                 }
+
+                // SweetAlert for response message
+                Swal.fire({
+                    title: (status === 'danger' || status === 'error') ? 'Oops...' : 'Success!',
+                    text: response.data.message,
+                    icon: icon,
+                    confirmButtonText: 'OK'
+                });
             })
             .catch(function (error) {
-                console.log(error.response)
-                if (error.response ) {
-                Swal.fire({
-                        title:  "Error",
-                        text:  error.response.data.message ,
-                        icon: "error" ,
+                if (error.response) {
+                    // SweetAlert for error message
+                    Swal.fire({
+                        title: 'Error',
+                        text: error.response.data.message,
+                        icon: 'error',
                         confirmButtonText: 'OK'
                     });
                 }
             });
     }
+
+</script>--}}
+<!-- ./Alert without loader -->
+
+<!-- ALERT WITH LOADER -->
+<script>
+    function addToCart(button, variantId) {
+        const url = button.getAttribute('data-cart-url');
+
+        // Set up the Axios request headers, including the CSRF token
+        const data = {
+            variantId: $('#variant-select').val() ?? $('input[type=radio][name="variant"]:checked').val() ?? variantId,
+            quantity: $('#quantity').val() ?? 1,
+            _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        };
+
+        // Show a loading indicator immediately
+        Swal.fire({
+            title: 'Processing...',
+            text: 'Please wait while we add the item to your cart.',
+            icon: 'info',
+            allowOutsideClick: false,
+            showConfirmButton: false, // Hide the confirm button during loading
+            didOpen: () => {
+                Swal.showLoading(); // Show loading animation
+            }
+        });
+
+        axios.post(url, data)
+            .then(function (response) {
+                const status = response.data.status;
+                const icon = (status === 'danger' || status === 'error') ? 'error' : 'success';
+
+                if (status === 'success') {
+                    // Update cart summary
+                    $('#cart-summary-count').text(response.data.cartCount);
+                    $('#cart-summary-total').text(response.data.cartTotal + ' {!! $currency !!}');
+                    $('#cart-summary-count-mob').text(response.data.cartCount);
+                    $('#cart-summary-total-mob').text(response.data.cartTotal + ' {!! $currency !!}');
+                }
+
+                // Update SweetAlert with the response message
+                Swal.fire({
+                    title: (status === 'danger' || status === 'error') ? 'Oops...' : 'Success!',
+                    text: response.data.message,
+                    icon: icon,
+                    confirmButtonText: 'OK'
+                });
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    // Update SweetAlert for error message
+                    Swal.fire({
+                        title: 'Error',
+                        text: error.response.data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+    }
+
 </script>
+<!-- ./ALERT WITH LOADER -->
 
 {{-- Login --}}
 
