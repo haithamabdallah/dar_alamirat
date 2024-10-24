@@ -1,11 +1,9 @@
 <?php
 
-// use Modules\Order\Enums\OrderStatus;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-// use Modules\Order\Enums\PaymentStatus;
-// use Modules\Order\Models\Order;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,6 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->uuid('order_number');
@@ -27,22 +27,23 @@ return new class extends Migration
             $table->string('payment_status')->default('pending');
             $table->string('status')->default('pending');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('set null');
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null');
-            $table->foreign('user_address_id')->references('id')->on('user_addresses')->onDelete('set null');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            // $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('set null');
+            // $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null');
+            // $table->foreign('user_address_id')->references('id')->on('user_addresses')->onDelete('set null');
         });
 
         Schema::table('orders', function (Blueprint $table) {
             $table->after('coupon_id', function (Blueprint $table) {
                 $table->string('vat')->nullable();
-                $table->decimal('shipping_price',6,2)->nullable();
+                $table->decimal('shipping_price', 6, 2)->nullable();
             });
         });
 
         Schema::table('orders', function (Blueprint $table) {
             $table->string('order_number')->nullable()->change();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
     /**
@@ -50,7 +51,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('orders');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 };
 
@@ -65,9 +68,13 @@ Order
 php artisan tinker
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Modules\Order\Models\OrderProduct;
-use Modules\Order\Models\Order;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+
+
 
 OrderProduct::truncate();
 
