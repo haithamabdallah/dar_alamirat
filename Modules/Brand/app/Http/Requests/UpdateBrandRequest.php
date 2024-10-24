@@ -2,6 +2,7 @@
 
 namespace Modules\Brand\Http\Requests;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateBrandRequest extends FormRequest
@@ -12,7 +13,22 @@ class UpdateBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name.*'=>'required',
+            'name.en' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $exists = DB::table('brands')
+                        ->whereRaw('LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, "$.en"))) = ?', [strtolower($value)])
+                        ->whereNot('id', $this->brand->id)
+                        ->exists();
+
+                    if ($exists) {
+                        $fail('The name in English is already taken.');
+                    }
+                },
+            ],
+            'name.ar' => [
+                'nullable',
+            ],
             'image' => 'sometimes',
         ];
     }

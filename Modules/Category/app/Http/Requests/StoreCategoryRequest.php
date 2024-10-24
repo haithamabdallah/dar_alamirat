@@ -18,7 +18,7 @@ class StoreCategoryRequest extends FormRequest
                 function ($attribute, $value, $fail) {
                     // Check if the 'en' value exists in the 'name' JSON column of the 'categories' table
                     $exists = DB::table('categories')
-                    ->whereRaw('LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, "$.en"))) = ?', [strtolower($value)])
+                        ->whereRaw('LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, "$.en"))) = ?', [strtolower($value)])
                         ->exists();
 
                     if ($exists) {
@@ -31,7 +31,7 @@ class StoreCategoryRequest extends FormRequest
                 function ($attribute, $value, $fail) {
                     // Check if the 'ar' value exists in the 'name' JSON column of the 'categories' table
                     $exists = DB::table('categories')
-                    ->whereRaw('LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, "$.ar"))) = ?', [strtolower($value)])
+                        ->where('name->ar', $value)
                         ->exists();
 
                     if ($exists) {

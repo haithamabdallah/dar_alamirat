@@ -2,8 +2,9 @@
 
 namespace Modules\Brand\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Modules\Brand\Models\Brand;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBrandRequest extends FormRequest
 {
@@ -15,16 +16,17 @@ class StoreBrandRequest extends FormRequest
         return [
             'name.en' => [
                 'required',
-                'string',
                 function ($attribute, $value, $fail) {
-                    // Retrieve all existing brand names in English
-                    $existingNames = Brand::pluck('name')->toArray();
-
-                    // Check if the current name is unique
-                    if (in_array($value, $existingNames)) {
-                        $fail("The English name must be unique.");
+                    $exists = DB::table('brands')
+                        ->whereRaw('LOWER(JSON_UNQUOTE(JSON_EXTRACT(name, "$.en"))) = ?', [strtolower($value)])
+                        ->exists();
+                    if ($exists) {
+                        $fail('The name in English is already taken.');
                     }
                 },
+            ],
+            'name.ar' => [
+                'nullable',
             ],
             'image' => 'sometimes',
         ];
