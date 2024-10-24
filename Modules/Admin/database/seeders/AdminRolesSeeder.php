@@ -73,14 +73,8 @@ class AdminRolesSeeder extends Seeder
             'phone'     => '+201234567891',
             'password'  => '123456789',
             'system'    => 1,
+            'role_id'   => 2,
         ]);
-        
-        $admin->assignRole('admin');
-        $admin2->assignRole('admin');
-        $admin3->assignRole('admin');
-        $admin4->assignRole('admin');
-        $admin5->assignRole('admin');
-        $admin6->assignRole('admin');
         
         /* Modules\Admin\app\Models\ */
         Admin::where('userName', 'admin')->update(['password' => bcrypt('Cvbw-Awer-Jkil-2843')]);
@@ -101,7 +95,7 @@ class AdminRolesSeeder extends Seeder
             'password'  => '123456789',
             'system'    => 1,
         ]);
-        $admin4->assignRole('admin');
+
         \Modules\Admin\app\Models\Admin::where('userName' , 'sofyan')->update(['password' => bcrypt('Gfb-Nrt-Bqe-562') , 'remember_token' => null ]); // updated 05/10/2024
 
         Admin::where('userName' , 'super')->update(['password' => bcrypt('Afg-Fdr-Qrt-582')]);

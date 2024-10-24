@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Modules\Admin\database\seeders\AdminRolesSeeder;
+use Database\Seeders\PermissionSeeder;
 use Modules\Category\database\seeders\BrandSeeder;
-use Modules\Roles\database\seeders\PermissionSeeder;
+use Modules\Admin\database\seeders\AdminRolesSeeder;
 use Modules\Category\database\seeders\CategorySeeder;
 
 class DatabaseSeeder extends Seeder
